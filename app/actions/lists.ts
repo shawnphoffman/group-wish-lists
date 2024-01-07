@@ -17,6 +17,17 @@ export const createList = async (prevState: any, formData: FormData) => {
 	}
 }
 
+export const renameList = async (listID: string, name: string) => {
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	await supabase.from('lists').update({ name }).eq('id', listID)
+
+	return {
+		status: 'success',
+	}
+}
+
 export const archiveList = async (listID: string) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -27,6 +38,7 @@ export const archiveList = async (listID: string) => {
 		status: 'success',
 	}
 }
+
 export const unarchiveList = async (listID: string) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)

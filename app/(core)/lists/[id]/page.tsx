@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
 import BackButton from '@/components/BackButton'
@@ -10,7 +10,7 @@ import ListItemRow from '@/components/lists/ListItemRow'
 import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'
 
-export default async function List({ params }: { params: { id: string } }) {
+export default async function ViewList({ params }: { params: { id: string } }) {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	let { data, error } = await supabase
