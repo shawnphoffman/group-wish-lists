@@ -1,7 +1,7 @@
 // import Link from 'next/link'
 import {
 	signIn, //  signUp
-} from '../actions'
+} from '../actions/auth'
 
 export default function Login({ searchParams }: { searchParams: { message: string } }) {
 	return (

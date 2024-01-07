@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
+import { Suspense } from 'react'
 
-import { getUser } from '@/app/actions'
+import { getUser } from '@/app/actions/auth'
 
 import Code from '@/components/Code'
 import ListRow from '@/components/lists/ListRow'
@@ -17,7 +18,8 @@ export default async function GroupedLists() {
 		.select('id,email,raw_user_meta_data->name,lists(*)')
 		.not('lists', 'is', null)
 		// TODO should this just disable things?
-		.not('lists.active', 'is', false)
+		// .not('lists.active', 'is', false)
+		.order('id', { ascending: true })
 
 	if (error) {
 		console.error(error)
@@ -31,16 +33,17 @@ export default async function GroupedLists() {
 		<div className="container mx-auto px-4">
 			<div className="flex flex-col">
 				{groups?.map(group => (
-					<div
-						key={group.email}
-						// className={`flex flex-col mb-8 ${userId === group.id ? 'border border-dashed p-4 pt-2 border-red-500 rounded-md' : ''}`}
-						className={`flex flex-col mb-8 `}
-					>
+					<div key={group.email} className={`flex flex-col mb-8 `}>
 						<h2 className="text-2xl dark:text-white mb-2">{group.name || group.email}</h2>
-						{group.lists?.length === 0 && <p className="text-gray-500 dark:text-gray-400">No lists yet.</p>}
-						<div className="flex flex-col">
-							{group.lists?.map(list => <ListRow key={list.id} list={list} canEdit={userId === group.id} />)}
-						</div>
+						<Suspense fallback={<i className="fa-sharp fa-solid fa-compact-disc fa-spin" aria-hidden={true}></i>}>
+							{group.lists?.length === 0 && <p className="text-gray-500 dark:text-gray-400">No lists yet.</p>}
+							<div className="flex flex-col">
+								{group.lists
+									// .sort((a, b) => b.active - a.active)
+									.sort((a, b) => a.id - b.id)
+									?.map(list => <ListRow key={list.id} list={list} canEdit={userId === group.id} />)}
+							</div>
+						</Suspense>
 					</div>
 				))}
 			</div>

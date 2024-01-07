@@ -3,7 +3,7 @@
 // @ts-expect-error
 import { useFormState } from 'react-dom'
 
-import { updateProfile } from '@/app/actions'
+import { updateProfile } from '@/app/actions/auth'
 
 import Input from '@/components/core/Input'
 import Label from '@/components/core/Label'

@@ -1,4 +1,4 @@
-import { getUser } from '@/app/actions'
+import { getUser } from '@/app/actions/auth'
 
 import ProfileForm from '@/components/ProfileForm'
 import UserCode from '@/components/UserCode'

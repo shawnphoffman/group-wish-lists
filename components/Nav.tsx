@@ -14,14 +14,13 @@ export default function Nav() {
 		<>
 			<div className="hidden md:flex gap-2">
 				<Link href="/" className={buttonClasses}>
-					Lists
+					<i className="fa-sharp fa-solid fa-list-check" aria-hidden="true"></i>
+					Wish Lists
 				</Link>
 				<Link href="/profile" className={buttonClasses}>
+					<i className="fa-sharp fa-solid fa-user" aria-hidden="true"></i>
 					Profile
 				</Link>
-				<button type="button" className={buttonClasses} data-hs-overlay="#hs-create-list-modal">
-					Create List
-				</button>
 			</div>
 			<Menu as="div" className="relative inline-block text-right md:hidden">
 				<Menu.Button className={buttonClasses}>
@@ -40,7 +39,7 @@ export default function Nav() {
 						<Menu.Item>
 							{({ active }) => (
 								<a className={`${active ? 'bg-red-500 text-white' : 'text-gray-900'} ${itemClasses}`} href="/">
-									Lists
+									Wish Lists
 								</a>
 							)}
 						</Menu.Item>

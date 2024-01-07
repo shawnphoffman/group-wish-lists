@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 // @ts-expect-error
 import { useFormState } from 'react-dom'
 
-import { createList } from '@/app/actions'
+import { createList } from '@/app/actions/lists'
 
 import { isDeployed } from '@/utils/environment'
 
@@ -22,10 +22,9 @@ export default function CreateListModal() {
 
 	useEffect(() => {
 		if (state?.status === 'success') {
-			console.log('CLOSING MODAL')
+			// console.log('CLOSING MODAL')
 			window?.HSOverlay?.close('#hs-create-list-modal')
 
-			console.log('pathname', pathname)
 			if (pathname === '/') {
 				router.refresh()
 			}
@@ -58,7 +57,7 @@ export default function CreateListModal() {
 						<div className="p-4 overflow-y-auto gap-4 flex flex-col">
 							<div>
 								<Label htmlFor="input-name" className="block text-lg font-medium mb-2">
-									List Title
+									Title
 								</Label>
 								<Input
 									type="text"
