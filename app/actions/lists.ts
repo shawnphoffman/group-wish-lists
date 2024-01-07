@@ -5,7 +5,6 @@ import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 
 export const createList = async (prevState: any, formData: FormData) => {
-	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -17,11 +16,13 @@ export const createList = async (prevState: any, formData: FormData) => {
 	}
 }
 
-export const renameList = async (listID: string, name: string) => {
+export const renameList = async (prevState: any, formData: FormData) => {
+	const name = formData.get('list-name') as string
+	const id = formData.get('id') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	await supabase.from('lists').update({ name }).eq('id', listID)
+	await supabase.from('lists').update({ name }).eq('id', id)
 
 	return {
 		status: 'success',
