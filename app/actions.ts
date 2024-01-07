@@ -1,16 +1,18 @@
 'use server'
 
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 
+// NOTE
 export const getUser = async () => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	return await supabase.auth.getUser()
 }
 
+// NOTE
 export const signOut = async () => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -18,6 +20,49 @@ export const signOut = async () => {
 	return redirect('/login')
 }
 
+// NOTE
+export const signIn = async (formData: FormData) => {
+	const email = formData.get('email') as string
+	const password = formData.get('password') as string
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const { error } = await supabase.auth.signInWithPassword({
+		email,
+		password,
+	})
+
+	if (error) {
+		return redirect('/login?message=Could not authenticate user')
+	}
+
+	return redirect('/')
+}
+
+// NOTE
+export const signUp = async (formData: FormData) => {
+	const origin = headers().get('origin')
+	const email = formData.get('email') as string
+	const password = formData.get('password') as string
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const { error } = await supabase.auth.signUp({
+		email,
+		password,
+		options: {
+			emailRedirectTo: `${origin}/auth/callback`,
+		},
+	})
+
+	if (error) {
+		return redirect('/login?message=Could not authenticate user')
+	}
+
+	return redirect('/login?message=Check email to continue sign in process')
+}
+
+// NOTE
 export const updateProfile = async (prevState: any, formData: FormData) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -35,3 +80,19 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 		data,
 	}
 }
+
+// const appleAuth = async () => {
+// 	'use server'
+// 	const cookieStore = cookies()
+// 	const supabase = createClient(cookieStore)
+
+// 	const { error } = await supabase.auth.signInWithOAuth({
+// 		provider: 'apple',
+// 	})
+
+// 	if (error) {
+// 		return redirect('/login?message=Could not authenticate user')
+// 	}
+
+// 	return redirect('/')
+// }
