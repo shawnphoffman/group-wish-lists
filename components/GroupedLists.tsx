@@ -46,7 +46,8 @@ export default async function GroupedLists() {
 				{groups?.map(group => (
 					<div
 						key={group.email}
-						className={`flex flex-col mb-8 ${userId === group.id ? 'border border-dashed p-4 pt-2 border-red-500 rounded-md' : ''}`}
+						// className={`flex flex-col mb-8 ${userId === group.id ? 'border border-dashed p-4 pt-2 border-red-500 rounded-md' : ''}`}
+						className={`flex flex-col mb-8 `}
 					>
 						<h2 className="text-2xl dark:text-white mb-2">{group.name || group.email}</h2>
 						{group.lists?.length === 0 && <p className="text-gray-500 dark:text-gray-400">No lists yet.</p>}
