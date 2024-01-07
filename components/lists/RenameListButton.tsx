@@ -44,7 +44,7 @@ export default function RenameListButton({ listId, name }: any) {
 				</form>
 			) : (
 				<>
-					<h1 className="">Edit - {name}</h1>
+					<h1 className="">{name}</h1>
 					<button type="button" title="Rename" onClick={handleClick} disabled={isPending}>
 						<i className="fa-sharp fa-solid fa-pencil text-2xl text-yellow-200 hover:text-yellow-300" aria-hidden />
 					</button>

@@ -47,7 +47,7 @@ export default async function EditList({ params }: { params: { id: string } }) {
 						<div className="flex flex-col">{items?.map(item => <ListItemRow key={item.id} item={item} />)}</div>
 					</div>
 				</div>
-				{!isDeployed && <Code code={JSON.stringify(data, null, 2)} />}
+				{/* {!isDeployed && <Code code={JSON.stringify(data, null, 2)} />} */}
 			</div>
 		</div>
 	)
