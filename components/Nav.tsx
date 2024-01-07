@@ -3,10 +3,13 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
+const buttonClasses =
+	'py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+
 export default function Nav() {
 	return (
 		<Menu as="div" className="relative inline-block text-right">
-			<Menu.Button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">Links</Menu.Button>
+			<Menu.Button className={buttonClasses}>Links</Menu.Button>
 			<Transition
 				as={Fragment}
 				enter="transition ease-out duration-100"

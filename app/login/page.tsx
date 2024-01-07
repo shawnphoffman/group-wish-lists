@@ -20,14 +20,14 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
-					className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+					className="mr-2 h-4 w-4 transition-transform group-hover:-trangray-x-1"
 				>
 					<polyline points="15 18 9 12 15 6" />
 				</svg>{' '}
 				Back
 			</Link> */}
 
-			<form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground" action={signIn}>
+			<form className="w-full animate-in flex-1 flex flex-col justify-center gap-2 text-foreground" action={signIn}>
 				<label className="text-md" htmlFor="email">
 					Email
 				</label>

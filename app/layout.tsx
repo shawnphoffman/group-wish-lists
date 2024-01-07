@@ -15,8 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className={GeistSans.className}>
-			<body className="bg-background text-foreground">
-				<main className="min-h-screen flex flex-col items-center">{children}</main>
+			<body className="dark:bg-gray-950 dark:text-white">
+				<main className=" container mx-auto min-h-screen flex flex-col items-center">{children}</main>
 			</body>
 			<PrelineScript />
 		</html>

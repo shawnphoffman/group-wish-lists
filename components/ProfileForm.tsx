@@ -17,7 +17,7 @@ export default function ProfileForm({ name }: any) {
 	const [state, formAction] = useFormState(updateProfile, initialState)
 
 	return (
-		<form className="animate-in flex-1 flex flex-col w-full gap-2 text-foreground" action={formAction}>
+		<form className="flex-1 flex flex-col w-full gap-2 text-foreground" action={formAction}>
 			<Label className="text-md" htmlFor="name">
 				Name
 			</Label>
