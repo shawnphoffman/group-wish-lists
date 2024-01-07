@@ -15,6 +15,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className={GeistSans.className}>
+			<head>
+				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous"></script>
+			</head>
 			<body className="dark:bg-gray-950 dark:text-white">
 				<main className=" container mx-auto min-h-screen flex flex-col items-center">{children}</main>
 			</body>
