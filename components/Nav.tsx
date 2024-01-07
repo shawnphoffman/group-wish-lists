@@ -19,10 +19,13 @@ export default function Nav() {
 				<Link href="/profile" className={buttonClasses}>
 					Profile
 				</Link>
+				<button type="button" className={buttonClasses} data-hs-overlay="#hs-create-list-modal">
+					Create List
+				</button>
 			</div>
 			<Menu as="div" className="relative inline-block text-right md:hidden">
 				<Menu.Button className={buttonClasses}>
-					<i className="fa-sharp fa-solid fa-link"></i>Links
+					<i className="fa-sharp fa-solid fa-link" aria-hidden="true"></i>Links
 				</Menu.Button>
 				<Transition
 					as={Fragment}

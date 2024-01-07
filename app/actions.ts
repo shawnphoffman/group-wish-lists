@@ -81,6 +81,19 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 	}
 }
 
+export const createList = async (prevState: any, formData: FormData) => {
+	const name = formData.get('list-name') as string
+	const type = formData.get('list-type') as string
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	await supabase.from('lists').insert([{ name, active: true, type }])
+
+	return {
+		status: 'success',
+	}
+}
+
 // const appleAuth = async () => {
 // 	'use server'
 // 	const cookieStore = cookies()

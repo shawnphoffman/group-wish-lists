@@ -2,5 +2,5 @@ export const ListType = {
 	Test: 'test',
 	Christmas: 'christmas',
 	Birthday: 'birthday',
-	WishList: 'wishList',
+	WishList: 'wishlist',
 } as const

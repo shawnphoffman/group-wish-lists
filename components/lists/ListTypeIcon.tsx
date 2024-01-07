@@ -11,5 +11,5 @@ export default function ListTypeIcon({ type }: { type: string }) {
 		iconClass = 'fa-sharp fa-solid fa-vial-virus'
 	}
 
-	return <i className={`${iconClass} text-xl`} />
+	return <i className={`${iconClass} text-xl`} aria-hidden="true" />
 }

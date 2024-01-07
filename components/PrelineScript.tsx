@@ -7,6 +7,9 @@ import { useEffect } from 'react'
 declare global {
 	interface Window {
 		HSStaticMethods: IStaticMethods
+		HSOverlay: {
+			close: (selector: string) => void
+		}
 	}
 }
 

@@ -12,7 +12,7 @@ export default function ListRow({ list, canEdit }: any) {
 		>
 			<TypeIcon type={list.type} />
 			<div className="flex-1">{list.name}</div>
-			{canEdit && <i className={`fa-sharp fa-solid fa-pen-to-square text-lg`} />}
+			{canEdit && <i className={`fa-sharp fa-solid fa-pen-to-square text-lg`} aria-hidden="true" />}
 		</a>
 	)
 }

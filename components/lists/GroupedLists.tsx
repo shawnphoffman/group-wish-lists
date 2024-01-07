@@ -11,6 +11,7 @@ import { createClient } from '@/utils/supabase/server'
 export default async function GroupedLists() {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
+
 	let { data: groups, error } = await supabase
 		.from('users')
 		.select('id,email,raw_user_meta_data->name,lists(*)')
