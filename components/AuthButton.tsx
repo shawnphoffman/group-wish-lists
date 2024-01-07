@@ -1,27 +1,13 @@
 import Link from 'next/link'
-import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+
+import { getUser, signOut } from '@/app/actions'
 
 export default async function AuthButton() {
-	const cookieStore = cookies()
-	const supabase = createClient(cookieStore)
+	const { data } = await getUser()
 
-	const signOut = async () => {
-		'use server'
-		const cookieStore = cookies()
-		const supabase = createClient(cookieStore)
-		await supabase.auth.signOut()
-		return redirect('/login')
-	}
-
-	const {
-		data: { user },
-	} = await supabase.auth.getUser()
-
-	return user ? (
+	return data?.user ? (
 		<div className="flex items-center gap-4">
-			Hey, {user.email}!
+			Hey, {data.user.email}!
 			<form action={signOut}>
 				<button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">Logout</button>
 			</form>

@@ -2,19 +2,16 @@
 
 // @ts-expect-error
 import { useFormState } from 'react-dom'
+
 import { updateProfile } from '@/app/actions'
-import { useEffect } from 'react'
 
 const initialState = {
 	error: '',
+	status: '',
 }
 
 export default function ProfileForm({ name }: any) {
 	const [state, formAction] = useFormState(updateProfile, initialState)
-
-	useEffect(() => {
-		console.log(state)
-	}, [state])
 
 	return (
 		<form className="animate-in flex-1 flex flex-col w-full gap-2 text-foreground" action={formAction}>

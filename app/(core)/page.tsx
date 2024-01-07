@@ -1,6 +1,8 @@
-import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
+
 import Code from '@/components/Code'
+
+import { createClient } from '@/utils/supabase/server'
 
 export default async function Core() {
 	const cookieStore = cookies()

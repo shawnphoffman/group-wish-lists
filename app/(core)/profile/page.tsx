@@ -1,18 +1,37 @@
-import UserCode from '@/components/UserCode'
-import ProfileForm from '@/components/ProfileForm'
 import { getUser } from '@/app/actions'
+
+import ProfileForm from '@/components/ProfileForm'
+import UserCode from '@/components/UserCode'
+import Avatar from '@/components/core/Avatar'
+
+import { isDeployed } from '@/utils/environment'
 
 export default async function Profile() {
 	const { data } = await getUser()
+
+	const name = data?.user?.user_metadata?.name
 
 	return (
 		<div className="animate-in flex-1 flex flex-col opacity-0 max-w-4xl px-3">
 			<main className="flex-1 flex flex-col gap-6">
 				<h1>Profile</h1>
 
-				<ProfileForm name={data?.user?.user_metadata?.name} />
+				<Avatar name={name} />
+				{/*
+					<Avatar name={'Shawn'} />
+					<Avatar name={'Melissa'} />
+					<Avatar name={'Jason'} />
+					<Avatar name={'Graham'} />
+					<Avatar name={'Chase'} />
+					<Avatar name={'Sam'} />
+					<Avatar name={'Carol'} />
+					<Avatar name={'Jeff'} />
+					<Avatar name={'Kate'} />
+				*/}
 
-				<UserCode user={data} />
+				<ProfileForm name={name} />
+
+				{!isDeployed && <UserCode user={data} />}
 			</main>
 		</div>
 	)
