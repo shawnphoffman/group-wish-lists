@@ -1,8 +1,6 @@
 import { cookies } from 'next/headers'
-// import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
-import BackButton from '@/components/BackButton'
 import Code from '@/components/Code'
 import Avatar from '@/components/core/Avatar'
 import ListItemRow from '@/components/lists/ListItemRow'
@@ -31,9 +29,10 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 	return (
 		<div className="w-full animate-in flex-1 flex flex-col opacity-0 max-w-4xl px-3">
 			<div className="flex-1 flex flex-col gap-6">
-				<div className="flex flex-row gap-2 items-center">
-					<BackButton />
-					<h1 className="">{data?.name}</h1>
+				<div className="flex flex-row gap-2 items-center justify-between">
+					<div className="flex flex-row gap-4 items-center">
+						<h1 className="">{data?.name}</h1>
+					</div>
 					{/* @ts-expect-error */}
 					<Avatar name={user?.name || user?.email} />
 				</div>

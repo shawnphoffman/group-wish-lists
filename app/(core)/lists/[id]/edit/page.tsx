@@ -1,12 +1,11 @@
 import { cookies } from 'next/headers'
-// import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
-import BackButton from '@/components/BackButton'
 import Code from '@/components/Code'
 import Avatar from '@/components/core/Avatar'
-import ListItemRow from '@/components/lists/ListItemRow'
-import RenameListButton from '@/components/lists/RenameListButton'
+import RenameListButton from '@/components/lists/buttons/RenameListButton'
+import ListItemEditRow from '@/components/lists/create/ListItemEditRow'
+import ScrapeItem from '@/components/lists/create/ScrapeItem'
 
 import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'
@@ -14,10 +13,14 @@ import { createClient } from '@/utils/supabase/server'
 export default async function EditList({ params }: { params: { id: string } }) {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
+	const {
+		data: { user: currentUser },
+	} = await supabase.auth.getUser()
 	let { data, error } = await supabase
 		.from('lists')
 		.select('name,type,listItems(*),users(email,raw_user_meta_data->name)')
 		.eq('id', params.id)
+		.eq('user_id', currentUser?.id)
 		.not('active', 'is', false)
 		.single()
 
@@ -38,16 +41,17 @@ export default async function EditList({ params }: { params: { id: string } }) {
 						<RenameListButton listId={params.id} name={data.name} />
 					</div>
 					{/* @ts-expect-error */}
-					<Avatar name={user?.name || user?.email} />
+					<Avatar name={user?.name || user?.email} className="hidden md:inline-flex" />
 				</div>
 
-				<div className="container mx-auto px-4">
+				<div className="container mx-auto px-4 flex flex-col gap-4">
 					<div className="flex flex-col">
 						{items?.length === 0 && <p className="text-gray-500 dark:text-gray-400">Nothing to see here... yet</p>}
-						<div className="flex flex-col">{items?.map(item => <ListItemRow key={item.id} item={item} />)}</div>
+						<div className="flex flex-col">{items?.map(item => <ListItemEditRow key={item.id} item={item} />)}</div>
 					</div>
+					<ScrapeItem />
 				</div>
-				{/* {!isDeployed && <Code code={JSON.stringify(data, null, 2)} />} */}
+				{!isDeployed && <Code code={JSON.stringify(data, null, 2)} />}
 			</div>
 		</div>
 	)

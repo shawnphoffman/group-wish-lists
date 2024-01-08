@@ -1,7 +1,7 @@
-import ArchiveListButton from './ArchiveListButton'
-import DeleteListButton from './DeleteListButton'
 import TypeIcon from './ListTypeIcon'
-import UnarchiveListButton from './UnarchiveListButton'
+import ArchiveListButton from './buttons/ArchiveListButton'
+import DeleteListButton from './buttons/DeleteListButton'
+import UnarchiveListButton from './buttons/UnarchiveListButton'
 
 export default function ListRow({ list, canEdit }: any) {
 	if (!list) return null

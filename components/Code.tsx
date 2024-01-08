@@ -45,7 +45,7 @@ export default function Code({ code }: { code: string }) {
 	}
 
 	return (
-		<pre className="bg-foreground/5 rounded-md p-4 my-0 relative text-xs text-green-300">
+		<pre className="bg-foreground/5 rounded-md p-4 my-0 relative text-xs text-green-300 overflow-scroll">
 			<button onClick={copy} className="absolute top-4 right-4  p-2 rounded-md bg-foreground/5 hover:bg-foreground/10">
 				{icon}
 			</button>
