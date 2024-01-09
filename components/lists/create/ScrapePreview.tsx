@@ -1,3 +1,4 @@
+import Code from '@/components/Code'
 import Input from '@/components/core/Input'
 import Label from '@/components/core/InputLabel'
 
@@ -15,6 +16,7 @@ export interface Result {
 	charset: string
 	requestUrl: string
 	success: boolean
+	error: string
 }
 
 export interface OgImage {
@@ -23,17 +25,34 @@ export interface OgImage {
 }
 
 export default function ScrapePreview({ scrape }: { scrape: Scrape }) {
+	if (scrape?.error) {
+		return (
+			<div className="bg-red-500 text-sm text-white rounded-lg p-4" role="alert">
+				<span className="font-bold">Error.</span> {scrape?.result?.error || 'Something went wrong.'}
+			</div>
+		)
+	}
+	if (!scrape?.result) {
+		return (
+			<div className="bg-red-500 text-sm text-white rounded-lg p-4" role="alert">
+				<span className="font-bold">Sorry.</span> No data found for this URL.
+			</div>
+		)
+	}
+
+	return null
+
 	const hasImage = scrape?.result?.ogImage?.length > 0
 	return (
 		<div className="flex flex-col gap-4 items-stretch border border-dashed border-yellow-400 p-4 w-full">
 			<h4>Scrape Preview</h4>
 			<div className="flex flex-row gap-4 items-center">
 				<Label>Title</Label>
-				<Input type="text" readOnly value={scrape.result.ogTitle} />
+				<Input type="text" readOnly value={scrape?.result?.ogTitle} />
 			</div>
 			<div className="flex flex-row gap-4 items-center">
 				<Label>URL</Label>
-				<Input type="text" readOnly value={scrape.result.ogUrl} />
+				<Input type="text" readOnly value={scrape?.result?.ogUrl} />
 			</div>
 			{hasImage && (
 				<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center">

@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 import ogs from 'open-graph-scraper'
 
 const userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+// const userAgent = 'facebookexternalhit/1.1'
 // const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
 
 // URLs
@@ -22,6 +23,7 @@ export async function GET(request: Request) {
 			url,
 			// onlyGetOpenGraphInfo: true,
 			fetchOptions: {
+				// signal: AbortSignal.timeout(15000),
 				headers: { 'user-agent': userAgent },
 			},
 		})

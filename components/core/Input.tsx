@@ -3,7 +3,7 @@ export default function Input(props: any) {
 	return (
 		<input
 			// mb-4
-			className=" px-4 py-2 block w-full border   border-gray-200 rounded-lg text-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 "
+			className=" px-4 py-2 block w-full border border-gray-200 rounded-lg text-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 "
 			{...props}
 		></input>
 	)

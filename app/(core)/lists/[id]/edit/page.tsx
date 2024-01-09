@@ -22,11 +22,14 @@ export default async function EditList({ params }: { params: { id: string } }) {
 		.eq('id', params.id)
 		.eq('user_id', currentUser?.id)
 		.not('active', 'is', false)
+		// .order('listItems(priority)', { ascending: false })
 		.single()
 
 	if (error || !data) {
 		console.error(error)
 		return notFound()
+	} else {
+		// console.log(data)
 	}
 
 	const items = data.listItems
