@@ -10,7 +10,7 @@ import { createList } from '@/app/actions/lists'
 import { isDeployed } from '@/utils/environment'
 
 import Input from './core/Input'
-import Label from './core/Label'
+import Label from './core/InputLabel'
 import Radio from './core/Radio'
 import RadioLabel from './core/RadioLabel'
 

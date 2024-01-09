@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Code from '@/components/Code'
 import Avatar from '@/components/core/Avatar'
 import RenameListButton from '@/components/lists/buttons/RenameListButton'
-import ListItemEditRow from '@/components/lists/create/ListItemEditRow'
+import ListItemEditRow from '@/components/lists/create/ItemEditRow'
 import ScrapeItem from '@/components/lists/create/ScrapeItem'
 
 import { isDeployed } from '@/utils/environment'

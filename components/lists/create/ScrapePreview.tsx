@@ -1,5 +1,5 @@
 import Input from '@/components/core/Input'
-import Label from '@/components/core/Label'
+import Label from '@/components/core/InputLabel'
 
 export interface Scrape {
 	error: boolean

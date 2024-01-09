@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 import Code from '@/components/Code'
 import Avatar from '@/components/core/Avatar'
-import ListItemRow from '@/components/lists/ListItemRow'
+import ListItemRow from '@/components/lists/ItemRow'
 
 import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'

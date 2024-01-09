@@ -4,3 +4,10 @@ export const ListType = {
 	Birthday: 'birthday',
 	WishList: 'wishlist',
 } as const
+
+export const ItemPriority = {
+	VeryHigh: 'veryhigh',
+	High: 'high',
+	Normal: 'normal',
+	Low: 'low',
+} as const

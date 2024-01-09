@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom'
 import { updateProfile } from '@/app/actions/auth'
 
 import Input from '@/components/core/Input'
-import Label from '@/components/core/Label'
+import Label from '@/components/core/InputLabel'
 
 const initialState = {
 	error: '',
