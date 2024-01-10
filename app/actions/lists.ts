@@ -50,6 +50,7 @@ export const unarchiveList = async (listID: string) => {
 		status: 'success',
 	}
 }
+
 export const deleteList = async (listID: string) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)

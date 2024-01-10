@@ -2,8 +2,6 @@
 
 import { cookies } from 'next/headers'
 
-import { Scrape } from '@/components/lists/create/ScrapePreview'
-
 import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
@@ -18,19 +16,24 @@ export const createItem = async (prevState: any, formData: FormData) => {
 	const supabase = createClient(cookieStore)
 
 	const item = await supabase.from('listItems').insert([{ list_id: listId, title, url, notes, priority, scrape: JSON.parse(scrape) }])
-	console.log({ item })
 
 	return {
 		status: 'success',
+		item,
 	}
 }
 
-// export const createList = async (prevState: any, formData: FormData) => {
-// 	const type = formData.get('list-type') as string
-// 	const cookieStore = cookies()
-// 	const supabase = createClient(cookieStore)
-// 	await supabase.from('lists').insert([{ name, active: true, type }])
-// 	return {
-// 		status: 'success',
-// 	}
-// }
+export const deleteItem = async (itemId: string) => {
+	try {
+		const cookieStore = cookies()
+		const supabase = createClient(cookieStore)
+		await supabase.from('listItems').delete().eq('id', itemId)
+		return {
+			status: 'success',
+		}
+	} catch (error) {
+		return {
+			status: 'error',
+		}
+	}
+}
