@@ -52,7 +52,7 @@ export default async function EditList({ params }: { params: { id: string } }) {
 						{items?.length === 0 && <p className="text-gray-500 dark:text-gray-400">Nothing to see here... yet</p>}
 						<div className="flex flex-col">{items?.map(item => <ListItemEditRow key={item.id} item={item} />)}</div>
 					</div>
-					<ScrapeItem />
+					<ScrapeItem listId={params.id} />
 				</div>
 				{!isDeployed && <Code code={JSON.stringify(data, null, 2)} />}
 			</div>

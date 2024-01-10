@@ -1,6 +1,11 @@
 'use client'
 
-import { use, useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
+// @ts-expect-error
+import { useFormState } from 'react-dom'
+
+import { createItem } from '@/app/actions/items'
 
 import Code from '@/components/Code'
 import Input from '@/components/core/Input'
@@ -22,7 +27,7 @@ async function scrapeUrl(url: string) {
 	}
 }
 
-export default function ScrapeItem() {
+export default function ScrapeItem({ listId }: { listId: string }) {
 	// Item Fields
 	const [title, setTitle] = useState<string>('')
 	const [notes, setNotes] = useState<string>('')
@@ -30,9 +35,29 @@ export default function ScrapeItem() {
 	const [priority, setPriority] = useState<(typeof ItemPriority)[keyof typeof ItemPriority] | ''>('')
 	const [imageUrl, setImageUrl] = useState<string>('')
 
+	const [state, formAction] = useFormState(createItem, {})
+
+	const router = useRouter()
+	const [isEditing, setIsEditing] = useState(false)
+	const [isPending, startTransition] = useTransition()
+	const formRef = useRef<HTMLFormElement>(null)
+
+	const handleClick = useCallback(async () => {
+		setIsEditing(() => !isEditing)
+	}, [isEditing])
+
 	useEffect(() => {
-		console.log({ title, notes, url, priority })
-	}, [title, notes, url, priority])
+		console.log('state', state)
+		if (state?.status === 'success') {
+			startTransition(() => {
+				setIsEditing(() => !isEditing)
+				router.refresh()
+				if (formRef?.current) {
+					// TODO clear the states
+				}
+			})
+		}
+	}, [state])
 
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value)
@@ -52,7 +77,20 @@ export default function ScrapeItem() {
 
 	//
 	const [isLoading, setIsLoading] = useState(false)
-	const [scrape, setScrape] = useState<Scrape>()
+	const [scrape, setScrape] = useState<Scrape>({
+		error: false,
+		result: {
+			ogUrl: '',
+			ogTitle: '',
+			ogDescription: '',
+			ogImage: [],
+			ogLocale: '',
+			charset: '',
+			requestUrl: '',
+			success: false,
+			error: '',
+		},
+	})
 	const [importUrl, setImportUrl] = useState<string>()
 
 	const handleChangeImportUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,41 +136,56 @@ export default function ScrapeItem() {
 			<div className="flex flex-col gap-2 items-stretch border border-dashed border-purple-400 p-4">
 				<h4>Item Details</h4>
 
-				<div className="flex flex-col justify-between gap-2">
-					<div>
-						<Label>Title</Label>
-						<Input type="text" name="title" placeholder="Something Cool" value={title} onChange={handleChangeTitle} />
-					</div>
+				<form action={formAction} ref={formRef}>
+					<Input type="hidden" name="list-id" value={listId} readOnly />
+					<Input type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
 
-					<div>
-						<Label>URL</Label>
-						<Input type="url" name="url" placeholder="https://wow.cool/" value={url} onChange={handleChangeUrl} />
-					</div>
-
-					<div>
-						<Label>Notes</Label>
-						<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
-					</div>
-
-					<div>
-						<Label>Priority</Label>
-						{/* <Select name="priority" defaultValue={ItemPriority.Normal}> */}
-						<Select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
-							<option disabled value=""></option>
-							{Object.keys(ItemPriority).map((key: any) => (
-								<option key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
-									{key}
-								</option>
-							))}
-						</Select>
-					</div>
-
-					{imageUrl && (
-						<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center">
-							<img src={imageUrl} alt={title} className="object-scale-down rounded-lg" />
+					<div className="flex flex-col justify-between gap-2">
+						<div>
+							<Label>Title</Label>
+							<Input type="text" name="title" placeholder="Something Cool" value={title} onChange={handleChangeTitle} />
 						</div>
-					)}
-				</div>
+
+						<div>
+							<Label>URL</Label>
+							<Input type="url" name="url" placeholder="https://wow.cool/" value={url} onChange={handleChangeUrl} />
+						</div>
+
+						<div>
+							<Label>Notes</Label>
+							<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
+						</div>
+
+						<div>
+							<Label>Priority</Label>
+							{/* <Select name="priority" defaultValue={ItemPriority.Normal}> */}
+							<Select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
+								<option disabled value=""></option>
+								{Object.keys(ItemPriority).map((key: any) => (
+									<option key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
+										{key}
+									</option>
+								))}
+							</Select>
+						</div>
+
+						{imageUrl && (
+							<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center">
+								<img src={imageUrl} alt={title} className="object-scale-down rounded-lg" />
+							</div>
+						)}
+
+						<div>
+							<button
+								type="submit"
+								onClick={handleClick}
+								className="py-2 px-3 w-full justify-center inline-flex items-center mt-2 gap-x-2 text-lg font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+							>
+								<span className="drop-shadow-lg ">Save</span>
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	)

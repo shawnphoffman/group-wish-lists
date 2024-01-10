@@ -30,7 +30,6 @@ export default function ListItemEditRow({ item }: any) {
 					<button type="button" className="text-red-300 hover:text-red-400">
 						<i className="fa-sharp fa-solid fa-trash-xmark" aria-hidden />
 					</button>
-					{/* </div> */}
 				</div>
 			</div>
 		</div>
