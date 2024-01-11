@@ -1,6 +1,6 @@
 import { GeistSans } from 'geist/font/sans'
 
-import PrelineScript from '@/components/PrelineScript'
+import PrelineScript from '@/components/utils/PrelineScript'
 
 import './globals.css'
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous"></script>
 			</head>
 			<body className="dark:bg-gray-950 dark:text-white">
-				<main className="container mx-auto min-h-screen flex flex-col items-center">{children}</main>
+				<main className="container flex flex-col items-center min-h-screen mx-auto">{children}</main>
 			</body>
 			<PrelineScript />
 		</html>

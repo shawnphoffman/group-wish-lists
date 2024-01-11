@@ -20,8 +20,8 @@ export default function RenameListButton({ listId, name }: any) {
 	}, [isEditing])
 
 	useEffect(() => {
-		console.log('state', state)
 		if (state?.status === 'success') {
+			console.log('rename.state', state)
 			startTransition(() => {
 				setIsEditing(() => !isEditing)
 				router.refresh()
@@ -36,17 +36,17 @@ export default function RenameListButton({ listId, name }: any) {
 					<input type="hidden" value={listId} name="id" />
 					<input className={inputClasses} type="text" defaultValue={name} name="list-name" autoFocus />
 					<button title="Save" disabled={isPending}>
-						<i className="fa-sharp fa-solid fa-check text-2xl text-green-300 hover:text-green-400" aria-hidden />
+						<i className="text-2xl text-green-300 fa-sharp fa-solid fa-check hover:text-green-400" aria-hidden />
 					</button>
 					<button type="button" title="Cancel" onClick={handleClick} disabled={isPending}>
-						<i className="fa-sharp fa-solid fa-xmark text-2xl text-red-300 hover:text-red-400" aria-hidden />
+						<i className="text-2xl text-red-300 fa-sharp fa-solid fa-xmark hover:text-red-400" aria-hidden />
 					</button>
 				</form>
 			) : (
 				<>
 					<h1 className="">{name}</h1>
 					<button type="button" title="Rename" onClick={handleClick} disabled={isPending}>
-						<i className="fa-sharp fa-solid fa-pencil text-2xl text-yellow-200 hover:text-yellow-300" aria-hidden />
+						<i className="text-2xl text-yellow-200 fa-sharp fa-solid fa-pencil hover:text-yellow-300" aria-hidden />
 					</button>
 				</>
 			)}

@@ -1,4 +1,5 @@
-import TypeIcon from './ListTypeIcon'
+import TypeIcon from '@/components/icons/TypeIcon'
+
 import ArchiveListButton from './buttons/ArchiveListButton'
 import DeleteListButton from './buttons/DeleteListButton'
 import UnarchiveListButton from './buttons/UnarchiveListButton'

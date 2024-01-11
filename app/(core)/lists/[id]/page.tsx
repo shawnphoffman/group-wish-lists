@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
+import Avatar from '@/components/Avatar'
 import Code from '@/components/Code'
-import Avatar from '@/components/core/Avatar'
 import ListItemRow from '@/components/lists/ItemRow'
 
 import { isDeployed } from '@/utils/environment'

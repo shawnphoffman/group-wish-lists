@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 // import Code from '@/components/Code'
-import Avatar from '@/components/core/Avatar'
+import Avatar from '@/components/Avatar'
 import RenameListButton from '@/components/lists/buttons/RenameListButton'
 import AddItem from '@/components/lists/create/AddItem'
 import ListItemEditRow from '@/components/lists/create/ItemEditRow'
