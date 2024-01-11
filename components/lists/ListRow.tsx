@@ -8,7 +8,7 @@ export default function ListRow({ list, canEdit }: any) {
 
 	const isActive = list.active
 	const canDelete = canEdit && !isActive
-	const url = canDelete ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
+	const url = canDelete || !isActive ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
 
 	return (
 		<div className="inline-flex items-center gap-x-3.5 py-3 px-4 text-lg font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg focus:z-10 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
