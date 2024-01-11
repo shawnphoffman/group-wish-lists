@@ -5,9 +5,6 @@ import { useFormState } from 'react-dom'
 
 import { updateProfile } from '@/app/actions/auth'
 
-import Input from '@/components/core/Input'
-import Label from '@/components/core/InputLabel'
-
 const initialState = {
 	error: '',
 	status: '',
@@ -18,8 +15,10 @@ export default function ProfileForm({ name }: any) {
 
 	return (
 		<form className="flex-1 flex flex-col w-full gap-2 text-foreground" action={formAction}>
-			<Label htmlFor="name">Name</Label>
-			<Input name="name" placeholder="Ezekiel" defaultValue={name} required />
+			<label className="label" htmlFor="name">
+				Name
+			</label>
+			<input className="input" name="name" placeholder="Ezekiel" defaultValue={name} required />
 
 			<p aria-live="polite" className="sr-only">
 				{state?.error}

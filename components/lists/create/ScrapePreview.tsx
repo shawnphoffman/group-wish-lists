@@ -1,6 +1,4 @@
-import Code from '@/components/Code'
-import Input from '@/components/core/Input'
-import Label from '@/components/core/InputLabel'
+// import Code from '@/components/Code'
 
 export interface Scrape {
 	error: boolean
@@ -47,12 +45,12 @@ export default function ScrapePreview({ scrape }: { scrape: Scrape }) {
 		<div className="flex flex-col gap-4 items-stretch border border-dashed border-yellow-400 p-4 w-full">
 			<h4>Scrape Preview</h4>
 			<div className="flex flex-row gap-4 items-center">
-				<Label>Title</Label>
-				<Input type="text" readOnly value={scrape?.result?.ogTitle} />
+				<label className="label">Title</label>
+				<input className="input" type="text" readOnly value={scrape?.result?.ogTitle} />
 			</div>
 			<div className="flex flex-row gap-4 items-center">
-				<Label>URL</Label>
-				<Input type="text" readOnly value={scrape?.result?.ogUrl} />
+				<label className="label">URL</label>
+				<input className="input" type="text" readOnly value={scrape?.result?.ogUrl} />
 			</div>
 			{hasImage && (
 				<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center">

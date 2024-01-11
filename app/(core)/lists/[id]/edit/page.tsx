@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import Code from '@/components/Code'
+// import Code from '@/components/Code'
 import Avatar from '@/components/core/Avatar'
 import RenameListButton from '@/components/lists/buttons/RenameListButton'
 import AddItem from '@/components/lists/create/AddItem'
@@ -57,7 +57,7 @@ export default async function EditList({ params }: { params: { id: string } }) {
 				{/* Add Item */}
 				<AddItem listId={params.id} />
 
-				{!isDeployed && <Code code={JSON.stringify(data, null, 2)} />}
+				{/* {!isDeployed && <Code code={JSON.stringify(data, null, 2)} />} */}
 			</div>
 		</div>
 	)

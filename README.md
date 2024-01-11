@@ -8,3 +8,4 @@
 [] Clean up disabled forms/inputs
 [] Clean up refreshes with Suspense
 [] Split AddItemForm into parent and children AddItemForm EditItemForm
+[] Stop being lazy and just make proper types

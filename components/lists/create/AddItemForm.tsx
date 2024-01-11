@@ -1,14 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { use, useCallback, useEffect, useRef, useState, useTransition } from 'react'
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 // @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
 
-import Input from '@/components/core/Input'
-import Label from '@/components/core/InputLabel'
 import Select from '@/components/core/Select'
 import Textarea from '@/components/core/Textarea'
 
@@ -36,6 +34,8 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 	const [url, setUrl] = useState<string>('')
 	const [priority, setPriority] = useState<(typeof ItemPriority)[keyof typeof ItemPriority] | ''>(ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>('') //TODO
+
+	const isDisabled = isPending || title.trim().length === 0
 
 	useEffect(() => {
 		if (!scrape?.result) return
@@ -84,36 +84,34 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 	}, [state])
 
 	return (
-		<div className="flex flex-col gap-2 items-stretch border border-dashed border-purple-400 p-4">
-			<h4>Item Details</h4>
+		// <div className="flex flex-col gap-2 items-stretch border border-dashed border-purple-400 p-4">
+		<div className="flex flex-col gap-2 items-stretch p-2">
+			<h5>Item Details</h5>
 
 			<form action={formAction} ref={formRef}>
 				<fieldset disabled={isPending}>
-					<Input type="hidden" name="list-id" value={listId} readOnly />
-					<Input type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
+					<input className="input" type="hidden" name="list-id" value={listId} readOnly />
+					<input className="input" type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
 
 					<div className="flex flex-col justify-between gap-2">
 						<div>
-							<Label>
-								Title
-								<i title="Required" className="fa-sharp fa-solid fa-asterisk fa-2xs text-red-500 relative bottom-1" aria-hidden />
-							</Label>
-							<Input type="text" name="title" placeholder="Something Cool" value={title} onChange={handleChangeTitle} />
+							<label className="label">Title</label>
+							<i className="fa-sharp fa-solid fa-asterisk fa-2xs text-red-500 relative bottom-1" aria-hidden />
+							<input className="input" type="text" name="title" placeholder="Something Cool" value={title} onChange={handleChangeTitle} />
 						</div>
 
 						<div>
-							<Label>URL</Label>
-							<Input type="url" name="url" placeholder="https://wow.cool/" value={url} onChange={handleChangeUrl} />
+							<label className="label">URL</label>
+							<input className="input" type="url" name="url" placeholder="https://wow.cool/" value={url} onChange={handleChangeUrl} />
 						</div>
 
 						<div>
-							<Label>Notes</Label>
+							<label className="label">Notes</label>
 							<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
 						</div>
 
 						<div>
-							<Label>Priority</Label>
-							{/* <Select name="priority" defaultValue={ItemPriority.Normal}> */}
+							<label className="label">Priority</label>
 							<Select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
 								<option disabled value=""></option>
 								{Object.keys(ItemPriority).map((key: any) => (
@@ -131,12 +129,8 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 						)}
 
 						<div>
-							<button
-								type="submit"
-								onClick={handleClick}
-								className="py-2 px-3 w-full justify-center inline-flex items-center mt-2 gap-x-2 text-lg font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-							>
-								<span className="drop-shadow-lg ">Save</span>
+							<button type="submit" onClick={handleClick} className="btn w-full" disabled={isDisabled}>
+								<span className="drop-shadow-lg ">Add Item</span>
 							</button>
 						</div>
 					</div>

@@ -45,6 +45,28 @@
 	}
 }
 
+@layer components {
+	.input {
+		@apply px-4 py-2 block w-full border border-gray-200 rounded-lg text-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300;
+	}
+	.btn {
+		@apply py-2 px-3 justify-center inline-flex items-center mt-2 gap-x-2 text-base font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none;
+	}
+	.radio {
+		@apply shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800 self-center;
+	}
+	.checkbox {
+		@apply shrink-0 w-5 h-5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800 self-center;
+	}
+	.label {
+		@apply text-base font-semibold;
+	}
+}
+
+input[type='checkbox'] {
+	@apply checkbox;
+}
+
 .animate-in {
 	animation: animateIn 0.3s ease 0.15s both;
 }

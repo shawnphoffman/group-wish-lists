@@ -6,7 +6,7 @@ export default function ItemPriorityIcon({ priority }: { priority: string }) {
 	let iconClass = ''
 
 	switch (priority) {
-		case ItemPriority.VeryHigh:
+		case ItemPriority['Very High']:
 			iconClass = 'fa-sharp fa-solid fa-bolt fa-beat-fade text-yellow-400'
 			break
 		case ItemPriority.High:
@@ -17,5 +17,5 @@ export default function ItemPriorityIcon({ priority }: { priority: string }) {
 			break
 	}
 
-	return <i className={`${iconClass} text-xl`} aria-hidden="true" />
+	return <i className={`${iconClass} text-lg`} aria-hidden="true" />
 }

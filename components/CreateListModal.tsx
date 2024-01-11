@@ -9,9 +9,6 @@ import { createList } from '@/app/actions/lists'
 
 import { isDeployed } from '@/utils/environment'
 
-import Input from './core/Input'
-import Label from './core/InputLabel'
-import Radio from './core/Radio'
 import RadioLabel from './core/RadioLabel'
 
 export default function CreateListModal() {
@@ -56,36 +53,29 @@ export default function CreateListModal() {
 						</div>
 						<div className="p-4 overflow-y-auto gap-4 flex flex-col">
 							<div>
-								<Label htmlFor="input-name" className="block text-lg font-medium mb-2">
+								<label htmlFor="input-name" className="label block mb-2">
 									Title
-								</Label>
-								<Input
-									type="text"
-									id="input-name"
-									name="list-name"
-									className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-									placeholder="Your Cool List"
-									autoFocus
-								/>
+								</label>
+								<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autoFocus />
 							</div>
 							<div>
-								<Label className="block text-lg font-medium mb-1">Type</Label>
+								<label className="label block mb-1">Type</label>
 								<div className="flex flex-col gap-y-1 ml-2">
-									<div className="flex">
-										<Radio type="radio" name="list-type" value="christmas" id="christmas" defaultChecked={true} />
+									<div className="flex items-center">
+										<input className="radio" type="radio" name="list-type" value="christmas" id="christmas" defaultChecked={true} />
 										<RadioLabel htmlFor="christmas">Christmas</RadioLabel>
 									</div>
 									<div className="flex">
-										<Radio type="radio" name="list-type" value="birthday" id="birthday" />
+										<input className="radio" type="radio" name="list-type" value="birthday" id="birthday" />
 										<RadioLabel htmlFor="christmas">Birthday</RadioLabel>
 									</div>
 									<div className="flex">
-										<Radio type="radio" name="list-type" value="wishlist" id="wishlist" />
+										<input className="radio" type="radio" name="list-type" value="wishlist" id="wishlist" />
 										<RadioLabel htmlFor="wishlist">Wish List</RadioLabel>
 									</div>
 									{!isDeployed && (
 										<div className="flex">
-											<Radio type="radio" name="list-type" value="test" id="test" />
+											<input className="radio" type="radio" name="list-type" value="test" id="test" />
 											<RadioLabel htmlFor="test">Test</RadioLabel>
 										</div>
 									)}

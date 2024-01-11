@@ -6,7 +6,7 @@ export const ListType = {
 } as const
 
 export const ItemPriority = {
-	VeryHigh: 'veryhigh',
+	'Very High': 'veryhigh',
 	High: 'high',
 	Normal: 'normal',
 	Low: 'low',
