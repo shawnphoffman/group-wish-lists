@@ -3,28 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		/* --background: 200 20% 98%;
-		--btn-background: 200 10% 91%;
-		--btn-background-hover: 200 10% 89%;
-		--foreground: 200 50% 3%; */
-	}
-
-	@media (prefers-color-scheme: dark) {
-		:root {
-			/* --background: 200 50% 3%; */
-			/* --background: var(--)
-			--btn-background: 200 10% 9%;
-			--btn-background-hover: 200 10% 12%;
-			--foreground: 200 20% 96%; */
-		}
-	}
-}
-
-@layer base {
-	* {
-		/* @apply border-foreground/20; */
-	}
 	h1 {
 		@apply text-4xl font-bold;
 	}
@@ -45,39 +23,61 @@
 	}
 }
 
-@layer components {
-	.input {
-		@apply px-4 py-2 block w-full border border-gray-200 rounded-lg text-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300;
+@layer utilities {
+	.animate-in {
+		animation: animateIn 0.3s ease 0.15s both;
 	}
+
+	@keyframes animateIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+@layer components {
 	.btn {
-		@apply py-2 px-3 justify-center inline-flex items-center mt-2 gap-x-2 text-base font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none;
+		@apply inline-flex items-center justify-center px-3 py-2 mt-2 text-base font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none;
+	}
+	/* TODO these shouldn't be required on individual items */
+	.input {
+		@apply block w-full px-4 py-2 text-lg border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300;
 	}
 	.radio {
-		@apply shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800 self-center;
+		@apply self-center text-blue-600 border-gray-200 rounded-full shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
 	}
 	.checkbox {
-		@apply shrink-0 w-5 h-5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800 self-center;
+		@apply self-center w-5 h-5 text-blue-600 border-gray-200 rounded shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
 	}
 	.label {
 		@apply text-base font-semibold;
 	}
+	.radio + .label {
+		@apply text-base text-gray-500 ms-2 dark:text-gray-400;
+	}
+	.select {
+		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg pe-9 focus:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400;
+	}
+	.textarea {
+		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-300;
+	}
 }
 
+/* Defaults */
 input[type='checkbox'] {
 	@apply checkbox;
 }
-
-.animate-in {
-	animation: animateIn 0.3s ease 0.15s both;
+input[type='radio'] {
+	@apply radio;
 }
-
-@keyframes animateIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+select {
+	@apply select;
+}
+textarea {
+	@apply textarea;
 }

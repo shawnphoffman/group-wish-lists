@@ -9,8 +9,6 @@ import { createList } from '@/app/actions/lists'
 
 import { isDeployed } from '@/utils/environment'
 
-import RadioLabel from './core/RadioLabel'
-
 export default function CreateListModal() {
 	const [state, formAction] = useFormState(createList, {})
 	const router = useRouter()
@@ -63,20 +61,28 @@ export default function CreateListModal() {
 								<div className="flex flex-col gap-y-1 ml-2">
 									<div className="flex items-center">
 										<input className="radio" type="radio" name="list-type" value="christmas" id="christmas" defaultChecked={true} />
-										<RadioLabel htmlFor="christmas">Christmas</RadioLabel>
+										<label className="label" htmlFor="christmas">
+											Christmas
+										</label>
 									</div>
 									<div className="flex">
 										<input className="radio" type="radio" name="list-type" value="birthday" id="birthday" />
-										<RadioLabel htmlFor="christmas">Birthday</RadioLabel>
+										<label className="label" htmlFor="christmas">
+											Birthday
+										</label>
 									</div>
 									<div className="flex">
 										<input className="radio" type="radio" name="list-type" value="wishlist" id="wishlist" />
-										<RadioLabel htmlFor="wishlist">Wish List</RadioLabel>
+										<label className="label" htmlFor="wishlist">
+											Wish List
+										</label>
 									</div>
 									{!isDeployed && (
 										<div className="flex">
 											<input className="radio" type="radio" name="list-type" value="test" id="test" />
-											<RadioLabel htmlFor="test">Test</RadioLabel>
+											<label className="label" htmlFor="test">
+												Test
+											</label>
 										</div>
 									)}
 								</div>

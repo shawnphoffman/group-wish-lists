@@ -2,13 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
-// @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
-
-import Select from '@/components/core/Select'
-import Textarea from '@/components/core/Textarea'
 
 import { ItemPriority } from '@/utils/enums'
 
@@ -84,8 +80,8 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 	}, [state])
 
 	return (
-		// <div className="flex flex-col gap-2 items-stretch border border-dashed border-purple-400 p-4">
-		<div className="flex flex-col gap-2 items-stretch p-2">
+		// <div className="flex flex-col items-stretch gap-2 p-4 border border-purple-400 border-dashed">
+		<div className="flex flex-col items-stretch gap-2 p-2">
 			<h5>Item Details</h5>
 
 			<form action={formAction} ref={formRef}>
@@ -96,7 +92,7 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 					<div className="flex flex-col justify-between gap-2">
 						<div>
 							<label className="label">Title</label>
-							<i className="fa-sharp fa-solid fa-asterisk fa-2xs text-red-500 relative bottom-1" aria-hidden />
+							<i className="relative text-red-500 fa-sharp fa-solid fa-asterisk fa-2xs bottom-1" aria-hidden />
 							<input className="input" type="text" name="title" placeholder="Something Cool" value={title} onChange={handleChangeTitle} />
 						</div>
 
@@ -107,19 +103,19 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 
 						<div>
 							<label className="label">Notes</label>
-							<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
+							<textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
 						</div>
 
 						<div>
 							<label className="label">Priority</label>
-							<Select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
+							<select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
 								<option disabled value=""></option>
 								{Object.keys(ItemPriority).map((key: any) => (
 									<option key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
 										{key}
 									</option>
 								))}
-							</Select>
+							</select>
 						</div>
 
 						{imageUrl && (
@@ -129,7 +125,7 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 						)}
 
 						<div>
-							<button type="submit" onClick={handleClick} className="btn w-full" disabled={isDisabled}>
+							<button type="submit" onClick={handleClick} className="w-full btn" disabled={isDisabled}>
 								<span className="drop-shadow-lg ">Add Item</span>
 							</button>
 						</div>

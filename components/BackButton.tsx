@@ -9,7 +9,7 @@ export default function BackButton() {
 	return (
 		<button
 			onClick={() => router.back()}
-			className="py-2 px-2 rounded-md no-underline bg-gray-950 hover:bg-gray-900 flex items-center group text-md"
+			className="flex items-center px-2 py-2 text-base no-underline rounded-md bg-gray-950 hover:bg-gray-900 group"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ export default function BackButton() {
 				strokeWidth="2"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-				className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+				className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1"
 			>
 				<polyline points="15 18 9 12 15 6" />
 			</svg>{' '}

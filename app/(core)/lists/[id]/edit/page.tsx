@@ -7,7 +7,7 @@ import RenameListButton from '@/components/lists/buttons/RenameListButton'
 import AddItem from '@/components/lists/create/AddItem'
 import ListItemEditRow from '@/components/lists/create/ItemEditRow'
 
-import { isDeployed } from '@/utils/environment'
+// import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'
 
 export default async function EditList({ params }: { params: { id: string } }) {
@@ -18,7 +18,7 @@ export default async function EditList({ params }: { params: { id: string } }) {
 	} = await supabase.auth.getUser()
 	let { data, error } = await supabase
 		.from('lists')
-		.select('name,type,listItems(*),users(email,raw_user_meta_data->name)')
+		.select('name,type,listItems:sorted_list_items(*),users(email,raw_user_meta_data->name)')
 		.eq('id', params.id)
 		.eq('user_id', currentUser?.id)
 		.not('active', 'is', false)
