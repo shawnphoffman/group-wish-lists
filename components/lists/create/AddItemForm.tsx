@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
+// @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
