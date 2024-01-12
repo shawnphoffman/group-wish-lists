@@ -11,3 +11,4 @@ export const ItemPriority = {
 	Normal: 'normal',
 	Low: 'low',
 } as const
+export type ItemPriorityType = (typeof ItemPriority)[keyof typeof ItemPriority]

@@ -113,3 +113,13 @@ select {
 textarea {
 	@apply textarea;
 }
+
+i.remove {
+	--fa-primary-color: #ffffff;
+	--fa-primary-opacity: 1;
+	--fa-secondary-color: #ef4444;
+	--fa-secondary-opacity: 1;
+	&:hover {
+		--fa-secondary-color: #f87171;
+	}
+}

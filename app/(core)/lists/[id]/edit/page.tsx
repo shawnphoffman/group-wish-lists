@@ -1,13 +1,11 @@
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-// import Code from '@/components/Code'
 import Avatar from '@/components/Avatar'
 import RenameListButton from '@/components/lists/buttons/RenameListButton'
 import AddItem from '@/components/lists/create/AddItem'
 import ListItemEditRow from '@/components/lists/create/ItemEditRow'
 
-// import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'
 
 export default async function EditList({ params }: { params: { id: string } }) {
@@ -36,11 +34,11 @@ export default async function EditList({ params }: { params: { id: string } }) {
 	const user = data.users
 
 	return (
-		<div className="w-full animate-in flex-1 flex flex-col opacity-0 max-w-4xl px-3">
-			<div className="flex-1 flex flex-col gap-6">
+		<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
+			<div className="flex flex-col flex-1 gap-6">
 				{/* Header */}
-				<div className="flex flex-row gap-2 items-center justify-between">
-					<div className="flex flex-row gap-4 items-center">
+				<div className="flex flex-row items-center justify-between gap-2">
+					<div className="flex flex-row items-center gap-4">
 						{/* <BackButton /> */}
 						<RenameListButton listId={params.id} name={data.name} />
 					</div>
