@@ -5,6 +5,8 @@ import { useCallback, useTransition } from 'react'
 
 import { archiveList } from '@/app/actions/lists'
 
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+
 export default function ArchiveListButton({ listId }: any) {
 	const router = useRouter()
 	const pathname = usePathname()
@@ -26,8 +28,8 @@ export default function ArchiveListButton({ listId }: any) {
 
 	return (
 		<>
-			<button className="hover:text-yellow-500 flex" title="Archive" onClick={handleClick} disabled={isPending}>
-				<i className={`fa-sharp fa-solid fa-eye-slash text-lg`} aria-hidden="true" />
+			<button className="flex hover:text-yellow-500" title="Archive" onClick={handleClick} disabled={isPending}>
+				<FontAwesomeIcon className="text-lg fa-sharp fa-solid fa-eye-slash" />
 			</button>
 		</>
 	)

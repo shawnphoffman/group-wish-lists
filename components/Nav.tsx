@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import FontAwesomeIcon from './icons/FontAwesomeIcon'
+
 // import MobileNav from './MobileNav'
 
 export default function Nav() {
@@ -8,11 +10,11 @@ export default function Nav() {
 			{/* <div className="hidden gap-2 xs:flex"> */}
 			<div className="flex gap-2">
 				<Link href="/" className={'nav-btn gray'}>
-					<i className="fa-sharp fa-solid fa-list-check" aria-hidden="true"></i>
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-list-check" />
 					Wish Lists
 				</Link>
 				<Link href="/profile" className={'nav-btn gray'}>
-					<i className="fa-sharp fa-solid fa-user" aria-hidden="true"></i>
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-user" />
 					Profile
 				</Link>
 			</div>

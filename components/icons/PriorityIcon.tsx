@@ -1,5 +1,7 @@
 import { ItemPriority } from '@/utils/enums'
 
+import FontAwesomeIcon from './FontAwesomeIcon'
+
 export default function ItemPriorityIcon({ priority }: { priority: string }) {
 	if (priority === ItemPriority.Normal) return null
 
@@ -17,5 +19,5 @@ export default function ItemPriorityIcon({ priority }: { priority: string }) {
 			break
 	}
 
-	return <i className={`${iconClass} text-lg`} aria-hidden="true" />
+	return <FontAwesomeIcon className={`${iconClass} text-lg`} />
 }

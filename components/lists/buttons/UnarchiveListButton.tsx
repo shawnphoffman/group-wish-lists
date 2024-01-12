@@ -5,6 +5,8 @@ import { useCallback, useTransition } from 'react'
 
 import { unarchiveList } from '@/app/actions/lists'
 
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+
 export default function UnarchiveListButton({ listId }: any) {
 	const router = useRouter()
 	const pathname = usePathname()
@@ -26,8 +28,8 @@ export default function UnarchiveListButton({ listId }: any) {
 
 	return (
 		<>
-			<button className="hover:text-teal-500 flex" title="Restore" onClick={handleClick} disabled={isPending}>
-				<i className={`fa-sharp fa-solid fa-eye text-lg`} aria-hidden="true" />
+			<button className="flex hover:text-teal-500" title="Restore" onClick={handleClick} disabled={isPending}>
+				<FontAwesomeIcon className="text-lg fa-sharp fa-solid fa-eye" />
 			</button>
 		</>
 	)

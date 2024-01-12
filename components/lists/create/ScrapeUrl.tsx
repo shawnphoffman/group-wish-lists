@@ -2,6 +2,8 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+
 import { Scrape } from '../types'
 import ScrapePreview from './ScrapePreview'
 
@@ -51,7 +53,7 @@ export default function ScrapeItem({ setScrape, scrape }: Props) {
 					className="inline-flex items-center px-3 py-2 text-sm font-semibold text-teal-500 border border-transparent rounded-lg gap-x-2 hover:bg-teal-100 hover:text-teal-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-teal-800/30 dark:hover:text-teal-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
 					disabled={isLoading}
 				>
-					<i className="text-xl fa-sharp fa-solid fa-link" aria-hidden />
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-link" />
 				</button>
 			</div>
 

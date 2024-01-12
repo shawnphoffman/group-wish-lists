@@ -1,5 +1,7 @@
 import { ListCategory, ListCategoryType } from '@/utils/enums'
 
+import FontAwesomeIcon from './FontAwesomeIcon'
+
 export default function TypeIcon({ type }: { type: ListCategoryType }) {
 	let iconClass = 'fa-duotone fa-thought-bubble text-yellow-300'
 
@@ -11,5 +13,5 @@ export default function TypeIcon({ type }: { type: ListCategoryType }) {
 		iconClass = 'fa-duotone fa-vial-virus text-blue-300'
 	}
 
-	return <i className={`${iconClass} text-xl`} aria-hidden="true" />
+	return <FontAwesomeIcon className={`${iconClass} text-xl`} />
 }

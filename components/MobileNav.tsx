@@ -3,11 +3,14 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
+import FontAwesomeIcon from './icons/FontAwesomeIcon'
+
 export default function MobileNav() {
 	return (
 		<Menu as="div" className="relative inline-block text-right xs:hidden">
 			<Menu.Button className="nav-btn gray">
-				<i className="fa-sharp fa-solid fa-link" aria-hidden="true"></i>Links
+				<FontAwesomeIcon className="fa-sharp fa-solid fa-link" />
+				Links
 			</Menu.Button>
 			<Transition
 				as={Fragment}

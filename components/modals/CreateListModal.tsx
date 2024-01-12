@@ -9,6 +9,8 @@ import { createList } from '@/app/actions/lists'
 
 import { isDeployed } from '@/utils/environment'
 
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+
 export default function CreateListModal() {
 	const [state, formAction] = useFormState(createList, {})
 	const router = useRouter()
@@ -45,7 +47,7 @@ export default function CreateListModal() {
 								data-hs-overlay="#hs-create-list-modal"
 							>
 								<span className="sr-only">Close</span>
-								<i className="fa-sharp fa-solid fa-xmark" aria-hidden="true"></i>
+								<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
 							</button>
 						</div>
 						<div className="flex flex-col gap-4 p-4 overflow-y-auto">

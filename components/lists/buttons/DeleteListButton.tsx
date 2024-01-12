@@ -5,6 +5,8 @@ import { useCallback, useTransition } from 'react'
 
 import { deleteList } from '@/app/actions/lists'
 
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+
 export default function DeleteListButton({ listId, name }: any) {
 	const router = useRouter()
 	const [isPending, startTransition] = useTransition()
@@ -26,7 +28,7 @@ export default function DeleteListButton({ listId, name }: any) {
 	return (
 		<>
 			<button className="flex hover:text-red-500" title="Delete" onClick={handleClick} disabled={isPending}>
-				<i className={`fa-sharp fa-solid fa-trash-xmark text-lg`} aria-hidden="true" />
+				<FontAwesomeIcon className="text-lg fa-sharp fa-solid fa-trash-xmark" />
 			</button>
 		</>
 	)

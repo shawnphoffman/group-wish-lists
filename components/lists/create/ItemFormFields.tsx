@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation'
 import { RefObject, useCallback, useEffect, useState, useTransition } from 'react'
 
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
 import { ListItem, Scrape } from '../types'
@@ -103,7 +105,9 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formRef, f
 					<div className="flex flex-col justify-between gap-2">
 						<div>
 							<label className="label">Title</label>
-							<i className="relative text-red-500 fa-sharp fa-solid fa-asterisk fa-2xs bottom-1" aria-hidden />
+							<span className="relative text-red-500 bottom-1">
+								<FontAwesomeIcon className=" fa-sharp fa-solid fa-asterisk fa-2xs" />
+							</span>
 							{/* TODO Autoheight this
 									el.style.height = 'auto';
 									el.style.height = `${el.scrollHeight + offsetTop}px`;
