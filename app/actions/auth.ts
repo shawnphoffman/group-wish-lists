@@ -7,6 +7,7 @@ import { createClient } from '@/utils/supabase/server'
 
 // NOTE
 export const getUser = async () => {
+	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	return await supabase.auth.getUser()
@@ -14,6 +15,7 @@ export const getUser = async () => {
 
 // NOTE
 export const signOut = async () => {
+	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	await supabase.auth.signOut()
@@ -22,6 +24,7 @@ export const signOut = async () => {
 
 // NOTE
 export const signIn = async (formData: FormData) => {
+	'use server'
 	const email = formData.get('email') as string
 	const password = formData.get('password') as string
 	const cookieStore = cookies()
@@ -41,6 +44,7 @@ export const signIn = async (formData: FormData) => {
 
 // NOTE
 export const signUp = async (formData: FormData) => {
+	'use server'
 	const origin = headers().get('origin')
 	const email = formData.get('email') as string
 	const password = formData.get('password') as string
@@ -64,6 +68,7 @@ export const signUp = async (formData: FormData) => {
 
 // NOTE
 export const updateProfile = async (prevState: any, formData: FormData) => {
+	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const name = formData.get('name') as string

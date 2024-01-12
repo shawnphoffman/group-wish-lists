@@ -6,6 +6,7 @@ import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
 export const createItem = async (prevState: any, formData: FormData) => {
+	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
@@ -28,6 +29,7 @@ export const createItem = async (prevState: any, formData: FormData) => {
 }
 
 export const editItem = async (prevState: any, formData: FormData) => {
+	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
@@ -48,6 +50,7 @@ export const editItem = async (prevState: any, formData: FormData) => {
 }
 
 export const deleteItem = async (itemId: string) => {
+	'use server'
 	try {
 		const cookieStore = cookies()
 		const supabase = createClient(cookieStore)

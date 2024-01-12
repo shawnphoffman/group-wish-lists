@@ -29,10 +29,10 @@ export default function CreateListModal() {
 				formRef.current.reset()
 			}
 		}
-	}, [state])
+	}, [state, pathname, router])
 
 	return (
-		<form action={formAction} ref={formRef}>
+		<form action={formAction} ref={formRef} suppressHydrationWarning>
 			<div
 				id="hs-create-list-modal"
 				className="hs-overlay hidden w-full h-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"

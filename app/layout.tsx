@@ -20,8 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			</head>
 			<body className="dark:bg-gray-950 dark:text-white">
 				<main className="container flex flex-col items-center min-h-screen mx-auto">{children}</main>
+				<PrelineScript />
 			</body>
-			<PrelineScript />
 		</html>
 	)
 }

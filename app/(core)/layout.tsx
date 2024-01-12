@@ -1,6 +1,5 @@
 import AuthButton from '@/components/AuthButton'
 import Nav from '@/components/Nav'
-import CreateListModal from '@/components/modals/CreateListModal'
 
 export default async function CoreLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -11,9 +10,7 @@ export default async function CoreLayout({ children }: { children: React.ReactNo
 					<AuthButton />
 				</div>
 			</nav>
-
 			{children}
-			<CreateListModal />
 		</div>
 	)
 }
