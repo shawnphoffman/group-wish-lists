@@ -41,6 +41,34 @@
 }
 
 @layer components {
+	.nav-item {
+		@apply flex items-center w-full px-2 py-2 text-sm text-gray-900 rounded-md;
+
+		&.active {
+			@apply text-white bg-red-500;
+		}
+	}
+	.nav-btn {
+		@apply inline-flex items-center px-3 py-2 text-sm font-semibold border border-transparent rounded-lg gap-x-2;
+
+		&.gray {
+			@apply text-gray-800 hover:bg-gray-100;
+			@apply dark:text-white dark:hover:bg-gray-700;
+			@apply disabled:opacity-50 disabled:pointer-events-none;
+		}
+
+		&.red {
+			@apply text-red-500 hover:bg-red-100 hover:text-red-800;
+			@apply disabled:opacity-50 disabled:pointer-events-none;
+			@apply dark:hover:bg-red-800/30 dark:hover:text-red-400;
+		}
+
+		&.green {
+			@apply text-teal-500 hover:bg-teal-100 hover:text-teal-800;
+			@apply disabled:opacity-50 disabled:pointer-events-none;
+			@apply dark:hover:bg-teal-800/30 dark:hover:text-teal-400;
+		}
+	}
 	.btn {
 		@apply inline-flex items-center justify-center px-3 py-2 mt-2 text-base font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none;
 	}
@@ -65,6 +93,10 @@
 	}
 	.textarea {
 		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-300;
+	}
+
+	.avatar {
+		@apply inline-flex items-center justify-center h-[2.875rem] w-[2.875rem] text-xl font-semibold leading-none rounded-full border uppercase;
 	}
 }
 
