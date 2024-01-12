@@ -1,6 +1,7 @@
 import { ItemStatus } from '@/utils/enums'
 
 import ItemPriorityIcon from '../icons/PriorityIcon'
+import ItemImage from './ItemImage'
 import { ListItem } from './types'
 
 type Props = {
@@ -34,21 +35,21 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
 						</div>
 						{/* Image */}
-						{item.image_url && <img src={item.image_url} alt={item.title} className="object-scale-down w-24 rounded-lg" />}
-						{/* Actions
+						<ItemImage url={item.image_url} />
+						{/* Actions */}
 						<div className="flex flex-row items-center justify-end gap-4 text-xl">
 							{item.url && (
-								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-200 hover:text-teal-300">
+								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">
 									<i className="fa-sharp fa-solid fa-up-right-from-square" aria-hidden />
 								</a>
 							)}
-							<button type="button" className="text-yellow-200 hover:text-yellow-300" onClick={handleEditClick}>
+							{/* <button type="button" className="text-yellow-200 hover:text-yellow-300" onClick={handleEditClick}>
 								<i className="fa-sharp fa-solid fa-pen-to-square" aria-hidden />
 							</button>
 							<button type="button" className="text-red-300 hover:text-red-400" onClick={handleDeleteClick}>
 								<i className="fa-sharp fa-solid fa-trash-xmark" aria-hidden />
-							</button>
-						</div> */}
+							</button> */}
+						</div>
 					</div>
 				</div>
 			</div>

@@ -15,8 +15,11 @@ export const createItem = async (prevState: any, formData: FormData) => {
 	const notes = formData.get('notes') as string
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
 	const scrape = formData.get('scrape') as string
+	const imageUrl = formData.get('image-url') as string
 
-	const item = await supabase.from('listItems').insert([{ list_id: listId, title, url, notes, priority, scrape: JSON.parse(scrape) }])
+	const item = await supabase
+		.from('listItems')
+		.insert([{ list_id: listId, title, url, notes, priority, scrape: JSON.parse(scrape), image_url: imageUrl }])
 
 	return {
 		status: 'success',
@@ -33,6 +36,8 @@ export const editItem = async (prevState: any, formData: FormData) => {
 	const url = formData.get('url') as string
 	const notes = formData.get('notes') as string
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
+
+	// TODO image url
 
 	const item = await supabase.from('listItems').update([{ title, url, notes, priority }]).eq('id', id)
 

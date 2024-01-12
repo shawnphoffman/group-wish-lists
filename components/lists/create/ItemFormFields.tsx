@@ -38,7 +38,9 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formRef, f
 		if (item || !scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
 		if (scrape.result?.ogUrl) setUrl(scrape.result.ogUrl)
-		setImageUrl(getImageFromScrape(scrape))
+		const imageUrl = getImageFromScrape(scrape)
+		console.log('scrape', { scrape, imageUrl })
+		setImageUrl(imageUrl)
 	}, [scrape])
 
 	// const handleClick = useCallback(async () => {

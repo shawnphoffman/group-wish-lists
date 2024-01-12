@@ -7,6 +7,7 @@ import { deleteItem } from '@/app/actions/items'
 
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 
+import ItemImage from '../ItemImage'
 import { ListItem } from '../types'
 import EditItemForm from './EditItemForm'
 
@@ -61,11 +62,11 @@ export default function ListItemEditRow({ item }: Props) {
 							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
 						</div>
 						{/* Image */}
-						{item.image_url && <img src={item.image_url} alt={item.title} className="object-scale-down w-24 rounded-lg" />}
+						<ItemImage url={item.image_url} />
 						{/* Actions */}
 						<div className="flex flex-row items-center justify-end gap-4 text-xl">
 							{item.url && (
-								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-200 hover:text-teal-300">
+								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">
 									<i className="fa-sharp fa-solid fa-up-right-from-square" aria-hidden />
 								</a>
 							)}

@@ -12,7 +12,7 @@ type Props = {
 
 export default function ScrapeItem({ setScrape, scrape }: Props) {
 	const [isLoading, setIsLoading] = useState(false)
-	const [importUrl, setImportUrl] = useState<string>()
+	const [importUrl, setImportUrl] = useState<string>('')
 
 	const handleChangeImportUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setImportUrl(e.target.value)
@@ -24,12 +24,12 @@ export default function ScrapeItem({ setScrape, scrape }: Props) {
 		try {
 			const resp = await fetch(`/api/scraper?url=${importUrl}`)
 			data = await resp.json()
-			console.log({ data })
 		} catch (error) {
 			data = error
 		}
 		setScrape(data)
 		setIsLoading(false)
+		setImportUrl(() => '')
 	}
 
 	return (
@@ -38,7 +38,14 @@ export default function ScrapeItem({ setScrape, scrape }: Props) {
 			<p className="text-gray-300 ">Use this to prepopulate your wish list item or enter it manually below.</p>
 
 			<div className="flex flex-row justify-between gap-4">
-				<input className="input" name="url" placeholder="URL to Import" onChange={handleChangeImportUrl} disabled={isLoading} />
+				<input
+					className="input"
+					name="url"
+					placeholder="URL to Import"
+					value={importUrl}
+					onChange={handleChangeImportUrl}
+					disabled={isLoading}
+				/>
 				<button
 					onClick={handleSubmit}
 					className="inline-flex items-center px-3 py-2 text-sm font-semibold text-teal-500 border border-transparent rounded-lg gap-x-2 hover:bg-teal-100 hover:text-teal-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-teal-800/30 dark:hover:text-teal-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"

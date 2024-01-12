@@ -9,3 +9,5 @@ PENDING STATES
 [] Switch to using public users so things will be simpler
 [] Add image picker for scrape
 [] Add status to list items
+
+[] Add amazon wish list importer
