@@ -2,7 +2,8 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 
-import ScrapePreview, { Scrape } from './ScrapePreview'
+import { Scrape } from '../types'
+import ScrapePreview from './ScrapePreview'
 
 type Props = {
 	setScrape: Dispatch<SetStateAction<Scrape | undefined>>

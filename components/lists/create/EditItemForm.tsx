@@ -6,13 +6,12 @@ import { useFormState } from 'react-dom'
 
 import { editItem } from '@/app/actions/items'
 
-import { ListItemType } from '../types'
+import { ListItem, Scrape } from '../types'
 import ItemFormFields from './ItemFormFields'
-import { Scrape } from './ScrapePreview'
 
 type Props = {
 	listId: string
-	item?: ListItemType
+	item?: ListItem
 }
 
 export default function EditItemForm({ listId, item }: Props) {

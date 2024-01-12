@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
+import { getUser } from '@/app/actions/auth'
+
 import Avatar from '@/components/Avatar'
-import Code from '@/components/Code'
 import ListItemRow from '@/components/lists/ItemRow'
 
-import { isDeployed } from '@/utils/environment'
 import { createClient } from '@/utils/supabase/server'
 
 export default async function ViewList({ params }: { params: { id: string } }) {
@@ -13,7 +13,7 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 	const supabase = createClient(cookieStore)
 	let { data, error } = await supabase
 		.from('lists')
-		.select('name,type,listItems:sorted_list_items(*),users(email,raw_user_meta_data->name)')
+		.select('name,type,listItems:sorted_list_items(*),user:users(id,email,raw_user_meta_data->name)')
 		.eq('id', params.id)
 		.not('active', 'is', false)
 		.single()
@@ -23,27 +23,30 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 		return notFound()
 	}
 
+	const { data: currentUser } = await getUser()
+	const userId = currentUser?.user?.id
+
 	const items = data?.listItems
-	const user = data?.users
+	const user = data?.user instanceof Array ? data?.user[0] : data?.user
+
+	const isListOwner = !!(userId && userId === user?.id)
 
 	return (
-		<div className="w-full animate-in flex-1 flex flex-col opacity-0 max-w-4xl px-3">
-			<div className="flex-1 flex flex-col gap-6">
-				<div className="flex flex-row gap-2 items-center justify-between">
-					<div className="flex flex-row gap-4 items-center">
+		<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
+			<div className="flex flex-col flex-1 gap-6">
+				<div className="flex flex-row items-center justify-between gap-2">
+					<div className="flex flex-row items-center gap-4">
 						<h1 className="">{data?.name}</h1>
 					</div>
-					{/* @ts-expect-error */}
 					<Avatar name={user?.name || user?.email} />
 				</div>
 
-				<div className="container mx-auto px-4">
+				<div className="container px-4 mx-auto">
 					<div className="flex flex-col">
 						{items?.length === 0 && <p className="text-gray-500 dark:text-gray-400">Nothing to see here... yet</p>}
-						<div className="flex flex-col">{items?.map(item => <ListItemRow key={item.id} item={item} />)}</div>
+						<div className="flex flex-col">{items?.map(item => <ListItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
 					</div>
 				</div>
-				{!isDeployed && <Code code={JSON.stringify(data, null, 2)} />}
 			</div>
 		</div>
 	)

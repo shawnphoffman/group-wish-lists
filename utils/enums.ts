@@ -1,9 +1,10 @@
-export const ListType = {
+export const ListCategory = {
 	Test: 'test',
 	Christmas: 'christmas',
 	Birthday: 'birthday',
 	WishList: 'wishlist',
 } as const
+export type ListCategoryType = (typeof ListCategory)[keyof typeof ListCategory]
 
 export const ItemPriority = {
 	'Very High': 'veryhigh',
@@ -12,3 +13,10 @@ export const ItemPriority = {
 	Low: 'low',
 } as const
 export type ItemPriorityType = (typeof ItemPriority)[keyof typeof ItemPriority]
+
+export const ItemStatus = {
+	Incomplete: 'incomplete',
+	Complete: 'complete',
+	Partial: 'partial',
+} as const
+export type ItemStatusType = (typeof ItemStatus)[keyof typeof ItemStatus]

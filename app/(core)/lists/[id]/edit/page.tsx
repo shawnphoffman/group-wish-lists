@@ -8,7 +8,13 @@ import ListItemEditRow from '@/components/lists/create/ItemEditRow'
 
 import { createClient } from '@/utils/supabase/server'
 
-export default async function EditList({ params }: { params: { id: string } }) {
+type Props = {
+	params: {
+		id: string
+	}
+}
+
+export default async function EditList({ params }: Props) {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const {
@@ -16,11 +22,10 @@ export default async function EditList({ params }: { params: { id: string } }) {
 	} = await supabase.auth.getUser()
 	let { data, error } = await supabase
 		.from('lists')
-		.select('name,type,listItems:sorted_list_items(*),users(email,raw_user_meta_data->name)')
+		.select('name,type,listItems:sorted_list_items(*),user:users(email,raw_user_meta_data->name)')
 		.eq('id', params.id)
 		.eq('user_id', currentUser?.id)
 		.not('active', 'is', false)
-		// .order('listItems(priority)', { ascending: false })
 		.single()
 
 	if (error || !data) {
@@ -31,7 +36,7 @@ export default async function EditList({ params }: { params: { id: string } }) {
 	}
 
 	const items = data.listItems
-	const user = data.users
+	const user = data.user
 
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
@@ -54,8 +59,6 @@ export default async function EditList({ params }: { params: { id: string } }) {
 
 				{/* Add Item */}
 				<AddItem listId={params.id} />
-
-				{/* {!isDeployed && <Code code={JSON.stringify(data, null, 2)} />} */}
 			</div>
 		</div>
 	)

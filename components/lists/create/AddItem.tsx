@@ -2,12 +2,15 @@
 
 import { useCallback, useState } from 'react'
 
+import { Scrape } from '../types'
 import AddItemForm from './AddItemForm'
-import { Scrape } from './ScrapePreview'
 import ScrapeUrl from './ScrapeUrl'
 
-export default function AddItem({ listId }: { listId: string }) {
-	// const [isLoading, setIsLoading] = useState(false)
+type Props = {
+	listId: string
+}
+
+export default function AddItem({ listId }: Props) {
 	const [scrape, setScrape] = useState<Scrape | undefined>()
 
 	const clearScrape = useCallback(() => {

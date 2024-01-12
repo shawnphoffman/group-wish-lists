@@ -6,8 +6,8 @@ import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
 
+import { Scrape } from '../types'
 import ItemFormFields from './ItemFormFields'
-import { Scrape } from './ScrapePreview'
 
 type Props = {
 	listId: string

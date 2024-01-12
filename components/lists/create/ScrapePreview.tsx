@@ -1,30 +1,10 @@
+import { Scrape } from '../types'
+
 export const getImageFromScrape = (scrape?: Scrape) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
 		return scrape.result.ogImage[0].url
 	}
 	return ''
-}
-
-export interface Scrape {
-	error: boolean
-	result: Result
-}
-
-export interface Result {
-	ogUrl: string
-	ogTitle: string
-	ogDescription: string
-	ogImage: OgImage[]
-	ogLocale: string
-	charset: string
-	requestUrl: string
-	success: boolean
-	error: string
-}
-
-export interface OgImage {
-	url: string
-	type: string
 }
 
 export default function ScrapePreview({ scrape }: { scrape: Scrape }) {

@@ -5,8 +5,8 @@ import { RefObject, useCallback, useEffect, useState, useTransition } from 'reac
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
-import { ListItemType } from '../types'
-import { Scrape, getImageFromScrape } from './ScrapePreview'
+import { ListItem, Scrape } from '../types'
+import { getImageFromScrape } from './ScrapePreview'
 
 type Props = {
 	listId: string
@@ -16,7 +16,7 @@ type Props = {
 	formRef: RefObject<HTMLFormElement>
 	formAction: any
 	formState: any
-	item?: ListItemType
+	item?: ListItem
 	// onSubmit?: () => void
 }
 
