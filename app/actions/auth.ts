@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 
-// NOTE
+//
 export const getUser = async () => {
 	'use server'
 	const cookieStore = cookies()
@@ -13,7 +13,7 @@ export const getUser = async () => {
 	return await supabase.auth.getUser()
 }
 
-// NOTE
+//
 export const signOut = async () => {
 	'use server'
 	const cookieStore = cookies()
@@ -22,7 +22,7 @@ export const signOut = async () => {
 	return redirect('/login')
 }
 
-// NOTE
+//
 export const signIn = async (formData: FormData) => {
 	'use server'
 	const email = formData.get('email') as string
@@ -42,7 +42,7 @@ export const signIn = async (formData: FormData) => {
 	return redirect('/')
 }
 
-// NOTE
+//
 export const signUp = async (formData: FormData) => {
 	'use server'
 	const origin = headers().get('origin')
@@ -66,7 +66,7 @@ export const signUp = async (formData: FormData) => {
 	return redirect('/login?message=Check email to continue sign in process')
 }
 
-// NOTE
+//
 export const updateProfile = async (prevState: any, formData: FormData) => {
 	'use server'
 	const cookieStore = cookies()

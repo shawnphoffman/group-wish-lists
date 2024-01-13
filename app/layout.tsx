@@ -1,18 +1,25 @@
 import { GeistSans } from 'geist/font/sans'
+import type { Metadata } from 'next'
 
 import PrelineScript from '@/components/utils/PrelineScript'
 
 import './globals.css'
 
-const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
+const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
 
-export const metadata = {
+export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
 	title: 'Wish Lists',
 	description: 'Sharing wish lists made easy.',
+	openGraph: {
+		title: 'Wish Lists',
+		description: 'Sharing wish lists made easy.',
+		type: 'website',
+		url: '/',
+	},
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className={GeistSans.className}>
 			<head>

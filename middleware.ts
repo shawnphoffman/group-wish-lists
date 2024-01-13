@@ -10,15 +10,22 @@ export async function middleware(request: NextRequest) {
 
 		// Refresh session if expired - required for Server Components
 		// https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-		await supabase.auth.getSession()
+		const session = await supabase.auth.getSession()
+		const hasSession = !!session.data.session
+		// console.log('middleware.session', { hasSession, session: session.data.session, url: request.url })
 
-		// console.log(request.)
+		// IF THERE IS A SESSION, DO NOT ALLOW LOGIN
+		if (hasSession && request.url.includes('/login')) {
+			console.log('⤴️ REDIRECT TO ROOT')
+			return NextResponse.redirect(new URL('/', request.url))
+		}
+
+		// IF THERE IS NO SESSION, REDIRECT TO LOGIN
 		if (!request.url.includes('/login') && !request.url.includes('/auth')) {
-			const {
-				data: { user },
-			} = await supabase.auth.getUser()
-
-			if (!user) {
+			// const { data } = await supabase.auth.getUser()
+			// if (!data?.user) {
+			if (!hasSession) {
+				console.log('⤵️ REDIRECT TO LOGIN')
 				return NextResponse.redirect(new URL('/login', request.url))
 			}
 		}
