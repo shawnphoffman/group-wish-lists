@@ -1,3 +1,15 @@
+/*
+	<Avatar name={'Shawn'} />
+	<Avatar name={'Melissa'} />
+	<Avatar name={'Jason'} />
+	<Avatar name={'Graham'} />
+	<Avatar name={'Chase'} />
+	<Avatar name={'Sam'} />
+	<Avatar name={'Carol'} />
+	<Avatar name={'Jeff'} />
+	<Avatar name={'Kate'} />
+*/
+
 function getColor(name: string) {
 	const colorArray = [
 		'border-green-500 text-green-500',

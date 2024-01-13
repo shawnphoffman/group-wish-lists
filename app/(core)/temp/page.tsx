@@ -1,16 +1,33 @@
-import { getUser } from '@/app/actions/auth'
+import { Suspense } from 'react'
 
-import Avatar from '@/components/Avatar'
-import ProfileForm from '@/components/ProfileForm'
+import { getMyLists } from '@/app/actions/lists'
+
+import SuspenseTest from '@/components/SuspenseTest'
+import FallbackIcon from '@/components/icons/Fallback'
 
 export default async function Profile() {
-	const { data } = await getUser()
-
-	const name = data?.user?.user_metadata?.name
+	const { data: lists } = await getMyLists()
 
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-lg gap-4 p-4 opacity-0 animate-in">
 			<h1>Temp</h1>
+
+			<Suspense fallback={<FallbackIcon />}>
+				<SuspenseTest />
+			</Suspense>
+			<Suspense fallback={<FallbackIcon />}>
+				<SuspenseTest />
+			</Suspense>
+			<Suspense fallback={<FallbackIcon />}>
+				<SuspenseTest />
+			</Suspense>
+			<Suspense fallback={<FallbackIcon />}>
+				<SuspenseTest />
+			</Suspense>
+
+			<pre className="cool-code">
+				<code>{JSON.stringify(lists, null, 2)}</code>
+			</pre>
 
 			<div className="flex flex-col gap-2">
 				<button className="btn">Button</button>
