@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import Avatar from '@/components/Avatar'
+import RealTimeListener from '@/components/RealTimeListener'
 import RenameListButton from '@/components/lists/buttons/RenameListButton'
 import AddItem from '@/components/lists/create/AddItem'
 import ListItemEditRow from '@/components/lists/create/ItemEditRow'
@@ -60,6 +61,8 @@ export default async function EditList({ params }: Props) {
 				{/* Add Item */}
 				<AddItem listId={params.id} />
 			</div>
+
+			<RealTimeListener listId={params.id} />
 		</div>
 	)
 }
