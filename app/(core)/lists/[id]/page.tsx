@@ -14,7 +14,7 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 	const supabase = createClient(cookieStore)
 	let { data, error } = await supabase
 		.from('lists')
-		.select('name,type,listItems:sorted_list_items(*),user:users(id,email,raw_user_meta_data->name)')
+		.select('name,type,listItems:sorted_list_items(*),user:temp_users(id,email,raw_user_meta_data->name)')
 		.eq('id', params.id)
 		.not('active', 'is', false)
 		.single()

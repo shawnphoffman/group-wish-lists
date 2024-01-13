@@ -34,8 +34,8 @@ export default function RealTimeListener({ listId }: Props) {
 
 	useEffect(() => {
 		const channels = supabase
-			.channel('listItems')
-			.on('postgres_changes', { event: '*', schema: 'public', table: 'listItems', filter: `list_id=eq.${listId}` }, payload => {
+			.channel('list_items')
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'list_items', filter: `list_id=eq.${listId}` }, payload => {
 				console.log('Change received!', payload)
 				setUpdates(updates => [
 					...updates,

@@ -6,7 +6,7 @@ export type List = {
 	name: string
 	type: ListCategoryType
 	user: User
-	listItems: ListItem[]
+	list_items: ListItem[]
 }
 
 export type ListItem = {

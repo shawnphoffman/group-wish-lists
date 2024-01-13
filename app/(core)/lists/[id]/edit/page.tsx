@@ -23,7 +23,7 @@ export default async function EditList({ params }: Props) {
 	} = await supabase.auth.getUser()
 	let { data, error } = await supabase
 		.from('lists')
-		.select('name,type,listItems:sorted_list_items(*),user:users(email,raw_user_meta_data->name)')
+		.select('name,type,listItems:sorted_list_items(*),user:temp_users(email,raw_user_meta_data->name)')
 		.eq('id', params.id)
 		.eq('user_id', currentUser?.id)
 		.not('active', 'is', false)

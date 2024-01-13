@@ -19,11 +19,16 @@
 
 [] Add status to list items
 [] Move item to a different list
+[] Import URL to existing item
 
 ## NICE TO HAVES
 
 [] Add amazon wish list importer
 
-## AUTH & INFRA
+    - https://www.amazon.com/hz/wishlist/ls/2QDX7UX6DZ86O?ref_=wl_share
+    - https://www.amazon.com/hz/wishlist/dl/invite/2pKVDQ8?ref_=wl_share
 
-[] Sign in with Apple
+[] Raw Notes importer
+[] Realtime updates
+
+## AUTH & INFRA

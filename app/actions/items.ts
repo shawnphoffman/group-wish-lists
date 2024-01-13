@@ -19,7 +19,7 @@ export const createItem = async (prevState: any, formData: FormData) => {
 	const imageUrl = formData.get('image-url') as string
 
 	const item = await supabase
-		.from('listItems')
+		.from('list_items')
 		.insert([{ list_id: listId, title, url, notes, priority, scrape: JSON.parse(scrape), image_url: imageUrl }])
 
 	return {
@@ -41,7 +41,7 @@ export const editItem = async (prevState: any, formData: FormData) => {
 
 	// TODO image url
 
-	const item = await supabase.from('listItems').update([{ title, url, notes, priority }]).eq('id', id)
+	const item = await supabase.from('list_items').update([{ title, url, notes, priority }]).eq('id', id)
 
 	return {
 		status: 'success',
@@ -55,7 +55,7 @@ export const deleteItem = async (itemId: string) => {
 		const cookieStore = cookies()
 		const supabase = createClient(cookieStore)
 
-		await supabase.from('listItems').delete().eq('id', itemId)
+		await supabase.from('list_items').delete().eq('id', itemId)
 
 		return {
 			status: 'success',

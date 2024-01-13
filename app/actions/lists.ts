@@ -10,7 +10,7 @@ export const getGroupedLists = async () => {
 	const supabase = createClient(cookieStore)
 
 	return await supabase
-		.from('users')
+		.from('temp_users')
 		.select('id,email,raw_user_meta_data->name,lists(*)')
 		.not('lists', 'is', null)
 		.order('id', { ascending: true })
