@@ -19,8 +19,7 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 		.not('active', 'is', false)
 		.single()
 
-	if (error) {
-		console.error(error)
+	if (error || !data) {
 		return notFound()
 	}
 

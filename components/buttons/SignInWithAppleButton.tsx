@@ -8,16 +8,12 @@ export default function SignInWithAppleButton() {
 	const supabase = createClientSideClient()
 
 	const handleAppleLogin = async () => {
-		const { error } = await supabase.auth.signInWithOAuth({
+		await supabase.auth.signInWithOAuth({
 			provider: 'apple',
 			options: {
 				redirectTo: process.env.NEXT_PUBLIC_AUTH_CALLBACK,
 			},
 		})
-
-		if (error) {
-			console.log({ error })
-		}
 	}
 
 	return (

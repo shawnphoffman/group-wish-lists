@@ -17,7 +17,6 @@ function initPreline(times = 0) {
 	setTimeout(
 		() => {
 			try {
-				console.log('initPreline', { times })
 				window.HSStaticMethods?.autoInit()
 			} catch (error) {
 				if (times <= 5) {
