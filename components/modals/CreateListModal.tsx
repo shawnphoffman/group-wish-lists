@@ -52,7 +52,7 @@ export default function CreateListModal() {
 						</div>
 						<div className="flex flex-col gap-4 p-4 overflow-y-auto">
 							<div>
-								<label htmlFor="input-name" className="block mb-2 label">
+								<label htmlFor="input-name" className="block mb-2 label" autoFocus>
 									Title
 								</label>
 								<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autoFocus />
