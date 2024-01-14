@@ -16,6 +16,8 @@ type Props = {
 }
 
 export default async function ViewList({ params }: Props) {
+	// TODO Suspense refactor
+
 	const userPromise = getSessionUser()
 	const listPromise = getViewableList(params.id)
 

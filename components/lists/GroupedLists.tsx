@@ -1,16 +1,19 @@
 import { getSessionUser } from '@/app/actions/auth'
 import { getListsGroupedByUser } from '@/app/actions/lists'
 
-// import { fakeAsync } from '@/app/actions/test'
 import ErrorMessage from './GenericErrorMessage'
 import ListBlock from './ListBlock'
 
 export default async function GroupedLists() {
-	// const fakePromise = fakeAsync(5500)
+	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
 	const listsPromise = getListsGroupedByUser()
 
-	const [currentUser, { data: groupedLists, error }] = await Promise.all([userPromise, listsPromise /*, fakePromise*/])
+	const [currentUser, { data: groupedLists, error }] = await Promise.all([
+		userPromise,
+		listsPromise,
+		// fakePromise
+	])
 
 	return (
 		<div className="container px-4 mx-auto">

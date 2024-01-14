@@ -17,6 +17,7 @@ type Props = {
 }
 
 export default async function EditList({ params }: Props) {
+	// TODO Suspense refactor
 	const { data, error } = await getEditableList(params.id)
 	if (error || !data) {
 		return notFound()
