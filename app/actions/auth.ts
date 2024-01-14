@@ -6,11 +6,23 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
 //
+export const getSessionUser = async () => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+	const { data, error } = await supabase.auth.getSession()
+	if (error || !data?.session?.user) {
+		return null
+	}
+	return data.session.user
+}
+
+//
 export const getUser = async () => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	return await supabase.auth.getUser()
+	return await supabase.from('view_me').select('user_id,display_name,is_parent,email').single()
 }
 
 //
@@ -72,7 +84,8 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const name = formData.get('name') as string
-	const { data, error } = await supabase.auth.updateUser({ data: { name } })
+	const userId = formData.get('user_id') as string
+	const { data, error } = await supabase.from('users').update({ display_name: name }).eq('user_id', userId)
 
 	if (error) {
 		return {

@@ -1,35 +1,34 @@
-import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { getUser } from '@/app/actions/auth'
+import { getSessionUser } from '@/app/actions/auth'
+import { getViewableList } from '@/app/actions/lists'
 
 import Avatar from '@/components/Avatar'
 import RealTimeListener from '@/components/RealTimeListener'
+import EmptyMessage from '@/components/lists/EmptyMessage'
 import ListItemRow from '@/components/lists/ItemRow'
+import { List, ListItem, Recipient } from '@/components/lists/types'
 
-import { createClient } from '@/utils/supabase/server'
+type Props = {
+	params: {
+		id: List['id']
+	}
+}
 
-export default async function ViewList({ params }: { params: { id: string } }) {
-	const cookieStore = cookies()
-	const supabase = createClient(cookieStore)
-	let { data, error } = await supabase
-		.from('lists')
-		.select('name,type,listItems:sorted_list_items(*),user:temp_users(id,email,raw_user_meta_data->name)')
-		.eq('id', params.id)
-		.not('active', 'is', false)
-		.single()
+export default async function ViewList({ params }: Props) {
+	const userPromise = getSessionUser()
+	const listPromise = getViewableList(params.id)
+
+	const [currentUser, { data, error }] = await Promise.all([userPromise, listPromise])
 
 	if (error || !data) {
 		return notFound()
 	}
 
-	const { data: currentUser } = await getUser()
-	const userId = currentUser?.user?.id
+	const items = data.listItems as unknown as ListItem[]
 
-	const items = data?.listItems
-	const user = data?.user instanceof Array ? data?.user[0] : data?.user
-
-	const isListOwner = !!(userId && userId === user?.id)
+	const recipient = data.recipient! as unknown as Recipient
+	const isListOwner = !!(currentUser?.id === data.user_id)
 
 	return (
 		<>
@@ -39,12 +38,12 @@ export default async function ViewList({ params }: { params: { id: string } }) {
 						<div className="flex flex-row items-center gap-4">
 							<h1 className="">{data?.name}</h1>
 						</div>
-						<Avatar name={user?.name || user?.email} />
+						<Avatar name={recipient.display_name} />
 					</div>
 
+					{items?.length === 0 && <EmptyMessage />}
 					<div className="container px-4 mx-auto">
 						<div className="flex flex-col">
-							{items?.length === 0 && <p className="text-gray-500 dark:text-gray-400">Nothing to see here... yet</p>}
 							<div className="flex flex-col">{items?.map(item => <ListItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
 						</div>
 					</div>

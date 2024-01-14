@@ -7,11 +7,11 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
-import { ListItem, Scrape } from '../types'
+import { List, ListItem, Scrape } from '../types'
 import { getImageFromScrape } from './ScrapePreview'
 
 type Props = {
-	listId: string
+	listId: List['id']
 	scrape?: Scrape
 	clearScrape?: () => void
 	// TODO do something with this?

@@ -2,12 +2,12 @@
 
 import { useCallback, useState } from 'react'
 
-import { Scrape } from '../types'
+import { List, Scrape } from '../types'
 import AddItemForm from './AddItemForm'
 import ScrapeUrl from './ScrapeUrl'
 
 type Props = {
-	listId: string
+	listId: List['id']
 }
 
 export default function AddItem({ listId }: Props) {

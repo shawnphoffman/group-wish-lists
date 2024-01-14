@@ -1,5 +1,7 @@
 import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 
+import { FallbackRow } from '@/components/icons/Fallback'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import GroupedLists from '@/components/lists/GroupedLists'
 
@@ -19,7 +21,9 @@ export default async function Lists() {
 							Create List
 						</button>
 					</div>
-					<GroupedLists />
+					<Suspense fallback={<FallbackRow label="Loading..." />}>
+						<GroupedLists />
+					</Suspense>
 				</div>
 			</div>
 			<CreateListModal />

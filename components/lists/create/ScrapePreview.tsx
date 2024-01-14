@@ -1,3 +1,4 @@
+import ErrorMessage from '../GenericErrorMessage'
 import { Scrape } from '../types'
 
 export const getImageFromScrape = (scrape?: Scrape) => {
@@ -9,15 +10,14 @@ export const getImageFromScrape = (scrape?: Scrape) => {
 
 export default function ScrapePreview({ scrape }: { scrape: Scrape }) {
 	if (scrape?.error) {
-		return (
-			<div className="p-4 text-sm text-white bg-red-500 rounded-lg" role="alert">
-				<span className="font-bold">Error.</span> {scrape?.result?.error || 'Something went wrong.'}
-			</div>
-		)
+		return <ErrorMessage />
 	}
 	if (!scrape?.result) {
 		return (
-			<div className="p-4 text-sm text-white bg-red-500 rounded-lg" role="alert">
+			<div
+				className="p-4 text-sm text-yellow-800 bg-yellow-100 border border-yellow-200 rounded-lg dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500"
+				role="alert"
+			>
 				<span className="font-bold">Sorry.</span> No data found for this URL.
 			</div>
 		)

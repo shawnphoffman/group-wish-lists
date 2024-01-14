@@ -22,9 +22,12 @@ export type ListItem = {
 }
 
 export type User = {
-	name: string
-	email: string
+	id: number
+	display_name: string
+	is_parent: boolean
 }
+
+export type Recipient = Pick<User, 'id' | 'display_name'>
 
 export interface Scrape {
 	error: boolean

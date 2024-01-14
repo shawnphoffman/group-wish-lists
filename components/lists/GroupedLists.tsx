@@ -1,21 +1,26 @@
-import { getUser } from '@/app/actions/auth'
-import { getGroupedLists } from '@/app/actions/lists'
+import { getSessionUser } from '@/app/actions/auth'
+import { getListsGroupedByUser } from '@/app/actions/lists'
 
+// import { fakeAsync } from '@/app/actions/test'
+import ErrorMessage from './GenericErrorMessage'
 import ListBlock from './ListBlock'
 
 export default async function GroupedLists() {
-	const { data: groups, error } = await getGroupedLists()
-	const { data } = await getUser()
-	const userId = data?.user?.id
+	// const fakePromise = fakeAsync(5500)
+	const userPromise = getSessionUser()
+	const listsPromise = getListsGroupedByUser()
+
+	const [currentUser, { data: groupedLists, error }] = await Promise.all([userPromise, listsPromise /*, fakePromise*/])
 
 	return (
 		<div className="container px-4 mx-auto">
 			<div className="flex flex-col">
-				{error && <p className="text-red-500">Something went wrong...</p>}
-				{groups?.map(group => (
-					<div key={group.email} className={`flex flex-col mb-8 `}>
-						<h2 className="mb-2 text-2xl dark:text-white">{group.name || group.email}</h2>
-						<ListBlock lists={group.lists} isOwner={userId === group.id} />
+				{error && <ErrorMessage />}
+
+				{groupedLists?.map(group => (
+					<div key={`group-${group.id}`} className={`flex flex-col mb-8 `}>
+						<h2 className="mb-2 text-2xl dark:text-white">{group.display_name}</h2>
+						<ListBlock lists={group.lists} isOwner={currentUser?.id === group.user_id} />
 					</div>
 				))}
 			</div>

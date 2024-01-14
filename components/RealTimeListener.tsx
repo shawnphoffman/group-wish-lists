@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react'
 import { isDeployed } from '@/utils/environment'
 import { createClientSideClient } from '@/utils/supabase/client'
 
+import { List } from './lists/types'
+
 type Props = {
-	listId?: string
+	listId?: List['id']
 }
 
 const EventTypes = {
@@ -15,7 +17,7 @@ const EventTypes = {
 	DELETE: 'DELETE',
 } as const
 
-const getMessage = (payload: { eventType: any; new: { id: any }; old: { id: any } }) => {
+const getMessage = (payload: { eventType: keyof typeof EventTypes; new: { id: any }; old: { id: any } }) => {
 	switch (payload.eventType) {
 		case EventTypes.INSERT:
 			return `(INSERT: ${payload.new.id})`

@@ -6,11 +6,11 @@ import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
 
-import { Scrape } from '../types'
+import { List, Scrape } from '../types'
 import ItemFormFields from './ItemFormFields'
 
 type Props = {
-	listId: string
+	listId: List['id']
 	scrape?: Scrape
 	clearScrape?: () => void
 }

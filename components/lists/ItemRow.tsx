@@ -27,7 +27,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 						{/* Priority */}
 						<ItemPriorityIcon priority={item.priority} />
 					</div>
-					{!isOwnerView && <input type="checkbox" checked={isComplete} />}
+					{!isOwnerView && <input type="checkbox" checked={isComplete} readOnly />}
 					<div className="flex flex-col items-center flex-1 gap-2 md:flex-row md:gap-4">
 						<div className="flex flex-col flex-1">
 							{/* Title */}

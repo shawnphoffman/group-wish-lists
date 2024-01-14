@@ -114,12 +114,31 @@
 	.textarea {
 		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-300;
 	}
+
 	.avatar {
 		@apply inline-flex items-center justify-center h-[2.875rem] w-[2.875rem] text-xl font-semibold leading-none rounded-full border uppercase;
 	}
 
 	.cool-code {
 		@apply relative p-4 my-0 overflow-scroll text-xs text-green-300 rounded-md;
+	}
+
+	.list {
+		@apply container flex flex-col w-full px-4;
+		.list-item {
+			@apply inline-flex w-full h-12 items-center gap-x-3.5 py-3 px-4 -mt-px text-lg font-medium;
+			@apply first:rounded-t-lg first:mt-0 last:rounded-b-lg;
+			@apply border border-gray-200 dark:border-gray-700;
+			@apply bg-white dark:bg-gray-900;
+			@apply text-gray-800 dark:text-white;
+			@apply hover:bg-gray-100 dark:hover:bg-gray-800;
+		}
+		&.fallback {
+			@apply animate-pulse;
+			.list-item {
+				@apply hover:bg-white hover:dark:bg-gray-900;
+			}
+		}
 	}
 }
 
