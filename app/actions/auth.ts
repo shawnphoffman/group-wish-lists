@@ -86,6 +86,7 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 	const name = formData.get('name') as string
 	const userId = formData.get('user_id') as string
 	const { data, error } = await supabase.from('users').update({ display_name: name }).eq('user_id', userId)
+	// await new Promise(resolve => setTimeout(resolve, 5000))
 
 	if (error) {
 		return {
