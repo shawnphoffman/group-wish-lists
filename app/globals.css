@@ -91,10 +91,23 @@
 		&.white {
 			@apply text-black bg-gray-50 hover:bg-gray-200;
 		}
+		&.transparent {
+			@apply text-white bg-gray-500/50 hover:bg-gray-400/50;
+		}
 	}
 	/* TODO these shouldn't be required on individual items */
+	.input-base {
+		@apply block w-full px-4 py-2 text-base rounded-lg;
+		@apply border border-gray-200 dark:border-gray-700;
+		@apply disabled:opacity-50 disabled:pointer-events-none;
+		@apply dark:bg-gray-900 dark:text-gray-300;
+	}
+
 	.input {
-		@apply block w-full px-4 py-2 text-lg border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300;
+		@apply input-base;
+	}
+	.textarea {
+		@apply input-base;
 	}
 	.radio {
 		@apply self-center text-blue-600 border-gray-200 rounded-full shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
@@ -110,9 +123,6 @@
 	}
 	.select {
 		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg pe-9 focus:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400;
-	}
-	.textarea {
-		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-300;
 	}
 
 	.avatar {
@@ -144,6 +154,12 @@
 }
 
 /* Defaults */
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='url'] {
+	@apply input;
+}
 input[type='checkbox'] {
 	@apply checkbox;
 }

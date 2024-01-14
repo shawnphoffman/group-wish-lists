@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { getMyLists } from '@/app/actions/lists'
 
 import SuspenseTest from '@/components/SuspenseTest'
-import FallbackIcon from '@/components/icons/Fallback'
+import Fallback from '@/components/icons/Fallback'
 
 export default async function Profile() {
 	const { data: lists } = await getMyLists()
@@ -12,16 +12,16 @@ export default async function Profile() {
 		<div className="flex flex-col flex-1 w-full max-w-lg gap-4 p-4 opacity-0 animate-in">
 			<h1>Temp</h1>
 
-			<Suspense fallback={<FallbackIcon />}>
+			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
-			<Suspense fallback={<FallbackIcon />}>
+			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
-			<Suspense fallback={<FallbackIcon />}>
+			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
-			<Suspense fallback={<FallbackIcon />}>
+			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
 

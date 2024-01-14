@@ -7,6 +7,8 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { Scrape } from '../types'
 import ScrapePreview from './ScrapePreview'
 
+import './ScrapeUrl.css'
+
 type Props = {
 	setScrape: Dispatch<SetStateAction<Scrape | undefined>>
 	scrape?: Scrape
@@ -15,6 +17,12 @@ type Props = {
 export default function ScrapeItem({ setScrape, scrape }: Props) {
 	const [isLoading, setIsLoading] = useState(false)
 	const [importUrl, setImportUrl] = useState<string>('')
+
+	const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			handleSubmit()
+		}
+	}, [])
 
 	const handleChangeImportUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setImportUrl(e.target.value)
@@ -43,16 +51,14 @@ export default function ScrapeItem({ setScrape, scrape }: Props) {
 				<input
 					className="input"
 					name="url"
+					type="url"
 					placeholder="URL to Import"
 					value={importUrl}
 					onChange={handleChangeImportUrl}
 					disabled={isLoading}
+					onKeyDown={handleKeyDown}
 				/>
-				<button
-					onClick={handleSubmit}
-					className="inline-flex items-center px-3 py-2 text-sm font-semibold text-teal-500 border border-transparent rounded-lg gap-x-2 hover:bg-teal-100 hover:text-teal-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-teal-800/30 dark:hover:text-teal-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-					disabled={isLoading}
-				>
+				<button onClick={handleSubmit} className="import-btn" disabled={isLoading}>
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-link" />
 				</button>
 			</div>

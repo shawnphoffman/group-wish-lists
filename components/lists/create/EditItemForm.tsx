@@ -19,16 +19,19 @@ export default function EditItemForm({ listId, item }: Props) {
 	const [state, formAction] = useFormState(editItem, {})
 
 	return (
-		<ItemFormFields
-			formRef={formRef}
-			listId={listId}
-			scrape={item?.scrape as Scrape}
-			clearScrape={() => {
-				delete item?.scrape
-			}}
-			formAction={formAction}
-			formState={state}
-			item={item}
-		/>
+		<div className="flex flex-col items-stretch gap-2 p-2">
+			<h5>Item Details</h5>
+			<form action={formAction} ref={formRef}>
+				<ItemFormFields
+					listId={listId}
+					scrape={item?.scrape as Scrape}
+					clearScrape={() => {
+						delete item?.scrape
+					}}
+					formState={state}
+					item={item}
+				/>
+			</form>
+		</div>
 	)
 }

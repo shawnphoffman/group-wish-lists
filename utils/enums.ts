@@ -1,8 +1,8 @@
 export const ListCategory = {
-	Test: 'test',
 	Christmas: 'christmas',
 	Birthday: 'birthday',
 	WishList: 'wishlist',
+	Test: 'test',
 } as const
 export type ListCategoryType = (typeof ListCategory)[keyof typeof ListCategory]
 

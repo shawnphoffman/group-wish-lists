@@ -1,7 +1,6 @@
 'use server'
 
 import { cookies } from 'next/headers'
-import { notFound } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 
@@ -49,14 +48,23 @@ export const getViewableList = async (listID: number) => {
 
 export const createList = async (prevState: any, formData: FormData) => {
 	'use server'
+	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	await supabase.from('lists').insert([{ name, active: true, type }])
+	const me = await supabase.from('view_me').select('id').single()
+
+	const createPromise = supabase.from('lists').insert({ recipient_id: me.data?.id, name, active: true, type })
+
+	const [list] = await Promise.all([
+		createPromise,
+		// new Promise(resolve => setTimeout(resolve, 5000))
+	])
 
 	return {
 		status: 'success',
+		list,
 	}
 }
 

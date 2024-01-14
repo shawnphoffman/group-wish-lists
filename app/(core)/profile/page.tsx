@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { getUser } from '@/app/actions/auth'
 
 import Avatar from '@/components/Avatar'
-import ProfileFormWrapper from '@/components/ProfileFormWrapper'
+import ProfileForm from '@/components/ProfileForm'
 import FallbackRow from '@/components/icons/Fallback'
 
 const ShowProfile = async () => {
@@ -23,7 +23,7 @@ const ShowProfile = async () => {
 	return (
 		<>
 			<Avatar name={user.display_name || user?.email} />
-			<ProfileFormWrapper name={user.display_name} id={user.user_id} />
+			<ProfileForm name={user.display_name} id={user.user_id} />
 		</>
 	)
 }

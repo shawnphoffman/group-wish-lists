@@ -22,7 +22,7 @@ export const getUser = async () => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	return await supabase.from('view_me').select('user_id,display_name,is_parent,email').single()
+	return await supabase.from('view_me').select('id,user_id,display_name,is_parent,email').single()
 }
 
 //

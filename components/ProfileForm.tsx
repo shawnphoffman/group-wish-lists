@@ -1,12 +1,14 @@
 'use client'
 
 // @ts-expect-error
-import { useFormStatus } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
+
+import { updateProfile } from '@/app/actions/auth'
 
 import ErrorMessage from './lists/GenericErrorMessage'
 import SuccessAlert from './lists/SuccessAlert'
 
-type Props = {
+type FormProps = {
 	name: string
 	id: string
 	state: {
@@ -15,7 +17,7 @@ type Props = {
 	}
 }
 
-export default function ProfileForm({ name, id, state }: Props) {
+function ProfileForm({ name, id, state }: FormProps) {
 	// const { pending, data, method, action } = useFormStatus()
 	const { pending } = useFormStatus()
 	return (
@@ -35,5 +37,24 @@ export default function ProfileForm({ name, id, state }: Props) {
 				</>
 			)}
 		</>
+	)
+}
+
+type WrapperProps = {
+	name: string
+	id: string
+}
+
+const initialState = {
+	error: '',
+	status: '',
+}
+
+export default function ProfileFormWrapper({ name, id }: WrapperProps) {
+	const [state, formAction] = useFormState(updateProfile, initialState)
+	return (
+		<form className="flex flex-col flex-1 w-full gap-2 text-foreground" action={formAction}>
+			<ProfileForm name={name} id={id} state={state} />
+		</form>
 	)
 }

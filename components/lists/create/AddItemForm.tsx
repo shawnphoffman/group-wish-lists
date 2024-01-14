@@ -20,6 +20,17 @@ export default function AddItemForm({ listId, scrape, clearScrape }: Props) {
 	const [state, formAction] = useFormState(createItem, {})
 
 	return (
-		<ItemFormFields formRef={formRef} listId={listId} scrape={scrape} clearScrape={clearScrape} formAction={formAction} formState={state} />
+		<div className="flex flex-col items-stretch gap-2 p-2">
+			<h5>Item Details</h5>
+			<form action={formAction} ref={formRef}>
+				<ItemFormFields
+					listId={listId}
+					scrape={scrape}
+					//
+					clearScrape={clearScrape}
+					formState={state}
+				/>
+			</form>
+		</div>
 	)
 }

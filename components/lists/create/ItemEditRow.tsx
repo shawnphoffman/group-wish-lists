@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 import { deleteItem } from '@/app/actions/items'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 
 import ItemImage from '../ItemImage'
@@ -18,6 +19,7 @@ type Props = {
 
 export default function ListItemEditRow({ item }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
+	const [isDeleting, setIsDeleting] = useState(false)
 
 	const router = useRouter()
 	const [isPending, startTransition] = useTransition()
@@ -28,12 +30,15 @@ export default function ListItemEditRow({ item }: Props) {
 
 	const handleDeleteClick = useCallback(async () => {
 		if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
+			setIsDeleting(true)
 			const resp = await deleteItem(item.id)
 			if (resp?.status === 'success') {
 				startTransition(() => {
+					setIsDeleting(() => false)
 					router.refresh()
 				})
 			} else {
+				setIsDeleting(false)
 				console.log('delete error', { resp, item })
 			}
 		}
@@ -47,8 +52,14 @@ export default function ListItemEditRow({ item }: Props) {
 
 	if (!item) return null
 
+	const pending = isPending || isDeleting
+
 	return (
-		<div className="flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+		<div
+			className={`flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 ${
+				pending && 'animate-pulse'
+			}`}
+		>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					<div className="flex flex-col items-center justify-center w-4 shrink-0">
@@ -58,26 +69,28 @@ export default function ListItemEditRow({ item }: Props) {
 					<div className="flex flex-col items-center flex-1 gap-2 md:flex-row md:gap-4">
 						<div className="flex flex-col flex-1">
 							{/* Title */}
-							<div className="">{item.title}</div>
+							<div>{item.title}</div>
 							{/* Notes */}
 							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
 						</div>
 						{/* Image */}
 						<ItemImage url={item.image_url} />
 						{/* Actions */}
-						<div className="flex flex-row items-center justify-end gap-4 text-xl">
+						{/* {!isDeleting && ( */}
+						<fieldset disabled={pending} className="flex flex-row items-center justify-end gap-4 text-xl">
 							{item.url && (
-								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-up-right-from-square" />
+								<a href={item.url} target="_blank" referrerPolicy="no-referrer">
+									<OpenUrlIcon />
 								</a>
 							)}
-							<button type="button" className="text-yellow-200 hover:text-yellow-300" onClick={handleEditClick}>
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-pen-to-square" />
+							<button type="button" onClick={handleEditClick}>
+								<EditIcon />
 							</button>
-							<button type="button" className="text-red-300 hover:text-red-400" onClick={handleDeleteClick}>
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-trash-xmark" />
+							<button type="button" onClick={handleDeleteClick}>
+								<DeleteIcon />
 							</button>
-						</div>
+						</fieldset>
+						{/* )} */}
 					</div>
 				</div>
 

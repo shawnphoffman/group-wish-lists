@@ -5,7 +5,7 @@ import { useCallback, useTransition } from 'react'
 
 import { deleteList } from '@/app/actions/lists'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { DeleteIcon } from '@/components/icons/Icons'
 
 export default function DeleteListButton({ listId, name }: any) {
 	const router = useRouter()
@@ -27,8 +27,8 @@ export default function DeleteListButton({ listId, name }: any) {
 
 	return (
 		<>
-			<button className="flex hover:text-red-500" title="Delete" onClick={handleClick} disabled={isPending}>
-				<FontAwesomeIcon className="text-lg fa-sharp fa-solid fa-trash-xmark" />
+			<button className="flex" title="Delete" onClick={handleClick} disabled={isPending}>
+				<DeleteIcon />
 			</button>
 		</>
 	)
