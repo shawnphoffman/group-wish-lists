@@ -85,8 +85,6 @@ export default function CreateListModal() {
 			if (formRef?.current) {
 				formRef.current.reset()
 			}
-		} else {
-			console.log('create error', { state })
 		}
 	}, [state, pathname, router])
 
