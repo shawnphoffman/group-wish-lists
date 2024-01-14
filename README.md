@@ -9,8 +9,6 @@
 
 ## DB STUFF
 
-[] Switch to using public users so things will be simpler
-
 ## IMPORT USABILITY
 
 [] Add image picker for scrape

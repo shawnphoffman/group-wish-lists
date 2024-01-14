@@ -12,10 +12,8 @@ export default async function Lists() {
 		<>
 			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
 				<div className="flex flex-col flex-1 gap-6">
-					{/* <div className="flex flex-col justify-between xs:flex-row"> */}
 					<div className="flex flex-row justify-between">
 						<h1>Wish Lists</h1>
-						{/* <button type="button" className="mt-4 nav-btn green xs:mt-0" data-hs-overlay="#hs-create-list-modal"> */}
 						<button type="button" className="mt-0 nav-btn green" data-hs-overlay="#hs-create-list-modal">
 							<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
 							Create List

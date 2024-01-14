@@ -11,7 +11,7 @@ export type List = {
 
 export type ListItem = {
 	id: string
-	list_id: string
+	list_id: List['id']
 	title: string
 	url?: string
 	scrape?: Scrape

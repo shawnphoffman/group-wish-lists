@@ -1,8 +1,5 @@
-import { Suspense } from 'react'
-
 import ListRow from '@/components/lists/ListRow'
 
-import Fallback from '../icons/Fallback'
 import EmptyMessage from './EmptyMessage'
 import { List } from './types'
 
@@ -12,12 +9,10 @@ type Props = {
 }
 
 export default async function ListBlock({ lists, isOwner }: Props) {
+	if (lists?.length === 0) return <EmptyMessage />
 	return (
-		<Suspense fallback={<Fallback />}>
-			{lists?.length === 0 && <EmptyMessage />}
-			<div className="flex flex-col">
-				{lists.sort((a, b) => a.id - b.id)?.map(list => <ListRow key={list.id} list={list} canEdit={isOwner} />)}
-			</div>
-		</Suspense>
+		<div className="flex flex-col">
+			{lists.sort((a, b) => a.id - b.id)?.map(list => <ListRow key={list.id} list={list} canEdit={isOwner} />)}
+		</div>
 	)
 }
