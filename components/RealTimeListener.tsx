@@ -7,17 +7,17 @@ import { useEffect, useTransition } from 'react'
 // import { getSessionUser } from '@/app/actions/auth'
 import { createClientSideClient } from '@/utils/supabase/client'
 
-import { List, User } from './lists/types'
+import { List } from './lists/types'
 
 type Props = {
 	listId?: List['id']
 }
 
-const EventTypes = {
-	INSERT: 'INSERT',
-	UPDATE: 'UPDATE',
-	DELETE: 'DELETE',
-} as const
+// const EventTypes = {
+// 	INSERT: 'INSERT',
+// 	UPDATE: 'UPDATE',
+// 	DELETE: 'DELETE',
+// } as const
 
 // type UpdatePayloadType = {
 // 	eventType: keyof typeof EventTypes

@@ -1,21 +1,20 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { createGift, deleteGift } from '@/app/actions/gifts'
-
-import { ItemStatus } from '@/utils/enums'
 
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import { ListItem } from './types'
 
 type Props = {
-	item: ListItem
+	id: ListItem['id']
+	isComplete: boolean
 }
 
-export default function ItemCheckbox({ item }: Props) {
-	const [checked, setChecked] = useState(item.status === ItemStatus.Complete)
+export default function ItemCheckbox({ id, isComplete }: Props) {
+	const [checked, setChecked] = useState(isComplete)
 	const [isPending, setIsPending] = useState(false)
 	const router = useRouter()
 
@@ -24,15 +23,21 @@ export default function ItemCheckbox({ item }: Props) {
 		setChecked(!checked)
 		async function updateItemStatus() {
 			if (!checked) {
-				await createGift(item.id)
+				await createGift(id)
 			} else {
-				await deleteGift(item.id)
+				await deleteGift(id)
 			}
 			setIsPending(false)
 			router.refresh()
 		}
 		updateItemStatus()
 	}, [checked])
+
+	useEffect(() => {
+		if (isComplete !== checked) {
+			setChecked(isComplete)
+		}
+	}, [isComplete])
 
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
@@ -41,7 +46,7 @@ export default function ItemCheckbox({ item }: Props) {
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-spinner-scale fa-spin-pulse" />
 				</div>
 			) : (
-				<input type="checkbox" defaultChecked={checked} onChange={handleChange} className={`${isPending && '!bg-yellow-500'}`} />
+				<input type="checkbox" checked={checked} onChange={handleChange} className={`${isPending && '!bg-yellow-500'}`} />
 			)}
 		</fieldset>
 	)

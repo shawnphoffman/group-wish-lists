@@ -1,5 +1,5 @@
 .badge {
-	@apply items-center gap-x-1.5 py-1.5 px-3 rounded-full;
+	@apply items-center gap-x-1.5 py-1 px-3 rounded-full;
 	@apply text-xs font-medium;
 	@apply text-gray-800 dark:text-white;
 	@apply bg-gray-100 dark:bg-white/10;
@@ -17,6 +17,9 @@
 	}
 	&.red {
 		@apply text-red-800 bg-red-100 dark:bg-red-800/30 dark:text-red-500;
+	}
+	&.purple {
+		@apply text-purple-800 bg-purple-100 dark:bg-purple-800/30 dark:text-purple-500;
 	}
 	&.yellow {
 		@apply text-yellow-800 bg-yellow-100 dark:bg-yellow-800/30 dark:text-yellow-500;

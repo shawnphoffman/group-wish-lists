@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ItemStatus } from '@/utils/enums'
 
 import Avatar from '../Avatar'
+import Badge from '../Badge'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import ItemPriorityIcon from '../icons/PriorityIcon'
 import ItemCheckbox from './ItemCheckbox'
@@ -31,7 +32,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 					</div>
 
 					{/* Checkbox */}
-					{!isOwnerView && <ItemCheckbox item={item} />}
+					{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} />}
 
 					<div className="flex flex-col items-center flex-1 gap-2 md:flex-row md:gap-4">
 						{/* Content */}
@@ -47,7 +48,10 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 						<div className="flex flex-row items-center justify-end gap-4 text-xl">
 							{item.status === ItemStatus.Complete && (
 								//
-								<Avatar name={item.display_name} className="w-6 h-6 text-xs" />
+								<Badge colorLabel={item.display_name} className="xxs">
+									{item.display_name}
+								</Badge>
+								// <Avatar name={item.display_name} className="w-6 h-6 text-xs" />
 							)}
 							{item.url && (
 								<Link href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">

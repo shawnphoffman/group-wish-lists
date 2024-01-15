@@ -1,3 +1,5 @@
+import './Avatar.css'
+
 /*
 	<Avatar name={'Shawn'} />
 	<Avatar name={'Melissa'} />
@@ -10,18 +12,10 @@
 	<Avatar name={'Kate'} />
 */
 
-function getColor(name: string) {
-	const colorArray = [
-		'border-green-500 text-green-500',
-		'border-teal-400 text-teal-400',
-		'border-blue-400 text-blue-400 dark:text-blue-400 dark:text-blue-400',
-		'border-red-400 text-red-400',
-		'border-purple-400 text-purple-400',
-		'border-yellow-500 text-yellow-500/30 dark:text-yellow-500',
-	]
+export function getColor(name: string) {
+	const colorArray = ['green', 'teal', 'blue', 'red', 'purple', 'yellow']
 	const num = name.charAt(0).charCodeAt(0) + name.charAt(1).charCodeAt(0)
 	const colorIndex = Math.abs(num % colorArray.length)
-
 	return colorArray[colorIndex]
 }
 
