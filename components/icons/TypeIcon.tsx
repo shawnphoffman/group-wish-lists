@@ -2,7 +2,9 @@ import { ListCategory, ListCategoryType } from '@/utils/enums'
 
 import FontAwesomeIcon from './FontAwesomeIcon'
 
-export default function TypeIcon({ type }: { type: ListCategoryType }) {
+type Props = { type: ListCategoryType; className: string }
+
+export default function TypeIcon({ type, className = 'text-xl' }: Props) {
 	let iconClass = 'fa-duotone fa-thought-bubble text-yellow-300'
 
 	if (type === ListCategory.Birthday) {
@@ -13,5 +15,5 @@ export default function TypeIcon({ type }: { type: ListCategoryType }) {
 		iconClass = 'fa-duotone fa-vial-virus text-blue-300'
 	}
 
-	return <FontAwesomeIcon className={`${iconClass} text-xl`} />
+	return <FontAwesomeIcon className={`${iconClass} ${className}`} />
 }

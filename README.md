@@ -18,6 +18,7 @@
 [] Add status to list items
 [] Move item to a different list
 [] Import URL to existing item
+[] Refactor import/add functionality
 
 ## NICE TO HAVES
 
@@ -28,5 +29,15 @@
 
 [] Raw Notes importer
 [] Realtime updates
+[] Show who checked things off
+[] Extract container and row styles
 
 ## AUTH & INFRA
+
+## 2.0
+
+[] Add items that you purchased to someone else's list
+[] Guest users
+[] Permissions for who can view what users
+[] View everything you've purchased - DB implications. No cascade
+[] View everything you've received

@@ -9,9 +9,18 @@ import { renameList } from '@/app/actions/lists'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
-const inputClasses = `px-4 py-2 block w-full border border-gray-200 rounded-lg text-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 autoFocus`
+import { ListCategory } from '@/utils/enums'
 
-export default function RenameListButton({ listId, name }: any) {
+import TypeIcon from '../icons/TypeIcon'
+import { List } from './types'
+
+type Props = {
+	listId: List['id']
+	name: List['name']
+	type: List['type']
+}
+
+export default function EditableListTitle({ listId, name, type }: Props) {
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
@@ -34,32 +43,28 @@ export default function RenameListButton({ listId, name }: any) {
 	return (
 		<>
 			{isEditing ? (
-				<form action={formAction} className="flex flex-row gap-4">
+				<form action={formAction} className="flex flex-row gap-1">
 					<input type="hidden" value={listId} name="id" />
-					<input className={inputClasses} type="text" defaultValue={name} name="list-name" autoFocus />
-					<button title="Save" className="text-2xl text-green-300 hover:text-green-400" disabled={isPending}>
+					<input className="input" type="text" defaultValue={name} name="list-name" autoFocus />
+					<select name="list-type" className="w-40 select" defaultValue={type}>
+						{Object.entries(ListCategory).map(([key, value]) => (
+							<option key={key} value={value}>
+								{key}
+							</option>
+						))}
+					</select>
+					<button title="Save" className="text-2xl nav-btn green" disabled={isPending}>
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-check" />
 					</button>
-					<button
-						type="button"
-						title="Cancel"
-						className="text-2xl text-red-300 hover:text-red-400"
-						onClick={handleClick}
-						disabled={isPending}
-					>
+					<button type="button" title="Cancel" className="text-2xl nav-btn red" onClick={handleClick} disabled={isPending}>
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
 					</button>
 				</form>
 			) : (
 				<>
-					<h1 className="">{name}</h1>
-					<button
-						type="button"
-						title="Rename"
-						className="text-2xl text-yellow-200 hover:text-yellow-300"
-						onClick={handleClick}
-						disabled={isPending}
-					>
+					<TypeIcon type={type} className="text-3xl" />
+					<h1>{name}</h1>
+					<button type="button" title="Rename" className="text-2xl nav-btn yellow " onClick={handleClick} disabled={isPending}>
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-pencil" />
 					</button>
 				</>

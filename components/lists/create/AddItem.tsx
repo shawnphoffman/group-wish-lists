@@ -18,7 +18,7 @@ export default function AddItem({ listId }: Props) {
 	}, [])
 
 	return (
-		<div className="flex flex-col items-stretch gap-x-3.5 gap-y-4 p-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px rounded-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white divide-y divide-gray-700">
+		<div className="border-container" id="add-item">
 			<h4>Add Item</h4>
 			<ScrapeUrl setScrape={setScrape} scrape={scrape} />
 			<AddItemForm listId={listId} scrape={scrape} clearScrape={clearScrape} />

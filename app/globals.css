@@ -70,9 +70,14 @@
 			@apply text-gray-300 hover:bg-gray-100;
 			@apply dark:hover:bg-gray-600/30 dark:hover:text-gray-100;
 		}
+		&.yellow {
+			@apply text-yellow-500 hover:text-yellow-800 dark:hover:text-yellow-400;
+			@apply hover:bg-yellow-100 dark:hover:bg-yellow-800/30;
+		}
 	}
 	.btn {
-		@apply inline-flex items-center justify-center px-3 py-2 mt-2 text-base font-semibold rounded-lg gap-x-2;
+		@apply inline-flex items-center justify-center px-3 py-2 text-base font-semibold rounded-lg gap-x-2;
+		/* mt-2 */
 		@apply text-white bg-blue-600 border border-transparent hover:bg-blue-700;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
 
@@ -82,6 +87,9 @@
 		&.red {
 			@apply text-white bg-red-600 hover:bg-red-700;
 		}
+		/* &.yellow {
+			@apply text-white bg-yellow-600 hover:bg-yellow-700;
+		} */
 		&.teal {
 			@apply text-white bg-teal-700 hover:bg-teal-800;
 		}
@@ -150,6 +158,10 @@
 				@apply hover:bg-white hover:dark:bg-gray-900;
 			}
 		}
+	}
+
+	.border-container {
+		@apply flex flex-col items-stretch gap-x-3.5 gap-y-4 p-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px rounded-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white divide-y divide-gray-700;
 	}
 }
 
