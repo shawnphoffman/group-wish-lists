@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { ItemStatus } from '@/utils/enums'
 
 import Avatar from '../Avatar'
@@ -48,9 +50,9 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 								<Avatar name={item.display_name} className="w-6 h-6 text-xs" />
 							)}
 							{item.url && (
-								<a href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">
+								<Link href={item.url} target="_blank" referrerPolicy="no-referrer" className="text-teal-300 hover:text-teal-400">
 									<FontAwesomeIcon className="fa-sharp fa-solid fa-up-right-from-square" />
-								</a>
+								</Link>
 							)}
 						</div>
 					</div>

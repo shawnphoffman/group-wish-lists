@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -43,14 +44,14 @@ const ShowList = async ({ params }: Props) => {
 					<EditableListTitle listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row gap-2">
-					<a href="#import-items" className="nav-btn">
+					<Link href="#import-items" className="nav-btn">
 						<FontAwesomeIcon className="fa-sharp fa-file-import" />
 						Import Items
-					</a>
-					<a href="#add-item" className="nav-btn">
+					</Link>
+					<Link href="#add-item" className="nav-btn">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
-					</a>
+					</Link>
 				</div>
 			</div>
 

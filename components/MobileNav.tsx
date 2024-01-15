@@ -1,6 +1,7 @@
 'use client'
 
 import { Menu, Transition } from '@headlessui/react'
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import FontAwesomeIcon from './icons/FontAwesomeIcon'
@@ -24,16 +25,16 @@ export default function MobileNav() {
 				<Menu.Items className="absolute left-0 z-50 w-56 px-1 py-1 mt-2 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black/5 focus:outline-none">
 					<Menu.Item>
 						{({ active }) => (
-							<a className={`${active && 'active'} nav-item`} href="/">
+							<Link className={`${active && 'active'} nav-item`} href="/">
 								Wish Lists
-							</a>
+							</Link>
 						)}
 					</Menu.Item>
 					<Menu.Item>
 						{({ active }) => (
-							<a className={`${active && 'active'} nav-item`} href="/profile">
+							<Link className={`${active && 'active'} nav-item`} href="/profile">
 								Profile
-							</a>
+							</Link>
 						)}
 					</Menu.Item>
 				</Menu.Items>

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 
@@ -75,9 +76,9 @@ export default function ListItemEditRow({ item }: Props) {
 						{/* {!isDeleting && ( */}
 						<fieldset disabled={pending} className="flex flex-row items-center justify-end gap-4 text-xl">
 							{item.url && (
-								<a href={item.url} target="_blank" referrerPolicy="no-referrer">
+								<Link href={item.url} target="_blank" referrerPolicy="no-referrer">
 									<OpenUrlIcon />
-								</a>
+								</Link>
 							)}
 							<button type="button" onClick={handleEditClick}>
 								<EditIcon />
