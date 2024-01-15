@@ -43,12 +43,12 @@ const ShowList = async ({ params }: Props) => {
 	return (
 		<>
 			{/* Header */}
-			<div className="flex flex-row items-center justify-between gap-4">
+			<div className="flex flex-row items-center justify-between gap-4 shrink-0">
 				<div className="flex flex-row items-center gap-2">
 					<TypeIcon type={data.type} className="text-3xl" />
 					<h1>{data?.name}</h1>
 				</div>
-				<Avatar name={recipient.display_name} />
+				<Avatar name={recipient.display_name} className="!hidden xs:!flex" />
 			</div>
 
 			{/* <div className="container px-4 mx-auto"> */}

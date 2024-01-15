@@ -1,5 +1,5 @@
 .avatar {
-	@apply inline-flex items-center justify-center h-[2.875rem] w-[2.875rem] text-xl font-semibold leading-none rounded-full border uppercase;
+	@apply inline-flex items-center justify-center w-10 h-10 text-xl font-semibold leading-none uppercase border rounded-full;
 
 	&.green {
 		@apply text-green-500 border-green-500;
