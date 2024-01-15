@@ -44,8 +44,8 @@ export default function ItemCheckbox({ id, isComplete }: Props) {
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
 			{isPending ? (
-				<div className="flex items-center justify-center w-5 h-5">
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-spinner-scale fa-spin-pulse" />
+				<div className="flex items-center justify-center checkbox-size">
+					<FontAwesomeIcon className="text-2xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse sm:text-lg" />
 				</div>
 			) : (
 				<input type="checkbox" checked={checked} onChange={handleChange} className={`${isPending && '!bg-yellow-500'}`} />
