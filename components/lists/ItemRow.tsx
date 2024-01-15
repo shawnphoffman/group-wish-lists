@@ -20,7 +20,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 
 	// console.log('ListItemRow', item)
 
-	const isComplete = item.status === ItemStatus.Complete
+	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 
 	return (
 		<div className={`list-item ${isComplete && 'complete'}`}>
@@ -46,7 +46,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 						<ItemImage url={item.image_url} />
 						{/* Actions */}
 						<div className="flex flex-row items-center justify-end gap-4 text-xl">
-							{item.status === ItemStatus.Complete && (
+							{isComplete && (
 								//
 								<Badge colorLabel={item.display_name} className="xxs">
 									{item.display_name}
