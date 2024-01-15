@@ -42,7 +42,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
 						</div>
 						{/* Image */}
-						<ItemImage url={item.image_url} className="" />
+						<ItemImage url={item.image_url} className="hidden sm:block" />
 						{/* Actions */}
 						<div className="flex flex-row items-center justify-end gap-4 text-xl">
 							{isComplete && (
