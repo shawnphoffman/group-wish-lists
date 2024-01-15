@@ -9,6 +9,7 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import EditableListTitle from '@/components/lists/EditableListTitle'
 import EmptyMessage from '@/components/lists/EmptyMessage'
 import AddItem from '@/components/lists/create/AddItem'
+import ImportItems from '@/components/lists/create/ImportItems'
 import ListItemEditRow from '@/components/lists/create/ItemEditRow'
 import { List, ListItem } from '@/components/lists/types'
 
@@ -68,14 +69,13 @@ export default async function EditList({ params }: Props) {
 			<Suspense fallback={<FallbackRow />}>
 				<ShowList params={params} />
 			</Suspense>
+
 			{/* Add Item */}
 			<AddItem listId={params.id} />
-			{/* TODO Import Items */}
-			{!isDeployed && (
-				<div className="border-container" id="import-Items">
-					<h4>Import goes here...</h4>
-				</div>
-			)}
+
+			{/* Import */}
+			<ImportItems listId={params.id} />
+
 			{/* Real-Time Boi */}
 			<RealTimeListener listId={params.id} />
 		</div>

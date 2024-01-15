@@ -22,7 +22,10 @@ const ShowProfile = async () => {
 
 	return (
 		<>
-			<Avatar name={user.display_name || user?.email} />
+			<div className="flex flex-row justify-between">
+				<h1>Profile</h1>
+				<Avatar name={user.display_name || user?.email} />
+			</div>
 			<ProfileForm name={user.display_name} id={user.user_id} />
 		</>
 	)
@@ -32,7 +35,6 @@ export default async function Profile() {
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-lg px-3 opacity-0 animate-in">
 			<main className="flex flex-col flex-1 gap-6">
-				<h1>Profile</h1>
 				<Suspense fallback={<FallbackRow />}>
 					<ShowProfile />
 				</Suspense>

@@ -7,6 +7,7 @@ export type List = {
 	type: ListCategoryType
 	user: User
 	list_items: ListItem[]
+	count?: number
 }
 
 export type ListItem = {

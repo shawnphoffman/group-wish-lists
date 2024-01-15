@@ -18,18 +18,21 @@ type FormProps = {
 }
 
 function ProfileForm({ name, id, state }: FormProps) {
-	// const { pending, data, method, action } = useFormStatus()
 	const { pending } = useFormStatus()
 	return (
 		<>
-			<input type="hidden" name="user_id" value={id} readOnly />
-			<label className="label" htmlFor="name">
-				Name
-			</label>
-			<input className="input" name="name" placeholder="Ezekiel" disabled={pending} defaultValue={name} required />
-			<button className="btn green" disabled={pending}>
-				{pending ? 'Updating...' : 'Update Profile'}
-			</button>
+			<div className="flex flex-col items-stretch gap-2 xs:items-end xs:flex-row justify-stretch">
+				<input type="hidden" name="user_id" value={id} readOnly />
+				<div className="flex flex-col flex-1">
+					<label className="label" htmlFor="name">
+						Name
+					</label>
+					<input className="input" name="name" placeholder="Ezekiel" disabled={pending} defaultValue={name} required />
+				</div>
+				<button className="btn green" disabled={pending}>
+					{pending ? 'Saving...' : 'Save'}
+				</button>
+			</div>
 			{!pending && (
 				<>
 					{state?.error && <ErrorMessage error={state?.error} />}

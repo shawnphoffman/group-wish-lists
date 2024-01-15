@@ -1,5 +1,7 @@
 import TypeIcon from '@/components/icons/TypeIcon'
 
+import Badge from '../Badge'
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import ArchiveListButton from './buttons/ArchiveListButton'
 import DeleteListButton from './buttons/DeleteListButton'
 import UnarchiveListButton from './buttons/UnarchiveListButton'
@@ -24,7 +26,11 @@ export default function ListRow({ list, canEdit }: Props) {
 				{/*  !isActive ? 'line-through opacity-50' : 'hover:text-green-500 dark:hover:text-green-500' */}
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</a>
-			<div className="flex flex-row gap-4">
+			<div className="flex flex-row items-center gap-4">
+				<Badge>
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-list" />
+					{list.count}
+				</Badge>
 				{canEdit && !canDelete && <ArchiveListButton listId={list.id} />}
 				{canDelete && (
 					<>

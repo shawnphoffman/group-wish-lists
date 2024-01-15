@@ -87,9 +87,9 @@
 		&.red {
 			@apply text-white bg-red-600 hover:bg-red-700;
 		}
-		/* &.yellow {
-			@apply text-white bg-yellow-600 hover:bg-yellow-700;
-		} */
+		&.yellow {
+			@apply text-white bg-yellow-700 hover:bg-yellow-800;
+		}
 		&.teal {
 			@apply text-white bg-teal-700 hover:bg-teal-800;
 		}
@@ -103,6 +103,15 @@
 			@apply text-white bg-gray-500/50 hover:bg-gray-400/50;
 		}
 	}
+	.import-btn {
+		@apply inline-flex items-center px-3 py-2 text-lg font-semibold rounded-lg;
+		@apply text-teal-500 hover:text-teal-400;
+		@apply border border-teal-500 hover:border-teal-400;
+		@apply disabled:opacity-50 disabled:pointer-events-none;
+		@apply dark:focus:ring-1 dark:focus:ring-gray-600;
+		@apply dark:hover:bg-teal-800/30 dark:hover:text-teal-400;
+	}
+
 	/* TODO these shouldn't be required on individual items */
 	.input-base {
 		@apply block w-full px-4 py-2 text-base rounded-lg;

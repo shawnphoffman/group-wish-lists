@@ -1,0 +1,6 @@
+.empty-container {
+	@apply p-4 text-base font-semibold border rounded-lg;
+	@apply text-yellow-800 dark:text-yellow-100/80;
+	@apply border-yellow-200 dark:border-yellow-300/20;
+	@apply bg-yellow-100 dark:bg-yellow-700/15;
+}

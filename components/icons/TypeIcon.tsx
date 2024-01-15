@@ -2,7 +2,7 @@ import { ListCategory, ListCategoryType } from '@/utils/enums'
 
 import FontAwesomeIcon from './FontAwesomeIcon'
 
-type Props = { type: ListCategoryType; className: string }
+type Props = { type: ListCategoryType; className?: string }
 
 export default function TypeIcon({ type, className = 'text-xl' }: Props) {
 	let iconClass = 'fa-duotone fa-thought-bubble text-yellow-300'
