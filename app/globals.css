@@ -103,6 +103,41 @@
 			@apply text-white bg-gray-500/50 hover:bg-gray-400/50;
 		}
 	}
+	.btn-ringed {
+		@apply inline-flex items-center px-2 py-2 text-base font-semibold rounded-lg;
+		@apply border border-gray-800 hover:border-gray-400 dark:hover:border-gray-300;
+		@apply text-gray-800 hover:text-gray-500 dark:text-white dark:hover:text-gray-300;
+		@apply border border-gray-500 hover:border-gray-400 dark:border-white;
+		@apply disabled:opacity-50 disabled:pointer-events-none;
+		@apply dark:focus:ring-1 dark:focus:ring-gray-600;
+		@apply dark:hover:bg-gray-800/30 dark:hover:text-gray-400;
+
+		&.gray {
+			@apply text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300;
+			@apply border-gray-500 hover:border-gray-800 dark:border-gray-400 dark:hover:border-gray-300;
+		}
+		&.green {
+			@apply text-green-500 hover:text-green-400;
+			@apply border-green-500 hover:border-green-400;
+		}
+		&.teal {
+			@apply text-teal-500 hover:text-teal-400 dark:text-teal-300 dark:hover:text-teal-400;
+			@apply border-teal-500 hover:border-teal-400 dark:border-teal-300 dark:hover:border-teal-400;
+		}
+		&.blue {
+			@apply text-blue-600 hover:text-blue-500;
+			@apply border-blue-600 hover:border-blue-500;
+		}
+		&.red {
+			@apply text-red-500 hover:text-red-400;
+			@apply border-red-500 hover:border-red-400;
+		}
+		&.yellow {
+			@apply text-yellow-500 hover:text-yellow-400;
+			@apply border-yellow-500 hover:border-yellow-400;
+		}
+	}
+
 	.import-btn {
 		@apply inline-flex items-center px-3 py-2 text-lg font-semibold rounded-lg;
 		@apply text-teal-500 hover:text-teal-400;
@@ -128,9 +163,6 @@
 	}
 	.radio {
 		@apply self-center text-blue-600 border-gray-200 rounded-full shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
-	}
-	.checkbox {
-		@apply self-center w-5 h-5 text-blue-600 border-gray-200 rounded shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
 	}
 	.label {
 		@apply text-base font-semibold;
@@ -170,9 +202,6 @@ input[type='password'],
 input[type='email'],
 input[type='url'] {
 	@apply input;
-}
-input[type='checkbox'] {
-	@apply checkbox;
 }
 input[type='radio'] {
 	@apply radio;

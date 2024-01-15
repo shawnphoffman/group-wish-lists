@@ -2,7 +2,9 @@ import { ItemPriority } from '@/utils/enums'
 
 import FontAwesomeIcon from './FontAwesomeIcon'
 
-export default function ItemPriorityIcon({ priority }: { priority: string }) {
+type Props = { priority: string; className?: string }
+
+export default function ItemPriorityIcon({ priority, className }: Props) {
 	if (priority === ItemPriority.Normal) return null
 
 	let iconClass = ''
@@ -19,5 +21,5 @@ export default function ItemPriorityIcon({ priority }: { priority: string }) {
 			break
 	}
 
-	return <FontAwesomeIcon className={`${iconClass} text-lg`} />
+	return <FontAwesomeIcon className={`${iconClass} text-lg ${className}`} />
 }

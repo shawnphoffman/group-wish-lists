@@ -8,6 +8,8 @@ import { createGift, deleteGift } from '@/app/actions/gifts'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import { ListItem } from './types'
 
+import './ItemCheckbox.css'
+
 type Props = {
 	id: ListItem['id']
 	isComplete: boolean
