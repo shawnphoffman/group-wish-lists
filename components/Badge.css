@@ -1,5 +1,5 @@
 .badge {
-	@apply inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full;
+	@apply items-center gap-x-1.5 py-1.5 px-3 rounded-full;
 	@apply text-xs font-medium;
 	@apply text-gray-800 dark:text-white;
 	@apply bg-gray-100 dark:bg-white/10;

@@ -5,6 +5,6 @@ type Props = {
 	children: React.ReactNode
 }
 
-export default function Badge({ className, children }: Props) {
-	return <span className={`badge ${className}`}>{children}</span>
+export default function Badge({ className = '', children }: Props) {
+	return <span className={`badge inline-flex ${className}`}>{children}</span>
 }
