@@ -1,5 +1,9 @@
+import { Flip, ToastContainer } from 'react-toastify'
+
 import AuthButton from '@/components/AuthButton'
 import Nav from '@/components/Nav'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 export default async function CoreLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -11,6 +15,19 @@ export default async function CoreLayout({ children }: { children: React.ReactNo
 				</div>
 			</nav>
 			{children}
+			<ToastContainer
+				position="bottom-center"
+				autoClose={2500}
+				limit={2}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				pauseOnFocusLoss
+				draggable={false}
+				pauseOnHover
+				theme="dark"
+				transition={Flip}
+			/>
 		</div>
 	)
 }

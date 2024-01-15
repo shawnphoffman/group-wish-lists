@@ -17,7 +17,7 @@ type Props = {
 export default function ListItemRow({ item, isOwnerView }: Props) {
 	if (!item) return null
 
-	console.log('ListItemRow', item)
+	// console.log('ListItemRow', item)
 
 	const isComplete = item.status === ItemStatus.Complete
 
