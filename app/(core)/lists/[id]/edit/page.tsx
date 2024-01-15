@@ -39,7 +39,7 @@ const ShowList = async ({ params }: Props) => {
 	return (
 		<>
 			{/* Header */}
-			<div className="flex flex-row items-center justify-between gap-6">
+			<div className="flex flex-col items-center justify-between gap-2 md:gap-6 md:flex-row">
 				<div className="flex flex-row items-center gap-2">
 					<EditableListTitle listId={params.id} name={data.name} type={data.type} />
 				</div>
