@@ -22,6 +22,13 @@ export type ListItem = {
 	image_url?: string
 }
 
+export type Gift = {
+	quantity?: number
+	display_name?: User['display_name']
+	item_id?: ListItem['id']
+	gifter_id?: User['id']
+}
+
 export type User = {
 	id: number
 	display_name: string

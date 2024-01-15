@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
-import { createGift } from '@/app/actions/gifts'
+import { createGift, deleteGift } from '@/app/actions/gifts'
 
 import { ItemStatus } from '@/utils/enums'
 
@@ -23,7 +23,11 @@ export default function ItemCheckbox({ item }: Props) {
 		setIsPending(true)
 		setChecked(!checked)
 		async function updateItemStatus() {
-			await createGift(item.id)
+			if (!checked) {
+				await createGift(item.id)
+			} else {
+				await deleteGift(item.id)
+			}
 			setIsPending(false)
 			router.refresh()
 		}

@@ -25,7 +25,12 @@ function getColor(name: string) {
 	return colorArray[colorIndex]
 }
 
-export default function Avatar({ name, className }: any) {
+type Props = {
+	name?: string
+	className?: string
+}
+
+export default function Avatar({ name = '', className }: Props) {
 	return (
 		<span className={`avatar ${getColor(name)} ${className}`} title={name}>
 			{name[0]}
