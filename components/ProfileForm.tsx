@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useEffect, useTransition } from 'react'
 // @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
@@ -55,9 +57,22 @@ const initialState = {
 
 export default function ProfileFormWrapper({ name, id }: WrapperProps) {
 	const [state, formAction] = useFormState(updateProfile, initialState)
+	const [isPending, startTransition] = useTransition()
+	const router = useRouter()
+
+	useEffect(() => {
+		if (state?.status === 'success') {
+			startTransition(() => {
+				router.refresh()
+			})
+		}
+	}, [state])
+
 	return (
-		<form className="flex flex-col flex-1 w-full gap-2 text-foreground" action={formAction}>
-			<ProfileForm name={name} id={id} state={state} />
+		<form className=" text-foreground" action={formAction}>
+			<fieldset className="flex flex-col flex-1 w-full gap-2" disabled={isPending}>
+				<ProfileForm name={name} id={id} state={state} />
+			</fieldset>
 		</form>
 	)
 }
