@@ -1,6 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useCallback, useState } from 'react'
+
+import { createGift } from '@/app/actions/gifts'
 
 import { ItemStatus } from '@/utils/enums'
 
@@ -14,30 +17,17 @@ type Props = {
 export default function ItemCheckbox({ item }: Props) {
 	const [checked, setChecked] = useState(item.status === ItemStatus.Complete)
 	const [isPending, setIsPending] = useState(false)
+	const router = useRouter()
 
 	const handleChange = useCallback(() => {
 		setIsPending(true)
-		setChecked(() => !checked)
-	}, [checked])
-
-	useEffect(() => {
-		let isSubscribed = true
+		setChecked(!checked)
 		async function updateItemStatus() {
-			// if (checked) {
-			// 	console.log('item was check. marking as complete')
-			// } else {
-			// 	console.log('item was unchecked. marking as incomplete')
-			// }
-			// await new Promise(resolve => setTimeout(resolve, 2000))
-			if (isSubscribed) {
-				setIsPending(false)
-			}
+			await createGift(item.id)
+			setIsPending(false)
+			router.refresh()
 		}
 		updateItemStatus()
-
-		return () => {
-			isSubscribed = false
-		}
 	}, [checked])
 
 	return (
