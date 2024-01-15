@@ -9,7 +9,7 @@ type Props = {
 export default function ImportItems({ listId }: Props) {
 	if (isDeployed) return null
 	return (
-		<div className="border-container" id="import-Items">
+		<div className="border-container" id="import-items">
 			<h4>Import Items</h4>
 			{/*  */}
 			<div className="flex flex-col gap-1.5 items-stretch p-2">

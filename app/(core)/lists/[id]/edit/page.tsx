@@ -57,7 +57,7 @@ const ShowList = async ({ params }: Props) => {
 			{/* Rows */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col">{items?.map(item => <ListItemEditRow key={item.id} item={item} />)}</div>
+				<div className="flex flex-col list">{items?.map(item => <ListItemEditRow key={item.id} item={item} />)}</div>
 			</div>
 		</>
 	)

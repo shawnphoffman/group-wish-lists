@@ -55,11 +55,7 @@ export default function ListItemEditRow({ item }: Props) {
 	const pending = isPending || isDeleting
 
 	return (
-		<div
-			className={`flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 ${
-				pending && 'animate-pulse'
-			}`}
-		>
+		<div className={`list-item ${pending && 'pending'}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					<div className="flex flex-col items-center justify-center w-4 shrink-0">
