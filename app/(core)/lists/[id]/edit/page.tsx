@@ -77,8 +77,8 @@ export default async function EditList({ params }: Props) {
 			{/* Import */}
 			<ImportItems listId={params.id} />
 
-			{/* Real-Time Boi */}
-			<RealTimeListener listId={params.id} />
+			{/* Real-Time Boi
+			<RealTimeListener listId={params.id} /> */}
 		</div>
 	)
 }

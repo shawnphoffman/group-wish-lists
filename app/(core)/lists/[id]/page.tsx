@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -5,12 +6,13 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
 
 import Avatar from '@/components/Avatar'
-import RealTimeListener from '@/components/RealTimeListener'
 import FallbackRow from '@/components/icons/Fallback'
 import TypeIcon from '@/components/icons/TypeIcon'
 import EmptyMessage from '@/components/lists/EmptyMessage'
 import ListItemRow from '@/components/lists/ItemRow'
 import { List, ListItem, Recipient } from '@/components/lists/types'
+
+const RealTimeListener = dynamic(() => import('@/components/RealTimeListener'), { ssr: false })
 
 type Props = {
 	params: {

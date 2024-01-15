@@ -22,7 +22,7 @@ export default async function CoreLayout({ children }: { children: React.ReactNo
 				hideProgressBar={false}
 				newestOnTop
 				closeOnClick
-				pauseOnFocusLoss
+				pauseOnFocusLoss={false}
 				draggable={false}
 				pauseOnHover
 				theme="dark"

@@ -33,6 +33,7 @@ export type User = {
 	id: number
 	display_name: string
 	is_parent: boolean
+	user_id: string
 }
 
 export type Recipient = Pick<User, 'id' | 'display_name'>
