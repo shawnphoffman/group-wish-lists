@@ -11,7 +11,13 @@ import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
 import ErrorMessage from '../GenericErrorMessage'
 import { List, ListItem, Scrape } from '../types'
-import { getImageFromScrape } from './ScrapePreview'
+
+export const getImageFromScrape = (scrape?: Scrape) => {
+	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
+		return scrape.result.ogImage[0].url
+	}
+	return ''
+}
 
 type Props = {
 	listId: List['id']
