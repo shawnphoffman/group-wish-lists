@@ -38,8 +38,9 @@ function CreateListFields() {
 					<label htmlFor="input-name" className="block mb-2 label">
 						List Title
 					</label>
-					{/* @ts-expect-error */}
-					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autofocus="true" />
+					{/* @ts-ignore */}
+					{/* <input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autofocus="true" /> */}
+					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" />
 				</div>
 				<div>
 					<RadioGroup name="list-type" defaultValue={ListCategory.Christmas}>
