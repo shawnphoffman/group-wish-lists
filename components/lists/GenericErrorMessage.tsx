@@ -1,10 +1,15 @@
-export default function ErrorMessage({ error = 'Something went wrong...' }: { error?: string }) {
+import './ErrorMessage.css'
+
+type Props = {
+	error?: string
+	includeTitle?: boolean
+	className?: string
+}
+
+export default function ErrorMessage({ error = 'Something went wrong...', includeTitle = true, className = '' }: Props) {
 	return (
-		<div
-			className="p-4 text-sm text-red-800 bg-red-100 border border-red-200 rounded-lg dark:bg-red-800/10 dark:border-red-900 dark:text-red-500"
-			role="alert"
-		>
-			<span className="font-bold">Error</span> {error}
+		<div className={`error p-4 ${className}`} role="alert">
+			{includeTitle && <span className="font-bold">Error</span>} {error}
 		</div>
 	)
 }
