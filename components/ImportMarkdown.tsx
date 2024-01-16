@@ -1,5 +1,6 @@
 'use client'
 
+import { Token } from 'markdown-it'
 import { useCallback, useState } from 'react'
 
 export default function ImportMarkdown() {
@@ -20,16 +21,16 @@ export default function ImportMarkdown() {
 
 			if (resp) {
 				console.log('resp', resp)
-				const json = await resp?.json()
+				const json: Token[] = await resp?.json()
 
-				const clean = json.reduce((acc, curr) => {
+				const clean = json.reduce((acc: any[], curr: Token) => {
 					if (curr.content === '') return acc
 
-					const cleanCurr = {
+					const cleanCurr: Partial<Token> = {
 						...curr,
 					}
-					delete cleanCurr.children
-					delete cleanCurr.map
+					cleanCurr.children = undefined
+					cleanCurr.map = undefined
 
 					acc.push(cleanCurr)
 
