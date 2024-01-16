@@ -44,10 +44,12 @@ const ShowList = async ({ params }: Props) => {
 					<EditableListTitle listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row gap-2">
-					<Link href="#import-items" className="nav-btn">
-						<FontAwesomeIcon className="fa-sharp fa-file-import" />
-						Import Items
-					</Link>
+					{!isDeployed && (
+						<Link href="#import-items" className="nav-btn">
+							<FontAwesomeIcon className="fa-sharp fa-file-import" />
+							Import Items
+						</Link>
+					)}
 					<Link href="#add-item" className="nav-btn">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
