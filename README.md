@@ -1,12 +1,7 @@
 # TODO
 
-## BUGS
-
-[] Someone else shouldn't be able to uncheck box
-
 ## CORE FUNCTIONALITY
 
-[] My Stuff: View My Lists on Profile
 [] Edit: Move item to a different list
 [] Edit: Import URL to existing item
 [] Edit: Refactor import/add functionality

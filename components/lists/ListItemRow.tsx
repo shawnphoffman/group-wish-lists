@@ -26,7 +26,7 @@ export default async function ListItemRow({ item, isOwnerView }: Props) {
 		// fakePromise
 	])
 
-	console.log('ListItemRow', item)
+	// console.log('ListItemRow', item)
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const userCanChange = item?.gifter_id === currentUser?.id || item.status !== ItemStatus.Complete

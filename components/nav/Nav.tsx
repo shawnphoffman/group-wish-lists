@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { isDeployed } from '@/utils/environment'
+
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 
 export default function Nav() {
@@ -15,6 +17,12 @@ export default function Nav() {
 				<span className="hidden xs:inline">My Stuff</span>
 				<span className="inline xs:hidden">Me</span>
 			</Link>
+			{!isDeployed && (
+				<Link href="/temp" className={'nav-btn yellow'}>
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
+					Temp
+				</Link>
+			)}
 		</div>
 	)
 }

@@ -2,7 +2,7 @@
 
 import { RadioGroup } from '@headlessui/react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { startTransition, useEffect, useRef } from 'react'
 // @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
@@ -79,13 +79,12 @@ export default function CreateListModal() {
 		if (state?.status === 'success') {
 			window?.HSOverlay?.close('#hs-create-list-modal')
 
-			if (pathname === '/') {
+			startTransition(() => {
+				if (formRef?.current) {
+					formRef.current.reset()
+				}
 				router.refresh()
-			}
-
-			if (formRef?.current) {
-				formRef.current.reset()
-			}
+			})
 		}
 	}, [state, pathname, router])
 

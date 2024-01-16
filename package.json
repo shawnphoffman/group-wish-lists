@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "^2.39.3",
     "autoprefixer": "10.4.16",
     "geist": "^1.0.0",
+    "markdown-it": "^14.0.0",
     "next": "latest",
     "open-graph-scraper": "^6.3.2",
     "preline": "^2.0.3",
