@@ -1,27 +1,23 @@
-'use client'
+import { Suspense } from 'react'
 
-import { useCallback, useState } from 'react'
+import FallbackRow from '@/components/icons/Fallback'
 
-import { List, Scrape } from '../types'
+import { List } from '../types'
 import AddItemForm from './AddItemForm'
-import ScrapeUrl from './ScrapeUrl'
 
 type Props = {
 	listId: List['id']
 }
 
-export default function AddItem({ listId }: Props) {
-	const [scrape, setScrape] = useState<Scrape | undefined>()
-
-	const clearScrape = useCallback(() => {
-		setScrape(undefined)
-	}, [])
-
+export default async function AddItem({ listId }: Props) {
 	return (
 		<div className="border-container" id="add-item">
 			<h4>Add Item</h4>
-			<ScrapeUrl setScrape={setScrape} scrape={scrape} />
-			<AddItemForm listId={listId} scrape={scrape} clearScrape={clearScrape} />
+			<Suspense fallback={<FallbackRow />}>
+				<div className="flex flex-col items-stretch gap-2 p-2">
+					<AddItemForm listId={listId} />
+				</div>
+			</Suspense>
 		</div>
 	)
 }

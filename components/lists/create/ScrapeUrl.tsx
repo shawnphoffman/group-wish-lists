@@ -7,8 +7,6 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { Scrape } from '../types'
 import ScrapePreview from './ScrapePreview'
 
-import './ScrapeUrl.css'
-
 type Props = {
 	setScrape: Dispatch<SetStateAction<Scrape | undefined>>
 	scrape?: Scrape

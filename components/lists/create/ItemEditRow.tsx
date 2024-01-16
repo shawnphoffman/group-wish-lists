@@ -56,7 +56,7 @@ export default function ListItemEditRow({ item }: Props) {
 	const pending = isPending || isDeleting
 
 	return (
-		<div className={`list-item ${pending && 'pending'}`}>
+		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					<div className="flex flex-col items-center justify-center w-4 shrink-0">

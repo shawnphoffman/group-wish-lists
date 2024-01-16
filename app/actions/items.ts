@@ -28,6 +28,8 @@ export const createItem = async (prevState: any, formData: FormData) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
+	console.log('item', { item })
+
 	return {
 		status: 'success',
 		item,
@@ -44,10 +46,12 @@ export const editItem = async (prevState: any, formData: FormData) => {
 	const url = formData.get('url') as string
 	const notes = formData.get('notes') as string
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
+	const imageUrl = formData.get('image-url') as string
 
-	// TODO image url
-
-	const itemPromise = await supabase.from('list_items').update([{ title, url, notes, priority }]).eq('id', id)
+	const itemPromise = await supabase
+		.from('list_items')
+		.update([{ title, url, notes, priority, image_url: imageUrl }])
+		.eq('id', id)
 
 	const [item] = await Promise.all([
 		itemPromise,

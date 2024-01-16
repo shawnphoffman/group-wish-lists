@@ -43,12 +43,12 @@ const ShowList = async ({ params }: Props) => {
 					<EditableListTitle listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row gap-2">
-					{!isDeployed && (
+					{/* {!isDeployed && (
 						<Link href="#import-items" className="nav-btn">
 							<FontAwesomeIcon className="fa-sharp fa-file-import" />
 							Import Items
 						</Link>
-					)}
+					)} */}
 					<Link href="#add-item" className="nav-btn">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
@@ -76,7 +76,7 @@ export default async function EditList({ params }: Props) {
 			<AddItem listId={params.id} />
 
 			{/* Import */}
-			<ImportItems listId={params.id} />
+			{/* <ImportItems listId={params.id} /> */}
 		</div>
 	)
 }

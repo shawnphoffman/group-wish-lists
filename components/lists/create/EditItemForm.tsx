@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom'
 
 import { editItem } from '@/app/actions/items'
 
-import { List, ListItem, Scrape } from '../types'
+import { List, ListItem } from '../types'
 import ItemFormFields from './ItemFormFields'
 
 type Props = {
@@ -22,15 +22,7 @@ export default function EditItemForm({ listId, item }: Props) {
 		<div className="flex flex-col items-stretch gap-2 p-2">
 			<h5>Item Details</h5>
 			<form action={formAction} ref={formRef}>
-				<ItemFormFields
-					listId={listId}
-					scrape={item?.scrape as Scrape}
-					clearScrape={() => {
-						delete item?.scrape
-					}}
-					formState={state}
-					item={item}
-				/>
+				<ItemFormFields listId={listId} formState={state} item={item} />
 			</form>
 		</div>
 	)

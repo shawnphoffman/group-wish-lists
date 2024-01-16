@@ -9,21 +9,23 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
+import ErrorMessage from '../GenericErrorMessage'
 import { List, ListItem, Scrape } from '../types'
 import { getImageFromScrape } from './ScrapePreview'
 
 type Props = {
 	listId: List['id']
-	scrape?: Scrape
-	clearScrape?: () => void
 	formState: any
 	item?: ListItem
 }
 
-export default function ItemFormFields({ listId, scrape, clearScrape, formState, item }: Props) {
-	const router = useRouter()
-	const [isPending, startTransition] = useTransition()
+export default function ItemFormFields({ listId, formState, item }: Props) {
+	const [scrape, setScrape] = useState<Scrape | undefined>()
+	const [importing, setImporting] = useState(false)
+	const [importError, setImportError] = useState('')
+	const [isTransitionPending, startTransition] = useTransition()
 	const { pending: isFormPending } = useFormStatus()
+	const router = useRouter()
 
 	// Item Fields
 	const [id] = useState<string>(item?.id || '')
@@ -33,15 +35,14 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formState,
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
 
-	const isDisabled = isFormPending || isPending || title.trim().length === 0
-	const pending = isFormPending || isPending
+	const isPending = isFormPending || isTransitionPending || importing
+	const isDisabled = isPending || title.trim().length === 0
 
 	useEffect(() => {
 		if (item || !scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
-		if (scrape.result?.ogUrl) setUrl(scrape.result.ogUrl)
 		const imageUrl = getImageFromScrape(scrape)
-		console.log('scrape', { scrape, imageUrl })
+		// console.log('scrape', { scrape, imageUrl })
 		setImageUrl(imageUrl)
 	}, [scrape])
 
@@ -57,9 +58,13 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formState,
 		setNotes(e.target.value)
 	}, [])
 
-	const handleChangeUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		setUrl(e.target.value)
-	}, [])
+	const handleChangeUrl = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			setUrl(e.target.value)
+			if (importError) setImportError('')
+		},
+		[importError]
+	)
 
 	const handleChangePriority = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
 		setPriority(e.target.value as (typeof ItemPriority)[keyof typeof ItemPriority])
@@ -69,23 +74,43 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formState,
 		setImageUrl('')
 	}, [])
 
+	const handleUrlImport = useCallback(async () => {
+		setImporting(true)
+		if (importError) setImportError('')
+		let data
+		try {
+			const resp = await fetch(`/api/scraper?url=${url}`)
+			data = await resp.json()
+		} catch (error) {
+			data = error
+		} finally {
+		}
+
+		if (data?.result?.success) {
+			setScrape(data)
+		} else {
+			setImportError('Sorry. No data found for this URL.')
+		}
+
+		setImporting(false)
+	}, [importError, url])
+
 	useEffect(() => {
 		if (formState?.status === 'success') {
 			startTransition(() => {
-				// Editing?
-				router.refresh()
 				setTitle('')
 				setNotes('')
 				setUrl('')
 				setPriority(ItemPriority.Normal)
 				setImageUrl('')
-				if (clearScrape) clearScrape()
+				setScrape(undefined)
+				router.refresh()
 			})
 		}
 	}, [formState])
 
 	return (
-		<fieldset disabled={pending}>
+		<fieldset disabled={isPending}>
 			<input className="input" type="hidden" name="id" value={id} readOnly />
 			<input className="input" type="hidden" name="list-id" value={listId} readOnly />
 			<input className="input" type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
@@ -93,16 +118,25 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formState,
 
 			<div className="flex flex-col justify-between gap-2">
 				<div>
-					<label className="label">Title</label>
-					<span className="relative text-red-500 bottom-1">
-						<FontAwesomeIcon className=" fa-sharp fa-solid fa-asterisk fa-2xs" />
-					</span>
-					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} />
+					<label className="label">URL</label>
+					<div className="flex flex-row justify-between gap-4">
+						<input className="input" name="url" type="url" placeholder="Web URL for the item" value={url} onChange={handleChangeUrl} />
+						{/* <button type="button" className="import-btn" onClick={handleUrlImport}> */}
+						<button type="button" className="btn-ringed teal" onClick={handleUrlImport}>
+							{/* <FontAwesomeIcon className="fa-sharp fa-solid fa-link" /> */}
+							<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-arrow-down-to-line fa-fw" />
+						</button>
+					</div>
 				</div>
 
+				{importError && <ErrorMessage error={importError} includeTitle={false} />}
+
 				<div>
-					<label className="label">URL</label>
-					<input className="input" type="url" name="url" placeholder="https://wow.cool/" value={url} onChange={handleChangeUrl} />
+					<label className="label">Title</label>
+					<span className="relative text-red-500 bottom-1">
+						<FontAwesomeIcon className="fa-sharp fa-solid fa-asterisk fa-2xs" />
+					</span>
+					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} />
 				</div>
 
 				<div>
@@ -135,7 +169,7 @@ export default function ItemFormFields({ listId, scrape, clearScrape, formState,
 
 				<div>
 					<button type="submit" className="w-full btn" disabled={isDisabled}>
-						{pending ? (
+						{isPending ? (
 							<span className="drop-shadow-lg ">{item ? 'Saving' : 'Adding'}...</span>
 						) : (
 							<span className="drop-shadow-lg ">{item ? 'Save Changes' : 'Add Item'}</span>
