@@ -13,7 +13,7 @@ export default function Nav() {
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-list-check" />
 					Wish Lists
 				</Link>
-				<Link href="/my-stuff" className={'nav-btn gray'}>
+				<Link href="/me" className={'nav-btn gray'}>
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-user" />
 					My Stuff
 				</Link>

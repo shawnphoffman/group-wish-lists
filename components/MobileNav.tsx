@@ -32,7 +32,7 @@ export default function MobileNav() {
 					</Menu.Item>
 					<Menu.Item>
 						{({ active }) => (
-							<Link className={`${active && 'active'} nav-item`} href="/my-stuff">
+							<Link className={`${active && 'active'} nav-item`} href="/me">
 								My Stuff
 							</Link>
 						)}
