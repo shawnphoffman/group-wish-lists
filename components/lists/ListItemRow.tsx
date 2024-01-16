@@ -29,6 +29,7 @@ export default async function ListItemRow({ item, isOwnerView }: Props) {
 	console.log('ListItemRow', item)
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
+	const userCanChange = item?.gifter_id === currentUser?.id || item.status !== ItemStatus.Complete
 
 	return (
 		<div className={`list-item ${isComplete && 'complete'}`}>
@@ -38,7 +39,7 @@ export default async function ListItemRow({ item, isOwnerView }: Props) {
 					<div className="flex flex-col items-center justify-center gap-4 md:flex-row shrink-0">
 						<ItemPriorityIcon priority={item.priority} className="w-4" />
 						{/* Checkbox */}
-						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={item?.gifter_id !== currentUser?.id} />}
+						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} />}
 					</div>
 
 					<div className="flex flex-col flex-1 gap-2 sm:items-center sm:flex-row sm:gap-4">

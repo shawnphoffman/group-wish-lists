@@ -21,20 +21,24 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 	const [isPending, setIsPending] = useState(false)
 	const router = useRouter()
 
-	const handleChange = useCallback(() => {
-		setIsPending(true)
-		setChecked(!checked)
-		async function updateItemStatus() {
-			if (!checked) {
-				await createGift(id)
-			} else {
-				await deleteGift(id)
+	const handleChange = useCallback(
+		(e: any) => {
+			e.preventDefault()
+			setIsPending(true)
+			setChecked(!checked)
+			async function updateItemStatus() {
+				if (!checked) {
+					await createGift(id)
+				} else {
+					await deleteGift(id)
+				}
+				setIsPending(false)
+				router.refresh()
 			}
-			setIsPending(false)
-			router.refresh()
-		}
-		updateItemStatus()
-	}, [checked])
+			updateItemStatus()
+		},
+		[checked, canChange]
+	)
 
 	useEffect(() => {
 		if (isComplete !== checked) {
@@ -52,7 +56,7 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 				<input
 					type="checkbox"
 					checked={checked}
-					onChange={handleChange}
+					onChange={canChange ? handleChange : undefined}
 					readOnly={!canChange}
 					className={`${isPending && '!bg-yellow-500'}`}
 				/>
