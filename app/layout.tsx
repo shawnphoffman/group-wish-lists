@@ -16,6 +16,12 @@ export const metadata: Metadata = {
 		description: 'Sharing wish lists made easy.',
 		type: 'website',
 		url: '/',
+		locale: 'en_US',
+	},
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: 'black-translucent',
+		title: 'Wish Lists',
 	},
 }
 

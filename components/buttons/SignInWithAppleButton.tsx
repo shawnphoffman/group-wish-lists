@@ -17,7 +17,7 @@ export default function SignInWithAppleButton() {
 	}
 
 	return (
-		<button type="button" className="btn white" onClick={handleAppleLogin}>
+		<button type="button" className="w-full btn white" onClick={handleAppleLogin}>
 			<FontAwesomeIcon className="fa-brands fa-solid fa-apple" />
 			Sign in with Apple
 		</button>

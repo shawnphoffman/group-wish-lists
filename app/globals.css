@@ -76,7 +76,7 @@
 		}
 	}
 	.btn {
-		@apply inline-flex items-center justify-center px-3 py-2 text-base font-semibold rounded-lg gap-x-2;
+		@apply inline-flex items-center justify-center px-3 py-2 text-base font-medium rounded-lg gap-x-2;
 		/* mt-2 */
 		@apply text-white bg-blue-600 border border-transparent hover:bg-blue-700;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
