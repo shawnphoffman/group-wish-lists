@@ -1,36 +1,39 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useCallback, useTransition } from 'react'
 
-import { archiveList } from '@/app/actions/lists'
+import { archiveList, unarchiveList } from '@/app/actions/lists'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { ArchiveIcon, UnarchiveIcon } from '@/components/icons/Icons'
 
-export default function ArchiveListButton({ listId }: any) {
+import { List } from '../types'
+
+type Props = {
+	listId: List['id']
+	isArchived: boolean
+}
+
+export default function ArchiveListButton({ listId, isArchived }: Props) {
 	const router = useRouter()
-	const pathname = usePathname()
 	const [isPending, startTransition] = useTransition()
 
 	const handleClick = useCallback(async () => {
-		const resp = await archiveList(listId)
+		const resp = isArchived ? await unarchiveList(listId) : await archiveList(listId)
 		if (resp?.status === 'success') {
-			console.log('archive success', { resp, listId })
-			if (pathname === '/') {
-				startTransition(() => {
-					router.refresh()
-				})
-			}
-		} else {
-			console.log('archive error', { resp, listId })
+			startTransition(() => {
+				router.refresh()
+			})
 		}
-	}, [listId])
+	}, [listId, isArchived])
 
-	return (
-		<>
-			<button className="flex hover:text-yellow-500" title="Archive" onClick={handleClick} disabled={isPending}>
-				<FontAwesomeIcon className="text-lg fa-sharp fa-solid fa-eye-slash" />
-			</button>
-		</>
+	return isArchived ? (
+		<button className="flex text-lg " title="Restore" onClick={handleClick} disabled={isPending}>
+			<UnarchiveIcon />
+		</button>
+	) : (
+		<button className="flex text-lg" title="Archive" onClick={handleClick} disabled={isPending}>
+			<ArchiveIcon />
+		</button>
 	)
 }

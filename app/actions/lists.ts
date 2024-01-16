@@ -2,6 +2,8 @@
 
 import { cookies } from 'next/headers'
 
+import { List } from '@/components/lists/types'
+
 import { createClient } from '@/utils/supabase/server'
 
 export const getListsGroupedByUser = async () => {
@@ -83,7 +85,7 @@ export const renameList = async (prevState: any, formData: FormData) => {
 	}
 }
 
-export const archiveList = async (listID: string) => {
+export const archiveList = async (listID: List['id']) => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -95,7 +97,7 @@ export const archiveList = async (listID: string) => {
 	}
 }
 
-export const unarchiveList = async (listID: string) => {
+export const unarchiveList = async (listID: List['id']) => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
@@ -107,7 +109,7 @@ export const unarchiveList = async (listID: string) => {
 	}
 }
 
-export const deleteList = async (listID: string) => {
+export const deleteList = async (listID: List['id']) => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)

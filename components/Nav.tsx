@@ -13,9 +13,9 @@ export default function Nav() {
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-list-check" />
 					Wish Lists
 				</Link>
-				<Link href="/profile" className={'nav-btn gray'}>
+				<Link href="/my-stuff" className={'nav-btn gray'}>
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-user" />
-					Profile
+					My Stuff
 				</Link>
 			</div>
 			{/* <MobileNav /> */}

@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
 
-import Avatar from '@/components/Avatar'
+import Badge from '@/components/Badge'
 import FallbackRow from '@/components/icons/Fallback'
 import TypeIcon from '@/components/icons/TypeIcon'
 import EmptyMessage from '@/components/lists/EmptyMessage'
@@ -20,7 +20,7 @@ type Props = {
 	}
 }
 
-const ShowList = async ({ params }: Props) => {
+const ViewListClient = async ({ params }: Props) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
 	const listPromise = getViewableList(params.id)
@@ -43,21 +43,19 @@ const ShowList = async ({ params }: Props) => {
 	return (
 		<>
 			{/* Header */}
-			<div className="flex flex-row items-center justify-between gap-4 shrink-0">
-				<div className="flex flex-row items-center gap-2">
-					<TypeIcon type={data.type} className="text-3xl" />
-					<h1>{data?.name}</h1>
-				</div>
-				<Avatar name={recipient.display_name} className="!hidden xs:!flex" />
+			<div className="flex flex-row items-center justify-between w-full gap-2 truncate">
+				<TypeIcon type={data.type} className="text-3xl" />
+				<h1 className="flex-1 truncate">{data?.name}</h1>
+				<Badge colorLabel={recipient.display_name} className="xxs">
+					{recipient.display_name}
+				</Badge>
 			</div>
 
-			{/* <div className="container px-4 mx-auto"> */}
 			{/* Items */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
 				<div className="flex flex-col list">{items?.map(item => <ListItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
 			</div>
-			{/* </div> */}
 		</>
 	)
 }
@@ -68,7 +66,7 @@ export default async function ViewList({ params }: Props) {
 			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
 				<div className="flex flex-col flex-1 gap-6">
 					<Suspense fallback={<FallbackRow />}>
-						<ShowList params={params} />
+						<ViewListClient params={params} />
 					</Suspense>
 				</div>
 			</div>

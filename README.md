@@ -3,12 +3,10 @@
 ## CORE FUNCTIONALITY
 
 [] My Stuff: View My Lists on Profile
-[] My Stuff: Rename Profile to My Stuff
 [] Edit: Move item to a different list
 [] Edit: Import URL to existing item
 [] Edit: Refactor import/add functionality
 [] Edit: Add image picker for scrape
-[] List: Show who checked things off (Badge)
 
 ## NICE TO HAVES
 

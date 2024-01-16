@@ -7,8 +7,8 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 import { updateProfile } from '@/app/actions/auth'
 
-import ErrorMessage from './lists/GenericErrorMessage'
-import SuccessAlert from './lists/SuccessAlert'
+import ErrorMessage from '../lists/GenericErrorMessage'
+import SuccessAlert from '../lists/SuccessAlert'
 
 type FormProps = {
 	name: string

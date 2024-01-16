@@ -35,10 +35,11 @@ function CreateListFields() {
 			</div>
 			<div className="flex flex-col gap-4 p-4 overflow-y-auto">
 				<div>
-					<label htmlFor="input-name" className="block mb-2 label" autoFocus>
+					<label htmlFor="input-name" className="block mb-2 label">
 						List Title
 					</label>
-					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autoFocus />
+					{/* @ts-expect-error */}
+					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autofocus="true" />
 				</div>
 				<div>
 					<RadioGroup name="list-type" defaultValue={ListCategory.Christmas}>

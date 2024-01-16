@@ -10,5 +10,5 @@ type Props = {
 
 export default function Badge({ className = '', children, colorLabel }: Props) {
 	const colorClass = colorLabel ? getColor(colorLabel) : ''
-	return <span className={`badge inline-flex ${colorClass} ${className}`}>{children}</span>
+	return <span className={`badge flex ${colorClass} ${className}`}>{children}</span>
 }

@@ -6,7 +6,6 @@ import Badge from '../Badge'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import ArchiveListButton from './buttons/ArchiveListButton'
 import DeleteListButton from './buttons/DeleteListButton'
-import UnarchiveListButton from './buttons/UnarchiveListButton'
 import { List } from './types'
 
 type Props = {
@@ -29,14 +28,13 @@ export default function ListRow({ list, canEdit }: Props) {
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</LinkOrDiv>
 			<div className="flex flex-row items-center gap-4">
-				<Badge className="hidden sm:inline-flex">
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-list" />
+				<Badge className="inline-flex blue">
+					<FontAwesomeIcon className="!hidden xs:!inline fa-sharp fa-solid fa-list" />
 					{list.count}
 				</Badge>
-				{canEdit && !canDelete && <ArchiveListButton listId={list.id} />}
-				{canDelete && (
+				{canEdit && (
 					<>
-						<UnarchiveListButton listId={list.id} />
+						<ArchiveListButton listId={list.id} isArchived={!isActive} />
 						<DeleteListButton listId={list.id} name={list.name} />
 					</>
 				)}

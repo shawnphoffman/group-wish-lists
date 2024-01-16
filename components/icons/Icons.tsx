@@ -9,8 +9,11 @@ export function EditIcon() {
 	return <FontAwesomeIcon className="text-yellow-200 fa-sharp fa-solid fa-pen-to-square hover:text-yellow-300" />
 }
 export function DeleteIcon() {
-	return <FontAwesomeIcon className="text-red-300 fa-sharp fa-solid fa-trash-xmark hover:text-red-400" />
+	return <FontAwesomeIcon className="text-red-400 fa-sharp fa-solid fa-trash-xmark hover:text-red-300" />
 }
 export function UnarchiveIcon() {
-	return <FontAwesomeIcon className="text-teal-300 fa-sharp fa-solid fa-eye hover:text-teal-400" />
+	return <FontAwesomeIcon className="text-teal-400 fa-sharp fa-solid fa-eye hover:text-teal-300" />
+}
+export function ArchiveIcon() {
+	return <FontAwesomeIcon className="text-yellow-400 dark:hover:text-yellow-300 fa-sharp fa-solid fa-eye-slash" />
 }

@@ -5,7 +5,7 @@ import { getMyLists } from '@/app/actions/lists'
 import SuspenseTest from '@/components/SuspenseTest'
 import Fallback from '@/components/icons/Fallback'
 
-export default async function Profile() {
+export default async function Temp() {
 	const { data: lists } = await getMyLists()
 
 	return (
