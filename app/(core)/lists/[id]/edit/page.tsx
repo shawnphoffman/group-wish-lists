@@ -4,7 +4,6 @@ import { Suspense } from 'react'
 
 import { getEditableList } from '@/app/actions/lists'
 
-import RealTimeListener from '@/components/RealTimeListener'
 import FallbackRow from '@/components/icons/Fallback'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import EditableListTitle from '@/components/lists/EditableListTitle'
@@ -78,9 +77,6 @@ export default async function EditList({ params }: Props) {
 
 			{/* Import */}
 			<ImportItems listId={params.id} />
-
-			{/* Real-Time Boi
-			<RealTimeListener listId={params.id} /> */}
 		</div>
 	)
 }
