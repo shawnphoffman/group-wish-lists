@@ -20,7 +20,11 @@ export default function Nav() {
 			{!isDeployed && (
 				<Link href="/temp" className={'nav-btn yellow'}>
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
-					Temp
+				</Link>
+			)}
+			{!isDeployed && (
+				<Link href="/markdown" className={'nav-btn yellow'}>
+					<FontAwesomeIcon className="fa-brands fa-markdown" />
 				</Link>
 			)}
 		</div>
