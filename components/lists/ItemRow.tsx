@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { ItemStatus } from '@/utils/enums'
 
-import Avatar from '../Avatar'
 import Badge from '../Badge'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import ItemPriorityIcon from '../icons/PriorityIcon'

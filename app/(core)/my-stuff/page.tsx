@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 
 import { getUser } from '@/app/actions/auth'
 
-import Avatar from '@/components/Avatar'
+import Badge from '@/components/Badge'
 import FallbackRow from '@/components/icons/Fallback'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/myStuff/MyLists'
@@ -27,9 +27,11 @@ const MyStuffClient = async () => {
 
 	return (
 		<div className="flex flex-col gap-3">
-			<div className="flex flex-row justify-between">
+			<div className="flex flex-row items-center justify-between">
 				<h1>Profile</h1>
-				<Avatar name={user.display_name || user?.email} />
+				<Badge colorLabel={user.display_name} className="xxs">
+					{user.display_name}
+				</Badge>
 			</div>
 			<ProfileForm name={user.display_name} id={user.user_id} />
 		</div>
@@ -41,9 +43,7 @@ export default async function MyStuff() {
 		<>
 			<div className="flex flex-col flex-1 w-full max-w-xl px-3 opacity-0 animate-in">
 				<main className="flex flex-col flex-1 gap-8">
-					<Suspense fallback={<FallbackRow />}>
-						<MyStuffClient />
-					</Suspense>
+					{/* LISTS */}
 					<div className="flex flex-col gap-3">
 						{/* Header */}
 						<div className="flex flex-row justify-between">
@@ -58,6 +58,10 @@ export default async function MyStuff() {
 							<MyLists />
 						</Suspense>
 					</div>
+
+					<Suspense fallback={<FallbackRow />}>
+						<MyStuffClient />
+					</Suspense>
 				</main>
 			</div>
 			<CreateListModal />
