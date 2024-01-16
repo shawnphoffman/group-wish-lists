@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { ItemStatus } from '@/utils/enums'
 
-import Badge from '../Badge'
+import Badge from '../common/Badge'
 import { OpenImageIcon, OpenUrlIcon } from '../icons/Icons'
 import ItemPriorityIcon from '../icons/PriorityIcon'
 import ItemCheckbox from './ItemCheckbox'

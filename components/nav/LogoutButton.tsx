@@ -1,19 +1,11 @@
-import Link from 'next/link'
-
 import { getUser, signOut } from '@/app/actions/auth'
 
-import Badge from './Badge'
+import Badge from '../common/Badge'
 
-export default async function AuthButton() {
+export default async function LogoutButton() {
 	const { data: currentUser } = await getUser()
 
-	if (!currentUser) {
-		return (
-			<Link href="/login" className="nav-btn red">
-				Login
-			</Link>
-		)
-	}
+	if (!currentUser) return null
 
 	return (
 		<div className="flex items-center gap-4">

@@ -7,7 +7,7 @@ import { useEffect, useTransition } from 'react'
 // import { getSessionUser } from '@/app/actions/auth'
 import { createClientSideClient } from '@/utils/supabase/client'
 
-import { List } from './lists/types'
+import { List } from '../lists/types'
 
 type Props = {
 	listId?: List['id']

@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import icon from '@/app/icon.png'
 
-import SignInWithAppleButton from '@/components/buttons/SignInWithAppleButton'
+import SignInWithAppleButton from '@/components/login/SignInWithAppleButton'
 
 import { signIn } from '../actions/auth'
 

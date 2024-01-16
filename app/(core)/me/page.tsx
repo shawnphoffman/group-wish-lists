@@ -4,11 +4,11 @@ import { Suspense } from 'react'
 
 import { getUser } from '@/app/actions/auth'
 
-import Badge from '@/components/Badge'
+import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/icons/Fallback'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import MyLists from '@/components/myStuff/MyLists'
-import ProfileForm from '@/components/myStuff/ProfileForm'
+import MyLists from '@/components/me/MyLists'
+import ProfileForm from '@/components/me/ProfileForm'
 
 const CreateListModal = dynamic(() => import('@/components/modals/CreateListModal'), { ssr: false })
 

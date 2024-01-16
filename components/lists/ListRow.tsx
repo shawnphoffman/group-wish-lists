@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import TypeIcon from '@/components/icons/TypeIcon'
 
-import Badge from '../Badge'
+import Badge from '../common/Badge'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import ArchiveListButton from './buttons/ArchiveListButton'
 import DeleteListButton from './buttons/DeleteListButton'

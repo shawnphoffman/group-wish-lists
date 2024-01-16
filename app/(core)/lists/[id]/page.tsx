@@ -5,14 +5,14 @@ import { Suspense } from 'react'
 import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
 
-import Badge from '@/components/Badge'
+import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/icons/Fallback'
 import TypeIcon from '@/components/icons/TypeIcon'
 import EmptyMessage from '@/components/lists/EmptyMessage'
 import ListItemRow from '@/components/lists/ItemRow'
 import { List, ListItem, Recipient } from '@/components/lists/types'
 
-const RealTimeListener = dynamic(() => import('@/components/RealTimeListener'), { ssr: false })
+const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'), { ssr: false })
 
 type Props = {
 	params: {
