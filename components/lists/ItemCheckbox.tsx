@@ -6,16 +6,17 @@ import { useCallback, useEffect, useState } from 'react'
 import { createGift, deleteGift } from '@/app/actions/gifts'
 
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-import { ListItem } from './types'
+import { Gift, ListItem } from './types'
 
 import './ItemCheckbox.css'
 
 type Props = {
 	id: ListItem['id']
 	isComplete: boolean
+	canChange: boolean
 }
 
-export default function ItemCheckbox({ id, isComplete }: Props) {
+export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 	const [checked, setChecked] = useState(isComplete)
 	const [isPending, setIsPending] = useState(false)
 	const router = useRouter()
@@ -48,7 +49,13 @@ export default function ItemCheckbox({ id, isComplete }: Props) {
 					<FontAwesomeIcon className="text-2xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse sm:text-lg" />
 				</div>
 			) : (
-				<input type="checkbox" checked={checked} onChange={handleChange} className={`${isPending && '!bg-yellow-500'}`} />
+				<input
+					type="checkbox"
+					checked={checked}
+					onChange={handleChange}
+					readOnly={!canChange}
+					className={`${isPending && '!bg-yellow-500'}`}
+				/>
 			)}
 		</fieldset>
 	)

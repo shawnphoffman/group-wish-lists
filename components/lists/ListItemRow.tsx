@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { getSessionUser } from '@/app/actions/auth'
+
 import { ItemStatus } from '@/utils/enums'
 
 import Badge from '../common/Badge'
@@ -14,10 +16,17 @@ type Props = {
 	isOwnerView: boolean
 }
 
-export default function ListItemRow({ item, isOwnerView }: Props) {
+export default async function ListItemRow({ item, isOwnerView }: Props) {
 	if (!item) return null
 
-	// console.log('ListItemRow', item)
+	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
+	const userPromise = getSessionUser()
+	const [currentUser] = await Promise.all([
+		userPromise,
+		// fakePromise
+	])
+
+	console.log('ListItemRow', item)
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 
@@ -29,7 +38,7 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 					<div className="flex flex-col items-center justify-center gap-4 md:flex-row shrink-0">
 						<ItemPriorityIcon priority={item.priority} className="w-4" />
 						{/* Checkbox */}
-						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} />}
+						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={item?.gifter_id !== currentUser?.id} />}
 					</div>
 
 					<div className="flex flex-col flex-1 gap-2 sm:items-center sm:flex-row sm:gap-4">

@@ -9,7 +9,7 @@ import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/icons/Fallback'
 import TypeIcon from '@/components/icons/TypeIcon'
 import EmptyMessage from '@/components/lists/EmptyMessage'
-import ListItemRow from '@/components/lists/ItemRow'
+import ListItemRow from '@/components/lists/ListItemRow'
 import { List, ListItem, Recipient } from '@/components/lists/types'
 
 const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'), { ssr: false })
