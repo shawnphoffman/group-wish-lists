@@ -59,7 +59,7 @@ export default async function MyStuff() {
 						</Suspense>
 					</div>
 
-					<Suspense fallback={<FallbackRow />}>
+					<Suspense fallback={null}>
 						<MyStuffClient />
 					</Suspense>
 				</main>

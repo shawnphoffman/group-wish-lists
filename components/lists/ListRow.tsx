@@ -13,6 +13,13 @@ type Props = {
 	canEdit: boolean
 }
 
+const CountBadge = ({ count }: { count: number }) => (
+	<Badge className="hidden blue xs:inline-flex">
+		<FontAwesomeIcon className="!hidden sm:!inline fa-sharp fa-solid fa-list" />
+		{count}
+	</Badge>
+)
+
 export default function ListRow({ list, canEdit }: Props) {
 	if (!list) return null
 
@@ -22,16 +29,13 @@ export default function ListRow({ list, canEdit }: Props) {
 	const LinkOrDiv = url ? Link : 'div'
 
 	return (
-		<div className="inline-flex items-center gap-x-3.5 py-3 px-4 text-lg font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+		<div className={`list-item xs:!text-lg`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-4`}>
 				<TypeIcon type={list.type} />
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</LinkOrDiv>
-			<div className="flex flex-row items-center gap-4">
-				<Badge className="inline-flex blue">
-					<FontAwesomeIcon className="!hidden xs:!inline fa-sharp fa-solid fa-list" />
-					{list.count}
-				</Badge>
+			<div className="flex flex-row items-center justify-end gap-4 !text-lg">
+				<CountBadge count={list.count!} />
 				{canEdit && (
 					<>
 						<ArchiveListButton listId={list.id} isArchived={!isActive} />
