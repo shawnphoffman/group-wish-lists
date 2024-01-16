@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ItemStatus } from '@/utils/enums'
 
 import Badge from '../Badge'
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+import { OpenImageIcon, OpenUrlIcon } from '../icons/Icons'
 import ItemPriorityIcon from '../icons/PriorityIcon'
 import ItemCheckbox from './ItemCheckbox'
 import ItemImage from './ItemImage'
@@ -43,15 +43,20 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 						{/* Image */}
 						<ItemImage url={item.image_url} className="hidden sm:block" />
 						{/* Actions */}
-						<div className="flex flex-row items-center justify-end gap-4 text-xl">
+						<div className="flex flex-row items-center justify-end gap-4 text-xl sm:gap-2 sm:flex-col">
 							{isComplete && (
 								<Badge colorLabel={item.display_name} className="xxs">
 									{item.display_name}
 								</Badge>
 							)}
 							{item.image_url && (
-								<Link href={item.image_url} target="_blank" referrerPolicy="no-referrer" className={`max-sm:btn-ringed sm:hidden yellow`}>
-									<FontAwesomeIcon className=" fa-sharp fa-solid fa-image" />
+								<Link
+									href={item.image_url}
+									target="_blank"
+									referrerPolicy="no-referrer"
+									className={`max-sm:btn-ringed max-sm:!text-2xl sm:hidden yellow`}
+								>
+									<OpenImageIcon includeColor={false} />
 								</Link>
 							)}
 							{item.url && (
@@ -59,9 +64,9 @@ export default function ListItemRow({ item, isOwnerView }: Props) {
 									href={item.url}
 									target="_blank"
 									referrerPolicy="no-referrer"
-									className={`max-sm:btn-ringed sm:text-teal-300 sm:hover:text-teal-400 teal`}
+									className={`btn-ringed max-sm:!text-2xl max-md:!text-xl teal`}
 								>
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-up-right-from-square" />
+									<OpenUrlIcon includeColor={false} />
 								</Link>
 							)}
 						</div>

@@ -74,17 +74,25 @@ export default function ListItemEditRow({ item }: Props) {
 						<ItemImage url={item.image_url} />
 						{/* Actions */}
 						{/* {!isDeleting && ( */}
-						<fieldset disabled={pending} className="flex flex-row items-center justify-end gap-4 text-xl">
+						<fieldset
+							disabled={pending}
+							className="flex flex-row items-center self-end justify-end gap-4 md:self-auto md:gap-2 md:flex-col"
+						>
 							{item.url && (
-								<Link href={item.url} target="_blank" referrerPolicy="no-referrer">
-									<OpenUrlIcon />
+								<Link
+									href={item.url}
+									target="_blank"
+									referrerPolicy="no-referrer"
+									className={`btn-ringed max-sm:!text-2xl max-md:!text-xl teal`}
+								>
+									<OpenUrlIcon includeColor={false} />
 								</Link>
 							)}
-							<button type="button" onClick={handleEditClick}>
-								<EditIcon />
+							<button type="button" onClick={handleEditClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl yellow`}>
+								<EditIcon includeColor={false} />
 							</button>
-							<button type="button" onClick={handleDeleteClick}>
-								<DeleteIcon />
+							<button type="button" onClick={handleDeleteClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl red`}>
+								<DeleteIcon includeColor={false} />
 							</button>
 						</fieldset>
 						{/* )} */}

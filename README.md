@@ -1,5 +1,9 @@
 # TODO
 
+## BUGS
+
+[] Someone else shouldn't be able to uncheck box
+
 ## CORE FUNCTIONALITY
 
 [] My Stuff: View My Lists on Profile
