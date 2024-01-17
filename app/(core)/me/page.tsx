@@ -29,7 +29,7 @@ const MyStuffClient = async () => {
 		<div className="flex flex-col gap-3">
 			<div className="flex flex-row items-center justify-between">
 				<h1>Profile</h1>
-				<Badge colorLabel={user.display_name} className="xxs">
+				<Badge colorId={user.id} className="!text-base">
 					{user.display_name}
 				</Badge>
 			</div>

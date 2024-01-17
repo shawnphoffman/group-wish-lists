@@ -9,7 +9,7 @@ export default async function LogoutButton() {
 
 	return (
 		<div className="flex items-center gap-2 max-xs:gap-1">
-			<Badge colorLabel={currentUser.display_name} className="!text-base">
+			<Badge colorId={currentUser.id} className="!text-base">
 				<span className="hidden sm:inline">{currentUser.display_name}</span>
 				<span className="inline text-lg max-xs:text-base sm:hidden">{currentUser.display_name.charAt(0)}</span>
 			</Badge>

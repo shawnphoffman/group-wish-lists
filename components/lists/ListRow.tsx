@@ -13,7 +13,7 @@ type Props = {
 }
 
 const CountBadge = ({ count }: { count: number }) => (
-	<Badge className="hidden blue xs:inline-flex">
+	<Badge className={`hidden xs:inline-flex ${count > 0 ? 'blue' : 'gray'}`}>
 		<FontAwesomeIcon className="!hidden sm:!inline fa-sharp fa-solid fa-list" />
 		{count}
 	</Badge>

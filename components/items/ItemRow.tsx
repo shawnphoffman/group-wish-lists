@@ -54,11 +54,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						<ItemImage url={item.image_url} className="hidden w-24 sm:block" />
 						{/* Actions */}
 						<div className="flex flex-row items-center justify-end gap-4 text-xl sm:gap-2 sm:flex-col">
-							{isComplete && (
-								<Badge colorLabel={item.display_name} className="xxs">
-									{item.display_name}
-								</Badge>
-							)}
+							{isComplete && <Badge className="gray xxs">{item.display_name}</Badge>}
 							{item.image_url && (
 								<Link
 									href={item.image_url}

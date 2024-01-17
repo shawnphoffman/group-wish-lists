@@ -1,3 +1,7 @@
+import { cookies } from 'next/headers'
+
+import { createClient } from '@/utils/supabase/server'
+
 export const fakeAsync = async (timeout = 2000, status = 'success') => {
 	'use server'
 	const randomOffset = Math.floor(Math.random() * 2000)
@@ -10,4 +14,15 @@ export const fakeAsync = async (timeout = 2000, status = 'success') => {
 			})
 		}, randomTimeout)
 	})
+}
+
+export const getUsers = async () => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+	const resp = await supabase.from('users').select('id,user_id,display_name').order('id', { ascending: true })
+
+	console.log('getUsers.resp', resp)
+
+	return resp
 }
