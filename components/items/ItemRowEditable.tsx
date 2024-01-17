@@ -71,7 +71,6 @@ export default function ItemRowEditable({ item }: Props) {
 						{/* Image */}
 						<ItemImage url={item.image_url} className="w-24" />
 						{/* Actions */}
-						{/* {!isDeleting && ( */}
 						<fieldset
 							disabled={pending}
 							className="flex flex-row items-center self-end justify-end gap-4 md:self-auto md:gap-2 md:flex-col"
@@ -93,7 +92,6 @@ export default function ItemRowEditable({ item }: Props) {
 								<DeleteIcon includeColor={false} />
 							</button>
 						</fieldset>
-						{/* )} */}
 					</div>
 				</div>
 
