@@ -48,7 +48,7 @@ export default async function MyStuff() {
 						{/* Header */}
 						<div className="flex flex-row justify-between">
 							<h1>My Lists</h1>
-							<button type="button" className="mt-0 nav-btn green" data-hs-overlay="#hs-create-list-modal">
+							<button type="button" className="mt-0 nav-btn blue" data-hs-overlay="#hs-create-list-modal">
 								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
 								Create List
 							</button>
