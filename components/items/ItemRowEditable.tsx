@@ -12,6 +12,7 @@ import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 
+import { ItemPriority } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
 
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
@@ -71,23 +72,39 @@ export default function ItemRowEditable({ item }: Props) {
 		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
 			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-700 divide-dashed">
 				<div className="flex flex-row items-stretch gap-x-3.5">
-					<div className="flex flex-col items-center justify-center w-4 shrink-0">
-						{/* Priority */}
-						<ItemPriorityIcon priority={item.priority} />
-					</div>
-					<div className="flex flex-col items-center flex-1 gap-2 md:flex-row md:gap-4">
+					{/*  */}
+					{item.priority !== ItemPriority.Normal && (
+						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
+							{/* Priority */}
+							<ItemPriorityIcon priority={item.priority} />
+						</div>
+					)}
+					{/*  */}
+					<div className="flex flex-col flex-1 gap-2 xs:items-center xs:flex-row md:gap-4">
+						{/* TITLE + NOTES */}
 						<div className="flex flex-col flex-1">
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
 							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
 						</div>
-						{/* Image */}
-						<ItemImage url={item.image_url} className="w-24" />
-						{/* Edit */}
-						<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-xl yellow`}>
-							<EditIcon includeColor={false} />
-						</button>
+						{/* IMAGE + ACTIONS */}
+						<div className="flex flex-row items-center justify-center gap-2 xs:flex-col sm:flex-row">
+							{/* Image */}
+							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
+							{/* Edit */}
+							{isEditing ? (
+								<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-base sm:text-xl orange`}>
+									<FontAwesomeIcon className="fa-sharp fa-solid fa-ban" />
+									<span className="inline text-sm sm:hidden">Cancel</span>
+								</button>
+							) : (
+								<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-base sm:text-xl yellow`}>
+									<EditIcon includeColor={false} />
+									<span className="inline text-sm sm:hidden">Edit</span>
+								</button>
+							)}
+						</div>
 					</div>
 				</div>
 

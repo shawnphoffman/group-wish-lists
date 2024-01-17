@@ -144,9 +144,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			<div className="flex flex-col justify-between gap-2">
 				<div>
 					<label className="label">URL</label>
-					<div className="flex flex-row justify-between gap-4">
+					<div className="flex flex-row justify-between gap-2">
 						<input className="input" name="url" type="url" placeholder="Web URL for the item" value={url} onChange={handleChangeUrl} />
-						<button type="button" className="btn-ringed teal" onClick={handleUrlImport}>
+						<button type="button" className="nav-btn teal" onClick={handleUrlImport} disabled={!url}>
 							{isPending ? (
 								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />
 							) : (

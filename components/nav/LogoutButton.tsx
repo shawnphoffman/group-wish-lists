@@ -8,13 +8,13 @@ export default async function LogoutButton() {
 	if (!currentUser) return null
 
 	return (
-		<div className="flex items-center gap-4">
-			<Badge colorLabel={currentUser.display_name} className="!text-sm">
-				<span className="hidden xs:inline">{currentUser.display_name}</span>
-				<span className="inline xs:hidden">{currentUser.display_name.charAt(0)}</span>
+		<div className="flex items-center gap-2 max-xs:gap-1">
+			<Badge colorLabel={currentUser.display_name} className="!text-base">
+				<span className="hidden sm:inline">{currentUser.display_name}</span>
+				<span className="inline text-lg max-xs:text-base sm:hidden">{currentUser.display_name.charAt(0)}</span>
 			</Badge>
 			<form action={signOut}>
-				<button className="nav-btn red">Logout</button>
+				<button className="nav-btn red max-xs:!px-2">Logout</button>
 			</form>
 		</div>
 	)
