@@ -11,7 +11,8 @@ import { List, ListItem, Scrape } from '@/components/types'
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
-import ItemImage from '../components/ItemImage'
+// import ItemImage from '../components/ItemImage'
+import ItemImagePicker from '../components/ItemImagePicker'
 
 export const getImageFromScrape = (scrape?: Scrape) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -27,7 +28,7 @@ type Props = {
 }
 
 export default function ItemFormFields({ listId, formState, item }: Props) {
-	const [scrape, setScrape] = useState<Scrape | undefined>()
+	const [scrape, setScrape] = useState<Scrape | undefined>(item?.scrape)
 	const [importing, setImporting] = useState(false)
 	const [importError, setImportError] = useState('')
 	const [isTransitionPending, startTransition] = useTransition()
@@ -49,7 +50,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		if (item || !scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
 		const imageUrl = getImageFromScrape(scrape)
-		// console.log('scrape', { scrape, imageUrl })
+		console.log('scrape', { scrape })
 		setImageUrl(imageUrl)
 	}, [scrape])
 
@@ -77,9 +78,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setPriority(e.target.value as (typeof ItemPriority)[keyof typeof ItemPriority])
 	}, [])
 
-	const clearImageUrl = useCallback(() => {
-		setImageUrl('')
-	}, [])
+	// const clearImageUrl = useCallback(() => {
+	// 	setImageUrl('')
+	// }, [])
 
 	const handleUrlImport = useCallback(async () => {
 		setImporting(true)
@@ -163,17 +164,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</select>
 				</div>
 
-				{imageUrl && (
-					<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center relative mt-4">
-						{/* <img src={imageUrl} alt={title} className="object-scale-down rounded-lg" /> */}
-						<ItemImage url={imageUrl} className="" />
-						<FontAwesomeIcon
-							onClick={clearImageUrl}
-							className="fa-duotone fa-circle-xmark text-3xl cursor-pointer !absolute !top-[-1rem] !right-[-1rem] remove"
-							aria-hidden
-						/>
-					</div>
-				)}
+				{(scrape || imageUrl) && <ItemImagePicker images={scrape?.result?.ogImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
 
 				<div>
 					<button type="submit" className="w-full btn" disabled={isDisabled}>

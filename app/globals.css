@@ -241,5 +241,9 @@ i.remove {
 		&:not(.editing):not(.pending) {
 			@apply hover:bg-gray-100 dark:hover:bg-gray-800;
 		}
+
+		&.editing {
+			@apply border-4 border-slate-500;
+		}
 	}
 }

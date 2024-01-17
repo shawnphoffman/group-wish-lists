@@ -73,13 +73,16 @@ export const deleteItem = async (itemId: string) => {
 
 		const itemPromise = supabase.from('list_items').delete().eq('id', itemId)
 
-		await Promise.all([
+		const [item] = await Promise.all([
 			itemPromise,
 			// new Promise(resolve => setTimeout(resolve, 5000)),
 		])
 
+		console.log('delete item', { item })
+
 		return {
 			status: 'success',
+			item,
 		}
 	} catch (error) {
 		return {

@@ -40,7 +40,8 @@ export async function GET(request: Request) {
 					continue
 				}
 
-				console.log('✅ success', { result, userAgent, url, output })
+				// console.log('✅ success', { result, userAgent, url, output })
+				console.log('✅ success')
 
 				return NextResponse.json({ result: output, userAgent: userAgent[0] })
 			} catch (ex) {

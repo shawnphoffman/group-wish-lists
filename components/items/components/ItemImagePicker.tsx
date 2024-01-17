@@ -4,35 +4,29 @@ import { RadioGroup } from '@headlessui/react'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ItemImage from '@/components/items/components/ItemImage'
+import { OgImage } from '@/components/types'
 
 import './ItemImagePicker.css'
 
-const tempImages = [
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-male-2-transparent_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-detail-5-transparent_3df92a41-4e30-4045-8277-b1a0cd0b9cfd_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-male-3-transparent_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-]
+type Props = {
+	images?: OgImage[]
+	imageUrl: string
+	setImageUrl: (value: string) => void
+}
 
-export default function ItemImagePicker({}) {
+export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props) {
+	console.log('ItemImagePicker', { images, imageUrl })
+	if (!images) return null
 	return (
-		<RadioGroup name="image-url" defaultValue={''}>
+		<RadioGroup name="image-url" value={imageUrl} onChange={setImageUrl}>
 			{/* <RadioGroup.Label className="block mb-1 label">List Type</RadioGroup.Label> */}
 			<div className="flex flex-row flex-wrap items-center justify-center gap-4">
-				{tempImages.map(image => (
+				{images.map(image => (
 					<RadioGroup.Option value={image.url} key={image.url}>
 						{({ checked }) => (
 							<ItemImage
 								url={image.url}
-								className={`w-24 h-24 border-4 no-drag ${
+								className={` max-h-48 border-4 no-drag ${
 									checked ? 'filter-none bg-white border-yellow-500 ' : 'grayscale bg-gray-500 border-gray-700'
 								}`}
 							/>
@@ -42,12 +36,13 @@ export default function ItemImagePicker({}) {
 				<RadioGroup.Option value={''}>
 					{({ checked }) => (
 						<div
-							className={`w-24 h-24 flex items-center justify-center border-4 rounded-lg ${
+							className={`w-48 aspect-square max-h-48 flex items-center justify-center border-4 rounded-lg ${
 								checked ? 'border-red-500 text-white' : 'border-gray-700 text-gray-500'
 							}`}
 						>
-							<div className="text-3xl ">
+							<div className="flex flex-col items-center text-4xl">
 								<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
+								<span className="text-xl">No Image</span>
 							</div>
 						</div>
 					)}
