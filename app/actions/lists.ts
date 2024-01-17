@@ -63,6 +63,7 @@ export const createList = async (prevState: any, formData: FormData) => {
 		createPromise,
 		// new Promise(resolve => setTimeout(resolve, 5000))
 	])
+	console.log('list', list)
 
 	return {
 		status: 'success',

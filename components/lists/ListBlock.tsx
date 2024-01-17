@@ -11,7 +11,9 @@ export default async function ListBlock({ lists, isOwner }: Props) {
 	if (lists?.length === 0) return <EmptyMessage />
 	return (
 		<div className="flex flex-col list">
-			{lists.sort((a, b) => a.id - b.id)?.map(list => <ListRow key={list.id} list={list} canEdit={isOwner} />)}
+			{lists.map(list => (
+				<ListRow key={list.id} list={list} canEdit={isOwner} />
+			))}
 		</div>
 	)
 }
