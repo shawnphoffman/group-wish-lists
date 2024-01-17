@@ -15,11 +15,9 @@ type Props = {
 }
 
 export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props) {
-	console.log('ItemImagePicker', { images, imageUrl })
 	if (!images) return null
 	return (
 		<RadioGroup name="image-url" value={imageUrl} onChange={setImageUrl}>
-			{/* <RadioGroup.Label className="block mb-1 label">List Type</RadioGroup.Label> */}
 			<div className="flex flex-row flex-wrap items-center justify-center gap-4">
 				{images.map(image => (
 					<RadioGroup.Option value={image.url} key={image.url}>

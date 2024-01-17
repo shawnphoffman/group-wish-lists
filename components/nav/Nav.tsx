@@ -22,12 +22,12 @@ export default function Nav() {
 			</Link>
 			{!isDeployed && (
 				<Link href="/temp" className={'nav-btn yellow'}>
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask !text-2xl" />
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
 				</Link>
 			)}
 			{!isDeployed && (
 				<Link href="/markdown" className={'nav-btn yellow'}>
-					<FontAwesomeIcon className="fa-brands fa-markdown !text-2xl" />
+					<FontAwesomeIcon className="fa-brands fa-markdown" />
 				</Link>
 			)}
 		</div>

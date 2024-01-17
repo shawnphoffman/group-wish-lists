@@ -41,12 +41,12 @@ const ShowList = async ({ params }: Props) => {
 				</div>
 				<div className="flex flex-row gap-2">
 					{/* {!isDeployed && (
-						<Link href="#import-items" className="nav-btn">
+						<Link href="#import-items" className="nav-btn blue">
 							<FontAwesomeIcon className="fa-sharp fa-file-import" />
 							Import Items
 						</Link>
 					)} */}
-					<Link href="#add-item" className="nav-btn">
+					<Link href="#add-item" className="nav-btn blue">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
 					</Link>

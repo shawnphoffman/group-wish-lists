@@ -12,6 +12,8 @@ import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 
+import { isDeployed } from '@/utils/environment'
+
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 
 type Props = {
@@ -28,6 +30,16 @@ export default function ItemRowEditable({ item }: Props) {
 	const handleEditClick = useCallback(() => {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
+
+	const handleMoveClick = useCallback(() => {
+		// TODO
+		console.log('MOVE ITEM')
+	}, [])
+
+	const handleDuplicateClick = useCallback(() => {
+		// TODO
+		console.log('DUPLICATE ITEM')
+	}, [])
 
 	const handleDeleteClick = useCallback(async () => {
 		if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
@@ -57,7 +69,7 @@ export default function ItemRowEditable({ item }: Props) {
 
 	return (
 		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
-			<div className="flex flex-col w-full gap-2">
+			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-700 divide-dashed">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					<div className="flex flex-col items-center justify-center w-4 shrink-0">
 						{/* Priority */}
@@ -72,53 +84,44 @@ export default function ItemRowEditable({ item }: Props) {
 						</div>
 						{/* Image */}
 						<ItemImage url={item.image_url} className="w-24" />
-						{/* Actions */}
-						<fieldset
-							disabled={pending}
-							className="flex flex-row items-center self-end justify-end gap-4 md:self-auto md:gap-2 md:flex-col"
-						>
-							{/* {item.url && (
-								<Link
-									href={item.url}
-									target="_blank"
-									referrerPolicy="no-referrer"
-									className={`nav-btn max-sm:!text-2xl max-md:!text-xl teal`}
-								>
-									<OpenUrlIcon includeColor={false} />
-								</Link>
-							)} */}
-							<button type="button" onClick={handleEditClick} className={`nav-btn max-sm:!text-2xl max-md:!text-xl yellow`}>
-								<EditIcon includeColor={false} />
-							</button>
-							{/* <button type="button" onClick={handleDeleteClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl red`}>
-								<DeleteIcon includeColor={false} />
-							</button> */}
-						</fieldset>
+						{/* Edit */}
+						<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-xl yellow`}>
+							<EditIcon includeColor={false} />
+						</button>
 					</div>
 				</div>
 
-				{isEditing && (
+				{(false || isEditing) && (
 					<>
-						<hr className="" />
-
-						<div className="flex flex-col items-stretch gap-2 p-2">
-							<h5>Actions</h5>
-							<div className="flex flex-row gap-2">
-								<button type="button" onClick={handleDeleteClick} className="nav-btn red">
+						<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
+							<h5 className="md:mr-8 max-md:self-start">Actions</h5>
+							<div className="flex flex-row flex-wrap items-center justify-center gap-2 md:gap-4">
+								<button type="button" className="nav-btn red" onClick={handleDeleteClick}>
 									<DeleteIcon includeColor={false} />
 									Delete
 								</button>
-								<button type="button" className="nav-btn yellow">
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-									Move
-								</button>
-								<button type="button" className="nav-btn teal">
-									<OpenUrlIcon includeColor={false} />
-									Open URL
-								</button>
+								{!isDeployed && (
+									// TODO
+									<button type="button" className="nav-btn purple" onClick={handleMoveClick}>
+										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+										Move
+									</button>
+								)}
+								{item.url && (
+									<Link href={item.url} target="_blank" className="nav-btn teal">
+										<OpenUrlIcon includeColor={false} />
+										Open URL
+									</Link>
+								)}
+								{!isDeployed && (
+									// TODO
+									<button type="button" className="nav-btn orange" onClick={handleDuplicateClick}>
+										<FontAwesomeIcon className="fa-sharp fa-solid fa-copy" />
+										Duplicate
+									</button>
+								)}
 							</div>
 						</div>
-						<hr className="border-gray-200 dark:border-gray-700" />
 						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}

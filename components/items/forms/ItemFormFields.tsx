@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState, useTransition } from 'react'
+import { use, useCallback, useEffect, useRef, useState, useTransition } from 'react'
 // @ts-expect-error
 import { useFormStatus } from 'react-dom'
 
@@ -28,14 +28,19 @@ type Props = {
 }
 
 export default function ItemFormFields({ listId, formState, item }: Props) {
-	const [scrape, setScrape] = useState<Scrape | undefined>(item?.scrape)
 	const [importing, setImporting] = useState(false)
 	const [importError, setImportError] = useState('')
+
 	const [isTransitionPending, startTransition] = useTransition()
 	const { pending: isFormPending } = useFormStatus()
+
 	const router = useRouter()
 
+	const titleRef = useRef<HTMLTextAreaElement>(null)
+	const notesRef = useRef<HTMLTextAreaElement>(null)
+
 	// Item Fields
+	const [scrape, setScrape] = useState<Scrape | undefined>(item?.scrape)
 	const [id] = useState<string>(item?.id || '')
 	const [title, setTitle] = useState<string>(item?.title || '')
 	const [notes, setNotes] = useState<string>(item?.notes || '')
@@ -50,9 +55,25 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		if (item || !scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
 		const imageUrl = getImageFromScrape(scrape)
-		console.log('scrape', { scrape })
+		// console.log('scrape', { scrape })
 		setImageUrl(imageUrl)
 	}, [scrape])
+
+	useEffect(() => {
+		if (!item) return
+		if (titleRef.current) {
+			titleRef.current.style.height = 'inherit'
+			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
+		}
+	}, [title])
+
+	useEffect(() => {
+		if (!item) return
+		if (notesRef.current) {
+			notesRef.current.style.height = 'inherit'
+			notesRef.current.style.height = `${notesRef.current.scrollHeight}px`
+		}
+	}, [notes])
 
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = 'inherit'
@@ -142,12 +163,12 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<span className="relative text-red-500 bottom-1">
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-asterisk fa-2xs" />
 					</span>
-					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} />
+					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} ref={titleRef} />
 				</div>
 
 				<div>
 					<label className="label">Notes</label>
-					<textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} />
+					<textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
 				</div>
 
 				<div>
