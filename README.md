@@ -3,9 +3,6 @@
 ## CORE FUNCTIONALITY
 
 [] Edit: Move item to a different list
-[] Edit: Import URL to existing item
-[] Edit: Refactor import/add functionality
-[] Edit: Add image picker for scrape
 
 ## NICE TO HAVES
 

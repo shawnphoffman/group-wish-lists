@@ -17,14 +17,17 @@ export default function Nav() {
 				<span className="hidden xs:inline">My Stuff</span>
 				<span className="inline xs:hidden">Me</span>
 			</Link>
+			<Link href="/faq" className={'nav-btn blue '}>
+				<FontAwesomeIcon className="fa-sharp fa-solid fa-question-circle !text-2xl" />
+			</Link>
 			{!isDeployed && (
 				<Link href="/temp" className={'nav-btn yellow'}>
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
+					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask !text-2xl" />
 				</Link>
 			)}
 			{!isDeployed && (
 				<Link href="/markdown" className={'nav-btn yellow'}>
-					<FontAwesomeIcon className="fa-brands fa-markdown" />
+					<FontAwesomeIcon className="fa-brands fa-markdown !text-2xl" />
 				</Link>
 			)}
 		</div>
