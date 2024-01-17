@@ -1,8 +1,8 @@
-import { Suspense } from 'react'
+// import { Suspense } from 'react'
 
 // import { getMyLists } from '@/app/actions/lists'
-import SuspenseTest from '@/components/SuspenseTest'
-import Fallback from '@/components/icons/Fallback'
+// import SuspenseTest from '@/components/SuspenseTest'
+// import Fallback from '@/components/icons/Fallback'
 
 export default async function Temp() {
 	// const { data: lists } = await getMyLists()
@@ -17,7 +17,7 @@ export default async function Temp() {
 				<code>{JSON.stringify(lists, null, 2)}</code>
 			</pre> */}
 
-			<Suspense fallback={<Fallback />}>
+			{/* <Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
 			<Suspense fallback={<Fallback />}>
@@ -28,7 +28,7 @@ export default async function Temp() {
 			</Suspense>
 			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
-			</Suspense>
+			</Suspense> */}
 
 			{/* <div className="flex flex-col gap-2">
 				<button className="btn">Button</button>
