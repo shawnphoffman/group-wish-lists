@@ -43,7 +43,7 @@ export const signIn = async (formData: FormData) => {
 	const supabase = createClient(cookieStore)
 
 	const { error } = await supabase.auth.signInWithPassword({
-		email,
+		email: email.toLowerCase(),
 		password,
 	})
 

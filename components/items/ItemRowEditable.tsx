@@ -66,7 +66,7 @@ export default function ItemRowEditable({ item }: Props) {
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
-							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
+							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
 						</div>
 						{/* Image */}
 						<ItemImage url={item.image_url} className="w-24" />

@@ -1,25 +1,9 @@
-// import { Suspense } from 'react'
-import ItemImage from '@/components/items/components/ItemImage'
-import ItemImagePicker from '@/components/items/components/ItemImagePicker'
+import { Suspense } from 'react'
+
+import Fallback from '@/components/common/Fallbacks'
+import SuspenseTest from '@/components/utils/SuspenseTest'
 
 // import { getMyLists } from '@/app/actions/lists'
-// import SuspenseTest from '@/components/SuspenseTest'
-// import Fallback from '@/components/icons/Fallback'
-
-const images = [
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-male-2-transparent_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-detail-5-transparent_3df92a41-4e30-4045-8277-b1a0cd0b9cfd_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-	{
-		url: 'https://bombas.com/cdn/shop/products/7069-oceanfog-adult-male-3-transparent_1024x1024.png?v=1704376885',
-		type: 'png',
-	},
-]
 
 export default async function Temp() {
 	// const { data: lists } = await getMyLists()
@@ -30,21 +14,10 @@ export default async function Temp() {
 		<div className="flex flex-col flex-1 w-full max-w-lg gap-4 p-4 opacity-0 animate-in">
 			<h1>Temp</h1>
 
-			<ItemImagePicker />
-
-			<hr />
-
-			{images.map((image, i) => (
-				<ItemImage key={i} url={image.url} className="" />
-			))}
-
 			{/* <pre className="cool-code">
 				<code>{JSON.stringify(lists, null, 2)}</code>
 			</pre> */}
 
-			{/* <Suspense fallback={<Fallback />}>
-				<SuspenseTest />
-			</Suspense>
 			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
@@ -53,7 +26,10 @@ export default async function Temp() {
 			</Suspense>
 			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
-			</Suspense> */}
+			</Suspense>
+			<Suspense fallback={<Fallback />}>
+				<SuspenseTest />
+			</Suspense>
 
 			{/* <div className="flex flex-col gap-2">
 				<button className="btn">Button</button>
