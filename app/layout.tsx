@@ -1,9 +1,9 @@
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 
-import PrelineScript from '@/components/utils/PrelineScript'
+import '@/app/globals.css'
 
-import './globals.css'
+import PrelineScript from '@/components/utils/PrelineScript'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
 

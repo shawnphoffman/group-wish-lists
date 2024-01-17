@@ -7,8 +7,8 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 import { updateProfile } from '@/app/actions/auth'
 
-import ErrorMessage from '../lists/GenericErrorMessage'
-import SuccessAlert from '../lists/SuccessAlert'
+import ErrorMessage from '@/components/common/ErrorMessage'
+import SuccessMessage from '@/components/common/SuccessMessage'
 
 type FormProps = {
 	name: string
@@ -38,7 +38,7 @@ function ProfileForm({ name, id, state }: FormProps) {
 			{!pending && (
 				<>
 					{state?.error && <ErrorMessage error={state?.error} />}
-					{state?.status && <SuccessAlert />}
+					{state?.status && <SuccessMessage />}
 				</>
 			)}
 		</>

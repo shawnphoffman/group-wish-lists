@@ -1,8 +1,8 @@
 'use client'
 
-import { createClientSideClient } from '@/utils/supabase/client'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+import { createClientSideClient } from '@/utils/supabase/client'
 
 export default function SignInWithAppleButton() {
 	const supabase = createClientSideClient()

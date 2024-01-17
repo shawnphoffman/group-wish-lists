@@ -1,6 +1,6 @@
 import { getUser, signOut } from '@/app/actions/auth'
 
-import Badge from '../common/Badge'
+import Badge from '@/components/common/Badge'
 
 export default async function LogoutButton() {
 	const { data: currentUser } = await getUser()

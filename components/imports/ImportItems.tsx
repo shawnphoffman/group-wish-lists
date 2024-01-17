@@ -1,6 +1,6 @@
-import { isDeployed } from '@/utils/environment'
+import { List } from '@/components/types'
 
-import { List } from '../types'
+import { isDeployed } from '@/utils/environment'
 
 type Props = {
 	listId: List['id']

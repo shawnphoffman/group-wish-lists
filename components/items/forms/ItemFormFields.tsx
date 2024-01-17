@@ -5,12 +5,11 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 // @ts-expect-error
 import { useFormStatus } from 'react-dom'
 
+import ErrorMessage from '@/components/common/ErrorMessage'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { List, ListItem, Scrape } from '@/components/types'
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
-
-import ErrorMessage from '../GenericErrorMessage'
-import { List, ListItem, Scrape } from '../types'
 
 export const getImageFromScrape = (scrape?: Scrape) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {

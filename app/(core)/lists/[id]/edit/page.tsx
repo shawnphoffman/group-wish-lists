@@ -4,16 +4,13 @@ import { Suspense } from 'react'
 
 import { getEditableList } from '@/app/actions/lists'
 
-import FallbackRow from '@/components/icons/Fallback'
+import EmptyMessage from '@/components/common/EmptyMessage'
+import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import EditableListTitle from '@/components/lists/EditableListTitle'
-import EmptyMessage from '@/components/lists/EmptyMessage'
-import AddItem from '@/components/lists/create/AddItem'
-import ImportItems from '@/components/lists/create/ImportItems'
-import ListItemEditRow from '@/components/lists/create/ItemEditRow'
-import { List, ListItem } from '@/components/lists/types'
-
-import { isDeployed } from '@/utils/environment'
+import ItemRowEditable from '@/components/items/ItemRowEditable'
+import AddItemForm from '@/components/items/forms/AddItemForm'
+import ListTitleEditable from '@/components/lists/ListTitleEditable'
+import { List, ListItem } from '@/components/types'
 
 type Props = {
 	params: {
@@ -40,7 +37,7 @@ const ShowList = async ({ params }: Props) => {
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-6 md:flex-row">
 				<div className="flex flex-row items-center gap-2">
-					<EditableListTitle listId={params.id} name={data.name} type={data.type} />
+					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row gap-2">
 					{/* {!isDeployed && (
@@ -59,7 +56,7 @@ const ShowList = async ({ params }: Props) => {
 			{/* Rows */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col list">{items?.map(item => <ListItemEditRow key={item.id} item={item} />)}</div>
+				<div className="flex flex-col list">{items?.map(item => <ItemRowEditable key={item.id} item={item} />)}</div>
 			</div>
 		</>
 	)
@@ -73,7 +70,14 @@ export default async function EditList({ params }: Props) {
 			</Suspense>
 
 			{/* Add Item */}
-			<AddItem listId={params.id} />
+			<div className="border-container" id="add-item">
+				<h4>Add Item</h4>
+				<Suspense fallback={<FallbackRow />}>
+					<div className="flex flex-col items-stretch gap-2 p-2">
+						<AddItemForm listId={params.id} />
+					</div>
+				</Suspense>
+			</div>
 
 			{/* Import */}
 			{/* <ImportItems listId={params.id} /> */}

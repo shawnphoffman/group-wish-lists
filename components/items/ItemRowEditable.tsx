@@ -6,19 +6,17 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 
 import { deleteItem } from '@/app/actions/items'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
-
-import ItemImage from '../ItemImage'
-import { ListItem } from '../types'
-import EditItemForm from './EditItemForm'
+import ItemImage from '@/components/items/components/ItemImage'
+import EditItemForm from '@/components/items/forms/EditItemForm'
+import { ListItem } from '@/components/types'
 
 type Props = {
 	item: ListItem
 }
 
-export default function ListItemEditRow({ item }: Props) {
+export default function ItemRowEditable({ item }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 

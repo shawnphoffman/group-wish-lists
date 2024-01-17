@@ -1,4 +1,4 @@
-import FontAwesomeIcon from './FontAwesomeIcon'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
 export const FallbackIcon = () => <FontAwesomeIcon className="text-3xl text-white fa-sharp fa-fw fa-solid fa-compact-disc fa-spin" />
 

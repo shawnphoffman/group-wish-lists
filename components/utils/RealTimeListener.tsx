@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { startTransition, useEffect } from 'react'
 
-import { createClientSideClient } from '@/utils/supabase/client'
+import { List } from '@/components/types'
 
-import { List } from '../lists/types'
+import { createClientSideClient } from '@/utils/supabase/client'
 
 type Props = {
 	listId?: List['id']

@@ -8,11 +8,10 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 import { createList } from '@/app/actions/lists'
 
-import { ListCategory } from '@/utils/enums'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import TypeIcon from '@/components/icons/TypeIcon'
 
-// import { isDeployed } from '@/utils/environment'
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-import TypeIcon from '../icons/TypeIcon'
+import { ListCategory } from '@/utils/enums'
 
 function CreateListFields() {
 	const { pending } = useFormStatus()

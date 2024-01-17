@@ -1,10 +1,10 @@
 import { getSessionUser } from '@/app/actions/auth'
 import { getListsGroupedByUser } from '@/app/actions/lists'
 
-import ErrorMessage from './GenericErrorMessage'
-import ListBlock from './ListBlock'
+import ErrorMessage from '@/components/common/ErrorMessage'
+import ListBlock from '@/components/lists/ListBlock'
 
-export default async function GroupedLists() {
+export default async function ListsByUser() {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
 	const listsPromise = getListsGroupedByUser()

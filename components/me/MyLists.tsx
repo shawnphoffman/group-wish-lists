@@ -1,7 +1,7 @@
 import { getMyLists } from '@/app/actions/lists'
 
-import ListBlock from '../lists/ListBlock'
-import { List } from '../lists/types'
+import ListBlock from '@/components/lists/ListBlock'
+import { List } from '@/components/types'
 
 export default async function MyLists() {
 	const listsPromise = getMyLists()

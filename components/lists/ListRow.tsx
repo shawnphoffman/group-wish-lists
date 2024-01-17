@@ -1,12 +1,11 @@
 import Link from 'next/link'
 
+import Badge from '@/components/common/Badge'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import TypeIcon from '@/components/icons/TypeIcon'
-
-import Badge from '../common/Badge'
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-import ArchiveListButton from './buttons/ArchiveListButton'
-import DeleteListButton from './buttons/DeleteListButton'
-import { List } from './types'
+import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
+import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
+import { List } from '@/components/types'
 
 type Props = {
 	list: List

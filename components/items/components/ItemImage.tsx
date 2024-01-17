@@ -1,5 +1,3 @@
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-
 type Props = {
 	url?: string
 	className?: string

@@ -6,8 +6,7 @@ import { useCallback, useTransition } from 'react'
 import { archiveList, unarchiveList } from '@/app/actions/lists'
 
 import { ArchiveIcon, UnarchiveIcon } from '@/components/icons/Icons'
-
-import { List } from '../types'
+import { List } from '@/components/types'
 
 type Props = {
 	listId: List['id']

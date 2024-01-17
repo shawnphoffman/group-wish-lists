@@ -5,12 +5,12 @@ import { Suspense } from 'react'
 import { getUser } from '@/app/actions/auth'
 
 import Badge from '@/components/common/Badge'
-import FallbackRow from '@/components/icons/Fallback'
+import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/me/MyLists'
 import ProfileForm from '@/components/me/ProfileForm'
 
-const CreateListModal = dynamic(() => import('@/components/modals/CreateListModal'), { ssr: false })
+const CreateListModal = dynamic(() => import('@/components/me/CreateListModal'), { ssr: false })
 
 const MyStuffClient = async () => {
 	const userPromise = getUser()

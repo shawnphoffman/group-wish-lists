@@ -1,7 +1,6 @@
+import EmptyMessage from '@/components/common/EmptyMessage'
 import ListRow from '@/components/lists/ListRow'
-
-import EmptyMessage from './EmptyMessage'
-import { List } from './types'
+import { List } from '@/components/types'
 
 type Props = {
 	lists: List[]

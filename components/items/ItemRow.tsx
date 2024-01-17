@@ -2,21 +2,21 @@ import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
 
-import { ItemStatus } from '@/utils/enums'
+import Badge from '@/components/common/Badge'
+import { OpenImageIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import ItemPriorityIcon from '@/components/icons/PriorityIcon'
+import ItemCheckbox from '@/components/items/components/ItemCheckbox'
+import ItemImage from '@/components/items/components/ItemImage'
+import { Gift, ListItem } from '@/components/types'
 
-import Badge from '../common/Badge'
-import { OpenImageIcon, OpenUrlIcon } from '../icons/Icons'
-import ItemPriorityIcon from '../icons/PriorityIcon'
-import ItemCheckbox from './ItemCheckbox'
-import ItemImage from './ItemImage'
-import { Gift, ListItem } from './types'
+import { ItemStatus } from '@/utils/enums'
 
 type Props = {
 	item: ListItem & Gift
 	isOwnerView: boolean
 }
 
-export default async function ListItemRow({ item, isOwnerView }: Props) {
+export default async function ItemRow({ item, isOwnerView }: Props) {
 	if (!item) return null
 
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))

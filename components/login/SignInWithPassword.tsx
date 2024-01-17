@@ -3,7 +3,7 @@
 // @ts-expect-error
 import { useFormStatus } from 'react-dom'
 
-export default function SignInForm() {
+export default function SignInWithPassword() {
 	const { pending } = useFormStatus()
 	return (
 		<fieldset disabled={pending} className="flex flex-col justify-center w-full gap-2">

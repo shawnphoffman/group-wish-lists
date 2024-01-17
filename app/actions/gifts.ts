@@ -2,11 +2,11 @@
 
 import { cookies } from 'next/headers'
 
-import { ListItem } from '@/components/lists/types'
+import { getSessionUser } from '@/app/actions/auth'
+
+import { ListItem } from '@/components/types'
 
 import { createClient } from '@/utils/supabase/server'
-
-import { getSessionUser } from './auth'
 
 export const createGift = async (itemId: ListItem['id']) => {
 	'use server'

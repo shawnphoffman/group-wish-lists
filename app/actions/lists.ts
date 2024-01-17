@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers'
 
-import { List } from '@/components/lists/types'
+import { List } from '@/components/types'
 
 import { createClient } from '@/utils/supabase/server'
 

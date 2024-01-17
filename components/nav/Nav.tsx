@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { isDeployed } from '@/utils/environment'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+import { isDeployed } from '@/utils/environment'
 
 export default function Nav() {
 	return (

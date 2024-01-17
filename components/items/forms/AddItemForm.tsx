@@ -1,24 +1,22 @@
 'use client'
 
-import { useRef } from 'react'
 // @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
 
-import { List } from '../types'
-import ItemFormFields from './ItemFormFields'
+import ItemFormFields from '@/components/items/forms/ItemFormFields'
+import { List } from '@/components/types'
 
 type Props = {
 	listId: List['id']
 }
 
 export default function AddItemForm({ listId }: Props) {
-	const formRef = useRef<HTMLFormElement>(null)
 	const [state, formAction] = useFormState(createItem, {})
 
 	return (
-		<form action={formAction} ref={formRef}>
+		<form action={formAction}>
 			<ItemFormFields listId={listId} formState={state} />
 		</form>
 	)

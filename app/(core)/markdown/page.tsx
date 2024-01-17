@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 
-import ImportMarkdown from '@/components/ImportMarkdown'
-import FallbackRow from '@/components/icons/Fallback'
+import FallbackRow from '@/components/common/Fallbacks'
+import ImportMarkdown from '@/components/imports/ImportMarkdown'
 
 export default async function Markdown() {
 	return (

@@ -1,6 +1,6 @@
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
-export default function SuccessAlert({ message = 'Successfully updated.' }: { message?: string }) {
+export default function SuccessMessage({ message = 'Successfully updated.' }: { message?: string }) {
 	return (
 		<div className="px-3 py-2 rounded-lg bg-green-50 dark:bg-green-900/30" role="alert">
 			<div className="flex">

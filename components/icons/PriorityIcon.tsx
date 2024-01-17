@@ -1,6 +1,6 @@
-import { ItemPriority } from '@/utils/enums'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
-import FontAwesomeIcon from './FontAwesomeIcon'
+import { ItemPriority } from '@/utils/enums'
 
 type Props = { priority: string; className?: string }
 

@@ -8,11 +8,10 @@ import { useFormState } from 'react-dom'
 import { renameList } from '@/app/actions/lists'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import TypeIcon from '@/components/icons/TypeIcon'
+import { List } from '@/components/types'
 
 import { ListCategory } from '@/utils/enums'
-
-import TypeIcon from '../icons/TypeIcon'
-import { List } from './types'
 
 type Props = {
 	listId: List['id']
@@ -20,7 +19,7 @@ type Props = {
 	type: List['type']
 }
 
-export default function EditableListTitle({ listId, name, type }: Props) {
+export default function ListTitleEditable({ listId, name, type }: Props) {
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)

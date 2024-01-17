@@ -6,11 +6,11 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
 
 import Badge from '@/components/common/Badge'
-import FallbackRow from '@/components/icons/Fallback'
+import EmptyMessage from '@/components/common/EmptyMessage'
+import FallbackRow from '@/components/common/Fallbacks'
 import TypeIcon from '@/components/icons/TypeIcon'
-import EmptyMessage from '@/components/lists/EmptyMessage'
-import ListItemRow from '@/components/lists/ListItemRow'
-import { List, ListItem, Recipient } from '@/components/lists/types'
+import ItemRow from '@/components/items/ItemRow'
+import { List, ListItem, Recipient } from '@/components/types'
 
 const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'), { ssr: false })
 
@@ -54,7 +54,7 @@ const ViewListClient = async ({ params }: Props) => {
 			{/* Items */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col list">{items?.map(item => <ListItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
+				<div className="flex flex-col list">{items?.map(item => <ItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
 			</div>
 		</>
 	)

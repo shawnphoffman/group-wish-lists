@@ -5,8 +5,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { createGift, deleteGift } from '@/app/actions/gifts'
 
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-import { ListItem } from './types'
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { ListItem } from '@/components/types'
 
 import './ItemCheckbox.css'
 
