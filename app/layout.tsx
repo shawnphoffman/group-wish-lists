@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 		locale: 'en_US',
 	},
 	appleWebApp: {
-		capable: true,
 		statusBarStyle: 'black-translucent',
 		title: 'Wish Lists',
 	},
