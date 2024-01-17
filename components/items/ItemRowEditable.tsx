@@ -69,7 +69,7 @@ export default function ItemRowEditable({ item }: Props) {
 							{item.notes && <div className="text-sm text-gray-400">{item.notes}</div>}
 						</div>
 						{/* Image */}
-						<ItemImage url={item.image_url} />
+						<ItemImage url={item.image_url} className="w-24" />
 						{/* Actions */}
 						{/* {!isDeleting && ( */}
 						<fieldset

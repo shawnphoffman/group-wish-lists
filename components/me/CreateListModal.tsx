@@ -9,7 +9,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { createList } from '@/app/actions/lists'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import TypeIcon from '@/components/icons/TypeIcon'
+import ListTypeIcon from '@/components/icons/ListTypeIcon'
 
 import { ListCategory } from '@/utils/enums'
 
@@ -49,7 +49,7 @@ function CreateListFields() {
 								<RadioGroup.Option value={value} key={key}>
 									{({ checked }) => (
 										<label className={`btn text-base mt-0 mb-1 flex-1 w-full ${checked ? ' teal' : 'transparent'}`} htmlFor={value}>
-											<TypeIcon type={value} />
+											<ListTypeIcon type={value} />
 											{key}
 										</label>
 									)}

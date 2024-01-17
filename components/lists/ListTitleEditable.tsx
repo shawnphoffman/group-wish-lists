@@ -8,7 +8,7 @@ import { useFormState } from 'react-dom'
 import { renameList } from '@/app/actions/lists'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import TypeIcon from '@/components/icons/TypeIcon'
+import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List } from '@/components/types'
 
 import { ListCategory } from '@/utils/enums'
@@ -61,7 +61,7 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 				</form>
 			) : (
 				<>
-					<TypeIcon type={type} className="text-3xl" />
+					<ListTypeIcon type={type} className="text-3xl" />
 					<h1>{name}</h1>
 					<button type="button" title="Rename" className="text-2xl nav-btn yellow " onClick={handleClick} disabled={isPending}>
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-pencil" />

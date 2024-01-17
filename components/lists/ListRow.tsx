@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import Badge from '@/components/common/Badge'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import TypeIcon from '@/components/icons/TypeIcon'
+import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import { List } from '@/components/types'
@@ -29,8 +29,8 @@ export default function ListRow({ list, canEdit }: Props) {
 
 	return (
 		<div className={`list-item xs:!text-lg`}>
-			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-4`}>
-				<TypeIcon type={list.type} />
+			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
+				<ListTypeIcon type={list.type} />
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-4 !text-lg">

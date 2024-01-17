@@ -11,6 +11,8 @@ import { List, ListItem, Scrape } from '@/components/types'
 
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
+import ItemImage from '../components/ItemImage'
+
 export const getImageFromScrape = (scrape?: Scrape) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
 		return scrape.result.ogImage[0].url
@@ -163,8 +165,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 				{imageUrl && (
 					<div className="flex flex-row gap-4 items-center w-full max-w-[24rem] justify-center self-center relative mt-4">
-						<img src={imageUrl} alt={title} className="object-scale-down rounded-lg" />
-						<i
+						{/* <img src={imageUrl} alt={title} className="object-scale-down rounded-lg" /> */}
+						<ItemImage url={imageUrl} className="" />
+						<FontAwesomeIcon
 							onClick={clearImageUrl}
 							className="fa-duotone fa-circle-xmark text-3xl cursor-pointer !absolute !top-[-1rem] !right-[-1rem] remove"
 							aria-hidden

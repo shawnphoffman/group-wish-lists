@@ -3,7 +3,7 @@ type Props = {
 	className?: string
 }
 
-export default function ItemImage({ url, className }: Props) {
+export default function ItemImage({ url, className = '' }: Props) {
 	if (!url) return null
-	return <img src={url} alt="" className={` object-scale-down w-24 rounded-lg ${className}`} />
+	return <img src={url} alt="" className={`object-scale-down rounded-lg bg-white ${className}`} />
 }

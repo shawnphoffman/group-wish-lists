@@ -8,7 +8,7 @@ import { getViewableList } from '@/app/actions/lists'
 import Badge from '@/components/common/Badge'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
-import TypeIcon from '@/components/icons/TypeIcon'
+import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
 
@@ -44,7 +44,7 @@ const ViewListClient = async ({ params }: Props) => {
 		<>
 			{/* Header */}
 			<div className="flex flex-row items-center justify-between w-full gap-2 truncate">
-				<TypeIcon type={data.type} className="text-3xl" />
+				<ListTypeIcon type={data.type} className="text-3xl" />
 				<h1 className="flex-1 truncate">{data?.name}</h1>
 				<Badge colorLabel={recipient.display_name} className="xxs">
 					{recipient.display_name}
