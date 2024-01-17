@@ -78,10 +78,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setPriority(e.target.value as (typeof ItemPriority)[keyof typeof ItemPriority])
 	}, [])
 
-	// const clearImageUrl = useCallback(() => {
-	// 	setImageUrl('')
-	// }, [])
-
 	const handleUrlImport = useCallback(async () => {
 		setImporting(true)
 		if (importError) setImportError('')
@@ -129,10 +125,12 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<label className="label">URL</label>
 					<div className="flex flex-row justify-between gap-4">
 						<input className="input" name="url" type="url" placeholder="Web URL for the item" value={url} onChange={handleChangeUrl} />
-						{/* <button type="button" className="import-btn" onClick={handleUrlImport}> */}
 						<button type="button" className="btn-ringed teal" onClick={handleUrlImport}>
-							{/* <FontAwesomeIcon className="fa-sharp fa-solid fa-link" /> */}
-							<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-arrow-down-to-line fa-fw" />
+							{isPending ? (
+								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />
+							) : (
+								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-arrow-down-to-line fa-fw" />
+							)}
 						</button>
 					</div>
 				</div>

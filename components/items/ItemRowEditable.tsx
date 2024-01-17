@@ -12,6 +12,8 @@ import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+
 type Props = {
 	item: ListItem
 }
@@ -75,28 +77,47 @@ export default function ItemRowEditable({ item }: Props) {
 							disabled={pending}
 							className="flex flex-row items-center self-end justify-end gap-4 md:self-auto md:gap-2 md:flex-col"
 						>
-							{item.url && (
+							{/* {item.url && (
 								<Link
 									href={item.url}
 									target="_blank"
 									referrerPolicy="no-referrer"
-									className={`btn-ringed max-sm:!text-2xl max-md:!text-xl teal`}
+									className={`nav-btn max-sm:!text-2xl max-md:!text-xl teal`}
 								>
 									<OpenUrlIcon includeColor={false} />
 								</Link>
-							)}
-							<button type="button" onClick={handleEditClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl yellow`}>
+							)} */}
+							<button type="button" onClick={handleEditClick} className={`nav-btn max-sm:!text-2xl max-md:!text-xl yellow`}>
 								<EditIcon includeColor={false} />
 							</button>
-							<button type="button" onClick={handleDeleteClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl red`}>
+							{/* <button type="button" onClick={handleDeleteClick} className={`btn-ringed max-sm:!text-2xl max-md:!text-xl red`}>
 								<DeleteIcon includeColor={false} />
-							</button>
+							</button> */}
 						</fieldset>
 					</div>
 				</div>
 
 				{isEditing && (
 					<>
+						<hr className="" />
+
+						<div className="flex flex-col items-stretch gap-2 p-2">
+							<h5>Actions</h5>
+							<div className="flex flex-row gap-2">
+								<button type="button" onClick={handleDeleteClick} className="nav-btn red">
+									<DeleteIcon includeColor={false} />
+									Delete
+								</button>
+								<button type="button" className="nav-btn yellow">
+									<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+									Move
+								</button>
+								<button type="button" className="nav-btn teal">
+									<OpenUrlIcon includeColor={false} />
+									Open URL
+								</button>
+							</div>
+						</div>
 						<hr className="border-gray-200 dark:border-gray-700" />
 						<EditItemForm listId={item.list_id} item={item} />
 					</>

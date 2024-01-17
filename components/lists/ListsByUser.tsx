@@ -19,11 +19,11 @@ export default async function ListsByUser() {
 
 	return (
 		<div className="container px-4 mx-auto">
-			<div className="flex flex-col">
+			<div className="flex flex-col gap-4">
 				{error && <ErrorMessage />}
 
 				{groupedLists?.map(group => (
-					<div key={`group-${group.id}`} className={`flex flex-col mb-8 `}>
+					<div key={`group-${group.id}`} className={`flex flex-col `}>
 						<h2 className="mb-2 text-2xl dark:text-white">{group.display_name}</h2>
 						<ListBlock lists={group.lists as List[]} isOwner={currentUser?.id === group.user_id} />
 					</div>

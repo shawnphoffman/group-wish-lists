@@ -2,7 +2,8 @@
 
 ## CORE FUNCTIONALITY
 
-[] Edit: Move item to a different list
+[] - Edit: Move item to a different list
+[] - Mobile scroll height
 
 ## NICE TO HAVES
 
@@ -21,3 +22,5 @@
 [] Core: Permissions for who can view what users
 [] My Stuff: View everything you've purchased - DB implications. No cascade
 [] My Stuff: View everything you've received
+[] Sort lists by birthday
+[] Birthday form

@@ -10,13 +10,15 @@ export const getListsGroupedByUser = async () => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	const response = await supabase
+	const resp = await supabase
 		.from('view_users')
 		.select('id,user_id,email,display_name,lists:view_sorted_lists(*)')
 		.not('lists', 'is', null)
 		.order('id', { ascending: true })
 
-	return response
+	// console.log('getListsGroupedByUser.resp', resp)
+
+	return resp
 }
 
 export const getMyLists = async () => {
@@ -29,23 +31,39 @@ export const getMyLists = async () => {
 export const getEditableList = async (listID: number) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	return await supabase
+	const resp = await supabase
 		.from('view_my_lists')
-		.select('name,type,recipient:recipient_id(id,display_name),listItems:view_sorted_list_items(*)')
+		.select(
+			`name,type,
+			recipient:recipient_user_id(id,display_name,user_id),
+			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
+		)
 		.eq('id', listID)
 		.not('active', 'is', false)
 		.single()
+
+	// console.log('getEditableList.resp', resp)
+
+	return resp
 }
 
 export const getViewableList = async (listID: number) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	return await supabase
+	const resp = await supabase
 		.from('lists')
-		.select('name,type,user_id,recipient:recipient_id(id,display_name),listItems:view_sorted_list_items(*)')
+		.select(
+			`name,type,user_id,
+			recipient:recipient_user_id(id,display_name,user_id),
+			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
+		)
 		.eq('id', listID)
 		.not('active', 'is', false)
 		.single()
+
+	// console.log('getViewableList.resp', resp)
+
+	return resp
 }
 
 export const createList = async (prevState: any, formData: FormData) => {
