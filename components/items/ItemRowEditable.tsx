@@ -112,10 +112,12 @@ export default function ItemRowEditable({ item }: Props) {
 									<DeleteIcon includeColor={false} />
 									Delete
 								</button>
-								<Link href={`/lists/${item.list_id}/move/${item.id}`} className="nav-btn purple">
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-									Move
-								</Link>
+								{!isDeployed && (
+									<Link href={`/lists/${item.list_id}/move/${item.id}`} className="nav-btn purple">
+										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+										Move
+									</Link>
+								)}
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
 										<OpenUrlIcon includeColor={false} />
