@@ -25,7 +25,7 @@ export default function ListRow({ list, canEdit }: Props) {
 	const isActive = list.active
 	// const canDelete = canEdit && !isActive
 	// const url = canDelete || !isActive ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
-	const url = `/lists/${list.id}/edit`
+	const url = canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
 	const LinkOrDiv = url ? Link : 'div'
 
 	return (
