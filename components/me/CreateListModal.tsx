@@ -11,7 +11,7 @@ import { createList } from '@/app/actions/lists'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 
-import { ListCategory } from '@/utils/enums'
+import { ListCategory, ListPrivacy } from '@/utils/enums'
 
 function CreateListFields() {
 	const { pending } = useFormStatus()
@@ -42,13 +42,44 @@ function CreateListFields() {
 					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" />
 				</div>
 				<div>
+					<RadioGroup name="list-privacy" defaultValue={ListPrivacy.Public}>
+						<RadioGroup.Label className="block mb-1 label">Privacy</RadioGroup.Label>
+						<div className="flex flex-col gap-1 sm:gap-2 sm:flex-row">
+							{/* TODO refactor */}
+							<RadioGroup.Option value={ListPrivacy.Public} key={'Public'}>
+								{({ checked }) => (
+									<label
+										className={`btn text-base mt-0 mb-1 flex-1 w-full ${checked ? ' teal ring-1 ring-white' : 'transparent'}`}
+										htmlFor={'Public'}
+									>
+										Public
+									</label>
+								)}
+							</RadioGroup.Option>
+							<RadioGroup.Option value={ListPrivacy.Private} key={'Private'}>
+								{({ checked }) => (
+									<label
+										className={`btn text-base mt-0 mb-1 flex-1 w-full ${checked ? ' teal ring-1 ring-white' : 'transparent'}`}
+										htmlFor={'Private'}
+									>
+										Private
+									</label>
+								)}
+							</RadioGroup.Option>
+						</div>
+					</RadioGroup>
+				</div>
+				<div>
 					<RadioGroup name="list-type" defaultValue={ListCategory.Christmas}>
 						<RadioGroup.Label className="block mb-1 label">List Type</RadioGroup.Label>
 						<div className="flex flex-col gap-1 sm:gap-2 sm:flex-row">
 							{Object.entries(ListCategory).map(([key, value], i) => (
 								<RadioGroup.Option value={value} key={key}>
 									{({ checked }) => (
-										<label className={`btn text-base mt-0 mb-1 flex-1 w-full ${checked ? ' teal' : 'transparent'}`} htmlFor={value}>
+										<label
+											className={`btn text-base mt-0 mb-1 flex-1 w-full ${checked ? ' teal ring-1 ring-white' : 'transparent'}`}
+											htmlFor={value}
+										>
 											<ListTypeIcon type={value} />
 											{key}
 										</label>

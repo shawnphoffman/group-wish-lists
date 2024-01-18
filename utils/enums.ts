@@ -20,3 +20,8 @@ export const ItemStatus = {
 	Partial: 'partial',
 } as const
 export type ItemStatusType = (typeof ItemStatus)[keyof typeof ItemStatus]
+
+export const ListPrivacy = {
+	Private: true,
+	Public: false,
+} as const

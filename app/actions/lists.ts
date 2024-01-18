@@ -74,12 +74,13 @@ export const createList = async (prevState: any, formData: FormData) => {
 	'use server'
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
+	const isPrivate = formData.get('list-privacy') as unknown as boolean
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	const me = await supabase.from('view_me').select('id').single()
+	const me = await supabase.from('view_me').select('user_id').single()
 
-	const createPromise = supabase.from('lists').insert({ recipient_id: me.data?.id, name, active: true, type })
+	const createPromise = supabase.from('lists').insert({ recipient_user_id: me.data?.user_id, name, active: true, type, private: isPrivate })
 
 	const [list] = await Promise.all([
 		createPromise,
