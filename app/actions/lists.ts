@@ -25,7 +25,11 @@ export const getMyLists = async () => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	return await supabase.from('view_my_lists').select('*')
+	const resp = await supabase.from('view_my_lists').select('*')
+
+	// console.log('getMyLists.resp', resp)
+
+	return resp
 }
 
 export const getEditableList = async (listID: number) => {

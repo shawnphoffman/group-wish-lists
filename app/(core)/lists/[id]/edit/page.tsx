@@ -43,15 +43,15 @@ const ShowList = async ({ params }: Props) => {
 				<div className="flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
 					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
-				<div className="flex flex-row flex-wrap justify-center flex-1 gap-1 md:justify-end">
+				<div className="flex flex-row flex-wrap justify-center flex-1 gap-1 md:justify-end shrink-0">
 					<ArchiveListButton listId={params.id} isArchived={!data.active} />
 					<DeleteListButton listId={params.id} name={data.name} />
-					{!isDeployed && (
+					{/* {!isDeployed && (
 						<Link href="#import-items" className="nav-btn purple">
 							<FontAwesomeIcon className="fa-sharp fa-file-import" />
 							Import Items
 						</Link>
-					)}
+					)} */}
 					<Link href="#add-item" className="nav-btn blue">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item

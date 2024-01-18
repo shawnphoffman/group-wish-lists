@@ -2,6 +2,8 @@
 
 import { cookies } from 'next/headers'
 
+import { List, ListItem } from '@/components/types'
+
 import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
@@ -52,6 +54,25 @@ export const editItem = async (prevState: any, formData: FormData) => {
 		.from('list_items')
 		.update([{ title, url, notes, priority, image_url: imageUrl }])
 		.eq('id', id)
+
+	const [item] = await Promise.all([
+		itemPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	return {
+		status: 'success',
+		item,
+	}
+}
+
+export const moveItem = async (id: ListItem['id'], list_id: List['id']) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemPromise = await supabase.from('list_items').update([{ list_id }]).eq('id', id)
 
 	const [item] = await Promise.all([
 		itemPromise,
