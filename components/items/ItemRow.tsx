@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { getSessionUser } from '@/app/actions/auth'
 
 import Badge from '@/components/common/Badge'
-import { OpenImageIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import { Gift, ListItem } from '@/components/types'
 
-import { ItemStatus } from '@/utils/enums'
+import { ItemPriority, ItemStatus } from '@/utils/enums'
 
 type Props = {
 	item: ListItem & Gift
@@ -29,50 +29,45 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 	// console.log('ListItemRow', item)
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
-	const userCanChange = item?.gifter_id === currentUser?.id || item.status !== ItemStatus.Complete
+	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
 
 	return (
 		<div className={`list-item ${isComplete && 'complete'}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
-					{/* Priority */}
-					<div className="flex flex-col items-center justify-center gap-4 md:flex-row shrink-0">
-						<ItemPriorityIcon priority={item.priority} className="w-4" />
+					{/* Priority & Checkbox */}
+					<div className="flex flex-col items-center justify-center gap-2 shrink-0">
+						{/* Priority */}
+						{item.priority !== ItemPriority.Normal && <ItemPriorityIcon priority={item.priority} />}
 						{/* Checkbox */}
 						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} />}
 					</div>
-
-					<div className="flex flex-col flex-1 gap-2 sm:items-center sm:flex-row sm:gap-4">
-						{/* Content */}
+					{/*  */}
+					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
+						{/* Title + Notes */}
 						<div className="flex flex-col flex-1">
 							{/* Title */}
-							<div className="">{item.title}</div>
+							<div>{item.title}</div>
 							{/* Notes */}
 							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
-						</div>
-						{/* Image */}
-						<ItemImage url={item.image_url} className="hidden w-24 sm:block" />
-						{/* Actions */}
-						<div className="flex flex-row items-center justify-end gap-4 text-xl sm:gap-2 sm:flex-col">
-							{isComplete && <Badge className="gray xxs">{item.display_name}</Badge>}
-							{item.image_url && (
-								<Link
-									href={item.image_url}
-									target="_blank"
-									referrerPolicy="no-referrer"
-									className={`max-sm:btn-ringed max-sm:!text-2xl sm:hidden yellow`}
-								>
-									<OpenImageIcon includeColor={false} />
-								</Link>
+
+							{/* Gifter */}
+							{isComplete && (
+								<Badge className="self-start mt-1 xxs" colorId={item.gifter_id}>
+									{item.display_name}
+								</Badge>
 							)}
+						</div>
+
+						{/* Image + Actions */}
+						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
+							{/* Image */}
+							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
+							{/* Actions */}
 							{item.url && (
-								<Link
-									href={item.url}
-									target="_blank"
-									referrerPolicy="no-referrer"
-									className={`btn-ringed max-sm:!text-2xl max-md:!text-xl teal`}
-								>
+								<Link href={item.url} target="_blank" className="sm:text-xl nav-btn teal">
 									<OpenUrlIcon includeColor={false} />
+									<span className="inline text-sm sm:hidden">Link</span>
 								</Link>
 							)}
 						</div>

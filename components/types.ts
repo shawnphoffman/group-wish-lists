@@ -26,7 +26,8 @@ export type Gift = {
 	quantity?: number
 	display_name?: User['display_name']
 	item_id?: ListItem['id']
-	gifter_id?: User['user_id']
+	gifter_user_id?: User['user_id']
+	gifter_id?: User['id']
 }
 
 export type User = {

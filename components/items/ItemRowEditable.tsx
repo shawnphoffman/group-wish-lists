@@ -67,23 +67,22 @@ export default function ItemRowEditable({ item }: Props) {
 		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
 			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-700 divide-dashed">
 				<div className="flex flex-row items-stretch gap-x-3.5">
-					{/*  */}
+					{/* Priority */}
 					{item.priority !== ItemPriority.Normal && (
 						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
-							{/* Priority */}
 							<ItemPriorityIcon priority={item.priority} />
 						</div>
 					)}
 					{/*  */}
 					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
-						{/* TITLE + NOTES */}
+						{/* Title + Notes */}
 						<div className="flex flex-col flex-1">
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
 							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
 						</div>
-						{/* IMAGE + ACTIONS */}
+						{/* Image + Actions */}
 						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
 							{/* Image */}
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />

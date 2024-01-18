@@ -65,7 +65,7 @@ export const getViewableList = async (listID: number) => {
 		.not('active', 'is', false)
 		.single()
 
-	// console.log('getViewableList.resp', resp)
+	console.log('getViewableList.resp', resp)
 
 	return resp
 }
