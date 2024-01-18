@@ -3,6 +3,7 @@ import { ItemPriorityType, ItemStatusType, ListCategoryType } from '@/utils/enum
 export type List = {
 	id: number
 	active: boolean
+	private: boolean
 	name: string
 	type: ListCategoryType
 	user: User

@@ -31,7 +31,7 @@ export default function ListRow({ list, canEdit }: Props) {
 	return (
 		<div className={`list-item xs:!text-lg`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
-				<ListTypeIcon type={list.type} />
+				<ListTypeIcon type={list.type} isPrivate={list?.private} />
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-4 !text-lg">
