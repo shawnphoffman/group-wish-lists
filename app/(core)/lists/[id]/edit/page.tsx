@@ -14,8 +14,6 @@ import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import { List, ListItem } from '@/components/types'
 
-import { isDeployed } from '@/utils/environment'
-
 type Props = {
 	params: {
 		id: List['id']
