@@ -2,22 +2,20 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Suspense, useCallback, useEffect, useState, useTransition } from 'react'
+import { useCallback, useEffect, useState, useTransition } from 'react'
 
 import { deleteItem } from '@/app/actions/items'
 
-import { DeleteIcon, EditIcon, FallbackIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
-import { ListItem } from '@/components/types'
+import { List, ListItem } from '@/components/types'
 
 import { ItemPriority } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
 
-import FallbackRow from '../common/Fallbacks'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
@@ -26,7 +24,6 @@ type Props = {
 export default function ItemRowEditable({ item }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
-	const [isMoving, setIsMoving] = useState(false)
 
 	const router = useRouter()
 	const [isPending, startTransition] = useTransition()
@@ -34,10 +31,6 @@ export default function ItemRowEditable({ item }: Props) {
 	const handleEditClick = useCallback(() => {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
-
-	const handleMoveClick = useCallback(() => {
-		setIsMoving(() => !isMoving)
-	}, [isMoving])
 
 	const handleDuplicateClick = useCallback(() => {
 		// TODO
@@ -110,7 +103,7 @@ export default function ItemRowEditable({ item }: Props) {
 					</div>
 				</div>
 
-				{(false || isEditing) && (
+				{isEditing && (
 					<>
 						<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
 							<h5 className="md:mr-8 max-md:self-start">Actions</h5>
@@ -119,13 +112,10 @@ export default function ItemRowEditable({ item }: Props) {
 									<DeleteIcon includeColor={false} />
 									Delete
 								</button>
-								{!isDeployed && (
-									// TODO
-									<button type="button" className="nav-btn purple" onClick={handleMoveClick}>
-										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-										Move
-									</button>
-								)}
+								<Link href={`/lists/${item.list_id}/move/${item.id}`} className="nav-btn purple">
+									<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+									Move
+								</Link>
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
 										<OpenUrlIcon includeColor={false} />
@@ -141,16 +131,7 @@ export default function ItemRowEditable({ item }: Props) {
 								)}
 							</div>
 						</div>
-						{false || isMoving ? (
-							<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
-								<h5>Move item to:</h5>
-								<Suspense fallback={<FallbackRow />}>
-									<MyListsSelect id={item.id} listId={item.list_id} />
-								</Suspense>
-							</div>
-						) : (
-							<EditItemForm listId={item.list_id} item={item} />
-						)}
+						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}
 			</div>
