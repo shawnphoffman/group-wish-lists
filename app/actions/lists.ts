@@ -62,6 +62,7 @@ export const getViewableList = async (listID: number) => {
 			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
 		)
 		.eq('id', listID)
+		.eq('private', false)
 		.not('active', 'is', false)
 		.single()
 
