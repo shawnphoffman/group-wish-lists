@@ -7,7 +7,7 @@ export default async function MyLists() {
 	const listsPromise = getMyLists()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data, error }] = await Promise.all([
+	const [{ data }] = await Promise.all([
 		listsPromise,
 		// fakePromise
 	])

@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 // @ts-expect-error
 import { useFormState } from 'react-dom'
 
@@ -13,8 +14,10 @@ type Props = {
 	item?: ListItem
 }
 
-export default function EditItemForm({ listId, item }: Props) {
+function EditItemForm({ listId, item }: Props) {
 	const [state, formAction] = useFormState(editItem, {})
+
+	console.log('EditItemForm')
 
 	return (
 		<div className="flex flex-col items-stretch gap-2 p-2">
@@ -26,3 +29,5 @@ export default function EditItemForm({ listId, item }: Props) {
 		</div>
 	)
 }
+
+export default memo(EditItemForm)

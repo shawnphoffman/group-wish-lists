@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Suspense, useCallback, useEffect, useState, useTransition } from 'react'
+import { Suspense, memo, useCallback, useEffect, useState, useTransition } from 'react'
 
 import { deleteItem } from '@/app/actions/items'
 
@@ -15,7 +15,6 @@ import { ListItem } from '@/components/types'
 import { ItemPriority } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
 
-import FallbackRow from '../common/Fallbacks'
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import MyListsSelect from './components/MyListsSelect'
 
@@ -23,7 +22,7 @@ type Props = {
 	item: ListItem
 }
 
-export default function ItemRowEditable({ item }: Props) {
+function ItemRowEditable({ item }: Props) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 	const [isMoving, setIsMoving] = useState(false)
@@ -31,12 +30,16 @@ export default function ItemRowEditable({ item }: Props) {
 	const router = useRouter()
 	const [isPending, startTransition] = useTransition()
 
+	useEffect(() => {
+		console.log('ItemRowEditable')
+	}, [])
+
 	const handleEditClick = useCallback(() => {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
 
 	const handleMoveClick = useCallback(() => {
-		setIsMoving(() => !isMoving)
+		setIsMoving(!isMoving)
 	}, [isMoving])
 
 	const handleDuplicateClick = useCallback(() => {
@@ -110,7 +113,7 @@ export default function ItemRowEditable({ item }: Props) {
 					</div>
 				</div>
 
-				{(false || isEditing) && (
+				{isEditing && (
 					<>
 						<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
 							<h5 className="md:mr-8 max-md:self-start">Actions</h5>
@@ -119,13 +122,10 @@ export default function ItemRowEditable({ item }: Props) {
 									<DeleteIcon includeColor={false} />
 									Delete
 								</button>
-								{!isDeployed && (
-									// TODO
-									<button type="button" className="nav-btn purple" onClick={handleMoveClick}>
-										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-										Move
-									</button>
-								)}
+								<button type="button" className="nav-btn purple" onClick={handleMoveClick}>
+									<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+									Move
+								</button>
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
 										<OpenUrlIcon includeColor={false} />
@@ -141,19 +141,20 @@ export default function ItemRowEditable({ item }: Props) {
 								)}
 							</div>
 						</div>
-						{false || isMoving ? (
+						{isMoving && (
 							<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
 								<h5>Move item to:</h5>
-								<Suspense fallback={<FallbackRow />}>
+								<Suspense fallback={<FallbackIcon />}>
 									<MyListsSelect id={item.id} listId={item.list_id} />
 								</Suspense>
 							</div>
-						) : (
-							<EditItemForm listId={item.list_id} item={item} />
 						)}
+						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}
 			</div>
 		</div>
 	)
 }
+
+export default memo(ItemRowEditable)
