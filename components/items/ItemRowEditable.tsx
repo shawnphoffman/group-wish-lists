@@ -75,7 +75,7 @@ export default function ItemRowEditable({ item }: Props) {
 						</div>
 					)}
 					{/*  */}
-					<div className="flex flex-col flex-1 gap-2 xs:items-center xs:flex-row md:gap-4">
+					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
 						{/* TITLE + NOTES */}
 						<div className="flex flex-col flex-1">
 							{/* Title */}
@@ -84,7 +84,7 @@ export default function ItemRowEditable({ item }: Props) {
 							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
 						</div>
 						{/* IMAGE + ACTIONS */}
-						<div className="flex flex-row items-center justify-center gap-2 xs:flex-col sm:flex-row">
+						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
 							{/* Image */}
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							{/* Edit */}
