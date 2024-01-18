@@ -34,12 +34,12 @@ export const getEditableList = async (listID: number) => {
 	const resp = await supabase
 		.from('view_my_lists')
 		.select(
-			`name,type,
+			`name,type,active,
 			recipient:recipient_user_id(id,display_name,user_id),
 			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
 		)
 		.eq('id', listID)
-		.not('active', 'is', false)
+		// .not('active', 'is', false)
 		.single()
 
 	// console.log('getEditableList.resp', resp)

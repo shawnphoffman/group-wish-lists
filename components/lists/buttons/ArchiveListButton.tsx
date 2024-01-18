@@ -27,12 +27,14 @@ export default function ArchiveListButton({ listId, isArchived }: Props) {
 	}, [listId, isArchived])
 
 	return isArchived ? (
-		<button className="flex text-lg " title="Restore" onClick={handleClick} disabled={isPending}>
-			<UnarchiveIcon />
+		<button className="nav-btn teal" title="Restore List" onClick={handleClick} disabled={isPending}>
+			<UnarchiveIcon includeColor={false} />
+			Restore
 		</button>
 	) : (
-		<button className="flex text-lg" title="Archive" onClick={handleClick} disabled={isPending}>
-			<ArchiveIcon />
+		<button className="yellow nav-btn" title="Archive List" onClick={handleClick} disabled={isPending}>
+			<ArchiveIcon includeColor={false} />
+			Archive
 		</button>
 	)
 }

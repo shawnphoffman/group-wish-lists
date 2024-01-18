@@ -10,7 +10,11 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
+import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
+import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import { List, ListItem } from '@/components/types'
+
+import { isDeployed } from '@/utils/environment'
 
 type Props = {
 	params: {
@@ -35,17 +39,19 @@ const ShowList = async ({ params }: Props) => {
 	return (
 		<>
 			{/* Header */}
-			<div className="flex flex-col items-center justify-between gap-2 md:gap-6 md:flex-row">
-				<div className="flex flex-row items-center gap-2">
+			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
+				<div className="flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
 					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
-				<div className="flex flex-row gap-2">
-					{/* {!isDeployed && (
-						<Link href="#import-items" className="nav-btn blue">
+				<div className="flex flex-row flex-wrap justify-center flex-1 gap-1 md:justify-end">
+					<ArchiveListButton listId={params.id} isArchived={!data.active} />
+					<DeleteListButton listId={params.id} name={data.name} />
+					{!isDeployed && (
+						<Link href="#import-items" className="nav-btn purple">
 							<FontAwesomeIcon className="fa-sharp fa-file-import" />
 							Import Items
 						</Link>
-					)} */}
+					)}
 					<Link href="#add-item" className="nav-btn blue">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
@@ -64,7 +70,7 @@ const ShowList = async ({ params }: Props) => {
 
 export default async function EditList({ params }: Props) {
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 opacity-0 animate-in">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 opacity-0 max-md:gap-2 animate-in">
 			<Suspense fallback={<FallbackRow />}>
 				<ShowList params={params} />
 			</Suspense>

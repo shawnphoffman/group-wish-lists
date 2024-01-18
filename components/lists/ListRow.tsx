@@ -3,8 +3,8 @@ import Link from 'next/link'
 import Badge from '@/components/common/Badge'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
-import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
-import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
+// import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
+// import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import { List } from '@/components/types'
 
 type Props = {
@@ -23,8 +23,9 @@ export default function ListRow({ list, canEdit }: Props) {
 	if (!list) return null
 
 	const isActive = list.active
-	const canDelete = canEdit && !isActive
-	const url = canDelete || !isActive ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
+	// const canDelete = canEdit && !isActive
+	// const url = canDelete || !isActive ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
+	const url = `/lists/${list.id}/edit`
 	const LinkOrDiv = url ? Link : 'div'
 
 	return (
@@ -35,12 +36,12 @@ export default function ListRow({ list, canEdit }: Props) {
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-4 !text-lg">
 				<CountBadge count={list.count!} />
-				{canEdit && (
+				{/* {canEdit && (
 					<>
 						<ArchiveListButton listId={list.id} isArchived={!isActive} />
 						<DeleteListButton listId={list.id} name={list.name} />
 					</>
-				)}
+				)} */}
 			</div>
 		</div>
 	)

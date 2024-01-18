@@ -26,8 +26,9 @@ export default function DeleteListButton({ listId, name }: any) {
 	}, [listId, name])
 
 	return (
-		<button className="flex" title="Delete" onClick={handleClick} disabled={isPending}>
-			<DeleteIcon />
+		<button className="nav-btn red" title="Delete List" onClick={handleClick} disabled={isPending}>
+			<DeleteIcon includeColor={false} />
+			Delete
 		</button>
 	)
 }

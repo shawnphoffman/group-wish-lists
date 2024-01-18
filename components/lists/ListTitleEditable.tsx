@@ -62,7 +62,7 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 			) : (
 				<>
 					<ListTypeIcon type={type} className="text-3xl" />
-					<h1>{name}</h1>
+					<h1 className="w-fit">{name}</h1>
 					<button type="button" title="Rename" className="text-2xl nav-btn yellow " onClick={handleClick} disabled={isPending}>
 						<FontAwesomeIcon className="fa-sharp fa-solid fa-pencil" />
 					</button>
