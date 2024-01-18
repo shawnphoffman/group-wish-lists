@@ -1,8 +1,9 @@
 'use client'
 
+import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState, useTransition } from 'react'
+import { Suspense, useCallback, useEffect, useState, useTransition } from 'react'
 
 import { deleteItem } from '@/app/actions/items'
 
@@ -16,12 +17,15 @@ import { ItemPriority } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
 
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
+	lists: List[]
 }
 
-export default function ItemRowEditable({ item }: Props) {
+export default function ItemRowEditable({ item, lists }: Props) {
+	const [isMoving, setIsMoving] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 
@@ -112,10 +116,16 @@ export default function ItemRowEditable({ item }: Props) {
 									Delete
 								</button>
 								{!isDeployed && (
-									<Link href={`/lists/${item.list_id}/move/${item.id}`} className="nav-btn purple">
-										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-										Move
-									</Link>
+									<div className="flex flex-row gap-2">
+										<button
+											type="button"
+											className={`nav-btn purple ${isMoving && 'bg-violet-800/30 text-violet-300'}`}
+											onClick={() => setIsMoving(!isMoving)}
+										>
+											<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+											Move
+										</button>
+									</div>
 								)}
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
@@ -132,6 +142,7 @@ export default function ItemRowEditable({ item }: Props) {
 								)}
 							</div>
 						</div>
+						{isMoving && <MyListsSelect lists={lists} id={item.id} listId={item.list_id} />}
 						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}

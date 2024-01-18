@@ -31,7 +31,7 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 
 	useEffect(() => {
 		if (state?.status === 'success') {
-			console.log('rename.state', state)
+			// console.log('rename.state', state)
 			startTransition(() => {
 				setIsEditing(() => !isEditing)
 				router.refresh()

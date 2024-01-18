@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { startTransition, useCallback, useEffect, useState } from 'react'
 
 import { moveItem } from '@/app/actions/items'
-import { getMyLists } from '@/app/actions/lists'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { List, ListItem } from '@/components/types'
@@ -13,12 +12,12 @@ import { List, ListItem } from '@/components/types'
 type Props = {
 	id: ListItem['id']
 	listId: List['id']
+	lists: List[]
 }
 
-function MyListsSelectClient({ id, listId }: Props) {
+export default function MyListsSelect({ lists, id, listId }: Props) {
 	const [loading, setLoading] = useState(false)
 	const [list, setList] = useState<List | null>(null)
-	const [lists, setLists] = useState<List[] | null>(null)
 	const router = useRouter()
 
 	const handleMoveItem = useCallback(async () => {
@@ -34,23 +33,8 @@ function MyListsSelectClient({ id, listId }: Props) {
 	}, [list])
 
 	useEffect(() => {
-		async function getLists() {
-			const listPromise = getMyLists()
-			const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
-
-			const [{ data }]: [{ data: List[] | null }, any] = await Promise.all([listPromise, fakePromise])
-
-			if (data) {
-				const currentList = data.find(list => list.id === listId)
-				startTransition(() => {
-					setList(currentList || null)
-					setLists(data)
-				})
-			}
-		}
-		if (!lists) {
-			getLists()
-		}
+		const currentList = lists.find((list: List) => list.id === listId)
+		setList(currentList || null)
 	}, [])
 
 	if (!lists || !list) {
@@ -58,24 +42,22 @@ function MyListsSelectClient({ id, listId }: Props) {
 	}
 
 	return (
-		<fieldset className="flex flex-row items-center gap-2" disabled={loading}>
-			<RadioGroup value={list} onChange={setList}>
-				<div className="flex flex-col gap-1">
-					{lists.map(list => (
-						<RadioGroup.Option value={list} key={list.id}>
-							{({ checked }) => <label className={`nav-btn text-sm flex-1 py-1 w-full ${checked ? 'purple' : 'gray'}`}>{list.name}</label>}
-						</RadioGroup.Option>
-					))}
-				</div>
+		<fieldset className="flex flex-col items-center gap-2 pt-2 sm:flex-row !leading-none" disabled={loading}>
+			<RadioGroup value={list} onChange={setList} className="items-start flex flex-col gap-0.5 text-left flex-1 w-full">
+				{lists.map(list => (
+					<RadioGroup.Option value={list} key={list.id} className={'grid'}>
+						{({ checked }) => (
+							<label className={`nav-btn text-sm flex-1 py-1 truncate w-full inline-block text-left ${checked ? 'purple' : 'gray'}`}>
+								{list.name}
+							</label>
+						)}
+					</RadioGroup.Option>
+				))}
 			</RadioGroup>
-			<button type="button" disabled={listId === list.id} onClick={handleMoveItem} className="btn purple">
+			<button type="button" disabled={listId === list.id} onClick={handleMoveItem} className="text-xs btn purple">
 				<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
 				Move Item
 			</button>
 		</fieldset>
 	)
-}
-
-export default async function MyListsSelect(props: Props) {
-	return <MyListsSelectClient {...props} />
 }

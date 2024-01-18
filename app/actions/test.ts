@@ -22,7 +22,7 @@ export const getUsers = async () => {
 	const supabase = createClient(cookieStore)
 	const resp = await supabase.from('users').select('id,user_id,display_name').order('id', { ascending: true })
 
-	console.log('getUsers.resp', resp)
+	// console.log('getUsers.resp', resp)
 
 	return resp
 }

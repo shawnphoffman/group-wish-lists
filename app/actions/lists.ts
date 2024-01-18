@@ -66,7 +66,7 @@ export const getViewableList = async (listID: number) => {
 		.not('active', 'is', false)
 		.single()
 
-	console.log('getViewableList.resp', resp)
+	// console.log('getViewableList.resp', resp)
 
 	return resp
 }
@@ -87,7 +87,7 @@ export const createList = async (prevState: any, formData: FormData) => {
 		createPromise,
 		// new Promise(resolve => setTimeout(resolve, 5000))
 	])
-	console.log('list', list)
+	// console.log('list', list)
 
 	return {
 		status: 'success',

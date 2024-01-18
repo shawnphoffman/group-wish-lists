@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
-import { getEditableList } from '@/app/actions/lists'
+import { getEditableList, getMyLists } from '@/app/actions/lists'
 
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
@@ -23,9 +23,11 @@ type Props = {
 const ShowList = async ({ params }: Props) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getEditableList(params.id)
+	const listsPromise = getMyLists()
 
-	const [{ data, error }] = await Promise.all([
+	const [{ data, error }, { data: lists }] = await Promise.all([
 		listPromise,
+		listsPromise,
 		// fakePromise
 	])
 
@@ -60,7 +62,9 @@ const ShowList = async ({ params }: Props) => {
 			{/* Rows */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col list">{items?.map(item => <ItemRowEditable key={item.id} item={item} />)}</div>
+				<div className="flex flex-col list">
+					{items?.map(item => <ItemRowEditable key={item.id} item={item} lists={lists as List[]} />)}
+				</div>
 			</div>
 		</>
 	)

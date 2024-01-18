@@ -2,10 +2,6 @@
 
 ## CORE FUNCTIONALITY
 
-[] - Edit: Move item to a different list
-
-    - Inline dropdown
-
 [] - Mobile scroll height
 
 ## NICE TO HAVES
