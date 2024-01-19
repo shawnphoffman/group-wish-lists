@@ -3,7 +3,11 @@ import { Suspense } from 'react'
 import { getUsers } from '@/app/actions/test'
 
 import Badge from '@/components/common/Badge'
-import Fallback from '@/components/common/Fallbacks'
+import EmptyMessage from '@/components/common/EmptyMessage'
+import ErrorMessage from '@/components/common/ErrorMessage'
+import Fallback, { FallbackRow } from '@/components/common/Fallbacks'
+import SuccessMessage from '@/components/common/SuccessMessage'
+import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import SuspenseTest from '@/components/utils/SuspenseTest'
 
 // import { getMyLists } from '@/app/actions/lists'
@@ -60,6 +64,8 @@ export default async function Temp() {
 				</div>
 			</Suspense>
 
+			<hr />
+
 			<div className="flex flex-col gap-2">
 				<button className="btn">Button</button>
 				<button className="btn pink">Button</button>
@@ -71,7 +77,11 @@ export default async function Temp() {
 				<button className="btn blue">Button</button>
 				<button className="btn purple">Button</button>
 				<button className="btn gray">Button</button>
+				<button className="btn white">Button</button>
+				<button className="btn transparent">Button</button>
 			</div>
+
+			<hr />
 
 			<div className="flex flex-col gap-2">
 				<button className="nav-btn">Button</button>
@@ -84,6 +94,78 @@ export default async function Temp() {
 				<button className="nav-btn blue">Button</button>
 				<button className="nav-btn purple">Button</button>
 				<button className="nav-btn gray">Button</button>
+			</div>
+
+			<hr />
+
+			<div className="flex flex-col gap-2">
+				<input type="text" value="Wow cool guy" />
+				<input type="text" placeholder="Wow cool guy" />
+				<input type="password" placeholder="Wow cool guy" />
+				<input type="email" placeholder="Wow cool guy" />
+				<input type="url" placeholder="Wow cool guy" />
+				<input type="radio" checked />
+				<input type="radio" />
+				<input type="checkbox" checked />
+				<input type="checkbox" />
+				<ItemCheckbox id="test" isComplete={false} canChange={false} />
+				<ItemCheckbox id="test" isComplete={true} canChange={false} />
+				<ItemCheckbox id="test" isComplete={false} canChange={false} />
+				<ItemCheckbox id="test" isComplete={true} canChange={true} />
+			</div>
+
+			<hr />
+
+			<div className="flex flex-col gap-2">
+				<select>
+					<option>Wow cool guy</option>
+					<option>Wow cool guy</option>
+					<option>Wow cool guy</option>
+				</select>
+			</div>
+
+			<hr />
+
+			<pre>
+				<code>[foo: 'bar']</code>
+			</pre>
+
+			<hr />
+
+			<FallbackRow />
+
+			<hr />
+
+			<div className="border-container">
+				<h1>Wow</h1>
+				<h1>Wow</h1>
+				<h1>Wow</h1>
+			</div>
+
+			<hr />
+
+			<div className="list">
+				<div className="list-item">Wow</div>
+				<div className="list-item">Wow</div>
+				<div className="list-item">Wow</div>
+				<div className="list-item">Wow</div>
+			</div>
+
+			<hr />
+
+			<div className="list">
+				<div className="list-item pending">Wow</div>
+				<div className="list-item editing">Wow</div>
+				<div className="list-item complete">Wow</div>
+				<div className="list-item">Wow</div>
+			</div>
+
+			<hr />
+
+			<div className="flex flex-col gap-2">
+				<SuccessMessage />
+				<ErrorMessage />
+				<EmptyMessage />
 			</div>
 		</div>
 	)

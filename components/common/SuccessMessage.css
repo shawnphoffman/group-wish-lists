@@ -1,0 +1,5 @@
+.success {
+	@apply flex flex-row gap-2 p-4 text-base font-semibold border rounded-lg;
+	@apply text-green-800 bg-green-100 border-green-300;
+	@apply dark:bg-green-800/10 dark:border-green-900 dark:text-green-500;
+}

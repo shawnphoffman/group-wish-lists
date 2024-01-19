@@ -41,67 +41,76 @@
 }
 
 @layer components {
-	.nav-item {
-		@apply flex items-center w-full px-2 py-2 text-sm text-gray-900 rounded-md;
-
-		&.active {
-			@apply text-white bg-red-500;
-		}
-	}
 	.nav-btn {
 		@apply inline-flex items-center justify-center px-3 py-2 text-sm font-semibold text-center border border-transparent rounded-lg gap-x-2 whitespace-nowrap;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
 
-		@apply text-gray-400;
-		@apply hover:bg-gray-600/30 hover:text-gray-300;
+		@apply text-gray-600 dark:text-gray-400;
+		@apply hover:text-gray-700 dark:hover:text-gray-300;
+		@apply hover:bg-gray-300/30 dark:hover:bg-gray-600/30;
 
 		&.pink {
-			@apply text-fuchsia-400;
-			@apply hover:bg-fuchsia-800/30 hover:text-fuchsia-300;
+			@apply text-fuchsia-600 dark:text-fuchsia-400;
+			@apply hover:text-fuchsia-700 dark:hover:text-fuchsia-300;
+			@apply hover:bg-fuchsia-300/30 dark:bg-fuchsia-800/30;
 		}
 		&.red {
-			@apply text-red-400;
-			@apply hover:bg-red-800/30 hover:text-red-300;
+			@apply text-red-600 dark:text-red-400;
+			@apply hover:text-red-700 dark:hover:text-red-300;
+			@apply hover:bg-red-300/30 dark:bg-red-800/30;
 		}
 		&.orange {
-			@apply text-orange-400;
-			@apply hover:bg-orange-800/30 hover:text-orange-300;
+			@apply text-orange-600 dark:text-orange-400;
+			@apply hover:text-orange-700 dark:hover:text-orange-300;
+			@apply hover:bg-orange-300/30 dark:bg-orange-800/30;
 		}
 		&.yellow {
-			@apply text-yellow-400;
-			@apply hover:bg-yellow-800/30 hover:text-yellow-300;
+			@apply text-yellow-600 dark:text-yellow-400;
+			@apply hover:text-yellow-700 dark:hover:text-yellow-300;
+			@apply hover:bg-yellow-300/30 dark:bg-yellow-800/30;
 		}
 		&.green {
-			@apply text-green-400;
-			@apply hover:bg-green-800/30 hover:text-green-300;
+			@apply text-green-600 dark:text-green-400;
+			@apply hover:text-green-700 dark:hover:text-green-300;
+			@apply hover:bg-green-300/30 dark:bg-green-800/30;
 		}
 		&.teal {
-			@apply text-teal-400;
-			@apply hover:bg-teal-800/30 hover:text-teal-300;
+			@apply text-teal-600 dark:text-teal-400;
+			@apply hover:text-teal-700 dark:hover:text-teal-300;
+			@apply hover:bg-teal-300/30 dark:bg-teal-800/30;
 		}
 		&.blue {
-			@apply text-blue-400;
-			@apply hover:bg-blue-800/30 hover:text-blue-300;
+			@apply text-blue-600 dark:text-blue-400;
+			@apply hover:text-blue-700 dark:hover:text-blue-300;
+			@apply hover:bg-blue-300/30 dark:bg-blue-800/30;
 		}
 		&.purple {
-			@apply text-violet-400;
-			@apply hover:bg-violet-800/30 hover:text-violet-300;
+			@apply text-violet-600 dark:text-violet-400;
+			@apply hover:text-violet-700 dark:hover:text-violet-300;
+			@apply hover:bg-violet-300/30 dark:bg-violet-800/30;
 		}
 	}
+
 	.btn {
-		@apply inline-flex items-center justify-center px-3 py-2 text-base font-medium rounded-lg gap-x-2;
-		/* mt-2 */
-		@apply text-white bg-blue-600 border border-transparent hover:bg-blue-700;
+		@apply inline-flex items-center justify-center px-3 py-2 text-base font-medium border-transparent rounded-lg gap-x-2;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
 
+		@apply text-white bg-gray-500 hover:bg-gray-600;
+		@apply dark:bg-gray-500 dark:hover:bg-gray-600;
+
+		&.pink {
+			@apply text-white bg-fuchsia-600 hover:bg-fuchsia-700;
+		}
 		&.red {
 			@apply text-white bg-red-600 hover:bg-red-700;
 		}
 		&.orange {
-			@apply text-white bg-yellow-600 hover:bg-yellow-700;
+			@apply text-white bg-orange-600 hover:bg-orange-700;
+			@apply dark:bg-orange-600/80 dark:hover:bg-orange-700/80;
 		}
 		&.yellow {
-			@apply text-white bg-yellow-700 hover:bg-yellow-800;
+			@apply text-white bg-yellow-600 hover:bg-yellow-700;
+			@apply dark:bg-yellow-600/80 dark:hover:bg-yellow-700/80;
 		}
 		&.green {
 			@apply text-white bg-green-700 hover:bg-green-800;
@@ -119,122 +128,55 @@
 			@apply text-white bg-gray-500 hover:bg-gray-600;
 		}
 		&.white {
-			@apply text-black bg-gray-50 hover:bg-gray-200;
+			@apply text-white bg-gray-950 hover:bg-gray-900/90;
+			@apply dark:text-black dark:bg-gray-50 dark:hover:bg-gray-200;
 		}
 		&.transparent {
-			@apply text-white bg-gray-500/50 hover:bg-gray-400/50;
+			@apply text-black dark:text-white bg-gray-500/50 hover:bg-gray-400/50;
 		}
 	}
-	.btn-ringed {
-		@apply inline-flex items-center px-2 py-2 text-base font-semibold rounded-lg;
-		@apply border border-gray-800 hover:border-gray-400 dark:hover:border-gray-300;
-		@apply text-gray-800 hover:text-gray-500 dark:text-white dark:hover:text-gray-300;
-		@apply border border-gray-500 hover:border-gray-400 dark:border-white;
+
+	input[type='text'],
+	input[type='password'],
+	input[type='email'],
+	input[type='url'],
+	textarea {
+		@apply block w-full px-4 py-2 text-base border rounded-lg;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
-		@apply dark:focus:ring-1 dark:focus:ring-gray-600;
-		@apply dark:hover:bg-gray-800/30 dark:hover:text-gray-400;
-
-		&.gray {
-			@apply text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300;
-			@apply border-gray-500 hover:border-gray-800 dark:border-gray-400 dark:hover:border-gray-300;
-		}
-		&.green {
-			@apply text-green-500 hover:text-green-400;
-			@apply border-green-500 hover:border-green-400;
-		}
-		&.teal {
-			@apply text-teal-500 hover:text-teal-400 dark:text-teal-300 dark:hover:text-teal-400;
-			@apply border-teal-500 hover:border-teal-400 dark:border-teal-300 dark:hover:border-teal-400;
-		}
-		&.blue {
-			@apply text-blue-600 hover:text-blue-500;
-			@apply border-blue-600 hover:border-blue-500;
-		}
-		&.red {
-			@apply text-red-500 hover:text-red-400;
-			@apply border-red-500 hover:border-red-400;
-		}
-		&.yellow {
-			@apply text-yellow-500 hover:text-yellow-400;
-			@apply border-yellow-500 hover:border-yellow-400;
-		}
+		@apply text-gray-700 border-gray-300 bg-gray-50;
+		@apply dark:text-gray-300 dark:bg-gray-900 dark:border-gray-700;
 	}
 
-	.import-btn {
-		@apply inline-flex items-center px-3 py-2 text-lg font-semibold rounded-lg;
-		@apply text-teal-500 hover:text-teal-400;
-		@apply border border-teal-500 hover:border-teal-400;
+	select {
+		@apply block w-full px-4 py-2 text-base border rounded-lg pe-9;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
-		@apply dark:focus:ring-1 dark:focus:ring-gray-600;
-		@apply dark:hover:bg-teal-800/30 dark:hover:text-teal-400;
+		@apply text-gray-700 border-gray-300 bg-gray-50;
+		@apply dark:text-gray-300 dark:bg-gray-900 dark:border-gray-700;
 	}
 
-	/* TODO these shouldn't be required on individual items */
-	.input-base {
-		@apply block w-full px-4 py-2 text-base rounded-lg;
-		@apply border border-gray-200 dark:border-gray-700;
+	input[type='radio'] {
+		@apply self-center rounded-full shrink-0;
 		@apply disabled:opacity-50 disabled:pointer-events-none;
-		@apply dark:bg-gray-900 dark:text-gray-300;
+		@apply text-blue-600 border-gray-200;
+		@apply dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500;
 	}
 
-	.input {
-		@apply input-base;
-	}
-	.textarea {
-		@apply input-base;
-	}
-	.radio {
-		@apply self-center text-blue-600 border-gray-200 rounded-full shrink-0 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800;
-	}
 	.label {
 		@apply text-base font-semibold;
 	}
 	.radio + .label {
 		@apply text-base text-gray-500 ms-2 dark:text-gray-400;
 	}
-	.select {
-		@apply block w-full px-4 py-2 text-base border border-gray-200 rounded-lg pe-9 focus:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400;
-	}
-
-	.cool-code {
-		@apply relative p-4 my-0 overflow-scroll text-xs text-green-300 rounded-md;
-	}
-
-	.fallback.list {
-		@apply container flex flex-col w-full;
-		@apply animate-pulse;
-		.list-item {
-			@apply inline-flex w-full h-12 items-center gap-x-3.5 py-3 px-4 -mt-px text-lg font-medium;
-			@apply first:rounded-t-lg first:mt-0 last:rounded-b-lg;
-			@apply border border-gray-200 dark:border-gray-700;
-			@apply bg-white dark:bg-gray-900;
-			@apply text-gray-800 dark:text-white;
-			@apply hover:bg-white hover:dark:bg-gray-900;
-		}
-	}
-
-	.border-container {
-		@apply flex flex-col items-stretch gap-x-3.5 gap-y-4 p-4 text-base font-medium bg-white border border-gray-200 text-gray-800 -mt-px rounded-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white divide-y divide-gray-700;
-	}
 }
 
-/* Defaults */
-input[type='text'],
-input[type='password'],
-input[type='email'],
-input[type='url'] {
-	@apply input;
-}
-input[type='radio'] {
-	@apply radio;
-}
-select {
-	@apply select;
-}
-textarea {
-	@apply textarea;
+/* Random Shit */
+
+pre > code {
+	@apply relative p-4 my-0 overflow-scroll text-xs rounded-md;
+	@apply text-green-700 dark:text-green-300;
 }
 
+/* Remove Image Button */
 i.remove {
 	--fa-primary-color: #ffffff;
 	--fa-primary-opacity: 1;
@@ -245,19 +187,39 @@ i.remove {
 	}
 }
 
+/* Skeletons */
+.fallback {
+	@apply container flex flex-col w-full;
+	@apply animate-pulse;
+	.list-item {
+		@apply inline-flex w-full h-12 items-center gap-x-3.5 py-3 px-4 -mt-px text-lg font-medium border;
+		@apply first:rounded-t-lg first:mt-0 last:rounded-b-lg;
+		@apply border-gray-300 dark:border-gray-700;
+		@apply bg-gray-100 dark:bg-gray-900;
+	}
+}
+
+.border-container {
+	@apply flex flex-col items-stretch gap-x-3.5 gap-y-4 p-4 text-base font-medium border -mt-px rounded-lg divide-y;
+	@apply text-gray-800 bg-white border-gray-200 divide-gray-200;
+	@apply dark:text-white dark:bg-gray-900 dark:border-gray-700 dark:divide-gray-700;
+}
+
 .list {
 	.list-item {
-		@apply flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium  -mt-px;
-		@apply text-gray-800 bg-white border border-gray-200;
+		@apply flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium border -mt-px;
 		@apply first:rounded-t-lg first:mt-0 last:rounded-b-lg;
+		@apply text-gray-800 bg-white border-gray-200;
 		@apply dark:bg-gray-900 dark:border-gray-700 dark:text-white;
 
 		&.complete {
-			@apply opacity-75 hover:dark:bg-gray-900/65;
+			@apply opacity-75;
+			@apply bg-gray-200 hover:bg-gray-200/65;
+			@apply dark:bg-gray-900 hover:dark:bg-gray-900/65;
 		}
 
 		&.pending {
-			@apply animate-pulse;
+			@apply animate-pulse bg-gray-50 dark:bg-gray-900;
 		}
 
 		&:not(.editing):not(.pending) {
@@ -265,7 +227,7 @@ i.remove {
 		}
 
 		&.editing {
-			@apply border-2 border-yellow-300;
+			@apply border-2 border-yellow-500 dark:border-yellow-300;
 		}
 	}
 }

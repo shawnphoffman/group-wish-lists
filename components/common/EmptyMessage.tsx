@@ -1,3 +1,5 @@
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+
 import './EmptyMessage.css'
 
 type Props = {
@@ -5,5 +7,10 @@ type Props = {
 }
 
 export default function EmptyMessage({ message = 'Nothing to see here... yet' }: Props) {
-	return <div className="empty-container">{message}</div>
+	return (
+		<div className="empty-container">
+			<FontAwesomeIcon className="text-2xl fa-sharp fa-solid fa-face-thinking" />
+			<div>{message}</div>
+		</div>
+	)
 }

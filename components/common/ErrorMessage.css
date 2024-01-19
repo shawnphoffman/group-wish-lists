@@ -1,3 +1,5 @@
 .error {
-	@apply text-sm text-center text-red-800 bg-red-100 border border-red-200 rounded-lg dark:bg-red-800/10 dark:border-red-900 dark:text-red-500;
+	@apply flex flex-row gap-2 p-4 text-base border rounded-lg;
+	@apply text-red-800 bg-red-100 border-red-200;
+	@apply dark:bg-red-800/10 dark:border-red-900 dark:text-red-500;
 }
