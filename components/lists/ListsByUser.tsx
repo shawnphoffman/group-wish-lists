@@ -4,6 +4,7 @@ import { getListsGroupedByUser } from '@/app/actions/lists'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import ListBlock from '@/components/lists/ListBlock'
 
+import Badge from '../common/Badge'
 import { List } from '../types'
 
 export default async function ListsByUser() {
@@ -23,8 +24,11 @@ export default async function ListsByUser() {
 				{error && <ErrorMessage />}
 
 				{groupedLists?.map(group => (
-					<div key={`group-${group.id}`} className={`flex flex-col `}>
-						<h2 className="mb-2 text-2xl dark:text-white">{group.display_name}</h2>
+					<div key={`group-${group.id}`} className={`flex flex-col gap-1`}>
+						{/* <h2 className="mb-2 text-2xl dark:text-white">{group.display_name}</h2> */}
+						<Badge className="self-start !text-base" colorId={group.id}>
+							{group.display_name}
+						</Badge>
 						<ListBlock lists={group.lists as List[]} isOwner={currentUser?.id === group.user_id} />
 					</div>
 				))}

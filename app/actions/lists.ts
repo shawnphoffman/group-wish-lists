@@ -2,9 +2,67 @@
 
 import { cookies } from 'next/headers'
 
-import { List } from '@/components/types'
+import { List, User } from '@/components/types'
 
 import { createClient } from '@/utils/supabase/server'
+
+const monthToNumber: { [key: string]: number } = {
+	january: 1,
+	february: 2,
+	march: 3,
+	april: 4,
+	may: 5,
+	june: 6,
+	july: 7,
+	august: 8,
+	september: 9,
+	october: 10,
+	november: 11,
+	december: 12,
+}
+
+const sortUserGroupsByBirthDate = (a: Partial<User>, b: Partial<User>) => {
+	const currentDate = new Date()
+	// const currentDate = new Date('July 17, 2024 03:24:00')
+	const currentMonth = currentDate.getMonth() + 1
+	const currentDay = currentDate.getDate()
+	let aMonth = monthToNumber[a.birth_month!]
+	if (aMonth < currentMonth) {
+		aMonth += 12
+	} else if (aMonth === currentMonth && a.birth_day! < currentDay) {
+		aMonth += 12
+	}
+
+	let bMonth = monthToNumber[b.birth_month!]
+	if (bMonth < currentMonth) {
+		bMonth += 12
+	} else if (bMonth === currentMonth && b.birth_day! < currentDay) {
+		bMonth += 12
+	}
+
+	if (aMonth <= currentMonth && a.birth_day === currentDay) {
+		return -1
+	}
+	if (bMonth <= currentMonth && b.birth_day === currentDay) {
+		return 1
+	}
+
+	// console.log({
+	// 	aMonth,
+	// 	bMonth,
+	// 	currentMonth,
+	// 	currentDay,
+	// 	bDay: b.birth_day,
+	// 	aDay: a.birth_day,
+	// 	a_month: a.birth_month,
+	// 	b_month: b.birth_month,
+	// })
+
+	if (aMonth === bMonth) {
+		return a.birth_day! - b.birth_day!
+	}
+	return aMonth! - bMonth!
+}
 
 export const getListsGroupedByUser = async () => {
 	'use server'
@@ -12,11 +70,17 @@ export const getListsGroupedByUser = async () => {
 	const supabase = createClient(cookieStore)
 	const resp = await supabase
 		.from('view_users')
-		.select('id,user_id,email,display_name,lists:view_sorted_lists(*)')
+		.select('id,user_id,email,display_name,birth_month,birth_day,lists:view_sorted_lists(*)')
 		.not('lists', 'is', null)
 		.order('id', { ascending: true })
 
-	// console.log('getListsGroupedByUser.resp', resp)
+	try {
+		if (resp.data) {
+			resp.data.sort(sortUserGroupsByBirthDate)
+		}
+	} catch (error) {
+		console.error('getListsGroupedByUser.resp.error', error)
+	}
 
 	return resp
 }
