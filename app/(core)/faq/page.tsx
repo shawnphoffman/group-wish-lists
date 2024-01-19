@@ -8,7 +8,6 @@ export default function Faq() {
 				<ul className="px-4 list-disc">
 					<li>Importing Apple Notes is coming soon</li>
 					<li>I hope to get Amazon Wish List importing working as well</li>
-					<li>Moving items between lists</li>
 					<li>Viewing the things that you've purchased for others</li>
 					<li>Viewing everything you've received. I need to work out "closing dates" for this</li>
 					<li>More users</li>
