@@ -41,6 +41,7 @@ export default async function Temp() {
 			<h2>Badges</h2>
 			<div className="flex flex-col gap-2">
 				<Badge className="">Badge</Badge>
+				<Badge className="gray">Badge</Badge>
 				<Badge className="pink">Badge</Badge>
 				<Badge className="red">Badge</Badge>
 				<Badge className="orange">Badge</Badge>
@@ -49,7 +50,6 @@ export default async function Temp() {
 				<Badge className="teal">Badge</Badge>
 				<Badge className="blue">Badge</Badge>
 				<Badge className="purple">Badge</Badge>
-				<Badge className="gray">Badge</Badge>
 			</div>
 
 			<h3>Users</h3>
