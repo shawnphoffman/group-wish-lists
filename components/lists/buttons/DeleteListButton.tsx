@@ -17,7 +17,7 @@ export default function DeleteListButton({ listId, name }: any) {
 			if (resp?.status === 'success') {
 				console.log('delete success', { resp, listId, name })
 				startTransition(() => {
-					router.refresh()
+					router.push('/me')
 				})
 			} else {
 				console.log('delete error', { resp, listId, name })
