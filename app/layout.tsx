@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous"></script>
 			</head>
 			<body className="dark:bg-gray-950 dark:text-white">
-				<main className="container flex flex-col items-center min-h-screen mx-auto">{children}</main>
+				<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
 				<PrelineScript />
 			</body>
 		</html>
