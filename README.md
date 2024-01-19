@@ -2,6 +2,9 @@
 
 ## CORE FUNCTIONALITY
 
+- [] List: Add editors to list
+- [] List: Add list recipient
+
 ## NICE TO HAVES
 
 - [] Edit: Add amazon wish list importer

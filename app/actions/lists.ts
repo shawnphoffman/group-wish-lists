@@ -89,7 +89,7 @@ export const getMyLists = async () => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	const resp = await supabase.from('view_my_lists').select('*')
+	const resp = await supabase.from('view_my_lists2').select('*')
 
 	// console.log('getMyLists.resp', resp)
 
@@ -100,7 +100,7 @@ export const getEditableList = async (listID: number) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase
-		.from('view_my_lists')
+		.from('view_my_lists2')
 		.select(
 			`name,type,active,
 			recipient:recipient_user_id(id,display_name,user_id),
