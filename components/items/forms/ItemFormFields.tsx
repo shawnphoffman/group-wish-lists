@@ -186,7 +186,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				{(scrape || imageUrl) && <ItemImagePicker images={scrape?.result?.ogImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
 
 				<div>
-					<button type="submit" className="w-full btn" disabled={isDisabled}>
+					<button type="submit" className="w-full btn blue" disabled={isDisabled}>
 						{isPending ? (
 							<span className="drop-shadow-lg ">{item ? 'Saving' : 'Adding'}...</span>
 						) : (

@@ -39,7 +39,7 @@ function CreateListFields() {
 					</label>
 					{/* @ts-ignore */}
 					{/* <input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" autofocus="true" /> */}
-					<input type="text" id="input-name" name="list-name" className="input" placeholder="Your Cool List" />
+					<input type="text" id="input-name" name="list-name" placeholder="Your Cool List" />
 				</div>
 				<div>
 					<RadioGroup name="list-privacy" defaultValue={ListPrivacy.Public}>

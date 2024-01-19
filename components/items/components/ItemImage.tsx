@@ -5,5 +5,5 @@ type Props = {
 
 export default function ItemImage({ url, className = '' }: Props) {
 	if (!url) return null
-	return <img src={url} alt="" className={`object-scale-down rounded-lg bg-white ${className}`} />
+	return <img src={url} alt="" className={`object-scale-down rounded-lg border dark:border-none bg-white ${className}`} />
 }

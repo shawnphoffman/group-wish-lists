@@ -69,7 +69,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 
 	return (
 		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
-			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-700 divide-dashed">
+			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-300 dark:divide-gray-700 divide-dashed">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
 					{item.priority !== ItemPriority.Normal && (
@@ -84,7 +84,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
-							{item.notes && <div className="text-sm text-gray-400 whitespace-pre-line">{item.notes}</div>}
+							{item.notes && <div className="notes">{item.notes}</div>}
 						</div>
 						{/* Image + Actions */}
 						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
