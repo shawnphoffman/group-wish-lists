@@ -2,6 +2,7 @@ export const ListCategory = {
 	Christmas: 'christmas',
 	Birthday: 'birthday',
 	WishList: 'wishlist',
+	GiftIdeas: 'giftideas',
 	Test: 'test',
 } as const
 export type ListCategoryType = (typeof ListCategory)[keyof typeof ListCategory]

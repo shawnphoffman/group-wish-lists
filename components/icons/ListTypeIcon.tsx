@@ -15,6 +15,8 @@ export default function ListTypeIcon({ type, className = 'text-xl', isPrivate = 
 		iconClass = 'fa-duotone fa-fw fa-tree-christmas text-green-300'
 	} else if (type === ListCategory.Test) {
 		iconClass = 'fa-duotone fa-fw fa-vial-virus text-blue-300'
+	} else if (type === ListCategory.GiftIdeas) {
+		iconClass = 'fa-duotone fa-fw fa-lightbulb text-teal-300'
 	}
 
 	return <FontAwesomeIcon className={`${iconClass} ${className}`} />
