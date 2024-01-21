@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import { getUser } from '@/app/actions/auth'
 
 import Badge from '@/components/common/Badge'
+import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/me/MyLists'
@@ -39,7 +40,7 @@ const MyStuffClient = async () => {
 			</div>
 			<div className="flex flex-col gap-3">
 				<h3>Change Password</h3>
-				<PasswordForm name={user.display_name} id={user.user_id} />
+				<PasswordForm id={user.user_id} />
 			</div>
 		</>
 	)
@@ -69,6 +70,21 @@ export default async function MyStuff() {
 					<Suspense fallback={null}>
 						<MyStuffClient />
 					</Suspense>
+
+					{/* LISTS */}
+					<div className="flex flex-col gap-3">
+						{/* Header */}
+						<div className="flex flex-row justify-between">
+							<h1>My Purchases</h1>
+							{/* <button type="button" className="mt-0 nav-btn blue" data-hs-overlay="#hs-create-list-modal">
+								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
+								Create List
+							</button> */}
+						</div>
+						<EmptyMessage message="Coming soon..." />
+						{/* Lists */}
+						{/* <Suspense fallback={<FallbackRow />}><MyLists /></Suspense> */}
+					</div>
 				</main>
 			</div>
 			<CreateListModal />

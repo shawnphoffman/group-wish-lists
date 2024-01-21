@@ -5,13 +5,12 @@ import { useEffect, useMemo, useState, useTransition } from 'react'
 // @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
-import { updateProfile } from '@/app/actions/auth'
+import { updatePassword } from '@/app/actions/auth'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SuccessMessage from '@/components/common/SuccessMessage'
 
 type FormProps = {
-	name: string
 	id: string
 	state: {
 		error: string
@@ -19,7 +18,7 @@ type FormProps = {
 	}
 }
 
-function PasswordForm({ name, id, state }: FormProps) {
+function PasswordForm({ id, state }: FormProps) {
 	const { pending } = useFormStatus()
 	const [newPassword, setNewPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
@@ -32,8 +31,8 @@ function PasswordForm({ name, id, state }: FormProps) {
 		<>
 			<div className="flex flex-col items-stretch gap-2 justify-stretch">
 				<input type="hidden" name="user_id" value={id} readOnly />
-				<div className="flex flex-col flex-1 gap-2">
-					<div className="flex flex-row items-center flex-1 gap-1">
+				<div className="flex flex-col flex-1 gap-2 xs:flex-row">
+					<div className="flex flex-col items-start flex-1 gap-1">
 						<label className="label text-nowrap " htmlFor="new-password">
 							New Password
 						</label>
@@ -47,7 +46,7 @@ function PasswordForm({ name, id, state }: FormProps) {
 							required
 						/>
 					</div>
-					<div className="flex flex-row items-center flex-1 gap-1">
+					<div className="flex flex-col items-start flex-1 gap-1">
 						<label className="label text-nowrap" htmlFor="confirm-password">
 							Confirm Password
 						</label>
@@ -61,10 +60,10 @@ function PasswordForm({ name, id, state }: FormProps) {
 							required
 						/>
 					</div>
-					{!pending && newPassword && confirmPassword && newPassword !== confirmPassword && (
-						<ErrorMessage includeTitle={false} error={'Passwords must match'} />
-					)}
 				</div>
+				{!pending && newPassword && confirmPassword && newPassword !== confirmPassword && (
+					<ErrorMessage includeTitle={false} error={'Passwords must match'} />
+				)}
 				<button className="btn green" disabled={pending || !passwordIsValid}>
 					{pending ? 'Changing...' : 'Change Password'}
 				</button>
@@ -80,7 +79,6 @@ function PasswordForm({ name, id, state }: FormProps) {
 }
 
 type WrapperProps = {
-	name: string
 	id: string
 }
 
@@ -89,8 +87,8 @@ const initialState = {
 	status: '',
 }
 
-export default function PasswordFormWrapper({ name, id }: WrapperProps) {
-	const [state, formAction] = useFormState(updateProfile, initialState)
+export default function PasswordFormWrapper({ id }: WrapperProps) {
+	const [state, formAction] = useFormState(updatePassword, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()
 
@@ -105,7 +103,7 @@ export default function PasswordFormWrapper({ name, id }: WrapperProps) {
 	return (
 		<form className=" text-foreground" action={formAction}>
 			<fieldset className="flex flex-col flex-1 w-full gap-2" disabled={isPending}>
-				<PasswordForm name={name} id={id} state={state} />
+				<PasswordForm id={id} state={state} />
 			</fieldset>
 		</form>
 	)

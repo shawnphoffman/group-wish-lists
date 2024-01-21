@@ -99,3 +99,32 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 		data,
 	}
 }
+//
+export const updatePassword = async (prevState: any, formData: FormData) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const newPassword = formData.get('new_password') as string
+	const confirmPassword = formData.get('confirm_password') as string
+	const userId = formData.get('user_id') as string
+
+	return {
+		status: 'success',
+		data: 'data',
+	}
+
+	// const { data, error } = await supabase.from('users').update({ display_name: name }).eq('user_id', userId)
+	// // await new Promise(resolve => setTimeout(resolve, 5000))
+
+	// if (error) {
+	// 	return {
+	// 		error: error.message,
+	// 	}
+	// }
+
+	// return {
+	// 	status: 'success',
+	// 	data,
+	// }
+}
