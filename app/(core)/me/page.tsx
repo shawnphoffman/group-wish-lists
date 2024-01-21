@@ -9,6 +9,7 @@ import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/me/MyLists'
+import MyPurchases from '@/components/me/MyPurchases'
 import PasswordForm from '@/components/me/PasswordForm'
 import ProfileForm from '@/components/me/ProfileForm'
 
@@ -83,7 +84,9 @@ export default async function MyStuff() {
 						</div>
 						<EmptyMessage message="Coming soon..." />
 						{/* Lists */}
-						{/* <Suspense fallback={<FallbackRow />}><MyLists /></Suspense> */}
+						<Suspense fallback={<FallbackRow />}>
+							<MyPurchases />
+						</Suspense>
 					</div>
 				</main>
 			</div>
