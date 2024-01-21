@@ -58,10 +58,8 @@ export default function ItemRowEditable({ item, lists }: Props) {
 	}, [item, router])
 
 	useEffect(() => {
-		if (isEditing) {
-			setIsEditing(false)
-		}
-	}, [isEditing, item])
+		setIsEditing(false)
+	}, [item])
 
 	if (!item) return null
 
