@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
+import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList, getMyLists } from '@/app/actions/lists'
 
 import EmptyMessage from '@/components/common/EmptyMessage'
@@ -25,9 +26,10 @@ const ShowList = async ({ params }: Props) => {
 	const listPromise = getEditableList(params.id)
 	const listsPromise = getMyLists()
 
-	const [{ data, error }, { data: lists }] = await Promise.all([
+	const [{ data, error }, { data: lists }, currentUser] = await Promise.all([
 		listPromise,
 		listsPromise,
+		getSessionUser(),
 		// fakePromise
 	])
 
@@ -44,12 +46,16 @@ const ShowList = async ({ params }: Props) => {
 					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row flex-wrap justify-center flex-1 gap-1 md:justify-end shrink-0">
-					<ArchiveListButton listId={params.id} isArchived={!data.active} />
-					<DeleteListButton listId={params.id} name={data.name} />
+					{currentUser?.id === data.user_id && (
+						<>
+							<ArchiveListButton listId={params.id} isArchived={!data.active} />
+							<DeleteListButton listId={params.id} name={data.name} />
+						</>
+					)}
 					{/* {!isDeployed && (
 						<Link href="#import-items" className="nav-btn purple">
-							<FontAwesomeIcon className="fa-sharp fa-file-import" />
-							Import Items
+						<FontAwesomeIcon className="fa-sharp fa-file-import" />
+						Import Items
 						</Link>
 					)} */}
 					<Link href="#add-item" className="nav-btn blue">
