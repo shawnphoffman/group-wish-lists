@@ -66,7 +66,7 @@ export default function ProfileFormWrapper({ name, id }: WrapperProps) {
 				router.refresh()
 			})
 		}
-	}, [state])
+	}, [router, state])
 
 	return (
 		<form className=" text-foreground" action={formAction}>

@@ -127,7 +127,7 @@ export default async function Temp() {
 			<hr />
 
 			<pre>
-				<code>[foo: 'bar']</code>
+				<code>{JSON.parse("['foo': 'bar']")}</code>
 			</pre>
 
 			<hr />

@@ -8,6 +8,7 @@ import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/me/MyLists'
+import PasswordForm from '@/components/me/PasswordForm'
 import ProfileForm from '@/components/me/ProfileForm'
 
 const CreateListModal = dynamic(() => import('@/components/me/CreateListModal'), { ssr: false })
@@ -26,15 +27,21 @@ const MyStuffClient = async () => {
 	}
 
 	return (
-		<div className="flex flex-col gap-3">
-			<div className="flex flex-row items-center justify-between">
-				<h1>Profile</h1>
-				<Badge colorId={user.id} className="!text-base">
-					{user.display_name}
-				</Badge>
+		<>
+			<div className="flex flex-col gap-3">
+				<div className="flex flex-row items-center justify-between">
+					<h1>Profile</h1>
+					<Badge colorId={user.id} className="!text-base">
+						{user.display_name}
+					</Badge>
+				</div>
+				<ProfileForm name={user.display_name} id={user.user_id} />
 			</div>
-			<ProfileForm name={user.display_name} id={user.user_id} />
-		</div>
+			<div className="flex flex-col gap-3">
+				<h3>Change Password</h3>
+				<PasswordForm name={user.display_name} id={user.user_id} />
+			</div>
+		</>
 	)
 }
 

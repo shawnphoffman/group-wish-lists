@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { startTransition, useEffect } from 'react'
+import { startTransition, useEffect, useRef } from 'react'
 
 import { List } from '@/components/types'
 
@@ -14,7 +14,7 @@ type Props = {
 export default function RealTimeListener({ listId }: Props) {
 	const supabase = createClientSideClient()
 	const router = useRouter()
-	let isSubscribed = false
+	const isSubscribed = useRef(false)
 
 	useEffect(() => {
 		const channels = supabase
@@ -27,18 +27,18 @@ export default function RealTimeListener({ listId }: Props) {
 			})
 			.subscribe(status => {
 				console.log({ status })
-				isSubscribed = status === 'SUBSCRIBED'
+				isSubscribed.current = status === 'SUBSCRIBED'
 			})
 
 		return () => {
-			if (isSubscribed) {
+			if (isSubscribed.current) {
 				console.log('UNSUBSCRIBING')
 				channels.unsubscribe()
 			} else {
 				console.log('NOT UNSUBSCRIBING')
 			}
 		}
-	}, [listId])
+	}, [listId, router, supabase])
 
 	return null
 }

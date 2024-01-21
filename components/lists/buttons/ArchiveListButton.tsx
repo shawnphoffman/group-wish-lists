@@ -24,7 +24,7 @@ export default function ArchiveListButton({ listId, isArchived }: Props) {
 				router.refresh()
 			})
 		}
-	}, [listId, isArchived])
+	}, [isArchived, listId, router])
 
 	return isArchived ? (
 		<button className="nav-btn teal" title="Restore List" onClick={handleClick} disabled={isPending}>

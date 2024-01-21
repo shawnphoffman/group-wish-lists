@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { use, useCallback, useEffect, useRef, useState, useTransition } from 'react'
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 // @ts-expect-error
 import { useFormStatus } from 'react-dom'
 
@@ -57,7 +57,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		const imageUrl = getImageFromScrape(scrape)
 		// console.log('scrape', { scrape })
 		setImageUrl(imageUrl)
-	}, [scrape])
+	}, [item, scrape])
 
 	useEffect(() => {
 		if (!item) return
@@ -65,7 +65,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			titleRef.current.style.height = 'inherit'
 			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
 		}
-	}, [title])
+	}, [item, title])
 
 	useEffect(() => {
 		if (!item) return
@@ -73,7 +73,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			notesRef.current.style.height = 'inherit'
 			notesRef.current.style.height = `${notesRef.current.scrollHeight}px`
 		}
-	}, [notes])
+	}, [item, notes])
 
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = 'inherit'
@@ -132,7 +132,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				router.refresh()
 			})
 		}
-	}, [formState])
+	}, [formState, router])
 
 	return (
 		<fieldset disabled={isPending}>

@@ -55,13 +55,13 @@ export default function ItemRowEditable({ item, lists }: Props) {
 				console.log('delete error', { resp, item })
 			}
 		}
-	}, [isEditing])
+	}, [item, router])
 
 	useEffect(() => {
 		if (isEditing) {
 			setIsEditing(false)
 		}
-	}, [item])
+	}, [isEditing, item])
 
 	if (!item) return null
 

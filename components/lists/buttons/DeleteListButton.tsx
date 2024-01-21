@@ -23,7 +23,7 @@ export default function DeleteListButton({ listId, name }: any) {
 				console.log('delete error', { resp, listId, name })
 			}
 		}
-	}, [listId, name])
+	}, [listId, name, router])
 
 	return (
 		<button className="nav-btn red" title="Delete List" onClick={handleClick} disabled={isPending}>

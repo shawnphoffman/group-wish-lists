@@ -30,12 +30,12 @@ export default function MyListsSelect({ lists, id, listId }: Props) {
 				router.refresh()
 			})
 		}
-	}, [list])
+	}, [id, list, router])
 
 	useEffect(() => {
 		const currentList = lists.find((list: List) => list.id === listId)
 		setList(currentList || null)
-	}, [])
+	}, [listId, lists])
 
 	if (!lists || !list) {
 		return null

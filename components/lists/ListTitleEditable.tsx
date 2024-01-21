@@ -37,7 +37,7 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 				router.refresh()
 			})
 		}
-	}, [state])
+	}, [isEditing, router, state])
 
 	return (
 		<>

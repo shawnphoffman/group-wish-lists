@@ -37,14 +37,14 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 			}
 			updateItemStatus()
 		},
-		[checked, canChange]
+		[checked, router, id]
 	)
 
 	useEffect(() => {
 		if (isComplete !== checked) {
 			setChecked(isComplete)
 		}
-	}, [isComplete])
+	}, [checked, isComplete])
 
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
