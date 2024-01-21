@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en" className={GeistSans.className}>
 			<head>
-				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous"></script>
+				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous" async></script>
 			</head>
 			<body>
 				<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
