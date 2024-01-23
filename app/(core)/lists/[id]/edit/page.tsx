@@ -8,12 +8,15 @@ import { getEditableList, getMyLists } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import ImportItems from '@/components/imports/ImportItems'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import { List, ListItem } from '@/components/types'
+
+import { isDeployed } from '@/utils/environment'
 
 type Props = {
 	params: {
@@ -52,12 +55,12 @@ const ShowList = async ({ params }: Props) => {
 							<DeleteListButton listId={params.id} name={data.name} />
 						</>
 					)}
-					{/* {!isDeployed && (
+					{!isDeployed && (
 						<Link href="#import-items" className="nav-btn purple">
-						<FontAwesomeIcon className="fa-sharp fa-file-import" />
-						Import Items
+							<FontAwesomeIcon className="fa-sharp fa-file-import" />
+							Import Items
 						</Link>
-					)} */}
+					)}
 					<Link href="#add-item" className="nav-btn blue">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
@@ -94,7 +97,7 @@ export default async function EditList({ params }: Props) {
 			</div>
 
 			{/* Import */}
-			{/* <ImportItems listId={params.id} /> */}
+			{!isDeployed && <ImportItems listId={params.id} />}
 		</div>
 	)
 }
