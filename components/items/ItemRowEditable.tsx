@@ -1,9 +1,8 @@
 'use client'
 
-import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Suspense, useCallback, useEffect, useState, useTransition } from 'react'
+import { useCallback, useEffect, useState, useTransition } from 'react'
 
 import { deleteItem } from '@/app/actions/items'
 

@@ -31,6 +31,13 @@ export type Gift = {
 	gifter_id?: User['id']
 }
 
+export type Purchase = {
+	recipient_display_name?: User['display_name']
+	recipient_user_id?: User['user_id']
+	recipient_id?: User['id']
+	gift_created_at?: Date
+}
+
 export type User = {
 	id: number
 	display_name: string

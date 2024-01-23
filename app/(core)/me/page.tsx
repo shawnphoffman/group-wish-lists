@@ -5,7 +5,6 @@ import { Suspense } from 'react'
 import { getUser } from '@/app/actions/auth'
 
 import Badge from '@/components/common/Badge'
-import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import MyLists from '@/components/me/MyLists'
@@ -29,8 +28,8 @@ const MyStuffClient = async () => {
 	}
 
 	return (
-		<>
-			<div className="flex flex-col gap-3">
+		<div className="flex flex-col gap-8">
+			<div className="flex flex-col gap-3 pt-6">
 				<div className="flex flex-row items-center justify-between">
 					<h1>Profile</h1>
 					<Badge colorId={user.id} className="!text-base">
@@ -40,10 +39,10 @@ const MyStuffClient = async () => {
 				<ProfileForm name={user.display_name} id={user.user_id} />
 			</div>
 			<div className="flex flex-col gap-3">
-				<h3>Change Password</h3>
+				{/* <h3>Change Password</h3> */}
 				<PasswordForm id={user.user_id} />
 			</div>
-		</>
+		</div>
 	)
 }
 
@@ -51,7 +50,7 @@ export default async function MyStuff() {
 	return (
 		<>
 			<div className="flex flex-col flex-1 w-full max-w-xl px-3 opacity-0 animate-in">
-				<main className="flex flex-col flex-1 gap-8">
+				<main className="flex flex-col flex-1 gap-8 divide-y">
 					{/* LISTS */}
 					<div className="flex flex-col gap-3">
 						{/* Header */}
@@ -73,16 +72,11 @@ export default async function MyStuff() {
 					</Suspense>
 
 					{/* LISTS */}
-					<div className="flex flex-col gap-3">
+					<div className="flex flex-col gap-3 pt-6">
 						{/* Header */}
 						<div className="flex flex-row justify-between">
 							<h1>My Purchases</h1>
-							{/* <button type="button" className="mt-0 nav-btn blue" data-hs-overlay="#hs-create-list-modal">
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
-								Create List
-							</button> */}
 						</div>
-						<EmptyMessage message="Coming soon..." />
 						{/* Lists */}
 						<Suspense fallback={<FallbackRow />}>
 							<MyPurchases />
