@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
 		}
 
 		// IF THERE IS NO SESSION, REDIRECT TO LOGIN
-		if (!request.url.includes('/login') && !request.url.includes('/auth')) {
+		if (!request.url.includes('/login') && !request.url.includes('/auth') && !request.url.includes('/manifest')) {
 			if (!hasSession) {
 				console.log('⤵️ REDIRECT TO LOGIN')
 				return NextResponse.redirect(new URL('/login', request.url))
