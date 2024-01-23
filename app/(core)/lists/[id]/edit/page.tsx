@@ -55,12 +55,10 @@ const ShowList = async ({ params }: Props) => {
 							<DeleteListButton listId={params.id} name={data.name} />
 						</>
 					)}
-					{!isDeployed && (
-						<Link href="#import-items" className="nav-btn purple">
-							<FontAwesomeIcon className="fa-sharp fa-file-import" />
-							Import Items
-						</Link>
-					)}
+					<Link href="#import-items" className="nav-btn purple">
+						<FontAwesomeIcon className="fa-sharp fa-file-import" />
+						Import Items
+					</Link>
 					<Link href="#add-item" className="nav-btn blue">
 						<FontAwesomeIcon className="fa-sharp fa-plus" />
 						Add Item
@@ -97,7 +95,7 @@ export default async function EditList({ params }: Props) {
 			</div>
 
 			{/* Import */}
-			{!isDeployed && <ImportItems listId={params.id} />}
+			<ImportItems listId={params.id} />
 		</div>
 	)
 }

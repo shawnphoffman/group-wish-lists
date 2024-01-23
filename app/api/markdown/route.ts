@@ -16,7 +16,7 @@ function cleanItemList(items: any[]) {
 		if ((startsWithBracket || isLevel3) && !currentItem.content.startsWith('[x]')) {
 			const parentItem = {
 				title: currentItem.content.substring(startsWithBracket ? 4 : 0).trim(),
-				description: '', // Initialize description for the parent
+				notes: '', // Initialize notes for the parent
 			}
 
 			// Check if the content of the parent item contains "\n"
@@ -28,8 +28,8 @@ function cleanItemList(items: any[]) {
 				// Include only the content prior to the first "\n" in the parent output
 				parentItem.title = parts[0].trim()
 
-				// Join all subsequent parts after "\n" and add to the description
-				parentItem.description = parts.slice(1).join(' ').trim()
+				// Join all subsequent parts after "\n" and add to the notes
+				parentItem.notes = parts.slice(1).join(' ').trim()
 			}
 
 			// Look for the next item with a higher level and non-empty content
@@ -39,9 +39,9 @@ function cleanItemList(items: any[]) {
 					break
 				}
 				if (childItem.level > currentItem.level && childItem.content.trim() !== '') {
-					// Add the child item's content as the description to the parent
-					parentItem.description = childItem.content.trim()
-					i = j // Move the index to the next item after the description
+					// Add the child item's content as the notes to the parent
+					parentItem.notes = childItem.content.trim()
+					i = j // Move the index to the next item after the notes
 					break
 				}
 			}

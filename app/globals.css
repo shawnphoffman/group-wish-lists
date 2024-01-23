@@ -248,3 +248,11 @@ i.remove {
 .notes {
 	@apply text-sm text-gray-400 whitespace-pre-line;
 }
+
+.conversion-wrapper {
+	@apply flex flex-col items-stretch gap-2 px-4;
+}
+
+.conversion-notes {
+	@apply pl-4 overflow-hidden text-xs text-gray-400 whitespace-break-spaces text-ellipsis;
+}

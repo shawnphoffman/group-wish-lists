@@ -8,7 +8,7 @@ export default async function Markdown() {
 		<div className="flex flex-col flex-1 w-full max-w-2xl gap-4 p-4 opacity-0 animate-in">
 			<h1>Import Markdown</h1>
 			<Suspense fallback={<FallbackRow />}>
-				<ImportMarkdown />
+				<ImportMarkdown listId={0} />
 			</Suspense>
 		</div>
 	)

@@ -112,18 +112,16 @@ export default function ItemRowEditable({ item, lists }: Props) {
 									<DeleteIcon includeColor={false} />
 									Delete
 								</button>
-								{!isDeployed && (
-									<div className="flex flex-row gap-2">
-										<button
-											type="button"
-											className={`nav-btn purple ${isMoving && 'bg-violet-800/30 text-violet-300'}`}
-											onClick={() => setIsMoving(!isMoving)}
-										>
-											<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
-											Move
-										</button>
-									</div>
-								)}
+								<div className="flex flex-row gap-2">
+									<button
+										type="button"
+										className={`nav-btn purple ${isMoving && 'bg-violet-800/30 text-violet-300'}`}
+										onClick={() => setIsMoving(!isMoving)}
+									>
+										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+										Move
+									</button>
+								</div>
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
 										<OpenUrlIcon includeColor={false} />

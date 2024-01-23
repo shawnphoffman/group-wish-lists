@@ -38,6 +38,28 @@ export const createItem = async (prevState: any, formData: FormData) => {
 	}
 }
 
+export const createMultipleItems = async (listId: List['id'], items: Partial<ListItem>[]) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemsToInsert = items.map(item => ({ list_id: listId, ...item }))
+
+	const itemsPromise = supabase.from('list_items').insert(itemsToInsert)
+
+	const [inserted] = await Promise.all([
+		itemsPromise,
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	console.log('createMultipleItems', { inserted })
+
+	return {
+		status: 'success',
+		inserted,
+	}
+}
+
 export const editItem = async (prevState: any, formData: FormData) => {
 	'use server'
 	const cookieStore = cookies()

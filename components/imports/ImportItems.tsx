@@ -25,9 +25,9 @@ export default function ImportItems({ listId }: Props) {
 				</div>
 			</div> */}
 			{/*  */}
+			<h4>Import from Apple Notes</h4>
 			<div className="flex flex-col gap-1.5 items-stretch p-2">
-				<h4>Import from Apple Notes</h4>
-				<ImportMarkdown />
+				<ImportMarkdown listId={listId} />
 				{/* <div className="flex flex-row items-center justify-center gap-2">
 					<textarea placeholder="TODO" rows={4} name="import-notes"></textarea>
 					<button className="btn teal" disabled>
