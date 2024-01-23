@@ -24,7 +24,7 @@ export default function manifest(): MetadataRoute.Manifest {
 		],
 		scope: '/',
 		start_url: '/',
-		display: 'minimal-ui',
+		display: 'standalone',
 		shortcuts: [
 			{
 				name: 'My Stuff',
