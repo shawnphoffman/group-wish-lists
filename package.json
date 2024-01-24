@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.7.17",
+		"@next/bundle-analyzer": "^14.1.0",
 		"@preline/overlay": "^2.0.2",
 		"@sentry/nextjs": "^7.94.1",
 		"@supabase/ssr": "latest",

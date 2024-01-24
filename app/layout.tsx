@@ -3,8 +3,6 @@ import type { Metadata } from 'next'
 
 import '@/app/globals.css'
 
-import PrelineScript from '@/components/utils/PrelineScript'
-
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
 
 export const metadata: Metadata = {
@@ -32,7 +30,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 			</head>
 			<body>
 				<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
-				<PrelineScript />
 			</body>
 		</html>
 	)

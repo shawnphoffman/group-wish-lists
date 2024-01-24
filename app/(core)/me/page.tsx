@@ -11,6 +11,7 @@ import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
 import PasswordForm from '@/components/me/PasswordForm'
 import ProfileForm from '@/components/me/ProfileForm'
+import PrelineScript from '@/components/utils/PrelineScript'
 
 const CreateListModal = dynamic(() => import('@/components/me/CreateListModal'), { ssr: false })
 
@@ -84,6 +85,7 @@ export default async function MyStuff() {
 					</div>
 				</main>
 			</div>
+			<PrelineScript />
 			<CreateListModal />
 		</>
 	)

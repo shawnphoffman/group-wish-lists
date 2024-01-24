@@ -6,6 +6,7 @@ This is a small passion project to help organize wish lists for my family and fr
 
 - [] List: Add editors to list
 - [] List: Add list recipient
+- [] Remove Preline
 
 ## NICE TO HAVES
 

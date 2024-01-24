@@ -1,6 +1,13 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+})
+
 const { withSentryConfig } = require('@sentry/nextjs')
 
-module.exports = withSentryConfig(
+/** @type {import('next').NextConfig} */
+let nextConfig = {}
+
+nextConfig = withSentryConfig(
 	module.exports,
 	{
 		// For all available options, see:
@@ -37,3 +44,5 @@ module.exports = withSentryConfig(
 		automaticVercelMonitors: true,
 	}
 )
+
+module.exports = withBundleAnalyzer(nextConfig)
