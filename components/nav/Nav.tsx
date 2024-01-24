@@ -25,11 +25,6 @@ export default function Nav() {
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
 				</Link>
 			)}
-			{!isDeployed && (
-				<Link href="/markdown" className={'nav-btn yellow hidden sm:flex'}>
-					<FontAwesomeIcon className="fa-brands fa-markdown" />
-				</Link>
-			)}
 		</div>
 	)
 }

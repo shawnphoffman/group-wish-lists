@@ -1,4 +1,6 @@
-# TODO
+# Wish Lists
+
+This is a small passion project to help organize wish lists for my family and friends.
 
 ## CORE FUNCTIONALITY
 
@@ -11,8 +13,6 @@
 
   - https://www.amazon.com/hz/wishlist/ls/2QDX7UX6DZ86O?ref_=wl_share
   - https://www.amazon.com/hz/wishlist/dl/invite/2pKVDQ8?ref_=wl_share
-
-- [] Edit: Raw Notes importer
 
 ## 2.0
 

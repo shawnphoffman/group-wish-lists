@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 
-import { getUsers } from '@/app/actions/test'
-
+// import { getUsers } from '@/app/actions/test'
 import Badge from '@/components/common/Badge'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -13,7 +12,7 @@ import SuspenseTest from '@/components/utils/SuspenseTest'
 // import { getMyLists } from '@/app/actions/lists'
 
 export default async function Temp() {
-	const { data: users } = await getUsers()
+	// const { data: users } = await getUsers()
 
 	// const data = await importAmazonList('https://www.amazon.com/hz/wishlist/ls/2QDX7UX6DZ86O?ref_=wl_share')
 
@@ -52,7 +51,7 @@ export default async function Temp() {
 				<Badge className="purple">Badge</Badge>
 			</div>
 
-			<h3>Users</h3>
+			{/* <h3>Users</h3>
 			<Suspense fallback={<Fallback />}>
 				<div className="flex flex-row flex-wrap gap-2">
 					{users?.map(user => (
@@ -62,7 +61,7 @@ export default async function Temp() {
 						</Badge>
 					))}
 				</div>
-			</Suspense>
+			</Suspense> */}
 
 			<hr />
 
@@ -126,11 +125,11 @@ export default async function Temp() {
 
 			<hr />
 
-			<pre>
+			{/* <pre>
 				<code>{JSON.parse("['foo': 'bar']")}</code>
-			</pre>
+			</pre> */}
 
-			<hr />
+			{/* <hr /> */}
 
 			<FallbackRow />
 
