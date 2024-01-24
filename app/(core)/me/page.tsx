@@ -7,7 +7,7 @@ import { getUser } from '@/app/actions/auth'
 import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import CreateListModalNew from '@/components/me/CreateListModalNew'
+import CreateListModal from '@/components/me/CreateListModal'
 import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
 import PasswordForm from '@/components/me/PasswordForm'
@@ -92,7 +92,7 @@ export default async function MyStuff({ searchParams }: Props) {
 					</div>
 				</main>
 			</div>
-			{show && <CreateListModalNew />}
+			{show && <CreateListModal />}
 		</>
 	)
 }
