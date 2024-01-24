@@ -57,7 +57,7 @@ export async function GET(request: Request) {
 	const requestUrl = new URL(request.url)
 	const markdownString = requestUrl.searchParams.get('raw')
 
-	console.log('markdownString', markdownString)
+	// console.log('markdownString', markdownString)
 
 	if (markdownString) {
 		const result = md.parse(markdownString, {})

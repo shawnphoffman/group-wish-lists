@@ -15,12 +15,10 @@ export default function DeleteListButton({ listId, name }: any) {
 		if (window.confirm(`Are you sure you want to delete list "${name}"?`)) {
 			const resp = await deleteList(listId)
 			if (resp?.status === 'success') {
-				console.log('delete success', { resp, listId, name })
 				startTransition(() => {
 					router.push('/me')
+					router.refresh()
 				})
-			} else {
-				console.log('delete error', { resp, listId, name })
 			}
 		}
 	}, [listId, name, router])

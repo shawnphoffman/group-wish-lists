@@ -113,6 +113,7 @@ export default function CreateListModal() {
 					formRef.current.reset()
 				}
 				router.push('/me')
+				router.refresh()
 			})
 		}
 	}, [state, pathname, router])

@@ -51,7 +51,6 @@ export default function ItemRowEditable({ item, lists }: Props) {
 				})
 			} else {
 				setIsDeleting(false)
-				console.log('delete error', { resp, item })
 			}
 		}
 	}, [item, router])
