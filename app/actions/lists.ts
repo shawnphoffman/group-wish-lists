@@ -154,6 +154,13 @@ export const createList = async (prevState: any, formData: FormData) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
+	if (!name.trim()) {
+		return {
+			status: 'error',
+			message: 'List name is required',
+		}
+	}
+
 	const me = await supabase.from('view_me').select('user_id').single()
 
 	const createPromise = supabase.from('lists').insert({ recipient_user_id: me.data?.user_id, name, active: true, type, private: isPrivate })
