@@ -14,29 +14,27 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 
 import { ListCategory, ListPrivacy } from '@/utils/enums'
 
+import './CreateListModal.css'
+
 // TODO Refactor Styles
 
 function CreateListFields() {
 	const { pending } = useFormStatus()
 
 	return (
-		<fieldset disabled={pending} className="flex flex-col bg-gray-800 border border-gray-700 shadow-2xl pointer-events-auto rounded-xl ">
-			<div className="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
-				<h3 className="text-xl font-bold text-gray-800 dark:text-white">Create a List</h3>
-				<Link
-					href="/me"
-					className="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full w-7 h-7 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-				>
-					<span className="sr-only">Close</span>
+		<fieldset disabled={pending} className="create-list-modal">
+			<div className="header">
+				<h3>Create a List</h3>
+				<Link href="/me">
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
 				</Link>
 			</div>
-			<div className="flex flex-col gap-4 p-4 overflow-y-auto">
+			<div className="form">
 				<div>
 					<label htmlFor="input-name" className="block mb-2 label">
 						List Title
 					</label>
-					<input type="text" id="input-name" name="list-name" placeholder="Your Cool List" autoFocus />
+					<input type="text" id="input-name" name="list-name" placeholder="Your Cool List" autoFocus required />
 				</div>
 				<div>
 					<RadioGroup name="list-privacy" defaultValue={ListPrivacy.Public}>
@@ -90,7 +88,7 @@ function CreateListFields() {
 					</RadioGroup>
 				</div>
 			</div>
-			<div className="flex items-center justify-end px-4 py-3 border-t gap-x-2 dark:border-gray-700">
+			<div className="footer">
 				<Link href="/me" className="btn gray">
 					Cancel
 				</Link>
@@ -119,7 +117,7 @@ export default function CreateListModal() {
 	}, [state, pathname, router])
 
 	return (
-		<div className="fixed inset-0 flex items-center justify-center w-full h-full overflow-y-auto bg-gray-900 bg-opacity-70">
+		<div className="backdrop">
 			<form
 				action={formAction}
 				ref={formRef}
