@@ -1,5 +1,6 @@
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 import '@/app/globals.css'
 
@@ -29,7 +30,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous" async></script>
 			</head>
 			<body>
-				<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
+				<Suspense>
+					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
+				</Suspense>
 			</body>
 		</html>
 	)
