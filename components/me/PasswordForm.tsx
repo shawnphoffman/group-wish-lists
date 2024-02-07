@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState, useTransition } from 'react'
-// @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { updatePassword } from '@/app/actions/auth'
@@ -13,7 +12,7 @@ import SuccessMessage from '@/components/common/SuccessMessage'
 type FormProps = {
 	id: string
 	state: {
-		error: string
+		error?: string
 		status: string
 	}
 }
@@ -88,6 +87,7 @@ const initialState = {
 }
 
 export default function PasswordFormWrapper({ id }: WrapperProps) {
+	// @ts-expect-error
 	const [state, formAction] = useFormState(updatePassword, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()

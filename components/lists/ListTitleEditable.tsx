@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState, useTransition } from 'react'
-// @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { renameList } from '@/app/actions/lists'
@@ -20,6 +19,7 @@ type Props = {
 }
 
 export default function ListTitleEditable({ listId, name, type }: Props) {
+	// @ts-expect-error
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)

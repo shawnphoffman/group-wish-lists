@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
-// @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { updateProfile } from '@/app/actions/auth'
@@ -14,8 +13,8 @@ type FormProps = {
 	name: string
 	id: string
 	state: {
-		error: string
-		status: string
+		error?: string
+		status?: string
 	}
 }
 
@@ -56,6 +55,7 @@ const initialState = {
 }
 
 export default function ProfileFormWrapper({ name, id }: WrapperProps) {
+	// @ts-expect-error
 	const [state, formAction] = useFormState(updateProfile, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()

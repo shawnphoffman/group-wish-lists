@@ -4,7 +4,6 @@ import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { startTransition, useEffect, useRef } from 'react'
-// @ts-expect-error
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { createList } from '@/app/actions/lists'
@@ -15,8 +14,6 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { ListCategory, ListPrivacy } from '@/utils/enums'
 
 import './CreateListModal.css'
-
-// TODO Refactor Styles
 
 function CreateListFields() {
 	const { pending } = useFormStatus()
@@ -99,6 +96,7 @@ function CreateListFields() {
 }
 
 export default function CreateListModal() {
+	// @ts-expect-error
 	const [state, formAction] = useFormState(createList, {})
 	const router = useRouter()
 	const pathname = usePathname()

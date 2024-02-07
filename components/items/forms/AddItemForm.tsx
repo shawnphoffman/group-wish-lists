@@ -1,6 +1,5 @@
 'use client'
 
-// @ts-expect-error
 import { useFormState } from 'react-dom'
 
 import { createItem } from '@/app/actions/items'
@@ -13,6 +12,7 @@ type Props = {
 }
 
 export default function AddItemForm({ listId }: Props) {
+	// @ts-expect-error
 	const [state, formAction] = useFormState(createItem, {})
 
 	return (

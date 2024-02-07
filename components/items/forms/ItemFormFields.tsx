@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
-// @ts-expect-error
 import { useFormStatus } from 'react-dom'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -173,7 +172,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 				<div>
 					<label className="label">Priority</label>
-					<select name="priority" placeholder="Priority" value={priority} onChange={handleChangePriority}>
+					<select name="priority" value={priority} onChange={handleChangePriority}>
 						<option disabled value=""></option>
 						{Object.keys(ItemPriority).map((key: any) => (
 							<option key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
