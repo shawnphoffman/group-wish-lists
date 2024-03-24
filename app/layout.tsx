@@ -1,6 +1,7 @@
 import '@/app/globals.css'
 
 import { Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 
@@ -33,6 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Suspense>
 					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
 				</Suspense>
+				<Analytics />
 			</body>
 		</html>
 	)
