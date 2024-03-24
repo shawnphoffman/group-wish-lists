@@ -3,7 +3,6 @@
 import { cookies } from 'next/headers'
 
 import { List, User } from '@/components/types'
-
 import { createClient } from '@/utils/supabase/server'
 
 const monthToNumber: { [key: string]: number } = {

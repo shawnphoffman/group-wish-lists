@@ -1,19 +1,18 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList, getMyLists } from '@/app/actions/lists'
-
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ImportItems from '@/components/imports/ImportItems'
-import ItemRowEditable from '@/components/items/ItemRowEditable'
 import AddItemForm from '@/components/items/forms/AddItemForm'
-import ListTitleEditable from '@/components/lists/ListTitleEditable'
+import ItemRowEditable from '@/components/items/ItemRowEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
+import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import { List, ListItem } from '@/components/types'
 
 type Props = {

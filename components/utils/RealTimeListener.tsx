@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { startTransition, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { List } from '@/components/types'
-
 import { createClientSideClient } from '@/utils/supabase/client'
 
 type Props = {

@@ -1,10 +1,10 @@
+import 'react-toastify/dist/ReactToastify.css'
+
 import { Suspense } from 'react'
 import { Flip, ToastContainer } from 'react-toastify'
 
 import LogoutButton from '@/components/nav/LogoutButton'
 import Nav from '@/components/nav/Nav'
-
-import 'react-toastify/dist/ReactToastify.css'
 
 export default async function CoreLayout({ children }: { children: React.ReactNode }) {
 	return (

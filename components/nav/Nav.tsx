@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-
 import { isDeployed } from '@/utils/environment'
 
 export default function Nav() {

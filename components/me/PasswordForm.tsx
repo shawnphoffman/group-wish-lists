@@ -1,11 +1,10 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
+import { useRouter } from 'next/navigation'
 
 import { updatePassword } from '@/app/actions/auth'
-
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SuccessMessage from '@/components/common/SuccessMessage'
 
@@ -69,7 +68,7 @@ function PasswordForm({ id, state }: FormProps) {
 				{!pending && (
 					<>
 						{state?.error && <ErrorMessage error={state?.error} />}
-						{state?.status && <SuccessMessage />}
+						{state?.status === 'success' && <SuccessMessage />}
 					</>
 				)}
 			</div>
@@ -87,7 +86,6 @@ const initialState = {
 }
 
 export default function PasswordFormWrapper({ id }: WrapperProps) {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(updatePassword, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()
@@ -101,7 +99,7 @@ export default function PasswordFormWrapper({ id }: WrapperProps) {
 	}, [router, state])
 
 	return (
-		<form className=" text-foreground" action={formAction}>
+		<form className="text-foreground" action={formAction}>
 			<fieldset className="flex flex-col flex-1 w-full gap-2" disabled={isPending}>
 				<PasswordForm id={id} state={state} />
 			</fieldset>

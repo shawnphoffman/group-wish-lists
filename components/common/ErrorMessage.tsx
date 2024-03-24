@@ -1,6 +1,6 @@
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-
 import './ErrorMessage.css'
+
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 
 type Props = {
 	error?: string

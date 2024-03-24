@@ -1,15 +1,15 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 import { getUser } from '@/app/actions/auth'
-
 import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import CreateListModal from '@/components/me/CreateListModal'
 import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
+// import PasswordResetButton from '@/components/me/PasswordResetButton'
 import PasswordForm from '@/components/me/PasswordForm'
 import ProfileForm from '@/components/me/ProfileForm'
 
@@ -43,6 +43,7 @@ const MyStuffClient = async () => {
 			</div>
 			<div className="flex flex-col gap-3">
 				<PasswordForm id={user.user_id} />
+				{/* <PasswordResetButton email={user.email} /> */}
 			</div>
 		</div>
 	)

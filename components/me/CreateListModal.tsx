@@ -1,19 +1,17 @@
 'use client'
 
+import './CreateListModal.css'
+
+import { startTransition, useEffect, useRef } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
 import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { startTransition, useEffect, useRef } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
 
 import { createList } from '@/app/actions/lists'
-
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
-
 import { ListCategory, ListPrivacy } from '@/utils/enums'
-
-import './CreateListModal.css'
 
 function CreateListFields() {
 	const { pending } = useFormStatus()

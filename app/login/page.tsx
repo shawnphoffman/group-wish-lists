@@ -2,7 +2,6 @@ import Image from 'next/image'
 
 import { signIn } from '@/app/actions/auth'
 import icon from '@/app/icon.png'
-
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SignInWithAppleButton from '@/components/login/SignInWithAppleButton'
 import SignInWithPassword from '@/components/login/SignInWithPassword'

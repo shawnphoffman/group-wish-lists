@@ -1,6 +1,6 @@
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-
 import './EmptyMessage.css'
+
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 
 type Props = {
 	message?: string

@@ -1,11 +1,10 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
+import { useRouter } from 'next/navigation'
 
 import { updateProfile } from '@/app/actions/auth'
-
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SuccessMessage from '@/components/common/SuccessMessage'
 

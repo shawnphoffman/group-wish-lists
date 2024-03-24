@@ -1,14 +1,12 @@
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
-
 import Badge from '@/components/common/Badge'
 import { OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import { Gift, ListItem } from '@/components/types'
-
 import { ItemPriority, ItemStatus } from '@/utils/enums'
 
 type Props = {

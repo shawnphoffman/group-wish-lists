@@ -1,5 +1,4 @@
 import { getMyLists } from '@/app/actions/lists'
-
 import ListBlock from '@/components/lists/ListBlock'
 import { List } from '@/components/types'
 

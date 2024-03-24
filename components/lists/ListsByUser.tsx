@@ -1,11 +1,10 @@
-import { getSessionUser } from '@/app/actions/auth'
-import { getListsGroupedByUser } from '@/app/actions/lists'
-
-import ErrorMessage from '@/components/common/ErrorMessage'
-import ListBlock from '@/components/lists/ListBlock'
-
 import Badge from '../common/Badge'
 import { List } from '../types'
+
+import { getSessionUser } from '@/app/actions/auth'
+import { getListsGroupedByUser } from '@/app/actions/lists'
+import ErrorMessage from '@/components/common/ErrorMessage'
+import ListBlock from '@/components/lists/ListBlock'
 
 const birthday = (month: string, day: number) => {
 	return `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`

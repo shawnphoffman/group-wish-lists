@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useCallback, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { archiveList, unarchiveList } from '@/app/actions/lists'
-
 import { ArchiveIcon, UnarchiveIcon } from '@/components/icons/Icons'
 import { List } from '@/components/types'
 

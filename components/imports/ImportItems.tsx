@@ -1,6 +1,6 @@
-import { List } from '@/components/types'
-
 import ImportMarkdown from './ImportMarkdown'
+
+import { List } from '@/components/types'
 
 type Props = {
 	listId: List['id']

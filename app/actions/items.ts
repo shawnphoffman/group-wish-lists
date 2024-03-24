@@ -3,7 +3,6 @@
 import { cookies } from 'next/headers'
 
 import { List, ListItem } from '@/components/types'
-
 import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 

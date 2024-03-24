@@ -1,8 +1,8 @@
+import '@/app/globals.css'
+
+import { Suspense } from 'react'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
-
-import '@/app/globals.css'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
 

@@ -3,9 +3,7 @@
 import { cookies } from 'next/headers'
 
 import { getSessionUser } from '@/app/actions/auth'
-
 import { ListItem } from '@/components/types'
-
 import { createClient } from '@/utils/supabase/server'
 
 export const createGift = async (itemId: ListItem['id']) => {
@@ -33,11 +31,7 @@ export const deleteGift = async (itemId: ListItem['id']) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const data = await getSessionUser()
-	const giftPromise = await supabase
-		.from('gifted_items')
-		.delete()
-		.eq('item_id', itemId)
-		.eq('gifter_id', data?.id)
+	const giftPromise = await supabase.from('gifted_items').delete().eq('item_id', itemId).eq('gifter_id', data?.id)
 	await Promise.all([
 		giftPromise,
 		//

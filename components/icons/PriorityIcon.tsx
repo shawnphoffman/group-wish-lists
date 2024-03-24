@@ -1,5 +1,4 @@
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-
 import { ItemPriority } from '@/utils/enums'
 
 type Props = { priority: string; className?: string }

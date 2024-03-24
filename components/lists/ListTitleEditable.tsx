@@ -1,15 +1,13 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useFormState } from 'react-dom'
+import { useRouter } from 'next/navigation'
 
 import { renameList } from '@/app/actions/lists'
-
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List } from '@/components/types'
-
 import { ListCategory } from '@/utils/enums'
 
 type Props = {

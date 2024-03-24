@@ -1,7 +1,6 @@
 import Badge from '@/components/common/Badge'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import { Gift, ListItem, Purchase } from '@/components/types'
-
 import { ItemPriority } from '@/utils/enums'
 
 type Props = {

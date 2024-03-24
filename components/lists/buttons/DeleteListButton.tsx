@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useCallback, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { deleteList } from '@/app/actions/lists'
-
 import { DeleteIcon } from '@/components/icons/Icons'
 
 export default function DeleteListButton({ listId, name }: any) {

@@ -1,7 +1,7 @@
-import { getMyPurchases } from '@/app/actions/lists'
-
 import EmptyMessage from '../common/EmptyMessage'
 import PurchaseRow from '../items/PurchaseRow'
+
+import { getMyPurchases } from '@/app/actions/lists'
 
 export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()

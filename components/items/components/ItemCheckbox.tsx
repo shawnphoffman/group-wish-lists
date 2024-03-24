@@ -1,14 +1,13 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import './ItemCheckbox.css'
+
 import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { createGift, deleteGift } from '@/app/actions/gifts'
-
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { ListItem } from '@/components/types'
-
-import './ItemCheckbox.css'
 
 type Props = {
 	id: ListItem['id']

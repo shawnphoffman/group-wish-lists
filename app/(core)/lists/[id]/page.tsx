@@ -1,10 +1,9 @@
+import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
-
 import Badge from '@/components/common/Badge'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'

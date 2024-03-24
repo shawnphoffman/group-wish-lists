@@ -1,5 +1,4 @@
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-
 import { ListCategory, ListCategoryType } from '@/utils/enums'
 
 type Props = { type: ListCategoryType; className?: string; isPrivate?: boolean }

@@ -1,6 +1,6 @@
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-
 import './SuccessMessage.css'
+
+import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 
 type Props = {
 	message?: string

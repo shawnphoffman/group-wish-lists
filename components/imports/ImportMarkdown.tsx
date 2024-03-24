@@ -1,12 +1,12 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { startTransition, useCallback, useState } from 'react'
-
-import { createMultipleItems } from '@/app/actions/items'
+import { useRouter } from 'next/navigation'
 
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import { List } from '../types'
+
+import { createMultipleItems } from '@/app/actions/items'
 
 type Props = {
 	listId: List['id']
