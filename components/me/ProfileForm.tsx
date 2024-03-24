@@ -30,7 +30,7 @@ function ProfileForm({ name, id, state }: FormProps) {
 					<input className="input" name="name" placeholder="Ezekiel" disabled={pending} defaultValue={name} required />
 				</div>
 				<button className="btn green" disabled={pending}>
-					{pending ? 'Saving...' : 'Save'}
+					{pending ? 'Updating...' : 'Update Profile'}
 				</button>
 			</div>
 			{!pending && (

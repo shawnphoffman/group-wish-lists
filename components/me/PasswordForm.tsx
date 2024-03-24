@@ -62,7 +62,7 @@ function PasswordForm({ id, state }: FormProps) {
 				{!pending && newPassword && confirmPassword && newPassword !== confirmPassword && (
 					<ErrorMessage includeTitle={false} error={'Passwords must match'} />
 				)}
-				<button className="btn green" disabled={pending || !passwordIsValid}>
+				<button className="btn orange" disabled={pending || !passwordIsValid}>
 					{pending ? 'Changing...' : 'Change Password'}
 				</button>
 				{!pending && (

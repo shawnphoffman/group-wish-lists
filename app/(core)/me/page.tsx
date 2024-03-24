@@ -3,13 +3,14 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getUser } from '@/app/actions/auth'
+import { getSessionUser } from '@/app/actions/auth'
 import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import CreateListModal from '@/components/me/CreateListModal'
+import LinkToAppleButton from '@/components/me/LinkToAppleButton'
 import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
-// import PasswordResetButton from '@/components/me/PasswordResetButton'
 import PasswordForm from '@/components/me/PasswordForm'
 import ProfileForm from '@/components/me/ProfileForm'
 
@@ -19,16 +20,20 @@ type Props = {
 
 const MyStuffClient = async () => {
 	const userPromise = getUser()
+	const sessionPromise = getSessionUser()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data: user, error }] = await Promise.all([
+	const [{ data: user, error }, sessionUser] = await Promise.all([
 		userPromise,
+		sessionPromise,
 		// fakePromise
 	])
 
 	if (!user || error) {
 		return notFound()
 	}
+
+	const hasAppleLinked = sessionUser?.identities?.some(i => i.provider === 'apple') || false
 
 	return (
 		<div className="flex flex-col gap-8">
@@ -42,9 +47,15 @@ const MyStuffClient = async () => {
 				<ProfileForm name={user.display_name} id={user.user_id} />
 			</div>
 			<div className="flex flex-col gap-3">
+				<h2>Passwords</h2>
 				<PasswordForm id={user.user_id} />
-				{/* <PasswordResetButton email={user.email} /> */}
 			</div>
+			{!hasAppleLinked && (
+				<div className="flex flex-col gap-3">
+					<h2>Account Linking</h2>
+					<LinkToAppleButton />
+				</div>
+			)}
 		</div>
 	)
 }
@@ -65,10 +76,6 @@ export default async function MyStuff({ searchParams }: Props) {
 								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
 								Create List
 							</Link>
-							{/* <button type="button" className="mt-0 nav-btn blue" data-hs-overlay="#hs-create-list-modal">
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
-								Create List
-							</button> */}
 						</div>
 						{/* Lists */}
 						<Suspense fallback={<FallbackRow />}>
