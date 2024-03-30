@@ -20,9 +20,17 @@ export default function Nav() {
 				<FontAwesomeIcon className="fa-sharp fa-solid fa-question-circle text-xl xs:!text-2xl" />
 			</Link>
 			{!isDeployed && (
-				<Link href="/temp" className={'nav-btn yellow hidden sm:flex'}>
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
-				</Link>
+				<>
+					<Link href="/temp" className={'nav-btn yellow hidden sm:flex'}>
+						<FontAwesomeIcon className="fa-sharp fa-solid fa-flask" />
+					</Link>
+					<Link href="/admin" className={'nav-btn red hidden sm:flex'}>
+						<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-lock-keyhole" />
+					</Link>
+					<Link href="/admin/invite" className={'nav-btn red hidden sm:flex'}>
+						<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-envelope" />
+					</Link>
+				</>
 			)}
 		</div>
 	)

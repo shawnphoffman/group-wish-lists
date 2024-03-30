@@ -5,7 +5,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
-let nextConfig = {}
+let nextConfig = {
+	// eslint: {
+	// dirs: ['pages', 'utils', 'app'],
+	// },
+}
 
 nextConfig = withSentryConfig(
 	module.exports,
