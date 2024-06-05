@@ -132,6 +132,21 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		}
 	}, [formState, router])
 
+	const handlePaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>) => {
+		event.preventDefault()
+
+		// Get the pasted text
+		const pastedText = event.clipboardData.getData('text')
+
+		// Find the first URL in the pasted text
+		const urlPattern = /(https?:\/\/[^\s]+)/g
+		const match = urlPattern.exec(pastedText)
+		const firstURL = match ? match[0] : ''
+
+		// Update the state with the found URL
+		setUrl(() => firstURL)
+	}, [])
+
 	return (
 		<fieldset disabled={isPending}>
 			<input className="input" type="hidden" name="id" value={id} readOnly />
@@ -143,7 +158,16 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				<div>
 					<label className="label">URL</label>
 					<div className="flex flex-row justify-between gap-2">
-						<input className="input" name="url" type="url" placeholder="Web URL for the item" value={url} onChange={handleChangeUrl} />
+						<input
+							className="select-all input"
+							name="url"
+							type="url"
+							placeholder="Web URL for the item"
+							value={url}
+							onChange={handleChangeUrl}
+							onPaste={handlePaste}
+							onFocus={event => event.target.select()}
+						/>
 						<button type="button" className="nav-btn teal" onClick={handleUrlImport} disabled={!url}>
 							{isPending ? (
 								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />

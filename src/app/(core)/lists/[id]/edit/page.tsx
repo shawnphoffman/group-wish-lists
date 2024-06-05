@@ -13,6 +13,7 @@ import ItemRowEditable from '@/components/items/ItemRowEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
+import Permissions from '@/components/permissions/Permissions'
 import { List, ListItem } from '@/components/types'
 
 type Props = {
@@ -93,6 +94,9 @@ export default async function EditList({ params }: Props) {
 
 			{/* Import */}
 			<ImportItems listId={params.id} />
+
+			{/* Permissions */}
+			{process.env.VERCEL_ENV !== 'production' && <Permissions listId={params.id} />}
 		</div>
 	)
 }

@@ -1,0 +1,17 @@
+.checkbox-size {
+	@apply w-8 h-8 sm:h-6 sm:w-6;
+}
+
+.checkbox {
+	@apply self-center rounded shrink-0;
+	@apply disabled:opacity-50 disabled:pointer-events-none;
+	@apply focus:ring-blue-500 dark:focus:ring-offset-gray-800;
+	@apply text-blue-600;
+	@apply dark:bg-gray-800;
+	@apply border-gray-200 dark:border-gray-700;
+	@apply dark:checked:bg-blue-500 dark:checked:border-blue-500;
+}
+
+input[type='checkbox'] {
+	@apply checkbox checkbox-size;
+}

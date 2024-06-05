@@ -226,3 +226,16 @@ export const deleteList = async (listID: List['id']) => {
 		status: 'success',
 	}
 }
+
+export const getListEditors = async (listID: List['id']) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+	const resp = await supabase.from('list_editors').select('user_id').eq('list_id', listID)
+
+	if (resp.data) {
+		return resp.data.map((editor: { user_id: string }) => editor.user_id)
+	}
+
+	return []
+}
