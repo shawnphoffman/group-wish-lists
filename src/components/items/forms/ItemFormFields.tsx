@@ -9,10 +9,10 @@ import ItemImagePicker from '../components/ItemImagePicker'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
-import { List, ListItem, Scrape } from '@/components/types'
+import { List, ListItem, ScrapeResponse } from '@/components/types'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
-export const getImageFromScrape = (scrape?: Scrape) => {
+export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
 		return scrape.result.ogImage[0].url
 	}
@@ -38,7 +38,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const notesRef = useRef<HTMLTextAreaElement>(null)
 
 	// Item Fields
-	const [scrape, setScrape] = useState<Scrape | undefined>(item?.scrape)
+	const [scrape, setScrape] = useState<ScrapeResponse | undefined>(item?.scrape)
 	const [id] = useState<string>(item?.id || '')
 	const [title, setTitle] = useState<string>(item?.title || '')
 	const [notes, setNotes] = useState<string>(item?.notes || '')
@@ -102,8 +102,29 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		if (importError) setImportError('')
 		let data
 		try {
-			const resp = await fetch(`/api/scraper?url=${url}`)
-			data = await resp.json()
+			const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`)
+			const apiData = await apiResp.json()
+			if (apiData?.og?.image || apiData?.images?.length) {
+				data = {
+					result: {
+						success: true,
+						ogUrl: apiData.meta.url || apiData.og.url,
+						ogTitle: apiData.meta.title || apiData.og.title,
+						ogDescription: apiData.meta.description || apiData.og.description,
+						ogType: apiData.og.type,
+						ogSiteName: apiData.og.site_name,
+						ogImage: [
+							{
+								url: apiData.og.image,
+							},
+							...apiData.images.map((x: { src: string }) => ({ url: x.src })),
+						],
+					},
+				}
+			} else {
+				const resp = await fetch(`/api/scraper?url=${url}`)
+				data = await resp.json()
+			}
 		} catch (error) {
 			data = error
 		} finally {

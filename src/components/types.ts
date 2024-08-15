@@ -11,12 +11,34 @@ export type List = {
 	count?: number
 }
 
+export type OgImage = {
+	url?: string
+	type?: string
+}
+
+export type ScrapeResponse = {
+	error?: boolean
+	result?: {
+		ogUrl?: string
+		ogTitle?: string
+		ogDescription?: string
+		ogType?: string
+		ogSiteName?: string
+		ogImage?: OgImage[]
+		ogLocale?: string
+		charset?: string
+		requestUrl?: string
+		success?: boolean
+	}
+	userAgent?: string
+}
+
 export type ListItem = {
 	id: string
 	list_id: List['id']
 	title: string
 	url?: string
-	scrape?: Scrape
+	scrape?: ScrapeResponse
 	status: ItemStatusType
 	priority: ItemPriorityType
 	notes?: string
@@ -49,10 +71,10 @@ export type User = {
 
 export type Recipient = Pick<User, 'id' | 'display_name'>
 
-export interface Scrape {
-	error: boolean
-	result: Result
-}
+// export interface Scrape {
+// 	error: boolean
+// 	result: Result
+// }
 
 export interface Result {
 	ogUrl: string
@@ -66,7 +88,7 @@ export interface Result {
 	error: string
 }
 
-export interface OgImage {
-	url: string
-	type: string
-}
+// export interface OgImage {
+// 	url: string
+// 	type: string
+// }

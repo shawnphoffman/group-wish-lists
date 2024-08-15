@@ -6,7 +6,7 @@ import { RadioGroup } from '@headlessui/react'
 
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ItemImage from '@/components/items/components/ItemImage'
-import { OgImage } from '@/components/types'
+import type { OgImage } from '@/components/types'
 
 type Props = {
 	images?: OgImage[]
