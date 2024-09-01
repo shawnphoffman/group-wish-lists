@@ -157,7 +157,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		event.preventDefault()
 
 		// Get the pasted text
-		const pastedText = event.clipboardData.getData('text')
+		const pastedText = event.clipboardData.getData('Text')
 
 		// Find the first URL in the pasted text
 		const urlPattern = /(https?:\/\/[^\s]+)/g

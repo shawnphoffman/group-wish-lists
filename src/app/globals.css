@@ -246,7 +246,7 @@ i.remove {
 }
 
 .notes {
-	@apply text-sm text-gray-400 whitespace-pre-line;
+	@apply text-sm text-gray-400 break-words whitespace-pre-line;
 }
 
 .conversion-wrapper {

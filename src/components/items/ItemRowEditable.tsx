@@ -72,9 +72,9 @@ export default function ItemRowEditable({ item, lists }: Props) {
 						</div>
 					)}
 					{/*  */}
-					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
+					<div className="flex flex-row items-center flex-1 w-full gap-2 md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col flex-1">
+						<div className="flex flex-col flex-1 overflow-hidden">
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
