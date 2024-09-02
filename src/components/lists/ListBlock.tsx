@@ -1,9 +1,9 @@
 import EmptyMessage from '@/components/common/EmptyMessage'
 import ListRow from '@/components/lists/ListRow'
-import { List } from '@/components/types'
+import { List, ListSharedWithOthers } from '@/components/types'
 
 type Props = {
-	lists: List[]
+	lists: (List | ListSharedWithOthers)[]
 	isOwner: boolean
 }
 

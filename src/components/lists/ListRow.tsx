@@ -5,10 +5,10 @@ import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 // import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 // import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
-import { List } from '@/components/types'
+import { List, ListSharedWithOthers } from '@/components/types'
 
 type Props = {
-	list: List
+	list: List | ListSharedWithOthers
 	canEdit: boolean
 }
 
@@ -29,13 +29,19 @@ export default function ListRow({ list, canEdit }: Props) {
 	const LinkOrDiv = url ? Link : 'div'
 
 	return (
-		<div className={`list-item xs:!text-lg`}>
+		<div className={`list-item xs:!text-lg ${list?.private ? '!bg-emerald-950/50 hover:!bg-emerald-900/50' : ''}`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
 				<ListTypeIcon type={list.type} isPrivate={list?.private} />
 				<div className={!isActive ? 'line-through opacity-50' : ''}>{list.name}</div>
 			</LinkOrDiv>
-			<div className="flex flex-row items-center justify-end gap-4 !text-lg">
+			<div className="flex flex-row items-center justify-end gap-1 !text-lg">
+				{(list as ListSharedWithOthers).user_shared_with_id && (
+					<Badge colorId={(list as ListSharedWithOthers).user_shared_with_id}>
+						Shared w/{(list as ListSharedWithOthers).user_shared_with_display_name}
+					</Badge>
+				)}
 				<CountBadge count={list.count!} />
+				{list?.private && <FontAwesomeIcon className="text-sm fa-duotone fa-fw fa-lock-keyhole text-emerald-300" />}
 				{/* {canEdit && (
 					<>
 						<ArchiveListButton listId={list.id} isArchived={!isActive} />

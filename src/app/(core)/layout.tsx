@@ -1,4 +1,5 @@
 import 'react-toastify/dist/ReactToastify.css'
+import '@/app/globals.css'
 
 import { Suspense } from 'react'
 import { Flip, ToastContainer } from 'react-toastify'

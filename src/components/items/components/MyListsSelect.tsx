@@ -46,8 +46,10 @@ export default function MyListsSelect({ lists, id, listId }: Props) {
 				{lists.map(list => (
 					<RadioGroup.Option value={list} key={list.id} className={'grid'}>
 						{({ checked }) => (
-							<label className={`nav-btn text-sm flex-1 py-1 truncate w-full inline-block text-left ${checked ? 'purple' : 'gray'}`}>
+							<label className={`flex nav-btn text-sm flex-1 py-1 truncate w-full gap-1 text-left ${checked ? 'purple' : 'gray'}`}>
 								{list.name}
+
+								{list?.private && <FontAwesomeIcon className="text-xs fa-duotone fa-fw fa-lock-keyhole text-violet-300" />}
 							</label>
 						)}
 					</RadioGroup.Option>

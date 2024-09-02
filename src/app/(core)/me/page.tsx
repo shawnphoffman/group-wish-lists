@@ -81,6 +81,15 @@ export default async function MyStuff({ searchParams }: Props) {
 						<Suspense fallback={<FallbackRow />}>
 							<MyLists />
 						</Suspense>
+						<h3>Shared with Me</h3>
+						<Suspense fallback={<FallbackRow />}>
+							<MyLists type="shared_with_me" />
+						</Suspense>
+						<h3>Shared with Others</h3>
+						{/* Lists */}
+						<Suspense fallback={<FallbackRow />}>
+							<MyLists type="shared_with_others" />
+						</Suspense>
 					</div>
 
 					<Suspense fallback={null}>

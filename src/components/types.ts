@@ -10,6 +10,11 @@ export type List = {
 	list_items: ListItem[]
 	count?: number
 }
+export type ListSharedWithOthers = List & {
+	user_shared_with_id: number
+	user_shared_with_user_id: string
+	user_shared_with_display_name: string
+}
 
 export type OgImage = {
 	url?: string

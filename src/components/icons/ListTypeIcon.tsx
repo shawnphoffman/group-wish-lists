@@ -21,7 +21,7 @@ export default function ListTypeIcon({ type, className = 'text-xl', isPrivate = 
 
 	return (
 		<>
-			{isPrivate && <FontAwesomeIcon className="fa-duotone fa-fw fa-lock-keyhole text-violet-300" />}
+			{/* {isPrivate && <FontAwesomeIcon className="fa-duotone fa-fw fa-lock-keyhole text-violet-300" />} */}
 			<FontAwesomeIcon className={`${iconClass} ${className}`} />
 		</>
 	)

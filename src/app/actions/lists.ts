@@ -84,11 +84,19 @@ export const getListsGroupedByUser = async () => {
 	return resp
 }
 
-export const getMyLists = async () => {
+export const getMyLists = async (type = 'all') => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	const resp = await supabase.from('view_my_lists2').select('*')
+	let resp
+
+	if (type === 'shared_with_me') {
+		resp = await supabase.from('view_shared_with_me').select('*')
+	} else if (type === 'shared_with_others') {
+		resp = await supabase.from('view_shared_with_others').select('*')
+	} else {
+		resp = await supabase.from('view_my_lists').select('*')
+	}
 
 	// console.log('getMyLists.resp', resp)
 
