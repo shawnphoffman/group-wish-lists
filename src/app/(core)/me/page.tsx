@@ -20,20 +20,24 @@ type Props = {
 
 const MyStuffClient = async () => {
 	const userPromise = getUser()
-	const sessionPromise = getSessionUser()
+	// const sessionPromise = getSessionUser()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data: user, error }, sessionUser] = await Promise.all([
+	const [{ data: user, error }] = await Promise.all([
+		// const [{ data: user, error }, sessionUser] = await Promise.all([
 		userPromise,
-		sessionPromise,
+		// sessionPromise,
 		// fakePromise
 	])
+	console.log('MyStuffClient', { user })
 
-	if (!user || error) {
+	// if (!user || error) {
+	if (error) {
+		console.log('MyStuffClient.error', { user, error })
 		return notFound()
 	}
 
-	const hasAppleLinked = sessionUser?.identities?.some(i => i.provider === 'apple') || false
+	// const hasAppleLinked = sessionUser?.identities?.some(i => i.provider === 'apple') || false
 
 	return (
 		<div className="flex flex-col gap-8">
@@ -50,12 +54,12 @@ const MyStuffClient = async () => {
 				<h2>Passwords</h2>
 				<PasswordForm id={user.user_id} />
 			</div>
-			{!hasAppleLinked && (
+			{/* {!hasAppleLinked && (
 				<div className="flex flex-col gap-3">
 					<h2>Account Linking</h2>
 					<LinkToAppleButton />
 				</div>
-			)}
+			)} */}
 		</div>
 	)
 }

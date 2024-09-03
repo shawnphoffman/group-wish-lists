@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 		url: '/',
 		locale: 'en_US',
 	},
-	appleWebApp: {
-		statusBarStyle: 'black-translucent',
-		title: 'Wish Lists',
-	},
+	// appleWebApp: {
+	// 	statusBarStyle: 'black-translucent',
+	// 	title: 'Wish Lists',
+	// },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Suspense>
 					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
 				</Suspense>
-				<Analytics />
+				{process.env.VERCEL_ENV && <Analytics />}
 			</body>
 		</html>
 	)

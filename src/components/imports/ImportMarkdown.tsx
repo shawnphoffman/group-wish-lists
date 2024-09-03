@@ -3,10 +3,10 @@
 import { startTransition, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+import { createMultipleItems } from '@/app/actions/items'
+
 import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import { List } from '../types'
-
-import { createMultipleItems } from '@/app/actions/items'
 
 type Props = {
 	listId: List['id']

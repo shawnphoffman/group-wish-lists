@@ -4,10 +4,10 @@ import { startTransition, useEffect, useRef } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { usePathname, useRouter } from 'next/navigation'
 
+import { inviteUser } from '@/app/(core)/admin/actions'
+
 import ErrorMessage from '../common/ErrorMessage'
 import SuccessMessage from '../common/SuccessMessage'
-
-import { inviteUser } from '@/app/(core)/admin/actions'
 
 function InviteUserFields() {
 	const { pending } = useFormStatus()

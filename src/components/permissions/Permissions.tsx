@@ -1,9 +1,9 @@
-import PermissionCheckbox from './PermissionCheckbox'
-
 import { getSessionUser } from '@/app/actions/auth'
 import { getListEditors } from '@/app/actions/lists'
 import { getUsers } from '@/app/actions/test'
 import { List } from '@/components/types'
+
+import PermissionCheckbox from './PermissionCheckbox'
 
 type Props = {
 	listId: List['id']

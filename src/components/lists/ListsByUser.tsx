@@ -1,10 +1,10 @@
-import Badge from '../common/Badge'
-import { List } from '../types'
-
 import { getSessionUser } from '@/app/actions/auth'
 import { getListsGroupedByUser } from '@/app/actions/lists'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import ListBlock from '@/components/lists/ListBlock'
+
+import Badge from '../common/Badge'
+import { List } from '../types'
 
 const daysUntilBirthday = (month: string, day: number) => {
 	const months: { [key: string]: number } = {

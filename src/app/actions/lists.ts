@@ -81,6 +81,8 @@ export const getListsGroupedByUser = async () => {
 		console.error('getListsGroupedByUser.resp.error', error)
 	}
 
+	// console.log('getListsGroupedByUser.resp', resp)
+
 	return resp
 }
 

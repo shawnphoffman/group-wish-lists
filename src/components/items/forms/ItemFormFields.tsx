@@ -4,13 +4,13 @@ import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
-// import ItemImage from '../components/ItemImage'
-import ItemImagePicker from '../components/ItemImagePicker'
-
 import ErrorMessage from '@/components/common/ErrorMessage'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { List, ListItem, ScrapeResponse } from '@/components/types'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
+
+// import ItemImage from '../components/ItemImage'
+import ItemImagePicker from '../components/ItemImagePicker'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {

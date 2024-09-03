@@ -4,9 +4,6 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import MyListsSelect from './components/MyListsSelect'
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
-
 import { deleteItem } from '@/app/actions/items'
 import { DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
@@ -15,6 +12,10 @@ import EditItemForm from '@/components/items/forms/EditItemForm'
 import { List, ListItem } from '@/components/types'
 import { ItemPriority } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
+
+import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+
+import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem

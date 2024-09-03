@@ -98,14 +98,14 @@ export default async function Temp() {
 			<hr />
 
 			<div className="flex flex-col gap-2">
-				<input type="text" value="Wow cool guy" />
+				<input type="text" defaultValue="Wow cool guy" />
 				<input type="text" placeholder="Wow cool guy" />
 				<input type="password" placeholder="Wow cool guy" />
 				<input type="email" placeholder="Wow cool guy" />
 				<input type="url" placeholder="Wow cool guy" />
-				<input type="radio" checked />
+				<input type="radio" checked readOnly />
 				<input type="radio" />
-				<input type="checkbox" checked />
+				<input type="checkbox" checked readOnly />
 				<input type="checkbox" />
 				<ItemCheckbox id="test" isComplete={false} canChange={false} />
 				<ItemCheckbox id="test" isComplete={true} canChange={false} />
