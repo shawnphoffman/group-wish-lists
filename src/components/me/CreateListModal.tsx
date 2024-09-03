@@ -19,7 +19,7 @@ function CreateListFields() {
 	return (
 		<fieldset disabled={pending} className="create-list-modal">
 			<div className="header">
-				<h3>Create a List</h3>
+				<h3>New List</h3>
 				<Link href="/me">
 					<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
 				</Link>
@@ -73,7 +73,7 @@ function CreateListFields() {
 													htmlFor={value}
 												>
 													<ListTypeIcon type={value} />
-													{key}
+													{key.replace(/(?<!^)([A-Z])/g, ' $1')}
 												</label>
 											)}
 										</RadioGroup.Option>

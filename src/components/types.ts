@@ -15,6 +15,10 @@ export type ListSharedWithOthers = List & {
 	user_shared_with_user_id: string
 	user_shared_with_display_name: string
 }
+export type ListSharedWithMe = List & {
+	sharer_display_name: string
+	sharer_id: number
+}
 
 export type OgImage = {
 	url?: string

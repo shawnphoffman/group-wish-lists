@@ -220,7 +220,7 @@ i.remove {
 
 .list {
 	.list-item {
-		@apply flex flex-row items-stretch gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium border -mt-px;
+		@apply flex flex-row items-stretch gap-x-1 sm:gap-x-3.5 gap-y-4 py-2.5 px-4 text-base font-medium border -mt-px;
 		@apply first:rounded-t-lg first:mt-0 last:rounded-b-lg;
 		@apply text-gray-800 bg-white border-gray-200;
 		@apply dark:bg-gray-900 dark:border-gray-700 dark:text-white;

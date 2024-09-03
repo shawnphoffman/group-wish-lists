@@ -78,7 +78,7 @@ export default async function MyStuff({ searchParams }: Props) {
 
 							<Link href="/me?show=true" className="mt-0 nav-btn blue">
 								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
-								Create List
+								New List
 							</Link>
 						</div>
 						{/* Lists */}
