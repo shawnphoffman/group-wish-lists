@@ -2,7 +2,7 @@ import { getMyLists } from '@/app/actions/lists'
 import ListBlock from '@/components/lists/ListBlock'
 import { List } from '@/components/types'
 
-const ListType = {
+export const ListType = {
 	ALL: 'all',
 	SHARED_WITH_ME: 'shared_with_me',
 	SHARED_WITH_OTHERS: 'shared_with_others',

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
 import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
@@ -26,6 +26,11 @@ type Props = {
 }
 
 export default function ItemFormFields({ listId, formState, item }: Props) {
+	const searchParams = useSearchParams()
+	const importUrl = searchParams.get('url')
+
+	const pathname = usePathname()
+
 	const [importing, setImporting] = useState(false)
 	const [importError, setImportError] = useState('')
 
@@ -42,7 +47,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [id] = useState<string>(item?.id || '')
 	const [title, setTitle] = useState<string>(item?.title || '')
 	const [notes, setNotes] = useState<string>(item?.notes || '')
-	const [url, setUrl] = useState<string>(item?.url || '')
+	const [url, setUrl] = useState<string>(item?.url || importUrl || '')
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
 
@@ -148,10 +153,14 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				setPriority(ItemPriority.Normal)
 				setImageUrl('')
 				setScrape(undefined)
-				router.refresh()
+				if (pathname === '/import') {
+					router.push(`/lists/${listId}/edit`)
+				} else {
+					router.refresh()
+				}
 			})
 		}
-	}, [formState, router])
+	}, [formState, listId, pathname, router])
 
 	const handlePaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>) => {
 		event.preventDefault()
@@ -189,7 +198,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							onPaste={handlePaste}
 							onFocus={event => event.target.select()}
 						/>
-						<button type="button" className="nav-btn teal" onClick={handleUrlImport} disabled={!url}>
+						<button type="button" className="nav-btn teal" onClick={handleUrlImport} disabled={!url} title="Import">
 							{isPending ? (
 								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />
 							) : (
