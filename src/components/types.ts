@@ -4,6 +4,7 @@ export type List = {
 	id: number
 	active: boolean
 	private: boolean
+	primary: boolean
 	name: string
 	type: ListCategoryType
 	user: User
