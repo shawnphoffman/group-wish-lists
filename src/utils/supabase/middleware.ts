@@ -41,8 +41,11 @@ export async function updateSession(request: NextRequest) {
 	) {
 		console.log('updateSession.user', request.nextUrl.pathname)
 		// no user, potentially respond by redirecting the user to the login page
+		const oldUrl = request.nextUrl.clone()
 		const url = request.nextUrl.clone()
 		url.pathname = '/login'
+		url.searchParams.append('returnUrl', oldUrl.toString())
+
 		return NextResponse.redirect(url)
 	}
 

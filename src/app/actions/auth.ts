@@ -45,6 +45,7 @@ export const signIn = async (formData: FormData) => {
 	'use server'
 	const email = formData.get('email') as string
 	const password = formData.get('password') as string
+	const returnUrl = formData.get('returnUrl') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
@@ -54,10 +55,19 @@ export const signIn = async (formData: FormData) => {
 	})
 
 	if (error) {
-		return redirect('/login?message=Could not authenticate user')
+		const url = new URL('/login', 'http://example.com')
+		url.searchParams.append('message', error.message || 'Something went wrong...')
+
+		if (returnUrl) url.searchParams.append('returnUrl', returnUrl)
+
+		if (error.code) url.searchParams.append('code', error.code)
+
+		console.log('url', url)
+
+		return redirect(`${url.pathname}${url.search}`)
 	}
 
-	return redirect('/')
+	return returnUrl ? redirect(returnUrl) : redirect('/')
 }
 
 //
