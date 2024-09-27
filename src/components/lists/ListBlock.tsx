@@ -10,7 +10,7 @@ type Props = {
 export default async function ListBlock({ lists, isOwner }: Props) {
 	if (lists?.length === 0) return <EmptyMessage />
 	return (
-		<div className="flex flex-col list">
+		<div className="flex flex-col">
 			{lists.map(list => (
 				<ListRow key={list.id} list={list} canEdit={isOwner} />
 			))}

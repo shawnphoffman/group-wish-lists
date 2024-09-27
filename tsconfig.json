@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "ESNext",
 		"lib": [
 			"dom",
 			"dom.iterable",
@@ -8,21 +8,21 @@
 		],
 		"allowJs": true,
 		"skipLibCheck": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
+		"strict": false,
 		"noEmit": true,
+		"incremental": true,
 		"esModuleInterop": true,
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "Bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"incremental": true,
 		"plugins": [
 			{
 				"name": "next"
 			}
 		],
+		"strictNullChecks": true,
 		"paths": {
 			"@/*": [
 				"./src/*"

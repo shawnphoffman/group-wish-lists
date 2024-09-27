@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 
 // import { getUsers } from '@/app/actions/test'
-import Badge from '@/components/common/Badge'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import Fallback, { FallbackRow } from '@/components/common/Fallbacks'
@@ -17,13 +16,24 @@ export default async function Temp() {
 	// const data = await importAmazonList('https://www.amazon.com/hz/wishlist/ls/2QDX7UX6DZ86O?ref_=wl_share')
 
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-lg gap-4 p-4 opacity-0 animate-in">
+		<div className="flex flex-col flex-1 w-full max-w-lg gap-4 p-4 ">
 			<h1>Temp</h1>
+
+			<h2>Typography</h2>
+			<h1>Heading 1</h1>
+			<h2>Heading 2</h2>
+			<h3>Heading 3</h3>
+			<h4>Heading 4</h4>
+			<h5>Heading 5</h5>
+			<h6>Heading 6</h6>
+
+			<p>The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax.</p>
 
 			{/* <pre className="cool-code">
 				<code>{JSON.stringify(lists, null, 2)}</code>
 			</pre> */}
 
+			<h2>Fallbacks</h2>
 			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
@@ -36,20 +46,6 @@ export default async function Temp() {
 			<Suspense fallback={<Fallback />}>
 				<SuspenseTest />
 			</Suspense>
-
-			<h2>Badges</h2>
-			<div className="flex flex-col gap-2">
-				<Badge className="">Badge</Badge>
-				<Badge className="gray">Badge</Badge>
-				<Badge className="pink">Badge</Badge>
-				<Badge className="red">Badge</Badge>
-				<Badge className="orange">Badge</Badge>
-				<Badge className="yellow">Badge</Badge>
-				<Badge className="green">Badge</Badge>
-				<Badge className="teal">Badge</Badge>
-				<Badge className="blue">Badge</Badge>
-				<Badge className="purple">Badge</Badge>
-			</div>
 
 			{/* <h3>Users</h3>
 			<Suspense fallback={<Fallback />}>

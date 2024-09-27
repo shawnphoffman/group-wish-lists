@@ -1,6 +1,6 @@
 export default function Faq() {
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-lg gap-6 p-4 opacity-0 animate-in">
+		<div className="flex flex-col flex-1 w-full max-w-lg gap-6 p-4 ">
 			<h1>FAQ</h1>
 
 			<div className="flex flex-col gap-2">

@@ -68,7 +68,7 @@ export default async function MyStuff({ searchParams }: Props) {
 	const show = searchParams?.show
 	return (
 		<>
-			<div className="flex flex-col flex-1 w-full max-w-2xl px-3 opacity-0 animate-in">
+			<div className="flex flex-col flex-1 w-full max-w-2xl px-3 ">
 				<main className="flex flex-col flex-1 gap-8 divide-y">
 					{/* LISTS */}
 					<div className="flex flex-col gap-3">

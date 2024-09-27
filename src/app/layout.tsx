@@ -1,9 +1,14 @@
 import '@/app/globals.css'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { Suspense } from 'react'
+import { config } from '@fortawesome/fontawesome-svg-core'
 import { Analytics } from '@vercel/analytics/react'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+config.autoAddCss = false
+
+import { ThemeProvider } from '@/components/theme-provider'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
 
@@ -18,23 +23,18 @@ export const metadata: Metadata = {
 		url: '/',
 		locale: 'en_US',
 	},
-	// appleWebApp: {
-	// 	statusBarStyle: 'black-translucent',
-	// 	title: 'Wish Lists',
-	// },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className={GeistSans.className}>
-			<head>
-				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous" async></script>
-			</head>
 			<body>
-				<Suspense>
-					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
-				</Suspense>
-				{process.env.VERCEL_ENV && <Analytics />}
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+					<Suspense>
+						<main className="flex flex-col items-center px-2 mx-auto  h-dvh">{children}</main>
+					</Suspense>
+					{process.env.VERCEL_ENV && <Analytics />}
+				</ThemeProvider>
 			</body>
 		</html>
 	)

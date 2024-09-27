@@ -1,6 +1,9 @@
 'use client'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { faApple } from '@awesome.me/kit-ac8ad9255a/icons/classic/brands'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { Button } from '@/components/ui/button'
 import { createClientSideClient } from '@/utils/supabase/client'
 
 export default function SignInWithAppleButton() {
@@ -16,9 +19,9 @@ export default function SignInWithAppleButton() {
 	}
 
 	return (
-		<button type="button" className="w-full btn white" onClick={handleAppleLogin}>
-			<FontAwesomeIcon className="fa-brands fa-solid fa-apple" />
+		<Button className="w-full gap-1" variant={'secondary'} onClick={handleAppleLogin}>
+			<FontAwesomeIcon icon={faApple} size="sm" />
 			Sign in with Apple
-		</button>
+		</Button>
 	)
 }

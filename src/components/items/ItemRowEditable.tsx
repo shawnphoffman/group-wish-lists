@@ -107,7 +107,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 							<h5 className="md:mr-8 max-md:self-start">Actions</h5>
 							<div className="flex flex-row flex-wrap items-center justify-center gap-2 md:gap-4">
 								<button type="button" className="nav-btn red" onClick={handleDeleteClick}>
-									<DeleteIcon includeColor={false} />
+									<DeleteIcon />
 									Delete
 								</button>
 								<div className="flex flex-row gap-2">
@@ -122,7 +122,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 								</div>
 								{item.url && (
 									<Link href={item.url} target="_blank" className="nav-btn teal">
-										<OpenUrlIcon includeColor={false} />
+										<OpenUrlIcon />
 										Open URL
 									</Link>
 								)}

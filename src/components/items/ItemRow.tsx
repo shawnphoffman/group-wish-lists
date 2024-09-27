@@ -64,7 +64,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							{/* Actions */}
 							{item.url && (
 								<Link href={item.url} target="_blank" className="sm:text-xl nav-btn teal">
-									<OpenUrlIcon includeColor={false} />
+									<OpenUrlIcon />
 									<span className="inline text-sm sm:hidden">Link</span>
 								</Link>
 							)}

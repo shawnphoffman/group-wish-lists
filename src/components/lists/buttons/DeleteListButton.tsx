@@ -24,7 +24,7 @@ export default function DeleteListButton({ listId, name }: any) {
 
 	return (
 		<button className="nav-btn red" title="Delete List" onClick={handleClick} disabled={isPending}>
-			<DeleteIcon includeColor={false} />
+			<DeleteIcon />
 			Delete
 		</button>
 	)

@@ -77,7 +77,7 @@ const ShowList = async ({ params }: Props) => {
 
 export default async function EditList({ params }: Props) {
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 opacity-0 max-md:gap-2 animate-in">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3  max-md:gap-2">
 			<Suspense fallback={<FallbackRow />}>
 				<ShowList params={params} />
 			</Suspense>

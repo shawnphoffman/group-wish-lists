@@ -18,13 +18,13 @@ export default async function ImportItem() {
 	const list = lists[0]
 
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 opacity-0 max-md:gap-2 animate-in">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 max-md:gap-2">
 			{/* Header */}
 			<div className="flex flex-row justify-between">
 				<h1>Import Item</h1>
 			</div>
 			<div>
-				The item that you are trying to import should be prepopulated below. Just click the "import" ⬇️ button to fetch additional
+				The item that you are trying to import should be prepopulated below. Just click the &quot;import&quot; ⬇️ button to fetch additional
 				information.
 			</div>
 

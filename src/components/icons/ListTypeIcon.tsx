@@ -1,28 +1,36 @@
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import {
+	faBirthdayCake,
+	faLightbulb,
+	faThoughtBubble,
+	faTreeChristmas,
+	faVialVirus,
+} from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { ListCategory, ListCategoryType } from '@/utils/enums'
 
 type Props = { type: ListCategoryType; className?: string; isPrivate?: boolean }
 
 export default function ListTypeIcon({ type, className = 'text-xl', isPrivate = false }: Props) {
-	let iconClass = 'fa-duotone fa-fw fa-thought-bubble text-yellow-300'
+	let iconColor = 'text-yellow-300'
+	let icon = faThoughtBubble
 
 	// if (isPrivate) {
 	// 	iconClass = 'fa-duotone fa-fw fa-lock-keyhole text-violet-300'
 	// } else
 	if (type === ListCategory.Birthday) {
-		iconClass = 'fa-duotone fa-fw fa-birthday-cake text-pink-300'
+		icon = faBirthdayCake
+		iconColor = 'text-pink-300'
 	} else if (type === ListCategory.Christmas) {
-		iconClass = 'fa-duotone fa-fw fa-tree-christmas text-green-300'
+		icon = faTreeChristmas
+		iconColor = 'text-green-300'
 	} else if (type === ListCategory.Test) {
-		iconClass = 'fa-duotone fa-fw fa-vial-virus text-blue-300'
+		icon = faVialVirus
+		iconColor = 'text-blue-300'
 	} else if (type === ListCategory.GiftIdeas) {
-		iconClass = 'fa-duotone fa-fw fa-lightbulb text-teal-300'
+		icon = faLightbulb
+		iconColor = 'text-teal-300'
 	}
 
-	return (
-		<>
-			{/* {isPrivate && <FontAwesomeIcon className="fa-duotone fa-fw fa-lock-keyhole text-violet-300" />} */}
-			<FontAwesomeIcon className={`${iconClass} ${className}`} />
-		</>
-	)
+	return <FontAwesomeIcon icon={icon} fixedWidth className={`${iconColor} ${className}`} />
 }
