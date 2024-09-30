@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { deleteItem } from '@/app/actions/items'
-import { DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { DeleteIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
@@ -93,7 +93,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 								</button>
 							) : (
 								<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-base sm:text-xl yellow`}>
-									<EditIcon includeColor={false} />
+									<FontAwesomeIcon className="fa-sharp fa-solid fa-pen-to-square" />
 									<span className="inline text-sm sm:hidden">Edit</span>
 								</button>
 							)}
