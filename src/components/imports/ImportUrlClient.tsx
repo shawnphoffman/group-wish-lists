@@ -18,7 +18,7 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 		<>
 			<div>
 				<label className="label">What list do you want to add this to?</label>
-				<select name="priority" value={list.id} onChange={handleChangePriority}>
+				<select name="priority" value={selectedList} onChange={handleChangePriority}>
 					{/* <option disabled value=""></option> */}
 					{lists.map((list: List) => (
 						<option key={list.id} value={list.id}>
