@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useFormState } from 'react-dom'
+import { faPencil, faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faCheck } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 
 import { renameList } from '@/app/actions/lists'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List } from '@/components/types'
 import { ListCategory } from '@/utils/enums'
@@ -17,7 +19,6 @@ type Props = {
 }
 
 export default function ListTitleEditable({ listId, name, type }: Props) {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
@@ -51,18 +52,18 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 						))}
 					</select>
 					<button title="Save" className="text-2xl nav-btn green" disabled={isPending}>
-						<FontAwesomeIcon className="fa-sharp fa-solid fa-check" />
+						<FontAwesomeIcon icon={faCheck} />
 					</button>
 					<button type="button" title="Cancel" className="text-2xl nav-btn red" onClick={handleClick} disabled={isPending}>
-						<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
+						<FontAwesomeIcon icon={faXmark} />
 					</button>
 				</form>
 			) : (
 				<div className="flex flex-row items-center gap-1">
 					<ListTypeIcon type={type} className="text-3xl" />
 					<h1 className="w-fit">{name}</h1>
-					<button type="button" title="Rename" className="text-2xl nav-btn yellow " onClick={handleClick} disabled={isPending}>
-						<FontAwesomeIcon className="fa-sharp fa-solid fa-pencil" />
+					<button type="button" title="Rename" className="text-2xl nav-btn yellow" onClick={handleClick} disabled={isPending}>
+						<FontAwesomeIcon icon={faPencil} />
 					</button>
 				</div>
 			)}

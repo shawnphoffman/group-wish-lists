@@ -1,4 +1,7 @@
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { faBolt, faDown, faUp } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { ItemPriority } from '@/utils/enums'
 
 type Props = { priority: string; className?: string }
@@ -6,27 +9,31 @@ type Props = { priority: string; className?: string }
 export default function ItemPriorityIcon({ priority, className }: Props) {
 	if (priority === ItemPriority.Normal) return null
 
-	let iconClass = ''
+	let icon: IconDefinition | null = null
+	let iconColor = ''
 	let title = ''
 
 	switch (priority) {
 		case ItemPriority['Very High']:
 			title = 'Very High'
-			iconClass = 'fa-sharp fa-solid fa-fw fa-bolt fa-beat-fade text-yellow-400'
+			iconColor = 'text-yellow-400'
+			icon = faBolt
 			break
 		case ItemPriority.High:
 			title = 'High'
-			iconClass = 'fa-sharp fa-solid fa-up fa-fw text-orange-400'
+			iconColor = 'text-orange-400'
+			icon = faUp
 			break
 		case ItemPriority.Low:
 			title = 'Low'
-			iconClass = 'fa-sharp fa-solid fa-down fa-fw text-blue-400'
+			iconColor = 'text-blue-400'
+			icon = faDown
 			break
 	}
 
 	return (
 		<span title={`${title} Priority`}>
-			<FontAwesomeIcon className={`${iconClass} text-lg ${className}`} />
+			<FontAwesomeIcon icon={icon!} className={`${iconColor} text-lg ${className}`} beatFade={priority === ItemPriority['Very High']} />
 		</span>
 	)
 }

@@ -1,4 +1,6 @@
 import { Suspense } from 'react'
+import { faFileImport, faPlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -6,7 +8,6 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList, getMyLists } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ImportItems from '@/components/imports/ImportItems'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
@@ -54,11 +55,11 @@ const ShowList = async ({ params }: Props) => {
 						</>
 					)}
 					<Link href="#import-items" className="nav-btn purple">
-						<FontAwesomeIcon className="fa-sharp fa-file-import" />
+						<FontAwesomeIcon icon={faFileImport} />
 						Import Items
 					</Link>
 					<Link href="#add-item" className="nav-btn blue">
-						<FontAwesomeIcon className="fa-sharp fa-plus" />
+						<FontAwesomeIcon icon={faPlus} />
 						Add Item
 					</Link>
 				</div>
@@ -77,7 +78,7 @@ const ShowList = async ({ params }: Props) => {
 
 export default async function EditList({ params }: Props) {
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3  max-md:gap-2">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 max-md:gap-2">
 			<Suspense fallback={<FallbackRow />}>
 				<ShowList params={params} />
 			</Suspense>

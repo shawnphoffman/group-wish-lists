@@ -4,12 +4,13 @@ import './CreateListModal.css'
 
 import { startTransition, useEffect, useRef } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
+import { faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { createList } from '@/app/actions/lists'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { ListCategory, ListPrivacy } from '@/utils/enums'
 
@@ -21,7 +22,7 @@ function CreateListFields() {
 			<div className="header">
 				<h3>New List</h3>
 				<Link href="/me">
-					<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
+					<FontAwesomeIcon icon={faXmark} />
 				</Link>
 			</div>
 			<div className="form">
@@ -94,7 +95,6 @@ function CreateListFields() {
 }
 
 export default function CreateListModal() {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(createList, {})
 	const router = useRouter()
 	const pathname = usePathname()

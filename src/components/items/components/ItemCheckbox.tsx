@@ -3,10 +3,11 @@
 import './ItemCheckbox.css'
 
 import { useCallback, useEffect, useState } from 'react'
+import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 
 import { createGift, deleteGift } from '@/app/actions/gifts'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { ListItem } from '@/components/types'
 
 type Props = {
@@ -49,7 +50,7 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 		<fieldset disabled={isPending} className="flex items-center justify-center">
 			{isPending ? (
 				<div className="flex items-center justify-center checkbox-size">
-					<FontAwesomeIcon className="text-2xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse sm:text-lg" />
+					<FontAwesomeIcon icon={faSpinnerScale} spinPulse className="text-2xl sm:text-lg" />
 				</div>
 			) : (
 				<input

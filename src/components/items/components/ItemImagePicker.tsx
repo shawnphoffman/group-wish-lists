@@ -2,9 +2,10 @@
 
 import './ItemImagePicker.css'
 
+import { faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RadioGroup } from '@headlessui/react'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import type { OgImage } from '@/components/types'
 
@@ -38,7 +39,7 @@ export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props
 							}`}
 						>
 							<div className="flex flex-col items-center text-4xl">
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-xmark" />
+								<FontAwesomeIcon icon={faXmark} />
 								<span className="text-xl">No Image</span>
 							</div>
 						</div>

@@ -1,11 +1,13 @@
 'use client'
 
 import { startTransition, useCallback, useEffect, useState } from 'react'
+import { faRightLongToLine } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RadioGroup } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 
 import { moveItem } from '@/app/actions/items'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { List, ListItem } from '@/components/types'
 
 type Props = {
@@ -48,15 +50,14 @@ export default function MyListsSelect({ lists, id, listId }: Props) {
 						{({ checked }) => (
 							<label className={`flex nav-btn text-sm flex-1 py-1 truncate w-full gap-1 text-left ${checked ? 'purple' : 'gray'}`}>
 								{list.name}
-
-								{list?.private && <FontAwesomeIcon className="text-xs fa-duotone fa-fw fa-lock-keyhole text-violet-300" />}
+								{list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-xs text-violet-300" />}
 							</label>
 						)}
 					</RadioGroup.Option>
 				))}
 			</RadioGroup>
 			<button type="button" disabled={listId === list.id} onClick={handleMoveItem} className="text-xs btn purple">
-				<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+				<FontAwesomeIcon icon={faRightLongToLine} />
 				Move Item
 			</button>
 		</fieldset>

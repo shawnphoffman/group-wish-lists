@@ -56,8 +56,10 @@
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 210 40% 98%;
 		/*  */
-		--popover: 222.2 84% 4.9%;
-		--popover-foreground: 210 40% 98%;
+		--popover: 0 0% 3.9%;
+		--popover-foreground: 0 0% 98%;
+		/* --popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%; */
 		--border: 0 0% 14.9%;
 		/* --border: 217.2 32.6% 17.5%; */
 		--input: 0 0% 14.9%;
@@ -139,7 +141,7 @@
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply overflow-x-hidden bg-background text-foreground;
 		font-feature-settings:
 			'rlig' 1,
 			'calt' 1;

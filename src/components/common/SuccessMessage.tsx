@@ -1,6 +1,7 @@
 import './SuccessMessage.css'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { faCircleCheck } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type Props = {
 	message?: string
@@ -9,7 +10,7 @@ type Props = {
 export default function SuccessMessage({ message = 'Successfully updated.' }: Props) {
 	return (
 		<div className="success">
-			<FontAwesomeIcon className="text-2xl fa-sharp fa-solid fa-circle-check" />
+			<FontAwesomeIcon icon={faCircleCheck} className="text-2xl" />
 			<div>{message}</div>
 		</div>
 	)

@@ -1,6 +1,8 @@
 'use client'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
+import { faApple } from '@awesome.me/kit-ac8ad9255a/icons/classic/brands'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { createClientSideClient } from '@/utils/supabase/client'
 
 export default function LinkToAppleButton() {
@@ -17,7 +19,7 @@ export default function LinkToAppleButton() {
 
 	return (
 		<button type="button" className="w-full btn white" onClick={handleClick}>
-			<FontAwesomeIcon className="fa-brands fa-solid fa-apple" />
+			<FontAwesomeIcon icon={faApple} />
 			Link with Apple
 		</button>
 	)

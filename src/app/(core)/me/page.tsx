@@ -1,14 +1,16 @@
 import { Suspense } from 'react'
+import {} from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
+import { faPlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getUser } from '@/app/actions/auth'
-import { getSessionUser } from '@/app/actions/auth'
+// import { getSessionUser } from '@/app/actions/auth'
 import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import CreateListModal from '@/components/me/CreateListModal'
-import LinkToAppleButton from '@/components/me/LinkToAppleButton'
+// import LinkToAppleButton from '@/components/me/LinkToAppleButton'
 import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
 import PasswordForm from '@/components/me/PasswordForm'
@@ -75,9 +77,8 @@ export default async function MyStuff({ searchParams }: Props) {
 						{/* Header */}
 						<div className="flex flex-row justify-between">
 							<h1>My Lists</h1>
-
 							<Link href="/me?show=true" className="mt-0 nav-btn blue">
-								<FontAwesomeIcon className="fa-sharp fa-solid fa-plus" />
+								<FontAwesomeIcon icon={faPlus} className="fa-sharp fa-solid fa-plus" />
 								New List
 							</Link>
 						</div>

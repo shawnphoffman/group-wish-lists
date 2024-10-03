@@ -1,6 +1,8 @@
+import { faList } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 // import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 // import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
@@ -14,7 +16,7 @@ type Props = {
 
 const CountBadge = ({ count }: { count: number }) => (
 	<Badge variant={'outline'} className={`hidden text-sm whitespace-nowrap xs:inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}>
-		<FontAwesomeIcon className="!hidden sm:!inline fa-sharp fa-solid fa-list" />
+		<FontAwesomeIcon icon={faList} className="!hidden sm:!inline" />
 		{count}
 	</Badge>
 )
@@ -46,7 +48,7 @@ export default function ListRow({ list, canEdit }: Props) {
 					<Badge className="!text-[10px] whitespace-nowrap">{(list as ListSharedWithMe).sharer_display_name}</Badge>
 				)}
 				<CountBadge count={list.count!} />
-				{list?.private && <FontAwesomeIcon className="text-sm fa-duotone fa-fw fa-lock-keyhole text-emerald-300" />}
+				{list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-sm text-emerald-300" />}
 				{/* {canEdit && (
 					<>
 						<ArchiveListButton listId={list.id} isArchived={!isActive} />

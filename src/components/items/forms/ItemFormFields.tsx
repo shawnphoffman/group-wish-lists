@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
+import { faArrowDownToLine, faAsterisk, faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
-import FontAwesomeIcon from '@/components/icons/FontAwesomeIcon'
 import { List, ListItem, ScrapeResponse } from '@/components/types'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
@@ -219,11 +220,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							onPaste={handlePaste}
 							onFocus={event => event.target.select()}
 						/>
-						<button type="button" className="nav-btn teal" onClick={handleUrlImport} disabled={!url} title="Import">
+						<button type="button" className="text-xl nav-btn teal" onClick={handleUrlImport} disabled={!url} title="Import">
 							{isPending ? (
-								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />
+								<FontAwesomeIcon icon={faSpinnerScale} spinPulse fixedWidth />
 							) : (
-								<FontAwesomeIcon className="text-xl fa-sharp fa-solid fa-arrow-down-to-line fa-fw" />
+								<FontAwesomeIcon icon={faArrowDownToLine} fixedWidth />
 							)}
 						</button>
 					</div>
@@ -233,8 +234,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 				<div>
 					<label className="label">Title</label>
-					<span className="relative text-red-500 bottom-1">
-						<FontAwesomeIcon className="fa-sharp fa-solid fa-asterisk fa-2xs" />
+					<span className="relative text-red-500 bottom-1 text-2xs">
+						<FontAwesomeIcon icon={faAsterisk} />
 					</span>
 					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} ref={titleRef} />
 				</div>
