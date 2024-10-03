@@ -106,9 +106,23 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setImporting(true)
 		if (importError) setImportError('')
 		let data
+
+		const controller = new AbortController()
+		const timeout = setTimeout(() => controller.abort(), 5000) // 5 seconds timeout
+
+		let apiData: any = null
 		try {
-			const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`)
-			const apiData = await apiResp.json()
+			try {
+				const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`, {
+					signal: controller.signal,
+				})
+				apiData = await apiResp.json()
+				clearTimeout(timeout)
+			} catch (error) {
+				if ((error as Error).name === 'AbortError') {
+					setImportError('Request timeout. Trying something else...')
+				}
+			}
 			if (apiData?.og?.image || apiData?.images?.length) {
 				data = {
 					result: {
@@ -129,10 +143,17 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			} else {
 				const resp = await fetch(`/api/scraper?url=${url}`)
 				data = await resp.json()
+				if (!data?.result?.ogImage?.length) {
+					const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`)
+					data = await resp2.json()
+				}
 			}
 		} catch (error) {
 			data = error
 		} finally {
+			if (data?.result?.success) {
+				setImportError('')
+			}
 		}
 
 		if (data?.result?.success) {
