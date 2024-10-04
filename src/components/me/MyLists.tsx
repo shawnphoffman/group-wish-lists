@@ -1,6 +1,7 @@
 import { getMyLists } from '@/app/actions/lists'
 import ListBlock from '@/components/lists/ListBlock'
 import { List } from '@/components/types'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
 export const ListType = {
 	ALL: 'all',
@@ -22,8 +23,10 @@ export default async function MyLists({ type = ListType.ALL }: Props) {
 	])
 
 	return (
-		<div className="flex flex-col gap-3">
-			<ListBlock lists={data as List[]} isOwner={true} />
-		</div>
+		<Card className="bg-accent">
+			<CardContent className="py-5">
+				<ListBlock lists={data as List[]} isOwner={true} />
+			</CardContent>
+		</Card>
 	)
 }

@@ -15,7 +15,10 @@ type Props = {
 }
 
 const CountBadge = ({ count }: { count: number }) => (
-	<Badge variant={'outline'} className={`hidden text-sm whitespace-nowrap xs:inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}>
+	<Badge
+		variant={'outline'}
+		className={`hidden gap-x-1.5 py-1 px-3 text-xs whitespace-nowrap xs:inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}
+	>
 		<FontAwesomeIcon icon={faList} className="!hidden sm:!inline" />
 		{count}
 	</Badge>
@@ -32,7 +35,8 @@ export default function ListRow({ list, canEdit }: Props) {
 
 	return (
 		<div
-			className={`xs:!text-lg flex-row p-2 hover:bg-muted rounded flex ${list?.private ? '!bg-emerald-950/50 hover:!bg-emerald-900/50' : ''}`}
+			className={`xs:!text-lg flex-row p-2 bg-transparent hover:bg-muted rounded flex ${list?.private ? '!bg-secondary/5 hover:!bg-secondary/10' : ''}`}
+			// className={`xs:!text-lg flex-row p-2 hover:bg-muted rounded flex ${list?.private ? '!bg-emerald-950/50 hover:!bg-emerald-900/50' : ''}`}
 		>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
 				<ListTypeIcon type={list.type} isPrivate={list?.private} />
@@ -41,14 +45,20 @@ export default function ListRow({ list, canEdit }: Props) {
 			<div className="flex flex-row items-center justify-end gap-1 !text-lg">
 				{/*  */}
 				{(list as ListSharedWithOthers).user_shared_with_id && (
-					<Badge className="!text-[10px] whitespace-nowrap">w/{(list as ListSharedWithOthers).user_shared_with_display_name}</Badge>
+					<Badge variant="outline" className="!text-[10px] bg-muted whitespace-nowrap">
+						{/*  */}
+						w/{(list as ListSharedWithOthers).user_shared_with_display_name}
+					</Badge>
 				)}
 				{/*  */}
 				{(list as ListSharedWithMe).sharer_display_name && (
-					<Badge className="!text-[10px] whitespace-nowrap">{(list as ListSharedWithMe).sharer_display_name}</Badge>
+					<Badge variant="outline" className="!text-[10px] bg-muted whitespace-nowrap">
+						{/*  */}
+						{(list as ListSharedWithMe).sharer_display_name}
+					</Badge>
 				)}
-				<CountBadge count={list.count!} />
 				{list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-sm text-emerald-300" />}
+				<CountBadge count={list.count!} />
 				{/* {canEdit && (
 					<>
 						<ArchiveListButton listId={list.id} isArchived={!isActive} />

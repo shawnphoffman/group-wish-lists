@@ -28,10 +28,10 @@ export function ModeToggle() {
 		// <DropdownMenu>
 		// 	<DropdownMenuTrigger asChild>
 		<Button variant="outline" size="icon" className="w-9 h-9" onClick={handleToggle}>
-			{theme === 'dark' ? (
-				<Moon className="h-[1.2rem] w-[1.2rem] transition-all" />
-			) : (
+			{theme === 'light' ? (
 				<Sun className="h-[1.2rem] w-[1.2rem] transition-all" />
+			) : (
+				<Moon className="h-[1.2rem] w-[1.2rem] transition-all" />
 			)}
 			<span className="sr-only">Toggle theme</span>
 		</Button>

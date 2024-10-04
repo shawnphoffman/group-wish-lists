@@ -1,84 +1,34 @@
 import { Suspense } from 'react'
-import {} from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
 import { faPlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
-import { getUser } from '@/app/actions/auth'
-// import { getSessionUser } from '@/app/actions/auth'
-import Badge from '@/components/common/Badge'
 import FallbackRow from '@/components/common/Fallbacks'
 import CreateListModal from '@/components/me/CreateListModal'
-// import LinkToAppleButton from '@/components/me/LinkToAppleButton'
 import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
-import PasswordForm from '@/components/me/PasswordForm'
-import ProfileForm from '@/components/me/ProfileForm'
+import { buttonVariants } from '@/components/ui/button'
+
+import MeClient from './MeClient'
 
 type Props = {
 	searchParams: Record<string, string> | null | undefined
-}
-
-const MyStuffClient = async () => {
-	const userPromise = getUser()
-	// const sessionPromise = getSessionUser()
-	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
-
-	const [{ data: user, error }] = await Promise.all([
-		// const [{ data: user, error }, sessionUser] = await Promise.all([
-		userPromise,
-		// sessionPromise,
-		// fakePromise
-	])
-	console.log('MyStuffClient', { user })
-
-	// if (!user || error) {
-	if (error) {
-		console.log('MyStuffClient.error', { user, error })
-		return notFound()
-	}
-
-	// const hasAppleLinked = sessionUser?.identities?.some(i => i.provider === 'apple') || false
-
-	return (
-		<div className="flex flex-col gap-8">
-			<div className="flex flex-col gap-3 pt-6">
-				<div className="flex flex-row items-center justify-between">
-					<h1>Profile</h1>
-					<Badge colorId={user.id} className="!text-base">
-						{user.display_name}
-					</Badge>
-				</div>
-				<ProfileForm name={user.display_name} id={user.user_id} />
-			</div>
-			<div className="flex flex-col gap-3">
-				<h2>Passwords</h2>
-				<PasswordForm id={user.user_id} />
-			</div>
-			{/* {!hasAppleLinked && (
-				<div className="flex flex-col gap-3">
-					<h2>Account Linking</h2>
-					<LinkToAppleButton />
-				</div>
-			)} */}
-		</div>
-	)
 }
 
 export default async function MyStuff({ searchParams }: Props) {
 	const show = searchParams?.show
 	return (
 		<>
-			<div className="flex flex-col flex-1 w-full max-w-2xl px-3 ">
+			{/* <div className="flex flex-col flex-1 w-full max-w-2xl px-3 "> */}
+			<div className="flex flex-col flex-1 w-full max-w-4xl px-2 ">
 				<main className="flex flex-col flex-1 gap-8 divide-y">
 					{/* LISTS */}
-					<div className="flex flex-col gap-3">
+					<div className="flex flex-col gap-6">
 						{/* Header */}
 						<div className="flex flex-row justify-between">
 							<h1>My Lists</h1>
-							<Link href="/me?show=true" className="mt-0 nav-btn blue">
-								<FontAwesomeIcon icon={faPlus} className="fa-sharp fa-solid fa-plus" />
+							<Link href="/me?show=true" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+								<FontAwesomeIcon icon={faPlus} className="mr-1" />
 								New List
 							</Link>
 						</div>
@@ -86,19 +36,23 @@ export default async function MyStuff({ searchParams }: Props) {
 						<Suspense fallback={<FallbackRow />}>
 							<MyLists />
 						</Suspense>
-						<h3>Shared with Me</h3>
 						<Suspense fallback={<FallbackRow />}>
-							<MyLists type="shared_with_me" />
+							<div className="flex flex-col gap-3">
+								<h3>Shared with Me</h3>
+								<MyLists type="shared_with_me" />
+							</div>
 						</Suspense>
-						<h3>Shared with Others</h3>
 						{/* Lists */}
 						<Suspense fallback={<FallbackRow />}>
-							<MyLists type="shared_with_others" />
+							<div className="flex flex-col gap-3">
+								<h3>Shared with Others</h3>
+								<MyLists type="shared_with_others" />
+							</div>
 						</Suspense>
 					</div>
 
 					<Suspense fallback={null}>
-						<MyStuffClient />
+						<MeClient />
 					</Suspense>
 
 					{/* LISTS */}
