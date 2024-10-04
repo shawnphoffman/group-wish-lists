@@ -4,7 +4,12 @@ import { NextResponse } from 'next/server'
 const md = markdownit()
 
 function cleanItemList(items: any[]) {
-	const cleanedItems = []
+	interface CleanedItem {
+		title: string
+		notes: string
+	}
+
+	const cleanedItems: CleanedItem[] = []
 
 	for (let i = 0; i < items.length; i++) {
 		const currentItem = items[i]

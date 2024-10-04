@@ -12,7 +12,6 @@ type Props = {
 }
 
 export default function EditItemForm({ listId, item }: Props) {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(editItem, {})
 
 	return (

@@ -23,6 +23,11 @@ export const metadata: Metadata = {
 		url: '/',
 		locale: 'en_US',
 	},
+	appleWebApp: {
+		title: 'Wish Lists',
+		capable: true,
+		statusBarStyle: 'black',
+	},
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

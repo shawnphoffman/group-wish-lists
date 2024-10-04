@@ -55,7 +55,6 @@ const initialState = {
 }
 
 export default function ProfileFormWrapper({ name, id }: WrapperProps) {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(updateProfile, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()

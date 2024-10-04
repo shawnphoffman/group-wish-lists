@@ -23,7 +23,6 @@ function InviteUserFields() {
 }
 
 export default function InviteUserForm() {
-	// @ts-expect-error
 	const [state, formAction] = useFormState(inviteUser, {})
 	const router = useRouter()
 	const formRef = useRef<HTMLFormElement>(null)
