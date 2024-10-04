@@ -69,11 +69,12 @@ export const editItem = async (prevState: any, formData: FormData) => {
 	const url = formData.get('url') as string
 	const notes = formData.get('notes') as string
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
+	const scrape = formData.get('scrape') as string
 	const imageUrl = formData.get('image-url') as string
 
 	const itemPromise = await supabase
 		.from('list_items')
-		.update([{ title, url, notes, priority, image_url: imageUrl }])
+		.update([{ title, url, notes, priority, image_url: imageUrl, scrape: JSON.parse(scrape) }])
 		.eq('id', id)
 
 	const [item] = await Promise.all([

@@ -15,7 +15,13 @@ type Props = {
 
 export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props) {
 	if (!images) return null
-	const deduped = images.map(image => image.url).filter((url, index, self) => self.indexOf(url) === index)
+	const deduped = images
+		.map(image => image.url)
+		.filter((url, index, self) => {
+			if (url?.includes('sprite')) return false
+			if (url?.includes('svg+xml')) return false
+			return self.indexOf(url) === index
+		})
 	return (
 		<RadioGroup name="image-url" value={imageUrl} onChange={setImageUrl}>
 			<div className="flex flex-row flex-wrap items-center justify-center gap-4">

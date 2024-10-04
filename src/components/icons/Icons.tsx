@@ -1,4 +1,4 @@
-import { faBan, faFileImport, faPlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faBan, faCirclePlus, faFileImport } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { faEye, faEyeSlash, faPenToSquare, faTrashXmark, faUpRightFromSquare } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -21,8 +21,8 @@ export function ImportIcon() {
 	return <FontAwesomeIcon icon={faFileImport} className="text-violet-400 hover:text-violet-300" />
 }
 export function AddIcon() {
-	return <FontAwesomeIcon icon={faPlus} className="text-blue-400 hover:text-blue-300" />
+	return <FontAwesomeIcon icon={faCirclePlus} className="text-blue-400 hover:text-blue-300" />
 }
 export function CancelIcon() {
-	return <FontAwesomeIcon icon={faBan} className="text-orange-400 hover:text-orange-300" />
+	return <FontAwesomeIcon icon={faBan} className="text-orange-400 hover:text-orange-300 group-hover:text-orange-300" />
 }

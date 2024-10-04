@@ -89,7 +89,13 @@ export default function ItemRowEditable({ item, lists }: Props) {
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							{/* Edit */}
 							{isEditing ? (
-								<Button variant="ghost" disabled={pending} type="button" onClick={handleEditClick} className={`text-base sm:text-xl`}>
+								<Button
+									variant="ghost"
+									disabled={pending}
+									type="button"
+									onClick={handleEditClick}
+									className={`text-base sm:text-xl px-2 w-10 group gap-1`}
+								>
 									<CancelIcon />
 									<span className="inline text-sm sm:hidden">Cancel</span>
 								</Button>
@@ -99,7 +105,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 									disabled={pending}
 									type="button"
 									onClick={handleEditClick}
-									className={`text-base sm:text-xl px-2 w-10 group`}
+									className={`text-base sm:text-xl px-2 w-10 group gap-1`}
 								>
 									<EditIcon />
 									<span className="inline text-sm sm:hidden">Edit</span>

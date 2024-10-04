@@ -56,11 +56,11 @@ const ShowList = async ({ params }: Props) => {
 					)}
 					<Link href="#import-items" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
 						<ImportIcon />
-						Import Items
+						Import
 					</Link>
 					<Link href="#add-item" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
 						<AddIcon />
-						Add Item
+						Add
 					</Link>
 				</div>
 			</div>
