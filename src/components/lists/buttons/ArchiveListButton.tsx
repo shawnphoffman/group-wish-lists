@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { archiveList, unarchiveList } from '@/app/actions/lists'
 import { ArchiveIcon, UnarchiveIcon } from '@/components/icons/Icons'
 import { List } from '@/components/types'
+import { buttonVariants } from '@/components/ui/button'
 
 type Props = {
 	listId: List['id']
@@ -26,12 +27,22 @@ export default function ArchiveListButton({ listId, isArchived }: Props) {
 	}, [isArchived, listId, router])
 
 	return isArchived ? (
-		<button className="nav-btn teal" title="Restore List" onClick={handleClick} disabled={isPending}>
+		<button
+			className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}
+			title="Restore List"
+			onClick={handleClick}
+			disabled={isPending}
+		>
 			<UnarchiveIcon />
 			Restore
 		</button>
 	) : (
-		<button className="yellow nav-btn" title="Archive List" onClick={handleClick} disabled={isPending}>
+		<button
+			className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}
+			title="Archive List"
+			onClick={handleClick}
+			disabled={isPending}
+		>
 			<ArchiveIcon />
 			Archive
 		</button>

@@ -1,19 +1,21 @@
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
+import { faRightLongToLine } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { deleteItem } from '@/app/actions/items'
-import { DeleteIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { CancelIcon, DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { List, ListItem } from '@/components/types'
 import { ItemPriority } from '@/utils/enums'
-import { isDeployed } from '@/utils/environment'
 
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
+// import { isDeployed } from '@/utils/environment'
+import { Button } from '../ui/button'
 
 import MyListsSelect from './components/MyListsSelect'
 
@@ -34,10 +36,10 @@ export default function ItemRowEditable({ item, lists }: Props) {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
 
-	const handleDuplicateClick = useCallback(() => {
-		// TODO
-		console.log('DUPLICATE ITEM')
-	}, [])
+	// const handleDuplicateClick = useCallback(() => {
+	// 	// TODO
+	// 	console.log('DUPLICATE ITEM')
+	// }, [])
 
 	const handleDeleteClick = useCallback(async () => {
 		if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
@@ -63,7 +65,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 	const pending = isPending || isDeleting
 
 	return (
-		<div className={`list-item ${pending && 'pending'} ${isEditing && 'editing'}`}>
+		<div className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal`}>
 			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-300 dark:divide-gray-700 divide-dashed">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
@@ -79,23 +81,29 @@ export default function ItemRowEditable({ item, lists }: Props) {
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
-							{item.notes && <div className="notes">{item.notes}</div>}
+							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 						</div>
 						{/* Image + Actions */}
-						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
+						<div className="flex flex-col items-center justify-center gap-1 sm:flex-row">
 							{/* Image */}
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							{/* Edit */}
 							{isEditing ? (
-								<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-base sm:text-xl orange`}>
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-ban" />
+								<Button variant="ghost" disabled={pending} type="button" onClick={handleEditClick} className={`text-base sm:text-xl`}>
+									<CancelIcon />
 									<span className="inline text-sm sm:hidden">Cancel</span>
-								</button>
+								</Button>
 							) : (
-								<button disabled={pending} type="button" onClick={handleEditClick} className={`nav-btn text-base sm:text-xl yellow`}>
-									<FontAwesomeIcon className="fa-sharp fa-solid fa-pen-to-square" />
+								<Button
+									variant="ghost"
+									disabled={pending}
+									type="button"
+									onClick={handleEditClick}
+									className={`text-base sm:text-xl px-2 w-10 group`}
+								>
+									<EditIcon />
 									<span className="inline text-sm sm:hidden">Edit</span>
-								</button>
+								</Button>
 							)}
 						</div>
 					</div>
@@ -116,7 +124,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 										className={`nav-btn purple ${isMoving && 'bg-violet-800/30 text-violet-300'}`}
 										onClick={() => setIsMoving(!isMoving)}
 									>
-										<FontAwesomeIcon className="fa-sharp fa-solid fa-right-long-to-line" />
+										<FontAwesomeIcon icon={faRightLongToLine} />
 										Move
 									</button>
 								</div>
@@ -126,13 +134,13 @@ export default function ItemRowEditable({ item, lists }: Props) {
 										Open URL
 									</Link>
 								)}
-								{!isDeployed && (
+								{/* {!isDeployed && (
 									// TODO
 									<button type="button" className="nav-btn orange" onClick={handleDuplicateClick}>
-										<FontAwesomeIcon className="fa-sharp fa-solid fa-copy" />
+										<FontAwesomeIcon icon={faCopy} />
 										Duplicate
 									</button>
-								)}
+								)} */}
 							</div>
 						</div>
 						{isMoving && <MyListsSelect lists={lists} id={item.id} listId={item.list_id} />}

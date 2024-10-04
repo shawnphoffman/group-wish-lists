@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { renameList } from '@/app/actions/lists'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List } from '@/components/types'
+import { Button } from '@/components/ui/button'
 import { ListCategory } from '@/utils/enums'
 
 type Props = {
@@ -62,9 +63,16 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 				<div className="flex flex-row items-center gap-1">
 					<ListTypeIcon type={type} className="text-3xl" />
 					<h1 className="w-fit">{name}</h1>
-					<button type="button" title="Rename" className="text-2xl nav-btn yellow" onClick={handleClick} disabled={isPending}>
+					<Button
+						variant="ghost"
+						type="button"
+						title="Rename"
+						className="text-2xl text-yellow-300 transition-all hover:text-yellow-400"
+						onClick={handleClick}
+						disabled={isPending}
+					>
 						<FontAwesomeIcon icon={faPencil} />
-					</button>
+					</Button>
 				</div>
 			)}
 		</>

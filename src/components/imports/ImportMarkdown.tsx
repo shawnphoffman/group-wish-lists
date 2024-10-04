@@ -1,11 +1,12 @@
 'use client'
 
 import { startTransition, useCallback, useState } from 'react'
+import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 
 import { createMultipleItems } from '@/app/actions/items'
 
-import FontAwesomeIcon from '../icons/FontAwesomeIcon'
 import { List } from '../types'
 
 type Props = {
@@ -72,7 +73,7 @@ export default function ImportMarkdown({ listId }: Props) {
 				{converting ? 'Converting...' : 'Convert Apple Notes'}
 			</button>
 			{loading ? (
-				<FontAwesomeIcon className="self-center text-xl fa-sharp fa-solid fa-spinner-scale fa-spin-pulse fa-fw" />
+				<FontAwesomeIcon icon={faSpinnerScale} fixedWidth spinPulse className="self-center text-xl" />
 			) : data.length > 0 ? (
 				<div>
 					<h4>Conversion Results</h4>
