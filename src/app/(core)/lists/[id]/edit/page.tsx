@@ -83,10 +83,13 @@ const ShowList = async ({ params }: Props) => {
 
 			{/* Rows */}
 			<div className="flex flex-col">
-				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-					{items?.map(item => <ItemRowEditable key={item.id} item={item} lists={lists as List[]} />)}
-				</div>
+				{items?.length === 0 ? (
+					<EmptyMessage />
+				) : (
+					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
+						{items?.map(item => <ItemRowEditable key={item.id} item={item} lists={lists as List[]} />)}
+					</div>
+				)}
 			</div>
 		</>
 	)
