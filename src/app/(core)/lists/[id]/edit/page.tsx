@@ -16,6 +16,16 @@ import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import Permissions from '@/components/permissions/Permissions'
 import { List, ListItem } from '@/components/types'
 import { buttonVariants } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+	Menubar,
+	MenubarContent,
+	// MenubarItem,
+	MenubarMenu,
+	MenubarSeparator,
+	// MenubarShortcut,
+	MenubarTrigger,
+} from '@/components/ui/menubar'
 
 type Props = {
 	params: {
@@ -47,21 +57,27 @@ const ShowList = async ({ params }: Props) => {
 				<div className="flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
 					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
-				<div className="flex flex-row flex-wrap justify-center flex-1 gap-0 md:justify-end shrink-0">
-					{currentUser?.id === data.user_id && (
-						<>
-							<ArchiveListButton listId={params.id} isArchived={!data.active} />
-							<DeleteListButton listId={params.id} name={data.name} />
-						</>
-					)}
-					<Link href="#import-items" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
-						<ImportIcon />
-						Import
-					</Link>
+				<div className="flex flex-row flex-wrap justify-center flex-1 gap-0.5 items-center md:justify-end shrink-0">
 					<Link href="#add-item" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
 						<AddIcon />
 						Add
 					</Link>
+					<Link href="#import-items" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
+						<ImportIcon />
+						Import
+					</Link>
+					{currentUser?.id === data.user_id && (
+						<Menubar>
+							<MenubarMenu>
+								<MenubarTrigger>List Actions</MenubarTrigger>
+								<MenubarContent>
+									<ArchiveListButton listId={params.id} isArchived={!data.active} />
+									<MenubarSeparator />
+									<DeleteListButton listId={params.id} name={data.name} />
+								</MenubarContent>
+							</MenubarMenu>
+						</Menubar>
+					)}
 				</div>
 			</div>
 
@@ -84,14 +100,17 @@ export default async function EditList({ params }: Props) {
 			</Suspense>
 
 			{/* Add Item */}
-			<div className="border-container" id="add-item">
-				<h4>Add Item</h4>
-				<Suspense fallback={<FallbackRow />}>
-					<div className="flex flex-col items-stretch gap-2 p-2">
+			<Card>
+				<CardHeader>
+					<CardTitle>Add Item</CardTitle>
+					<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<Suspense fallback={<FallbackRow />}>
 						<AddItemForm listId={params.id} />
-					</div>
-				</Suspense>
-			</div>
+					</Suspense>
+				</CardContent>
+			</Card>
 
 			{/* Import */}
 			<ImportItems listId={params.id} />

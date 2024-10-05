@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { deleteList } from '@/app/actions/lists'
 import { DeleteIcon } from '@/components/icons/Icons'
-import { buttonVariants } from '@/components/ui/button'
+import { MenubarItem, MenubarShortcut } from '@/components/ui/menubar'
 
 export default function DeleteListButton({ listId, name }: any) {
 	const router = useRouter()
@@ -24,14 +24,11 @@ export default function DeleteListButton({ listId, name }: any) {
 	}, [listId, name, router])
 
 	return (
-		<button
-			className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}
-			title="Delete List"
-			onClick={handleClick}
-			disabled={isPending}
-		>
-			<DeleteIcon />
-			Delete
-		</button>
+		<MenubarItem title="Delete List" onClick={handleClick} disabled={isPending}>
+			Delete List
+			<MenubarShortcut>
+				<DeleteIcon />
+			</MenubarShortcut>
+		</MenubarItem>
 	)
 }

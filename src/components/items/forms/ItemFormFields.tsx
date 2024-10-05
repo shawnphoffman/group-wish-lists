@@ -8,9 +8,13 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
 import { List, ListItem, ScrapeResponse } from '@/components/types'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
-// import ItemImage from '../components/ItemImage'
 import ItemImagePicker from '../components/ItemImagePicker'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
@@ -40,7 +44,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const router = useRouter()
 
-	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const notesRef = useRef<HTMLTextAreaElement>(null)
 
 	// Item Fields
@@ -65,23 +68,13 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	useEffect(() => {
 		if (!item) return
-		if (titleRef.current) {
-			titleRef.current.style.height = 'inherit'
-			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
-		}
-	}, [item, title])
-
-	useEffect(() => {
-		if (!item) return
 		if (notesRef.current) {
 			notesRef.current.style.height = 'inherit'
 			notesRef.current.style.height = `${notesRef.current.scrollHeight}px`
 		}
 	}, [item, notes])
 
-	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		e.target.style.height = 'inherit'
-		e.target.style.height = `${e.target.scrollHeight}px`
+	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value)
 	}, [])
 
@@ -99,8 +92,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		[importError]
 	)
 
-	const handleChangePriority = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-		setPriority(e.target.value as (typeof ItemPriority)[keyof typeof ItemPriority])
+	const handleChangePriority = useCallback(value => {
+		setPriority(value as (typeof ItemPriority)[keyof typeof ItemPriority])
 	}, [])
 
 	const handleUrlImport = useCallback(async () => {
@@ -207,10 +200,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			<input className="input" type="hidden" name="image-url" value={imageUrl} readOnly />
 
 			<div className="flex flex-col justify-between gap-2">
-				<div>
-					<label className="label">URL</label>
+				<div className="grid w-full items-center gap-1.5">
+					<Label htmlFor="email">URL</Label>
 					<div className="flex flex-row justify-between gap-2">
-						<input
+						<Input
 							className="select-all input"
 							name="url"
 							type="url"
@@ -220,53 +213,69 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							onPaste={handlePaste}
 							onFocus={event => event.target.select()}
 						/>
-						<button type="button" className="text-xl nav-btn teal" onClick={handleUrlImport} disabled={!url} title="Import">
-							{isPending ? (
-								<FontAwesomeIcon icon={faSpinnerScale} spinPulse fixedWidth />
+						<Button
+							type="button"
+							size="icon"
+							variant="ghost"
+							className="text-teal-400 hover:text-teal-300"
+							onClick={handleUrlImport}
+							disabled={!url}
+							title="Import"
+						>
+							{importing ? (
+								<FontAwesomeIcon size="xl" icon={faSpinnerScale} spinPulse fixedWidth />
 							) : (
-								<FontAwesomeIcon icon={faArrowDownToLine} fixedWidth />
+								<FontAwesomeIcon size="xl" icon={faArrowDownToLine} fixedWidth />
 							)}
-						</button>
+						</Button>
 					</div>
 				</div>
 
 				{importError && <ErrorMessage error={importError} includeTitle={false} />}
 
-				<div>
-					<label className="label">Title</label>
-					<span className="relative text-red-500 bottom-1 text-2xs">
-						<FontAwesomeIcon icon={faAsterisk} />
-					</span>
-					<textarea name="title" placeholder="Something Cool" value={title} rows={1} onChange={handleChangeTitle} ref={titleRef} />
+				<div className="grid w-full items-center gap-1.5">
+					<Label htmlFor="title">
+						Title
+						<span className="relative text-xs text-red-500 bottom-1">
+							<FontAwesomeIcon icon={faAsterisk} />
+						</span>
+					</Label>
+					<Input type="text" name="title" placeholder="Something cool..." value={title} onChange={handleChangeTitle} />
 				</div>
 
-				<div>
-					<label className="label">Notes</label>
-					<textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
+				<div className="grid w-full gap-1.5">
+					<Label htmlFor="notes">Notes</Label>
+					<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
 				</div>
 
-				<div>
-					<label className="label">Priority</label>
-					<select name="priority" value={priority} onChange={handleChangePriority}>
-						<option disabled value=""></option>
-						{Object.keys(ItemPriority).map((key: any) => (
-							<option key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
-								{key}
-							</option>
-						))}
-					</select>
+				<div className="grid w-full gap-1.5">
+					<Label htmlFor="priority">Priority</Label>
+					<Select name="priority" value={priority} onValueChange={handleChangePriority}>
+						<SelectTrigger>
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent>
+							{Object.keys(ItemPriority).map((key: any) => (
+								<SelectItem key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
+									{key}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
 				</div>
 
 				{(scrape || imageUrl) && <ItemImagePicker images={scrape?.result?.ogImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
 
 				<div>
-					<button type="submit" className="w-full btn blue" disabled={isDisabled}>
-						{isPending ? (
+					<Button variant={'secondary'} type="submit" className="w-full text-lg" disabled={isDisabled}>
+						{importing ? (
+							<span className="drop-shadow-lg ">Importing URL...</span>
+						) : isPending ? (
 							<span className="drop-shadow-lg ">{item ? 'Saving' : 'Adding'}...</span>
 						) : (
 							<span className="drop-shadow-lg ">{item ? 'Save Changes' : 'Add Item'}</span>
 						)}
-					</button>
+					</Button>
 				</div>
 			</div>
 		</fieldset>
