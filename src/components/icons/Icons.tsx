@@ -1,6 +1,20 @@
-import { faBan, faCirclePlus, faFileImport } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { faEye, faEyeSlash, faPenToSquare, faTrashXmark, faUpRightFromSquare } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import {
+	faBan,
+	faCirclePlus,
+	faEye,
+	faEyeSlash,
+	faFileImport,
+	faPenToSquare,
+	faRightLongToLine,
+	faTrashXmark,
+	faUpRightFromSquare,
+} from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+type IconProps = {
+	className?: string
+}
 
 export function OpenUrlIcon() {
 	return <FontAwesomeIcon icon={faUpRightFromSquare} className="text-teal-400 hover:text-teal-300" />
@@ -25,4 +39,10 @@ export function AddIcon() {
 }
 export function CancelIcon() {
 	return <FontAwesomeIcon icon={faBan} className="text-orange-400 hover:text-orange-300 group-hover:text-orange-300" />
+}
+export function LockIcon({ className, ...rest }) {
+	return <FontAwesomeIcon icon={faLockKeyhole} {...rest} className={`text-violet-300 ${className}`} />
+}
+export function MoveIcon({ className, ...rest }: IconProps) {
+	return <FontAwesomeIcon icon={faRightLongToLine} {...rest} className={`text-purple-300 ${className}`} />
 }

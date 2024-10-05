@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 
 export default async function Temp() {
 	return (
@@ -15,6 +16,8 @@ export default async function Temp() {
 				<Badge variant="outline">outline</Badge>
 				<Badge variant="secondary">secondary</Badge>
 			</div>
+
+			<Input placeholder="Store Name" />
 		</div>
 	)
 }

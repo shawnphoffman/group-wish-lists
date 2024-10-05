@@ -19,7 +19,7 @@ export default function SignInWithAppleButton() {
 	}
 
 	return (
-		<Button className="w-full gap-1" variant={'secondary'} onClick={handleAppleLogin}>
+		<Button className="w-full gap-1" variant={'outline'} onClick={handleAppleLogin}>
 			<FontAwesomeIcon icon={faApple} size="sm" />
 			Sign in with Apple
 		</Button>

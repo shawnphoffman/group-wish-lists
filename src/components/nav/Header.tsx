@@ -16,7 +16,7 @@ export default function Header() {
 			<div className="container flex items-center justify-between gap-2 p-2">
 				<div className="flex items-center gap-2 sm:gap-6">
 					<Link href="/" className="flex items-center gap-2 group">
-						<FontAwesomeIcon icon={faGift} size="lg" className="transition-colors text-primary group-hover:animate-spin" />
+						<FontAwesomeIcon icon={faGift} size="lg" className="transition-colors text-destructive group-hover:animate-spin" />
 						<span className="hidden text-lg font-bold sm:inline-block">Wish Lists</span>
 						<span className="inline-block text-lg font-bold sm:hidden">Lists</span>
 					</Link>
