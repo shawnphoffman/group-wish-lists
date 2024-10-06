@@ -9,8 +9,6 @@ import MyLists from '@/components/me/MyLists'
 import MyPurchases from '@/components/me/MyPurchases'
 import { buttonVariants } from '@/components/ui/button'
 
-import MeClient from './MeClient'
-
 type Props = {
 	searchParams: Record<string, string> | null | undefined
 }
@@ -19,7 +17,6 @@ export default async function MyStuff({ searchParams }: Props) {
 	const show = searchParams?.show
 	return (
 		<>
-			{/* <div className="flex flex-col flex-1 w-full max-w-2xl px-3 "> */}
 			<div className="flex flex-col flex-1 w-full max-w-4xl px-2 ">
 				<main className="flex flex-col flex-1 gap-8 divide-y">
 					{/* LISTS */}
@@ -50,10 +47,6 @@ export default async function MyStuff({ searchParams }: Props) {
 							</div>
 						</Suspense>
 					</div>
-
-					<Suspense fallback={null}>
-						<MeClient />
-					</Suspense>
 
 					{/* LISTS */}
 					<div className="flex flex-col gap-3 pt-6">

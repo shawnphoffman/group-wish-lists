@@ -11,11 +11,9 @@ export default async function Page() {
 					<CardTitle>Purchases</CardTitle>
 					{/* <CardDescription>Used to identify your store in the marketplace.</CardDescription> */}
 				</CardHeader>
-				{/* <CardContent> */}
-				{/* <form>
-						<Input placeholder="Store Name" />
-					</form> */}
-				{/* </CardContent> */}
+				<CardContent>
+					<div className="text-primary">Coming soon...</div>
+				</CardContent>
 				{/* <CardFooter className="px-6 py-4 border-t">
 					<Button>Save</Button>
 				</CardFooter> */}

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export function SettingsLinks() {
+export default function SettingsLinks() {
 	const pathname = usePathname()
 
 	const activeClasses = 'font-semibold text-primary'
@@ -11,18 +11,17 @@ export function SettingsLinks() {
 	return (
 		<>
 			<Link href="/settings" className={pathname === '/settings' ? activeClasses : ''}>
-				General
+				Profile
 			</Link>
 			<Link href="/settings/security" className={pathname === '/settings/security' ? activeClasses : ''}>
 				Security
 			</Link>
+			<Link href="/settings/connections" className={pathname === '/settings/connections' ? activeClasses : ''}>
+				Connections
+			</Link>
 			<Link href="/settings/purchases" className={pathname === '/settings/purchases' ? activeClasses : ''}>
 				Purchases
 			</Link>
-			{/* <Link href="#">Integrations</Link>
-			<Link href="#">Support</Link>
-			<Link href="#">Organizations</Link>
-			<Link href="#">Advanced</Link> */}
 		</>
 	)
 }

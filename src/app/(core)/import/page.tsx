@@ -4,6 +4,7 @@ import { getMyLists } from '@/app/actions/lists'
 import ImportUrlClient from '@/components/imports/ImportUrlClient'
 import { ListType } from '@/components/me/MyLists'
 import { List } from '@/components/types'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default async function ImportItem() {
 	const listsPromise = getMyLists(ListType.ALL)
@@ -19,18 +20,20 @@ export default async function ImportItem() {
 
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 max-md:gap-2">
-			{/* Header */}
-			<div className="flex flex-row justify-between">
-				<h1>Import Item</h1>
-			</div>
-			<div>
-				The item that you are trying to import should be prepopulated below. Just click the &quot;import&quot; ⬇️ button to fetch additional
-				information.
-			</div>
-
-			<Suspense>
-				<ImportUrlClient lists={lists} list={list} />
-			</Suspense>
+			<Card>
+				<CardHeader>
+					<CardTitle>Import Item</CardTitle>
+					<CardDescription>
+						The item that you are trying to import should be prepopulated below. Just click the &quot;import&quot; ⬇️ button to fetch
+						additional information.
+					</CardDescription>
+				</CardHeader>
+				<CardContent className="space-y-2">
+					<Suspense>
+						<ImportUrlClient lists={lists} list={list} />
+					</Suspense>
+				</CardContent>
+			</Card>
 		</div>
 	)
 }

@@ -19,9 +19,9 @@ export default function SignInWithAppleButton() {
 	}
 
 	return (
-		<Button className="w-full gap-1" variant={'outline'} onClick={handleAppleLogin}>
+		<Button className="items-center w-full gap-1" variant={'outline'} onClick={handleAppleLogin}>
 			<FontAwesomeIcon icon={faApple} size="sm" />
-			Sign in with Apple
+			<span className="leading-none">Sign in with Apple</span>
 		</Button>
 	)
 }

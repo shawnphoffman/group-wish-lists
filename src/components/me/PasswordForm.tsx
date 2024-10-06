@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation'
 import { updatePassword } from '@/app/actions/auth'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SuccessMessage from '@/components/common/SuccessMessage'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 type FormProps = {
 	id: string
@@ -29,48 +32,48 @@ function PasswordForm({ id, state }: FormProps) {
 		<>
 			<div className="flex flex-col items-stretch gap-2 justify-stretch">
 				<input type="hidden" name="user_id" value={id} readOnly />
-				<div className="flex flex-col flex-1 gap-2 xs:flex-row">
-					<div className="flex flex-col items-start flex-1 gap-1">
-						<label className="label text-nowrap " htmlFor="new-password">
-							New Password
-						</label>
-						<input
-							className="input"
-							type="password"
-							name="new-password"
-							disabled={pending}
-							value={newPassword}
-							onChange={e => setNewPassword(e.target.value)}
-							required
-						/>
-					</div>
-					<div className="flex flex-col items-start flex-1 gap-1">
-						<label className="label text-nowrap" htmlFor="confirm-password">
-							Confirm Password
-						</label>
-						<input
-							className="input"
-							type="password"
-							name="confirm-password"
-							disabled={pending}
-							value={confirmPassword}
-							onChange={e => setConfirmPassword(e.target.value)}
-							required
-						/>
-					</div>
+
+				<div className="grid w-full items-center gap-1.5">
+					<Label htmlFor="new-password">New Password</Label>
+					<Input
+						className="text-base tracking-[4px]"
+						type="password"
+						name="new-password"
+						placeholder=""
+						disabled={pending}
+						value={newPassword}
+						onChange={e => setNewPassword(e.target.value)}
+						required
+					/>
 				</div>
+
+				<div className="grid w-full items-center gap-1.5">
+					<Label htmlFor="confirm-password">Confirm Password</Label>
+					<Input
+						className="text-base tracking-[4px]"
+						type="password"
+						name="confirm-password"
+						disabled={pending}
+						value={confirmPassword}
+						onChange={e => setConfirmPassword(e.target.value)}
+						required
+					/>
+				</div>
+
 				{!pending && newPassword && confirmPassword && newPassword !== confirmPassword && (
 					<ErrorMessage includeTitle={false} error={'Passwords must match'} />
 				)}
-				<button className="btn orange" disabled={pending || !passwordIsValid}>
-					{pending ? 'Changing...' : 'Change Password'}
-				</button>
+
 				{!pending && (
 					<>
 						{state?.error && <ErrorMessage error={state?.error} />}
 						{state?.status === 'success' && <SuccessMessage />}
 					</>
 				)}
+
+				<Button variant="default" disabled={pending || !passwordIsValid}>
+					{pending ? 'Changing...' : 'Change Password'}
+				</Button>
 			</div>
 		</>
 	)
@@ -99,8 +102,8 @@ export default function PasswordFormWrapper({ id }: WrapperProps) {
 	}, [router, state])
 
 	return (
-		<form className="text-foreground" action={formAction}>
-			<fieldset className="flex flex-col flex-1 w-full gap-2" disabled={isPending}>
+		<form className="flex flex-col justify-center w-full" action={formAction}>
+			<fieldset disabled={isPending} className="flex flex-col justify-center w-full gap-3">
 				<PasswordForm id={id} state={state} />
 			</fieldset>
 		</form>

@@ -1,4 +1,5 @@
-import { faGift, faLock } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
+import { faGift } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
+import { faCog, faLock } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
@@ -20,26 +21,30 @@ export default function Header() {
 						<span className="hidden text-lg font-bold sm:inline-block">Wish Lists</span>
 						<span className="inline-block text-lg font-bold sm:hidden">Lists</span>
 					</Link>
-					<nav className="flex items-center space-x-0.5">
+					<nav className="flex items-center gap-1">
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href="/me" className="transition-colors">
-								My Stuff
+								My Lists
 							</Link>
 						</Button>
+
+						<Button size="sm" variant={'outline'} asChild className="px-2">
+							<Link href="/settings" className="transition-colors">
+								<FontAwesomeIcon size="lg" icon={faCog} />
+							</Link>
+						</Button>
+
+						{!isDeployed && (
+							<Button size="sm" variant={'outline'} asChild className="hidden px-2 sm:flex">
+								<Link href="/admin/invite" className="transition-colors" title="Invite">
+									<FontAwesomeIcon size="lg" icon={faLock} />
+								</Link>
+							</Button>
+						)}
 
 						{/* <Link href="/faq" className={'text-xl px-2  hidden sm:inline-block hover:text-secondary transition-colors'} title="FAQ">
 							<FontAwesomeIcon fixedWidth icon={faSealQuestion} />
 						</Link> */}
-
-						{!isDeployed && (
-							<Link
-								href="/admin/invite"
-								className={'text-xl hidden sm:inline-block px-2 hover:text-secondary transition-colors'}
-								title="Invite"
-							>
-								<FontAwesomeIcon fixedWidth icon={faLock} />
-							</Link>
-						)}
 					</nav>
 				</div>
 				<div className="flex items-center gap-2 sm:gap-4">

@@ -3,6 +3,7 @@
 import { faApple } from '@awesome.me/kit-ac8ad9255a/icons/classic/brands'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { Button } from '@/components/ui/button'
 import { createClientSideClient } from '@/utils/supabase/client'
 
 export default function LinkToAppleButton() {
@@ -18,9 +19,9 @@ export default function LinkToAppleButton() {
 	}
 
 	return (
-		<button type="button" className="w-full btn white" onClick={handleClick}>
-			<FontAwesomeIcon icon={faApple} />
-			Link with Apple
-		</button>
+		<Button type="button" className="items-center w-full gap-1" variant={'outline'} onClick={handleClick}>
+			<FontAwesomeIcon icon={faApple} size="sm" />
+			<span className="leading-none">Link with Apple</span>
+		</Button>
 	)
 }
