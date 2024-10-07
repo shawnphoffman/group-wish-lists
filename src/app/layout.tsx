@@ -5,12 +5,22 @@ import { Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { Analytics } from '@vercel/analytics/react'
 import { GeistSans } from 'geist/font/sans'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 config.autoAddCss = false
 
 import { ThemeProvider } from '@/components/theme-provider'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
+
+export const viewport: Viewport = {
+	themeColor: '#0a0a0a',
+	initialScale: 1,
+	maximumScale: 1,
+	userScalable: false,
+	colorScheme: 'dark',
+	minimumScale: 1,
+	// viewportFit: 'cover'
+}
 
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
@@ -23,11 +33,11 @@ export const metadata: Metadata = {
 		url: '/',
 		locale: 'en_US',
 	},
-	// appleWebApp: {
-	// 	title: 'Wish Lists',
-	// 	capable: true,
-	// 	statusBarStyle: 'black',
-	// },
+	appleWebApp: {
+		title: 'Wish Lists',
+		capable: true,
+		statusBarStyle: 'black',
+	},
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
