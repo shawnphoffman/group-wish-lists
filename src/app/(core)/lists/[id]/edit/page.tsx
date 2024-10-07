@@ -13,7 +13,6 @@ import ItemRowEditable from '@/components/items/ItemRowEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
-import Permissions from '@/components/permissions/Permissions'
 import PermissionsButton from '@/components/permissions/PermissionsButton'
 import { List, ListItem } from '@/components/types'
 import { buttonVariants } from '@/components/ui/button'
@@ -47,7 +46,7 @@ const ShowList = async ({ params }: Props) => {
 		<>
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
-				<div className="flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
+				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
 					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
 				</div>
 				<div className="flex flex-row flex-wrap justify-center flex-1 gap-0.5 items-center md:justify-end shrink-0">

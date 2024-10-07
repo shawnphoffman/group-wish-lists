@@ -4,9 +4,9 @@ import { getUsers } from '@/app/actions/test'
 import { PermissionsIcon } from '@/components/icons/Icons'
 import { List } from '@/components/types'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { MenubarShortcut } from '@/components/ui/menubar'
 
 import PermissionCheckbox from './PermissionCheckbox'
-import { MenubarItem, MenubarShortcut } from '@/components/ui/menubar'
 
 type Props = {
 	listId: List['id']

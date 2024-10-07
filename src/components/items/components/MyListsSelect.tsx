@@ -48,7 +48,7 @@ export default function MyListsSelect({ lists, id, listId }: Props) {
 						{({ checked }) => (
 							<label className={`flex nav-btn text-sm flex-1 py-1 truncate w-full gap-1 text-left ${checked ? 'purple' : 'gray'}`}>
 								{list.name}
-								{list?.private && <LockIcon fixedWidth className="text-xs" />}
+								{list?.private && <LockIcon className="text-xs" />}
 							</label>
 						)}
 					</RadioGroup.Option>
