@@ -1,7 +1,5 @@
 'use client'
 
-import './PermissionCheckbox.css'
-
 import { useCallback, useEffect, useState } from 'react'
 import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

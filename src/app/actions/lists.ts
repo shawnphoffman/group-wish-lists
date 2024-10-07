@@ -173,11 +173,13 @@ export const createList = async (prevState: any, formData: FormData) => {
 	'use server'
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
-	const isPrivate = formData.get('list-privacy') as unknown as boolean
+	const isPrivate = (formData.get('list-privacy') as string) === 'private'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	if (!name.trim()) {
+	console.log('createList', { name, type, isPrivate, formData })
+
+	if (!name?.trim()) {
 		return {
 			status: 'error',
 			message: 'List name is required',

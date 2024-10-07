@@ -38,10 +38,6 @@ export default async function PermissionsButton({ listId }: Props) {
 					<PermissionsIcon />
 				</MenubarShortcut>
 			</DialogTrigger>
-			{/* <Button variant="ghost" className="gap-1" size="sm">
-					<PermissionsIcon />
-					Permissions
-				</Button> */}
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>List Permission</DialogTitle>
