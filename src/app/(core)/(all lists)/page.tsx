@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import { FallbackRow } from '@/components/common/Fallbacks'
+import { FallbackRowThick } from '@/components/common/Fallbacks'
 import ListsByUser from '@/components/lists/ListsByUser'
 
 export default async function Lists() {
@@ -9,7 +9,7 @@ export default async function Lists() {
 		<div className="flex flex-col flex-1 w-full max-w-4xl px-2 ">
 			<div className="flex flex-col flex-1 gap-6">
 				<h1>Wish Lists</h1>
-				<Suspense fallback={<FallbackRow label="Loading..." />}>
+				<Suspense fallback={<FallbackRowThick />}>
 					<ListsByUser />
 				</Suspense>
 			</div>

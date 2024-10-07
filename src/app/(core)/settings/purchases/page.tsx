@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 
+import { FallbackRowThick } from '@/components/common/Fallbacks'
 import MyPurchases from '@/components/me/MyPurchases'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-// import { Checkbox } from '@/components/ui/checkbox'
 
 export default async function Page() {
 	return (
@@ -12,7 +12,7 @@ export default async function Page() {
 					<CardTitle>Purchases</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<Suspense fallback={null}>
+					<Suspense fallback={<FallbackRowThick />}>
 						<MyPurchases />
 					</Suspense>
 				</CardContent>

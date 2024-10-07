@@ -33,7 +33,7 @@ export default async function MyStuff() {
 
 					{/* SHARED WITH ME LISTS */}
 					<div className="flex flex-col gap-3">
-						<h3>Lists Shared with Me</h3>
+						<h3>Lists I Can Edit</h3>
 						<Suspense fallback={<FallbackRow />}>
 							<MyLists type="shared_with_me" />
 						</Suspense>
@@ -41,7 +41,7 @@ export default async function MyStuff() {
 
 					{/* SHARED LISTS */}
 					<div className="flex flex-col gap-3">
-						<h3>Lists Shared with Others</h3>
+						<h3>My List Editors</h3>
 						<Suspense fallback={<FallbackRow />}>
 							<MyLists type="shared_with_others" />
 						</Suspense>

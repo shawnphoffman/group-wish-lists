@@ -9,6 +9,7 @@ export default async function MyPurchases() {
 
 	const [{ data: items }] = await Promise.all([
 		listsPromise,
+		//
 		// fakePromise
 	])
 

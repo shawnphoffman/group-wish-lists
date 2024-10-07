@@ -1,3 +1,7 @@
+import { Suspense } from 'react'
+
+import { FallbackRowThick } from '@/components/common/Fallbacks'
+
 import SettingsLinks from './links'
 
 export default async function SettingsLayout({ children }: { children: React.ReactNode }) {
@@ -11,7 +15,7 @@ export default async function SettingsLayout({ children }: { children: React.Rea
 					<nav className="grid gap-4 text-sm text-muted-foreground">
 						<SettingsLinks />
 					</nav>
-					{children}
+					<Suspense fallback={<FallbackRowThick />}>{children}</Suspense>
 				</div>
 			</main>
 		</div>

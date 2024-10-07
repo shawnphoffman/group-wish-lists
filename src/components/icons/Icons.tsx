@@ -8,6 +8,7 @@ import {
 	faLockKeyhole,
 	faPenToSquare,
 	faRightLongToLine,
+	faSpinnerScale,
 	faTrashXmark,
 	faUpRightFromSquare,
 	faUserUnlock,
@@ -66,4 +67,7 @@ export function PermissionsIcon({ className, ...rest }: IconProps) {
 }
 export function MoveIcon({ className, ...rest }: IconProps) {
 	return <FontAwesomeIcon icon={faRightLongToLine} {...rest} className={`text-purple-300 ${className}`} />
+}
+export function LoadingIcon({ className, ...rest }: IconProps) {
+	return <FontAwesomeIcon icon={faSpinnerScale} spinPulse size="2xl" {...rest} className={`text-primary ${className}`} />
 }
