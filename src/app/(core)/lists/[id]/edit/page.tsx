@@ -6,26 +6,19 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList, getMyLists } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
-import { AddIcon, ImportIcon } from '@/components/icons/Icons'
-import ImportItems from '@/components/imports/ImportItems'
+import { AddIcon } from '@/components/icons/Icons'
+import ImportButton from '@/components/imports/ImportButton'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import Permissions from '@/components/permissions/Permissions'
+import PermissionsButton from '@/components/permissions/PermissionsButton'
 import { List, ListItem } from '@/components/types'
 import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-	Menubar,
-	MenubarContent,
-	// MenubarItem,
-	MenubarMenu,
-	MenubarSeparator,
-	// MenubarShortcut,
-	MenubarTrigger,
-} from '@/components/ui/menubar'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Menubar, MenubarContent, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar'
 
 type Props = {
 	params: {
@@ -62,10 +55,7 @@ const ShowList = async ({ params }: Props) => {
 						<AddIcon />
 						Add
 					</Link>
-					<Link href="#import-items" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
-						<ImportIcon />
-						Import
-					</Link>
+					<ImportButton listId={params.id} />
 					{currentUser?.id === data.user_id && (
 						<Menubar>
 							<MenubarMenu>
@@ -74,6 +64,8 @@ const ShowList = async ({ params }: Props) => {
 									<ArchiveListButton listId={params.id} isArchived={!data.active} />
 									<MenubarSeparator />
 									<DeleteListButton listId={params.id} name={data.name} />
+									<MenubarSeparator />
+									{process.env.VERCEL_ENV !== 'production' && <PermissionsButton listId={params.id} />}
 								</MenubarContent>
 							</MenubarMenu>
 						</Menubar>
@@ -103,7 +95,7 @@ export default async function EditList({ params }: Props) {
 			</Suspense>
 
 			{/* Add Item */}
-			<Card>
+			<Card id="add-item">
 				<CardHeader>
 					<CardTitle>Add Item</CardTitle>
 					<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
@@ -114,12 +106,6 @@ export default async function EditList({ params }: Props) {
 					</Suspense>
 				</CardContent>
 			</Card>
-
-			{/* Import */}
-			<ImportItems listId={params.id} />
-
-			{/* Permissions */}
-			{process.env.VERCEL_ENV !== 'production' && <Permissions listId={params.id} />}
 		</div>
 	)
 }

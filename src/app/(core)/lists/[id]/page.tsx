@@ -40,8 +40,8 @@ const ViewListClient = async ({ params }: Props) => {
 		<>
 			{/* Header */}
 			<div className="flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
-				<ListTypeIcon type={data.type} className="text-3xl" />
 				<h1 className="w-fit">{data?.name}</h1>
+				<ListTypeIcon type={data.type} className="text-[80px] opacity-25 absolute left-2 top-16 -z-10" />
 				<Badge colorId={recipient.id} className="xxs">
 					{recipient.display_name}
 				</Badge>

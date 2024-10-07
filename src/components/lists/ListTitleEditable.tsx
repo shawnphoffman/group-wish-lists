@@ -61,8 +61,8 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 				</form>
 			) : (
 				<div className="flex flex-row items-center gap-1">
-					<ListTypeIcon type={type} className="text-3xl" />
 					<h1 className="w-fit">{name}</h1>
+					<ListTypeIcon type={type} className="text-[80px] opacity-25 absolute left-2 top-16 -z-10" />
 					<Button
 						variant="ghost"
 						type="button"

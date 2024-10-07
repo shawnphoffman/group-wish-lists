@@ -24,7 +24,7 @@ export default function DeleteListButton({ listId, name }: any) {
 	}, [listId, name, router])
 
 	return (
-		<MenubarItem title="Delete List" onClick={handleClick} disabled={isPending}>
+		<MenubarItem title="Delete List" onClick={handleClick} disabled={isPending} className="group">
 			Delete List
 			<MenubarShortcut>
 				<DeleteIcon />

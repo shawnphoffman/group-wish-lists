@@ -32,5 +32,5 @@ export default function ListTypeIcon({ type, className = 'text-xl', isPrivate = 
 		iconColor = 'text-teal-300'
 	}
 
-	return <FontAwesomeIcon icon={icon} fixedWidth className={`${iconColor} ${className}`} />
+	return <FontAwesomeIcon icon={icon} className={`${iconColor} ${className}`} />
 }

@@ -4,30 +4,29 @@ import './PermissionCheckbox.css'
 
 import { useCallback, useEffect, useState } from 'react'
 import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-// import { createGift, deleteGift } from '@/app/actions/gifts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 
 import { ListItem } from '@/components/types'
+import { Checkbox } from '@/components/ui/checkbox'
 
 type Props = {
 	id: ListItem['id']
 	isComplete: boolean
-	canChange: boolean
 }
 
-export default function PermissionCheckbox({ id, isComplete, canChange }: Props) {
+export default function PermissionCheckbox({ id, isComplete }: Props) {
 	const [checked, setChecked] = useState(isComplete)
 	const [isPending, setIsPending] = useState(false)
 	const router = useRouter()
 
 	const handleChange = useCallback(
-		(e: any) => {
-			e.preventDefault()
+		(newChecked: boolean) => {
+			console.log('PermissionCheckbox:', newChecked)
 			setIsPending(true)
-			setChecked(!checked)
+			setChecked(newChecked)
 			async function updateItemStatus() {
-				if (!checked) {
+				if (!newChecked) {
 					await new Promise(resolve => setTimeout(resolve, 2000))
 					// await createGift(id)
 				} else {
@@ -35,12 +34,11 @@ export default function PermissionCheckbox({ id, isComplete, canChange }: Props)
 					// await deleteGift(id)
 				}
 				setIsPending(false)
-				router.refresh()
+				// router.refresh()
 			}
 			updateItemStatus()
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[checked, router, id]
+		[router, id]
 	)
 
 	useEffect(() => {
@@ -52,17 +50,9 @@ export default function PermissionCheckbox({ id, isComplete, canChange }: Props)
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
 			{isPending ? (
-				<div className="flex items-center justify-center checkbox-size">
-					<FontAwesomeIcon icon={faSpinnerScale} spinPulse className="text-2xl sm:text-lg" />
-				</div>
+				<FontAwesomeIcon icon={faSpinnerScale} spinPulse />
 			) : (
-				<input
-					type="checkbox"
-					checked={checked}
-					onChange={canChange ? handleChange : undefined}
-					readOnly={!canChange}
-					className={`${isPending && '!bg-yellow-500'}`}
-				/>
+				<Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} />
 			)}
 		</fieldset>
 	)
