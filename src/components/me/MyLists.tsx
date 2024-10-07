@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 
 export const ListType = {
 	ALL: 'all',
+	PRIVATE: 'private',
 	SHARED_WITH_ME: 'shared_with_me',
 	SHARED_WITH_OTHERS: 'shared_with_others',
 } as const

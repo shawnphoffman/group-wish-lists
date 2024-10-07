@@ -27,23 +27,34 @@ export default async function MyStuff({ searchParams }: Props) {
 								New List
 							</Link>
 						</div>
-						{/* Lists */}
+						{/* PUBLIC LISTS */}
 						<Suspense fallback={<FallbackRow />}>
 							<MyLists />
 						</Suspense>
-						<Suspense fallback={<FallbackRow />}>
-							<div className="flex flex-col gap-3">
-								<h3>Shared with Me</h3>
+
+						{/* PRIVATE LISTS */}
+						<div className="flex flex-col gap-3">
+							<h3>My Private Lists</h3>
+							<Suspense fallback={<FallbackRow />}>
+								<MyLists type="private" />
+							</Suspense>
+						</div>
+
+						{/* SHARED WITH ME LISTS */}
+						<div className="flex flex-col gap-3">
+							<h3>Lists Shared with Me</h3>
+							<Suspense fallback={<FallbackRow />}>
 								<MyLists type="shared_with_me" />
-							</div>
-						</Suspense>
-						{/* Lists */}
-						<Suspense fallback={<FallbackRow />}>
-							<div className="flex flex-col gap-3">
-								<h3>Shared with Others</h3>
+							</Suspense>
+						</div>
+
+						{/* SHARED LISTS */}
+						<div className="flex flex-col gap-3">
+							<h3>Lists Shared with Others</h3>
+							<Suspense fallback={<FallbackRow />}>
 								<MyLists type="shared_with_others" />
-							</div>
-						</Suspense>
+							</Suspense>
+						</div>
 					</div>
 				</main>
 			</div>

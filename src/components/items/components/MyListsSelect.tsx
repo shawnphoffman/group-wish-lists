@@ -5,19 +5,31 @@ import { RadioGroup } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 
 import { moveItem } from '@/app/actions/items'
+import { getMyLists } from '@/app/actions/lists'
 import { LockIcon, MoveIcon } from '@/components/icons/Icons'
 import { List, ListItem } from '@/components/types'
 
 type Props = {
 	id: ListItem['id']
 	listId: List['id']
-	lists: List[]
+	// lists: List[]
 }
 
-export default function MyListsSelect({ lists, id, listId }: Props) {
+export default function MyListsSelect({ id, listId }: Props) {
+	const [lists, setLists] = useState<List[]>([])
 	const [loading, setLoading] = useState(false)
 	const [list, setList] = useState<List | null>(null)
 	const router = useRouter()
+
+	useEffect(() => {
+		async function getListsAsync() {
+			const { data: lists } = await getMyLists()
+			setLists(lists)
+			const currentList = lists.find((list: List) => list.id === listId)
+			setList(currentList || null)
+		}
+		getListsAsync()
+	}, [listId])
 
 	const handleMoveItem = useCallback(async () => {
 		if (!list) return
@@ -30,11 +42,6 @@ export default function MyListsSelect({ lists, id, listId }: Props) {
 			})
 		}
 	}, [id, list, router])
-
-	useEffect(() => {
-		const currentList = lists.find((list: List) => list.id === listId)
-		setList(currentList || null)
-	}, [listId, lists])
 
 	if (!lists || !list) {
 		return null

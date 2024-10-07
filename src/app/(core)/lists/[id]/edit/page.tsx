@@ -28,11 +28,12 @@ type Props = {
 const ShowList = async ({ params }: Props) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getEditableList(params.id)
-	const listsPromise = getMyLists()
+	// const listsPromise = getMyLists()
 
-	const [{ data, error }, { data: lists }, currentUser] = await Promise.all([
+	// const [{ data, error }, { data: lists }, currentUser] = await Promise.all([
+	const [{ data, error }, currentUser] = await Promise.all([
 		listPromise,
-		listsPromise,
+		// listsPromise,
 		getSessionUser(),
 		// fakePromise
 	])
@@ -78,7 +79,7 @@ const ShowList = async ({ params }: Props) => {
 					<EmptyMessage />
 				) : (
 					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-						{items?.map(item => <ItemRowEditable key={item.id} item={item} lists={lists as List[]} />)}
+						{items?.map(item => <ItemRowEditable key={item.id} item={item} />)}
 					</div>
 				)}
 			</div>

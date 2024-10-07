@@ -15,11 +15,6 @@ export const getSessionUser = async () => {
 		return null
 	}
 	return data.user
-	// const { data, error } = await supabase.auth.getSession()
-	// if (error || !data?.session?.user) {
-	// 	return null
-	// }
-	// return data.session.user
 }
 
 //

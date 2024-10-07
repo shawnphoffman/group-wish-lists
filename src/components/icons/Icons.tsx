@@ -1,16 +1,17 @@
+import type { CSSProperties } from 'react'
 import {
 	faBan,
 	faCirclePlus,
 	faEye,
 	faEyeSlash,
 	faFileImport,
+	faLockKeyhole,
 	faPenToSquare,
 	faRightLongToLine,
 	faTrashXmark,
 	faUpRightFromSquare,
 	faUserUnlock,
 } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type IconProps = {
@@ -42,8 +43,17 @@ export function CancelIcon() {
 	return <FontAwesomeIcon icon={faBan} className="text-orange-400 hover:text-orange-300 group-hover:text-orange-300" />
 }
 export function LockIcon({ className, ...rest }: IconProps) {
-	return <FontAwesomeIcon icon={faLockKeyhole} {...rest} className={`text-violet-300 ${className}`} />
+	return (
+		<FontAwesomeIcon
+			icon={faLockKeyhole}
+			fade
+			style={{ '--fa-animation-duration': '2s', '--fa-fade-opacity': '0.75' } as CSSProperties}
+			{...rest}
+			className={`text-violet-300 ${className}`}
+		/>
+	)
 }
+
 export function PermissionsIcon({ className, ...rest }: IconProps) {
 	return (
 		<FontAwesomeIcon

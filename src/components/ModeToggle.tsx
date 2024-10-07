@@ -25,7 +25,7 @@ export function ModeToggle() {
 	}, [theme, setTheme, systemTheme])
 
 	return (
-		<Button variant="outline" size="icon" className="w-9 h-9" onClick={handleToggle}>
+		<Button variant="outline" size="icon" className="hidden w-9 h-9 sm:flex" onClick={handleToggle}>
 			{theme === 'light' ? (
 				<FontAwesomeIcon icon={faSun} className="h-[1.2rem] w-[1.2rem] transition-all" />
 			) : (

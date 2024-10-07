@@ -20,21 +20,26 @@ export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props
 		.filter((url, index, self) => {
 			if (url?.includes('sprite')) return false
 			if (url?.includes('svg+xml')) return false
+			if (url?.includes('amazon.com/images/G/')) return false
 			return self.indexOf(url) === index
 		})
+	// .sort()
 	return (
 		<RadioGroup name="image-url" value={imageUrl} onChange={setImageUrl}>
 			<div className="flex flex-row flex-wrap items-center justify-center gap-4">
-				{deduped.map(image => (
-					<RadioGroup.Option value={image} key={image}>
-						{({ checked }) => (
-							<ItemImage
-								url={image}
-								className={`max-h-48 border-4 ${checked ? 'filter-none bg-white border-yellow-500 ' : 'grayscale text-gray-500 border-gray-300 dark:border-gray-700'}`}
-							/>
-						)}
-					</RadioGroup.Option>
-				))}
+				{deduped.map(image => {
+					// console.log('image', image)
+					return (
+						<RadioGroup.Option value={image} key={image}>
+							{({ checked }) => (
+								<ItemImage
+									url={image}
+									className={`max-h-48 border-4 ${checked ? 'filter-none bg-white border-yellow-500 ' : 'grayscale text-gray-500 border-gray-300 dark:border-gray-700'}`}
+								/>
+							)}
+						</RadioGroup.Option>
+					)
+				})}
 				<RadioGroup.Option value={''}>
 					{({ checked }) => (
 						<div

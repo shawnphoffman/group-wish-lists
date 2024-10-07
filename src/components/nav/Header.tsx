@@ -14,7 +14,7 @@ import UserBadge from './UserBadge'
 export default function Header() {
 	return (
 		<header className="w-full border-b bg-background">
-			<div className="container flex items-center justify-between gap-2 p-2">
+			<div className="container flex items-center justify-between gap-2 px-0 py-2 sm:px-2">
 				<div className="flex items-center gap-2 sm:gap-6">
 					<Link href="/" className="flex items-center gap-2 group">
 						<FontAwesomeIcon icon={faGift} size="lg" className="transition-colors text-destructive group-hover:animate-spin" />
@@ -47,7 +47,7 @@ export default function Header() {
 						</Link> */}
 					</nav>
 				</div>
-				<div className="flex items-center gap-2 sm:gap-4">
+				<div className="flex items-center gap-1 sm:gap-2">
 					<UserBadge />
 					<ModeToggle />
 					<AuthButton />

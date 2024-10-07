@@ -9,6 +9,8 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List, ListSharedWithMe, ListSharedWithOthers } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 
+import { LockIcon } from '../icons/Icons'
+
 type Props = {
 	list: List | ListSharedWithOthers | ListSharedWithMe
 	canEdit: boolean
@@ -33,14 +35,15 @@ export default function ListRow({ list, canEdit }: Props) {
 	const url = canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
 	const LinkOrDiv = url ? Link : 'div'
 
+	// const privateClasses = list?.private ? 'bg-secondary/5 hover:bg-secondary/10' : ''
+	const privateClasses = list?.private ? '' : ''
+
 	return (
-		<div
-			className={`xs:!text-lg flex-row p-2 bg-transparent hover:bg-muted rounded flex ${list?.private ? '!bg-secondary/5 hover:!bg-secondary/10' : ''}`}
-			// className={`xs:!text-lg flex-row p-2 hover:bg-muted rounded flex ${list?.private ? '!bg-emerald-950/50 hover:!bg-emerald-900/50' : ''}`}
-		>
+		<div className={`xs:!text-lg flex-row p-2 bg-transparent hover:bg-muted rounded flex ${privateClasses}`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
 				<ListTypeIcon type={list.type} isPrivate={list?.private} />
 				<div className={`${!isActive ? 'line-through opacity-50' : ''} leading-none`}>{list.name}</div>
+				{list?.private && <LockIcon className="text-sm" />}
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-1 !text-lg">
 				{/*  */}
@@ -57,7 +60,7 @@ export default function ListRow({ list, canEdit }: Props) {
 						{(list as ListSharedWithMe).sharer_display_name}
 					</Badge>
 				)}
-				{list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-sm text-emerald-300" />}
+				{/* {list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-sm text-emerald-300" />} */}
 				<CountBadge count={list.count!} />
 				{/* {canEdit && (
 					<>

@@ -93,11 +93,17 @@ export const getMyLists = async (type = 'all') => {
 	let resp
 
 	if (type === 'shared_with_me') {
+		// await new Promise(resolve => setTimeout(resolve, 5000))
 		resp = await supabase.from('view_shared_with_me').select('*')
 	} else if (type === 'shared_with_others') {
+		// await new Promise(resolve => setTimeout(resolve, 5000))
 		resp = await supabase.from('view_shared_with_others').select('*')
+	} else if (type === 'private') {
+		// await new Promise(resolve => setTimeout(resolve, 5000))
+		resp = await supabase.from('view_my_lists').select('*').is('private', true)
 	} else {
-		resp = await supabase.from('view_my_lists').select('*')
+		// await new Promise(resolve => setTimeout(resolve, 5000))
+		resp = await supabase.from('view_my_lists').select('*').is('private', false)
 	}
 
 	// console.log('getMyLists.resp', resp)

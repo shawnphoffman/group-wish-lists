@@ -21,10 +21,10 @@ import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
-	lists: List[]
+	// lists: List[]
 }
 
-export default function ItemRowEditable({ item, lists }: Props) {
+export default function ItemRowEditable({ item }: Props) {
 	const [isMoving, setIsMoving] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
@@ -149,7 +149,7 @@ export default function ItemRowEditable({ item, lists }: Props) {
 								)} */}
 							</div>
 						</div>
-						{isMoving && <MyListsSelect lists={lists} id={item.id} listId={item.list_id} />}
+						{isMoving && <MyListsSelect id={item.id} listId={item.list_id} />}
 						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}
