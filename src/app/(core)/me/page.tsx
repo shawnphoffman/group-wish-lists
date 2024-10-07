@@ -1,12 +1,10 @@
 import { Suspense } from 'react'
-import { faPlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import FallbackRow from '@/components/common/Fallbacks'
+import { AddIcon } from '@/components/icons/Icons'
 import CreateListModal from '@/components/me/CreateListModal'
 import MyLists from '@/components/me/MyLists'
-import MyPurchases from '@/components/me/MyPurchases'
 import { buttonVariants } from '@/components/ui/button'
 
 type Props = {
@@ -24,8 +22,8 @@ export default async function MyStuff({ searchParams }: Props) {
 						{/* Header */}
 						<div className="flex flex-row justify-between">
 							<h1>My Lists</h1>
-							<Link href="/me?show=true" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
-								<FontAwesomeIcon icon={faPlus} className="mr-1" />
+							<Link href="/me?show=true" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
+								<AddIcon />
 								New List
 							</Link>
 						</div>
@@ -45,18 +43,6 @@ export default async function MyStuff({ searchParams }: Props) {
 								<h3>Shared with Others</h3>
 								<MyLists type="shared_with_others" />
 							</div>
-						</Suspense>
-					</div>
-
-					{/* LISTS */}
-					<div className="flex flex-col gap-3 pt-6">
-						{/* Header */}
-						<div className="flex flex-row justify-between">
-							<h1>My Purchases</h1>
-						</div>
-						{/* Lists */}
-						<Suspense fallback={<FallbackRow />}>
-							<MyPurchases />
 						</Suspense>
 					</div>
 				</main>

@@ -24,14 +24,14 @@ export default async function MeClient() {
 					<CardDescription>Use this to connect your account to different services</CardDescription>
 				</CardHeader>
 				<CardContent>
-					{/* {!hasAppleLinked ? ( */}
-					<LinkToAppleButton />
-					{/* ) : ( */}
-					<div className="flex items-center gap-1 text-primary">
-						<FontAwesomeIcon icon={faCheckCircle} />
-						<>Apple Account Already Linked</>
-					</div>
-					{/* )} */}
+					{!hasAppleLinked ? (
+						<LinkToAppleButton />
+					) : (
+						<div className="flex items-center gap-1 text-primary">
+							<FontAwesomeIcon icon={faCheckCircle} />
+							<>Apple Account Already Linked</>
+						</div>
+					)}
 				</CardContent>
 			</Card>
 		</div>

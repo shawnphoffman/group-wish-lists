@@ -1,7 +1,7 @@
 import { getMyPurchases } from '@/app/actions/lists'
-
-import EmptyMessage from '../common/EmptyMessage'
-import PurchaseRow from '../items/PurchaseRow'
+import EmptyMessage from '@/components/common/EmptyMessage'
+import PurchaseRow from '@/components/items/PurchaseRow'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()
@@ -13,11 +13,18 @@ export default async function MyPurchases() {
 	])
 
 	return (
-		<div className="flex flex-col gap-3">
-			<div className="flex flex-col">
-				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col list">{items?.map(item => <PurchaseRow key={item.id} item={item} />)}</div>
-			</div>
+		<div className="flex flex-col">
+			{items?.length === 0 && <EmptyMessage />}
+			<Card className="bg-accent">
+				<CardContent className="p-0 divide-y">
+					{/* <div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent"> */}
+					{items?.map(item => (
+						//
+						<PurchaseRow key={item.id} item={item} />
+					))}
+					{/* </div> */}
+				</CardContent>
+			</Card>
 		</div>
 	)
 }

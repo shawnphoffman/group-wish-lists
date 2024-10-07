@@ -138,6 +138,8 @@ export const getEditableList = async (listID: number) => {
 export const getViewableList = async (listID: number) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
+	const { data } = await supabase.auth.getUser()
+	const viewingUserID = data?.user?.id
 	const resp = await supabase
 		.from('lists')
 		.select(
@@ -149,6 +151,12 @@ export const getViewableList = async (listID: number) => {
 		.eq('private', false)
 		.not('active', 'is', false)
 		.single()
+		.then(async list => {
+			return {
+				...list,
+				isOwner: list.data?.user_id === viewingUserID,
+			}
+		})
 
 	// console.log('getViewableList.resp', resp)
 

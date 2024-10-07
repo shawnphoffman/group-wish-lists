@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 
-import { getSessionUser } from '@/app/actions/auth'
 import { getViewableList } from '@/app/actions/lists'
 import Badge from '@/components/common/Badge'
 import EmptyMessage from '@/components/common/EmptyMessage'
@@ -21,11 +20,9 @@ type Props = {
 
 const ViewListClient = async ({ params }: Props) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
-	const userPromise = getSessionUser()
 	const listPromise = getViewableList(params.id)
 
-	const [currentUser, { data, error }] = await Promise.all([
-		userPromise,
+	const [{ data, error, isOwner }] = await Promise.all([
 		listPromise,
 		// fakePromise
 	])
@@ -34,10 +31,10 @@ const ViewListClient = async ({ params }: Props) => {
 		return notFound()
 	}
 
-	const items = data.listItems as unknown as ListItem[]
+	// console.log('ViewListClient', { data })
 
+	const items = data.listItems as unknown as ListItem[]
 	const recipient = data.recipient! as unknown as Recipient
-	const isListOwner = !!(currentUser?.id === data.user_id)
 
 	return (
 		<>
@@ -53,7 +50,7 @@ const ViewListClient = async ({ params }: Props) => {
 			{/* Items */}
 			<div className="flex flex-col">
 				{items?.length === 0 && <EmptyMessage />}
-				<div className="flex flex-col list">{items?.map(item => <ItemRow key={item.id} item={item} isOwnerView={isListOwner} />)}</div>
+				<div className="flex flex-col list">{items?.map(item => <ItemRow key={item.id} item={item} isOwnerView={isOwner} />)}</div>
 			</div>
 		</>
 	)
@@ -69,7 +66,6 @@ export default async function ViewList({ params }: Props) {
 					</Suspense>
 				</div>
 			</div>
-
 			<RealTimeListener listId={params.id} />
 		</>
 	)

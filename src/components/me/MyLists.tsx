@@ -1,7 +1,7 @@
 import { getMyLists } from '@/app/actions/lists'
 import ListBlock from '@/components/lists/ListBlock'
 import { List } from '@/components/types'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 
 export const ListType = {
 	ALL: 'all',
