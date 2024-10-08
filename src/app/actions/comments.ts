@@ -17,7 +17,7 @@ export const createComment = async (prevState: any, formData: FormData) => {
 
 	const commentPromise = supabase.from('item_comments').insert({ item_id: itemId, comments: comment, user_id: commentingUserID })
 
-	console.log('createComment', { item_id: itemId, comments: comment, user_id: commentingUserID })
+	// console.log('createComment', { item_id: itemId, comments: comment, user_id: commentingUserID })
 	const [resp] = await Promise.all([
 		commentPromise,
 		//
@@ -48,7 +48,7 @@ export const editComment = async (prevState: any, formData: FormData) => {
 	// const imageUrl = formData.get('image-url') as string
 
 	// const itemPromise = await supabase
-	// 	.from('list_items')
+	// 	.from('item_comments')
 	// 	.update([{ title, url, notes, priority, image_url: imageUrl, scrape: JSON.parse(scrape) }])
 	// 	.eq('id', id)
 
@@ -64,24 +64,23 @@ export const editComment = async (prevState: any, formData: FormData) => {
 	}
 }
 
-export const deleteItem = async (itemId: string) => {
+export const deleteComment = async (commentId: number) => {
 	'use server'
 	try {
 		const cookieStore = cookies()
 		const supabase = createClient(cookieStore)
 
-		// const itemPromise = supabase.from('list_items').delete().eq('id', itemId)
+		const itemPromise = supabase.from('item_comments').delete().eq('id', commentId)
 
-		// const [item] = await Promise.all([
-		// 	itemPromise,
-		// 	// new Promise(resolve => setTimeout(resolve, 5000)),
-		// ])
+		const temp = await Promise.all([
+			itemPromise,
+			// new Promise(resolve => setTimeout(resolve, 5000)),
+		])
 
-		// // console.log('delete item', { item })
+		console.log('deleteComment', { temp, commentId })
 
 		return {
 			status: 'success',
-			// item,
 		}
 	} catch (error) {
 		return {

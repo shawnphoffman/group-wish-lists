@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { getViewableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
-import FallbackRow from '@/components/common/Fallbacks'
+import { LoadingIcon } from '@/components/icons/Icons'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
@@ -44,6 +44,8 @@ const ViewListClient = async ({ params }: Props) => {
 				<ListTypeIcon type={data.type} className="text-[80px] opacity-25 absolute left-4 -top-5 -z-10" />
 				<Badge variant={'outline'}>{recipient.display_name}</Badge>
 			</div>
+			{/* Desc */}
+			{data?.description && <div className="text-sm leading-tight text-muted-foreground">{data.description}</div>}
 
 			{/* Items */}
 			<div className="flex flex-col">
@@ -65,7 +67,7 @@ export default async function ViewList({ params }: Props) {
 		<>
 			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 ">
 				<div className="flex flex-col flex-1 gap-6">
-					<Suspense fallback={<FallbackRow />}>
+					<Suspense fallback={<LoadingIcon />}>
 						<ViewListClient params={params} />
 					</Suspense>
 				</div>

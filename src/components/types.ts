@@ -6,6 +6,7 @@ export type List = {
 	private: boolean
 	primary: boolean
 	name: string
+	description?: string
 	type: ListCategoryType
 	user: User
 	list_items: ListItem[]
@@ -45,11 +46,12 @@ export type ScrapeResponse = {
 
 export type Comment = {
 	id: number
+	user: Pick<User, 'user_id' | 'display_name'>
 	item_id: ListItem['id']
-	user: Pick<User, 'id' | 'display_name'>
 	comments: string
 	edited_at?: Date
 	created_at: Date
+	isOwner?: boolean
 }
 
 export type ListItem = {

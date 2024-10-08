@@ -14,11 +14,11 @@ import {
 	faUpRightFromSquare,
 	faUserUnlock,
 } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 
 type IconProps = {
 	className?: string
-}
+} & Partial<FontAwesomeIconProps>
 
 export function OpenUrlIcon() {
 	return <FontAwesomeIcon icon={faUpRightFromSquare} className="text-teal-400 hover:text-teal-300" />

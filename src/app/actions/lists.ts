@@ -148,7 +148,7 @@ export const getViewableList = async (listID: number) => {
 	const resp = await supabase
 		.from('lists')
 		.select(
-			`name,type,user_id,
+			`name,type,user_id,description,
 			recipient:recipient_user_id(id,display_name,user_id),
 			listItems:view_sorted_list_items!list_items_list_id_fkey(
 				*,
@@ -158,7 +158,7 @@ export const getViewableList = async (listID: number) => {
 					comments,
 					created_at,
 					edited_at,
-					user:user_id(id, display_name)
+					user:user_id(user_id, display_name)
 				)
 			)`
 		)
@@ -167,9 +167,27 @@ export const getViewableList = async (listID: number) => {
 		.not('active', 'is', false)
 		.single()
 		.then(async list => {
+			const updatedItems = list.data?.listItems?.map((item: any) => {
+				return {
+					...item,
+					item_comments: item?.item_comments?.map((comment: any) => {
+						// console.log('getViewableList.comment', comment)
+						return {
+							...comment,
+							isOwner: comment.user.user_id === viewingUserID,
+						}
+					}),
+				}
+			})
+
+			if (list?.data?.listItems && updatedItems) {
+				list.data.listItems = updatedItems
+			}
+
 			return {
 				...list,
 				isOwner: list.data?.user_id === viewingUserID,
+				viewingUserID,
 			}
 		})
 
