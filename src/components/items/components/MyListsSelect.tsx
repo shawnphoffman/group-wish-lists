@@ -22,7 +22,6 @@ export default function MyListsSelect({ id, listId }: Props) {
 	const router = useRouter()
 
 	useEffect(() => {
-		console.log('listId', listId)
 		async function getListsAsync() {
 			setLoading(true)
 			// await new Promise(resolve => setTimeout(resolve, 500000))

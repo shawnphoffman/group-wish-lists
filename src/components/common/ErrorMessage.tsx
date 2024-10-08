@@ -1,5 +1,7 @@
-import { faCircleExclamation } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faCircleCheck, faCircleExclamation } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
 
 type Props = {
 	error?: string
@@ -9,12 +11,10 @@ type Props = {
 
 export default function ErrorMessage({ error = 'Something went wrong...', includeTitle = true, className = '' }: Props) {
 	return (
-		<div
-			className={`flex flex-row gap-2 px-3 h-10 py-2 text-base border rounded-lg dark:bg-red-800/10 dark:border-red-900 dark:text-red-500  items-center ${className}`}
-			role="alert"
-		>
+		<Alert variant={'destructive'}>
 			<FontAwesomeIcon icon={faCircleExclamation} className="text-xl" />
-			{includeTitle && <span className="font-bold">Error</span>} {error}
-		</div>
+			{includeTitle && <AlertTitle>Error</AlertTitle>}
+			<AlertDescription>{error}</AlertDescription>
+		</Alert>
 	)
 }

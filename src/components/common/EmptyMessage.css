@@ -1,6 +1,0 @@
-.empty-container {
-	@apply flex flex-row gap-2 px-4 py-2 text-base font-semibold border rounded-lg;
-	@apply text-yellow-800 dark:text-yellow-100/80;
-	@apply border-yellow-300 dark:border-yellow-300/20;
-	@apply bg-yellow-100 dark:bg-yellow-700/15;
-}

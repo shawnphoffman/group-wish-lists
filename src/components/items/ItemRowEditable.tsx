@@ -115,7 +115,6 @@ export default function ItemRowEditable({ item }: Props) {
 				{isEditing && (
 					<>
 						<div className="flex flex-row flex-wrap items-center justify-end gap-1 p-2 pt-2 pb-0">
-							{/* <h4 className="md:mr-8 max-md:self-start">Actions</h4> */}
 							<Button variant="outline" type="button" size="sm" onClick={handleDeleteClick}>
 								Delete
 								<DeleteIcon />
@@ -125,7 +124,6 @@ export default function ItemRowEditable({ item }: Props) {
 								type="button"
 								size="sm"
 								onClick={() => {
-									console.log('Move', isMoving)
 									setIsMoving(!isMoving)
 								}}
 							>
