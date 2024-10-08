@@ -7,21 +7,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { deleteItem } from '@/app/actions/items'
-import { CancelIcon, DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { CancelIcon, DeleteIcon, EditIcon, MoveIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
-import { List, ListItem } from '@/components/types'
+import { ListItem } from '@/components/types'
+import { Button } from '@/components/ui/button'
 import { ItemPriority } from '@/utils/enums'
-
-// import { isDeployed } from '@/utils/environment'
-import { Button } from '../ui/button'
 
 import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
-	// lists: List[]
 }
 
 export default function ItemRowEditable({ item }: Props) {
@@ -66,14 +63,12 @@ export default function ItemRowEditable({ item }: Props) {
 
 	return (
 		<div className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal`}>
-			<div className="flex flex-col w-full gap-2 divide-y-2 divide-gray-300 dark:divide-gray-700 divide-dashed">
+			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
-					{item.priority !== ItemPriority.Normal && (
-						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
-							<ItemPriorityIcon priority={item.priority} />
-						</div>
-					)}
+					<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
+						<ItemPriorityIcon priority={item.priority} />
+					</div>
 					{/*  */}
 					<div className="flex flex-row items-center flex-1 w-full gap-2 md:gap-4">
 						{/* Title + Notes */}
@@ -90,25 +85,27 @@ export default function ItemRowEditable({ item }: Props) {
 							{/* Edit */}
 							{isEditing ? (
 								<Button
-									variant="ghost"
+									variant="outline"
+									size="sm"
 									disabled={pending}
 									type="button"
 									onClick={handleEditClick}
-									className={`text-base sm:text-xl px-2 w-10 group gap-1`}
+									className={`text-base sm:text-xl group`}
 								>
-									<CancelIcon />
 									<span className="inline text-sm sm:hidden">Cancel</span>
+									<CancelIcon />
 								</Button>
 							) : (
 								<Button
-									variant="ghost"
+									variant="outline"
+									size="sm"
 									disabled={pending}
 									type="button"
 									onClick={handleEditClick}
-									className={`text-base sm:text-xl px-2 w-10 group gap-1`}
+									className={`text-base sm:text-xl group`}
 								>
-									<EditIcon />
 									<span className="inline text-sm sm:hidden">Edit</span>
+									<EditIcon />
 								</Button>
 							)}
 						</div>
@@ -117,37 +114,39 @@ export default function ItemRowEditable({ item }: Props) {
 
 				{isEditing && (
 					<>
-						<div className="flex flex-col items-center gap-2 p-2 pb-0 justify-stretch md:flex-row">
-							<h5 className="md:mr-8 max-md:self-start">Actions</h5>
-							<div className="flex flex-row flex-wrap items-center justify-center gap-2 md:gap-4">
-								<button type="button" className="nav-btn red" onClick={handleDeleteClick}>
-									<DeleteIcon />
-									Delete
-								</button>
-								<div className="flex flex-row gap-2">
-									<button
-										type="button"
-										className={`nav-btn purple ${isMoving && 'bg-violet-800/30 text-violet-300'}`}
-										onClick={() => setIsMoving(!isMoving)}
-									>
-										<FontAwesomeIcon icon={faRightLongToLine} />
-										Move
-									</button>
-								</div>
-								{item.url && (
-									<Link href={item.url} target="_blank" className="nav-btn teal">
-										<OpenUrlIcon />
+						<div className="flex flex-row flex-wrap items-center justify-end gap-1 p-2 pt-2 pb-0">
+							{/* <h4 className="md:mr-8 max-md:self-start">Actions</h4> */}
+							<Button variant="outline" type="button" size="sm" onClick={handleDeleteClick}>
+								Delete
+								<DeleteIcon />
+							</Button>
+							<Button
+								variant="outline"
+								type="button"
+								size="sm"
+								onClick={() => {
+									console.log('Move', isMoving)
+									setIsMoving(!isMoving)
+								}}
+							>
+								Move
+								<MoveIcon />
+							</Button>
+							{item.url && (
+								<Button variant="outline" type="button" size="sm" asChild>
+									<Link href={item.url} target="_blank">
 										Open URL
+										<OpenUrlIcon />
 									</Link>
-								)}
-								{/* {!isDeployed && (
+								</Button>
+							)}
+							{/* {!isDeployed && (
 									// TODO
 									<button type="button" className="nav-btn orange" onClick={handleDuplicateClick}>
 										<FontAwesomeIcon icon={faCopy} />
 										Duplicate
 									</button>
 								)} */}
-							</div>
 						</div>
 						{isMoving && <MyListsSelect id={item.id} listId={item.list_id} />}
 						<EditItemForm listId={item.list_id} item={item} />

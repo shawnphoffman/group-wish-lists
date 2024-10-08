@@ -215,13 +215,13 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						/>
 						<Button
 							type="button"
-							size="icon"
-							variant="ghost"
+							variant="outline"
 							className="text-teal-400 hover:text-teal-300"
 							onClick={handleUrlImport}
 							disabled={!url}
 							title="Import"
 						>
+							<span className="hidden sm:flex">Import</span>
 							{importing ? (
 								<FontAwesomeIcon size="xl" icon={faSpinnerScale} spinPulse fixedWidth />
 							) : (

@@ -92,18 +92,17 @@ export const getMyLists = async (type = 'all') => {
 	const supabase = createClient(cookieStore)
 	let resp
 
+	// await new Promise(resolve => setTimeout(resolve, 5000))
 	if (type === 'shared_with_me') {
-		// await new Promise(resolve => setTimeout(resolve, 5000))
 		resp = await supabase.from('view_shared_with_me').select('*')
 	} else if (type === 'shared_with_others') {
-		// await new Promise(resolve => setTimeout(resolve, 5000))
 		resp = await supabase.from('view_shared_with_others').select('*')
 	} else if (type === 'private') {
-		// await new Promise(resolve => setTimeout(resolve, 5000))
 		resp = await supabase.from('view_my_lists').select('*').is('private', true)
-	} else {
-		// await new Promise(resolve => setTimeout(resolve, 5000))
+	} else if (type === 'public') {
 		resp = await supabase.from('view_my_lists').select('*').is('private', false)
+	} else {
+		resp = await supabase.from('view_my_lists').select('*')
 	}
 
 	// console.log('getMyLists.resp', resp)

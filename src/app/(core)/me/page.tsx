@@ -20,7 +20,7 @@ export default async function MyStuff() {
 					</div>
 					{/* PUBLIC LISTS */}
 					<Suspense fallback={<FallbackRow />}>
-						<MyLists />
+						<MyLists type="public" />
 					</Suspense>
 
 					{/* PRIVATE LISTS */}
