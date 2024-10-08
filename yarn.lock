@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@awesome.me/kit-ac8ad9255a@^1.0.4":
-  version "1.0.4"
-  resolved "https://npm.fontawesome.com/@awesome.me/kit-ac8ad9255a/-/1.0.4/kit-ac8ad9255a-1.0.4.tgz#77d9345b03220b330f0e6e2004d17da2c843ea8d"
-  integrity sha512-ThMUHnpYejEHjFwBL425gocNiMxJhxkp6RzQNodOHQniMw3LqzoH5wBu37FzjutVgKTDbnMC7n2y50f/LQfTkQ==
+"@awesome.me/kit-ac8ad9255a@^1.0.8":
+  version "1.0.8"
+  resolved "https://npm.fontawesome.com/@awesome.me/kit-ac8ad9255a/-/1.0.8/kit-ac8ad9255a-1.0.8.tgz#b81a0a5fb7cacff7b8a7444c6eea20e26e640fa8"
+  integrity sha512-mo5Hh0Q3AmtFft6/0pGeB3uGcNgQINFemaeLs1DrDbVxfCK269aUFaVRye9ppAQO0gDa3BSWv2mWooDp3I92ww==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^6.6.0"
 
@@ -1755,6 +1755,11 @@ damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
+
+date-fns@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
+  integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
 
 debounce@^1.2.1:
   version "1.2.1"

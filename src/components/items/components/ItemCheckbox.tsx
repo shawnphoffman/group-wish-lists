@@ -1,14 +1,14 @@
 'use client'
 
-import './ItemCheckbox.css'
-
 import { useCallback, useEffect, useState } from 'react'
+import { faSolidSquareCheckLock } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
 import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 
 import { createGift, deleteGift } from '@/app/actions/gifts'
 import { ListItem } from '@/components/types'
+import { Checkbox } from '@/components/ui/checkbox'
 
 type Props = {
 	id: ListItem['id']
@@ -22,12 +22,11 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 	const router = useRouter()
 
 	const handleChange = useCallback(
-		(e: any) => {
-			e.preventDefault()
+		(newChecked: boolean) => {
 			setIsPending(true)
-			setChecked(!checked)
+			setChecked(newChecked)
 			async function updateItemStatus() {
-				if (!checked) {
+				if (newChecked) {
 					await createGift(id)
 				} else {
 					await deleteGift(id)
@@ -37,7 +36,7 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 			}
 			updateItemStatus()
 		},
-		[checked, router, id]
+		[router, id]
 	)
 
 	useEffect(() => {
@@ -46,20 +45,20 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 		}
 	}, [checked, isComplete])
 
+	if (!canChange) {
+		return checked ? (
+			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="xl" className="text-secondary" />
+		) : (
+			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="xl" className="text-muted" />
+		)
+	}
+
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
 			{isPending ? (
-				<div className="flex items-center justify-center checkbox-size">
-					<FontAwesomeIcon icon={faSpinnerScale} spinPulse className="text-2xl sm:text-lg" />
-				</div>
+				<FontAwesomeIcon icon={faSpinnerScale} size="xl" spinPulse />
 			) : (
-				<input
-					type="checkbox"
-					checked={checked}
-					onChange={canChange ? handleChange : undefined}
-					readOnly={!canChange}
-					className={`${isPending && '!bg-yellow-500'}`}
-				/>
+				<Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} />
 			)}
 		</fieldset>
 	)

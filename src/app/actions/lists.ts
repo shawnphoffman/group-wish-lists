@@ -151,7 +151,17 @@ export const getViewableList = async (listID: number) => {
 		.select(
 			`name,type,user_id,
 			recipient:recipient_user_id(id,display_name,user_id),
-			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
+			listItems:view_sorted_list_items!list_items_list_id_fkey(
+				*,
+				item_comments!item_comments_item_id_fkey(
+					id,
+					item_id,
+					comments,
+					created_at,
+					edited_at,
+					user:user_id(id, display_name)
+				)
+			)`
 		)
 		.eq('id', listID)
 		.eq('private', false)

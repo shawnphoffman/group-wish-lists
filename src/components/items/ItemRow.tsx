@@ -1,13 +1,16 @@
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
-import Badge from '@/components/common/Badge'
 import { OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import { Gift, ListItem } from '@/components/types'
+import { Badge } from '@/components/ui/badge'
 import { ItemPriority, ItemStatus } from '@/utils/enums'
+
+import AddCommentButton from '../comments/AddCommentButton'
+import ItemComments from '../comments/ItemComments'
 
 type Props = {
 	item: ListItem & Gift
@@ -29,8 +32,10 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
 
+	const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
+
 	return (
-		<div className={`list-item ${isComplete && 'complete'}`}>
+		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority & Checkbox */}
@@ -43,15 +48,15 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 					{/*  */}
 					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col flex-1">
+						<div className="flex flex-col flex-1 overflow-hidden">
 							{/* Title */}
 							<div>{item.title}</div>
 							{/* Notes */}
-							{item.notes && <div className="notes">{item.notes}</div>}
+							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 
 							{/* Gifter */}
 							{isComplete && (
-								<Badge className="self-start mt-1 xxs" colorId={item.gifter_id}>
+								<Badge variant={'outline'} className="self-start mt-1">
 									{item.display_name}
 								</Badge>
 							)}
@@ -61,17 +66,21 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
 							{/* Image */}
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
-							{/* Actions */}
-							{item.url && (
-								<Link href={item.url} target="_blank" className="sm:text-xl nav-btn teal">
-									<OpenUrlIcon />
-									<span className="inline text-sm sm:hidden">Link</span>
-								</Link>
-							)}
+							<div className="flex flex-col items-center justify-center gap-2">
+								{/* Actions */}
+								{item.url && (
+									<Link href={item.url} target="_blank" className="sm:text-xl nav-btn teal">
+										<OpenUrlIcon />
+										<span className="inline text-sm sm:hidden">Link</span>
+									</Link>
+								)}
+								{!isComplete && <AddCommentButton itemId={item.id} />}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			{!isComplete && item?.item_comments && <ItemComments comments={item.item_comments} />}
 		</div>
 	)
 }

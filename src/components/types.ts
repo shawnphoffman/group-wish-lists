@@ -43,6 +43,15 @@ export type ScrapeResponse = {
 	userAgent?: string
 }
 
+export type Comment = {
+	id: number
+	item_id: ListItem['id']
+	user: Pick<User, 'id' | 'display_name'>
+	comments: string
+	edited_at?: Date
+	created_at: Date
+}
+
 export type ListItem = {
 	id: string
 	list_id: List['id']
@@ -53,6 +62,7 @@ export type ListItem = {
 	priority: ItemPriorityType
 	notes?: string
 	image_url?: string
+	item_comments?: Comment[]
 }
 
 export type Gift = {

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import {
 	faBan,
+	faBoxArchive,
 	faCirclePlus,
 	faEye,
 	faEyeSlash,
@@ -67,6 +68,11 @@ export function PermissionsIcon({ className, ...rest }: IconProps) {
 }
 export function MoveIcon({ className, ...rest }: IconProps) {
 	return <FontAwesomeIcon icon={faRightLongToLine} {...rest} className={`text-purple-300 ${className}`} />
+}
+export function FlushIcon({ className, ...rest }: IconProps) {
+	return (
+		<FontAwesomeIcon icon={faBoxArchive} {...rest} className={`text-sky-300 hover:text-sky-400 group-hover:text-sky-400 ${className}`} />
+	)
 }
 export function LoadingIcon({ className, ...rest }: IconProps) {
 	return <FontAwesomeIcon icon={faSpinnerScale} spinPulse size="2xl" {...rest} className={`text-primary ${className}`} />

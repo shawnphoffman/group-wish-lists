@@ -10,6 +10,7 @@ import { AddIcon } from '@/components/icons/Icons'
 import ImportButton from '@/components/imports/ImportButton'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
+import ArchivePurchasedButton from '@/components/lists/ArchivePurchasedButton'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
@@ -64,6 +65,8 @@ const ShowList = async ({ params }: Props) => {
 									<ArchiveListButton listId={params.id} isArchived={!data.active} />
 									<MenubarSeparator />
 									<DeleteListButton listId={params.id} name={data.name} />
+									<MenubarSeparator />
+									{process.env.VERCEL_ENV !== 'production' && <ArchivePurchasedButton listId={params.id} />}
 									<MenubarSeparator />
 									{process.env.VERCEL_ENV !== 'production' && <PermissionsButton listId={params.id} />}
 								</MenubarContent>

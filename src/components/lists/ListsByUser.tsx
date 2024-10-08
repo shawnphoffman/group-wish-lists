@@ -2,9 +2,8 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getListsGroupedByUser } from '@/app/actions/lists'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import ListBlock from '@/components/lists/ListBlock'
-// import Badge from '../common/Badge'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { List } from '../types'
 
