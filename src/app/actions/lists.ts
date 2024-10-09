@@ -233,13 +233,15 @@ export const renameList = async (prevState: any, formData: FormData) => {
 	'use server'
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
-	const isPrivate = (formData.get('list-privary') as string) === 'private'
+	const isPrivate = (formData.get('list-privacy') as string) === 'private'
 	const description = formData.get('list-description') as string
 	const id = formData.get('id') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
 	await supabase.from('lists').update({ name, type, private: isPrivate, description }).eq('id', id)
+
+	// console.log('renameList', { name, type, isPrivate, description, id, temp })
 
 	return {
 		status: 'success',

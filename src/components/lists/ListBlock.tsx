@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default async function ListBlock({ lists, isOwner }: Props) {
-	if (lists?.length === 0) return <EmptyMessage />
+	if (lists?.length === 0) return <EmptyMessage message="No lists here" />
 	return (
 		<div className="flex flex-col">
 			{lists.map(list => (

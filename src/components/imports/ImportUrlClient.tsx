@@ -12,15 +12,15 @@ import { List } from '../types'
 export default function ImportUrlClient({ lists, list }: { lists: List[]; list: List }) {
 	const [selectedList, setSelectedList] = useState<string>(list.id.toString())
 
-	const handleChangePriority = useCallback(e => {
-		setSelectedList(e.target.value)
+	const handleChangeList = useCallback(value => {
+		setSelectedList(value)
 	}, [])
 
 	return (
 		<>
 			<div className="grid w-full gap-1.5">
-				<Label htmlFor="priority">Priority</Label>
-				<Select name="priority" value={selectedList} onValueChange={handleChangePriority}>
+				<Label htmlFor="list">List</Label>
+				<Select name="list" value={selectedList} onValueChange={handleChangeList}>
 					<SelectTrigger>
 						<SelectValue />
 					</SelectTrigger>
