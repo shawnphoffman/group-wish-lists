@@ -65,12 +65,8 @@ const ShowList = async ({ params }: Props) => {
 								<MenubarTrigger>List Actions</MenubarTrigger>
 								<MenubarContent>
 									<ArchiveListButton listId={params.id} isArchived={!data.active} />
-									{process.env.VERCEL_ENV !== 'production' && (
-										<>
-											<MenubarSeparator />
-											<ArchivePurchasedButton listId={params.id} />
-										</>
-									)}
+									<MenubarSeparator />
+									<ArchivePurchasedButton listId={params.id} />
 									<MenubarSeparator />
 									<DeleteListButton listId={params.id} name={data.name} />
 									{process.env.VERCEL_ENV !== 'production' && (
