@@ -1,8 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
-import { faRightLongToLine } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -13,7 +11,6 @@ import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 import { Button } from '@/components/ui/button'
-import { ItemPriority } from '@/utils/enums'
 
 import MyListsSelect from './components/MyListsSelect'
 
@@ -58,6 +55,8 @@ export default function ItemRowEditable({ item }: Props) {
 	}, [item])
 
 	if (!item) return null
+
+	if (item.archived) return null
 
 	const pending = isPending || isDeleting
 

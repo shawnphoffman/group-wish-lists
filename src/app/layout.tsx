@@ -10,7 +10,7 @@ config.autoAddCss = false
 
 import { ThemeProvider } from '@/components/theme-provider'
 
-const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3000'
+const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3002'
 
 export const viewport: Viewport = {
 	themeColor: '#0a0a0a',

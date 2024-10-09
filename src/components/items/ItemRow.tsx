@@ -20,6 +20,8 @@ type Props = {
 export default async function ItemRow({ item, isOwnerView }: Props) {
 	if (!item) return null
 
+	if (item.archived) return null
+
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
 	const [currentUser] = await Promise.all([

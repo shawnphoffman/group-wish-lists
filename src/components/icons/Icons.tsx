@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import {
 	faBan,
 	faBoxArchive,
+	faBroom,
 	faCirclePlus,
 	faEye,
 	faEyeSlash,
@@ -28,6 +29,9 @@ export function EditIcon() {
 }
 export function DeleteIcon() {
 	return <FontAwesomeIcon icon={faTrashXmark} fixedWidth className="text-red-400 hover:text-red-300 group-hover:text-red-300" />
+}
+export function BroomIcon() {
+	return <FontAwesomeIcon icon={faBroom} fixedWidth className="text-fuchsia-400 hover:text-fuchsia-300 group-hover:text-fuchsia-300" />
 }
 export function UnarchiveIcon() {
 	return <FontAwesomeIcon icon={faEye} fixedWidth className="text-teal-400 hover:text-teal-300" />

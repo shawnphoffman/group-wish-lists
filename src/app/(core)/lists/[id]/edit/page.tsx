@@ -3,15 +3,15 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getSessionUser } from '@/app/actions/auth'
-import { getEditableList, getMyLists } from '@/app/actions/lists'
+import { getEditableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import FallbackRow from '@/components/common/Fallbacks'
 import { AddIcon } from '@/components/icons/Icons'
 import ImportButton from '@/components/imports/ImportButton'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
-import ArchivePurchasedButton from '@/components/lists/ArchivePurchasedButton'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
+import ArchivePurchasedButton from '@/components/lists/buttons/ArchivePurchasedButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import PermissionsButton from '@/components/permissions/PermissionsButton'
@@ -48,9 +48,11 @@ const ShowList = async ({ params }: Props) => {
 		<>
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
+				{/* <div className="flex flex-row items-center w-full gap-2 flex-3 flex-nowrap"> */}
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
-					<ListTitleEditable listId={params.id} name={data.name} type={data.type} />
+					<ListTitleEditable listId={params.id} name={data.name} type={data.type} description={data.description} private={data.private} />
 				</div>
+				{/* <div className="flex flex-row flex-wrap justify-center flex-2 gap-0.5 items-center md:justify-end shrink-0"> */}
 				<div className="flex flex-row flex-wrap justify-center flex-1 gap-0.5 items-center md:justify-end shrink-0">
 					<Link href="#add-item" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
 						<AddIcon />
@@ -63,18 +65,29 @@ const ShowList = async ({ params }: Props) => {
 								<MenubarTrigger>List Actions</MenubarTrigger>
 								<MenubarContent>
 									<ArchiveListButton listId={params.id} isArchived={!data.active} />
+									{process.env.VERCEL_ENV !== 'production' && (
+										<>
+											<MenubarSeparator />
+											<ArchivePurchasedButton listId={params.id} />
+										</>
+									)}
 									<MenubarSeparator />
 									<DeleteListButton listId={params.id} name={data.name} />
-									<MenubarSeparator />
-									{process.env.VERCEL_ENV !== 'production' && <ArchivePurchasedButton listId={params.id} />}
-									<MenubarSeparator />
-									{process.env.VERCEL_ENV !== 'production' && <PermissionsButton listId={params.id} />}
+									{process.env.VERCEL_ENV !== 'production' && (
+										<>
+											<MenubarSeparator />
+											<PermissionsButton listId={params.id} />
+										</>
+									)}
 								</MenubarContent>
 							</MenubarMenu>
 						</Menubar>
 					)}
 				</div>
 			</div>
+
+			{/* Desc */}
+			{data?.description && <div className="text-sm leading-tight text-muted-foreground">{data.description}</div>}
 
 			{/* Rows */}
 			<div className="flex flex-col">

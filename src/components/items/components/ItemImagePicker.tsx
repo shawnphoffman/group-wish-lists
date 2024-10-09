@@ -18,6 +18,7 @@ export default function ItemImagePicker({ images, imageUrl, setImageUrl }: Props
 	const deduped = images
 		.map(image => image.url)
 		.filter((url, index, self) => {
+			if (!url) return false
 			if (url?.includes('sprite')) return false
 			if (url?.includes('svg+xml')) return false
 			if (url?.includes('amazon.com/images/G/')) return false

@@ -133,3 +133,28 @@ export const deleteItem = async (itemId: string) => {
 		}
 	}
 }
+
+export const archiveCompletedItems = async (list_id: List['id']) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemsPromise = await supabase
+		.from('list_items')
+		.update([{ archived: true }])
+		.eq('status', 'complete')
+		.eq('list_id', list_id)
+
+	const [items] = await Promise.all([
+		itemsPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	console.log('archiveCompletedItems', { items })
+
+	return {
+		status: 'success',
+		items,
+	}
+}

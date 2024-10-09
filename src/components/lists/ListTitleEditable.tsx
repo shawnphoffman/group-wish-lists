@@ -14,13 +14,17 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ListCategory } from '@/utils/enums'
 
+import { Textarea } from '../ui/textarea'
+
 type Props = {
 	listId: List['id']
 	name: List['name']
 	type: List['type']
+	private: List['private']
+	description: List['description']
 }
 
-export default function ListTitleEditable({ listId, name, type }: Props) {
+export default function ListTitleEditable({ listId, name, type, private: isPrivate, description }: Props) {
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
@@ -43,22 +47,36 @@ export default function ListTitleEditable({ listId, name, type }: Props) {
 	return (
 		<>
 			{isEditing ? (
-				<form action={formAction} className="flex flex-row gap-1 max-sm:flex-wrap">
+				<form action={formAction} className="flex flex-row w-full gap-2 max-sm:flex-wrap">
 					<input type="hidden" value={listId} name="id" />
-					<Input type="text" defaultValue={name} name="list-name" className="w-full" autoFocus />
-					<Select name="list-type" defaultValue={type}>
-						<SelectTrigger>
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent>
-							{Object.entries(ListCategory).map(([key, value]) => (
-								<SelectItem key={key} value={value}>
-									<ListTypeIcon type={value} className="mr-1 text-sm" />
-									{key}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
+					<div className="flex flex-col w-full gap-2">
+						<Input type="text" defaultValue={name} name="list-name" className="w-full" autoFocus />
+						<div className="flex flex-row gap-2">
+							<Select name="list-type" defaultValue={type}>
+								<SelectTrigger>
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									{Object.entries(ListCategory).map(([key, value]) => (
+										<SelectItem key={key} value={value}>
+											<ListTypeIcon type={value} className="mr-1 text-sm" />
+											{key}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+							<Select name="list-privacy" defaultValue={isPrivate ? 'private' : 'public'}>
+								<SelectTrigger>
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value={'private'}>Private</SelectItem>
+									<SelectItem value={'public'}>Public</SelectItem>
+								</SelectContent>
+							</Select>
+						</div>
+						<Textarea name="list-description" defaultValue={description} placeholder="Description" />
+					</div>
 					<Button title="Save" className="text-2xl" disabled={isPending}>
 						<FontAwesomeIcon icon={faCheck} />
 					</Button>

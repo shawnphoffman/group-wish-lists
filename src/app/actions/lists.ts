@@ -127,7 +127,7 @@ export const getEditableList = async (listID: number) => {
 	const resp = await supabase
 		.from('view_my_lists2')
 		.select(
-			`name,type,active,user_id,
+			`name,type,active,user_id,description,private,
 			recipient:recipient_user_id(id,display_name,user_id),
 			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
 		)
@@ -165,7 +165,7 @@ export const getViewableList = async (listID: number) => {
 		.eq('id', listID)
 		.eq('private', false)
 		.not('active', 'is', false)
-		.single()
+		.maybeSingle()
 		.then(async list => {
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
@@ -191,7 +191,7 @@ export const getViewableList = async (listID: number) => {
 			}
 		})
 
-	// console.log('getViewableList.resp', resp)
+	console.log('getViewableList.resp', resp)
 
 	return resp
 }
@@ -233,11 +233,13 @@ export const renameList = async (prevState: any, formData: FormData) => {
 	'use server'
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
+	const isPrivate = (formData.get('list-privary') as string) === 'private'
+	const description = formData.get('list-description') as string
 	const id = formData.get('id') as string
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	await supabase.from('lists').update({ name, type }).eq('id', id)
+	await supabase.from('lists').update({ name, type, private: isPrivate, description }).eq('id', id)
 
 	return {
 		status: 'success',
