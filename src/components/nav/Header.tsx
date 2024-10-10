@@ -13,7 +13,7 @@ import UserBadge from './UserBadge'
 
 export default function Header() {
 	return (
-		<header className="w-full border-b bg-background">
+		<header className="sticky top-0 z-20 w-full border-b bg-background">
 			<div className="container flex items-center justify-between gap-2 px-0 py-2 sm:px-2">
 				<div className="flex items-center gap-2 sm:gap-6">
 					<Link href="/" className="flex items-center gap-2 group">
