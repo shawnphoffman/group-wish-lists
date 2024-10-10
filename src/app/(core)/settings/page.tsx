@@ -9,7 +9,8 @@ export default async function Page() {
 	const userPromise = getUser()
 
 	const [{ data: user, error }] = await Promise.all([userPromise])
-	console.log('MyStuffClient', { user })
+
+	// console.log('MyStuffClient', { user })
 
 	if (error) {
 		return notFound()
@@ -22,11 +23,12 @@ export default async function Page() {
 					<CardTitle>Profile</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<ProfileForm name={user.display_name} id={user.user_id} />
-					{/* TODO Birthday */}
+					<ProfileForm name={user.display_name} id={user.user_id} birthMonth={user.birth_month} birthDay={user.birth_day} />
 				</CardContent>
 				<CardFooter className="px-6 py-4 border-t">
-					<Button>Save</Button>
+					<Button type="submit" form="update-profile-form">
+						Save
+					</Button>
 				</CardFooter>
 			</Card>
 		</div>

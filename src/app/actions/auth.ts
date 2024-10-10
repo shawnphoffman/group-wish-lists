@@ -23,7 +23,7 @@ export const getUser = async () => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	// return await supabase.from('view_me').select('id,user_id,display_name,is_parent,email').single()
-	return await supabase.from('view_me').select('id,user_id,display_name,is_parent').single()
+	return await supabase.from('view_me').select('id,user_id,display_name,is_parent,birth_month,birth_day').single()
 }
 
 //
@@ -97,8 +97,15 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	const name = formData.get('name') as string
+	const birth_month = formData.get('birth_month') as string
+	const birth_day = formData.get('birth_day') as string
 	const userId = formData.get('user_id') as string
-	const { data, error } = await supabase.from('users').update({ display_name: name }).eq('user_id', userId)
+	const { data, error } = await supabase
+		//
+		.from('users')
+		.update({ display_name: name, birth_month, birth_day })
+		.eq('user_id', userId)
+
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 
 	if (error) {
@@ -118,7 +125,7 @@ export const updatePassword = async (prevState: any, formData: FormData) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	console.log('updatePassword', { formData })
+	// console.log('updatePassword', { formData })
 
 	const newPassword = formData.get('new-password') as string
 	const confirmPassword = formData.get('confirm-password') as string
@@ -132,12 +139,12 @@ export const updatePassword = async (prevState: any, formData: FormData) => {
 
 	const { data, error } = await supabase.auth.updateUser({ password: newPassword })
 
-	console.log('password response', {
-		newPassword,
-		confirmPassword,
-		data,
-		error,
-	})
+	// console.log('password response', {
+	// 	newPassword,
+	// 	confirmPassword,
+	// 	data,
+	// 	error,
+	// })
 
 	if (error) {
 		return {
@@ -149,5 +156,33 @@ export const updatePassword = async (prevState: any, formData: FormData) => {
 	return {
 		status: 'success',
 		data,
+	}
+}
+
+//
+export const updateEmail = async (prevState: any, formData: FormData) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	// console.log('email', { formData })
+
+	const email = formData.get('email') as string
+
+	const { error } = await supabase.auth.updateUser({ email })
+
+	// console.log('email response', data)
+
+	// await new Promise(resolve => setTimeout(resolve, 5000))
+
+	if (error) {
+		return {
+			error: error.message,
+			status: 'error',
+		}
+	}
+
+	return {
+		status: 'success',
 	}
 }

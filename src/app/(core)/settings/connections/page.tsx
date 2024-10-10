@@ -2,8 +2,10 @@ import { faCheckCircle } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { getSessionUser } from '@/app/actions/auth'
+import EmailForm from '@/components/me/EmailForm'
 import LinkToAppleButton from '@/components/me/LinkToAppleButton'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 
 export default async function MeClient() {
 	const sessionPromise = getSessionUser()
@@ -23,8 +25,11 @@ export default async function MeClient() {
 					<CardTitle>Account Linking</CardTitle>
 					<CardDescription>Use this to connect your account to different services</CardDescription>
 				</CardHeader>
-				<CardContent>
-					{/* TODO - Email linking */}
+				<CardContent className="flex flex-col gap-4">
+					<EmailForm email={sessionUser!.email} />
+
+					<Separator />
+
 					{!hasAppleLinked ? (
 						<LinkToAppleButton />
 					) : (
