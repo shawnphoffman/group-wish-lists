@@ -1,6 +1,7 @@
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
-import { signIn } from '@/app/actions/auth'
+import { getSessionUser, signIn } from '@/app/actions/auth'
 import icon from '@/app/icon.png'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SignInWithAppleButton from '@/components/login/SignInWithAppleButton'
@@ -14,8 +15,15 @@ type Props = {
 	}
 }
 
-export default function Login({ searchParams }: Props) {
+export default async function Login({ searchParams }: Props) {
 	const returnUrl = searchParams?.returnUrl
+
+	const currentUser = await getSessionUser()
+
+	if (currentUser) {
+		return redirect(returnUrl || '/')
+	}
+
 	return (
 		<div className="flex flex-col items-center flex-1 w-full gap-2 px-4 py-8 xs:py-16 xs:max-w-sm">
 			<Image src={icon} alt="Wish Lists Logo" width={200} height={200} />

@@ -24,6 +24,7 @@ export default async function MeClient() {
 					<CardDescription>Use this to connect your account to different services</CardDescription>
 				</CardHeader>
 				<CardContent>
+					{/* TODO - Email linking */}
 					{!hasAppleLinked ? (
 						<LinkToAppleButton />
 					) : (

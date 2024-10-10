@@ -32,6 +32,8 @@ export async function updateSession(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser()
 
+	// console.log('updateSession.user', user)
+
 	if (
 		!user &&
 		!request.nextUrl.pathname.startsWith('/login') &&
@@ -39,7 +41,7 @@ export async function updateSession(request: NextRequest) {
 		!request.nextUrl.pathname.includes('.png') &&
 		!request.nextUrl.pathname.startsWith('/monitoring')
 	) {
-		console.log('updateSession.user', request.nextUrl.pathname)
+		// console.log('updateSession.NO USER', request.nextUrl.pathname)
 		// no user, potentially respond by redirecting the user to the login page
 		const oldUrl = request.nextUrl.clone()
 		const url = request.nextUrl.clone()

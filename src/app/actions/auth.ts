@@ -50,6 +50,8 @@ export const signIn = async (formData: FormData) => {
 	})
 
 	if (error) {
+		console.error('signIn.error', error)
+
 		const url = new URL('/login', 'http://example.com')
 		url.searchParams.append('message', error.message || 'Something went wrong...')
 

@@ -2,9 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { getUser } from '@/app/actions/auth'
 import PasswordForm from '@/components/me/PasswordForm'
-import ProfileForm from '@/components/me/ProfileForm'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default async function Page() {
 	const userPromise = getUser()
@@ -25,9 +23,6 @@ export default async function Page() {
 				<CardContent>
 					<PasswordForm id={user.user_id} />
 				</CardContent>
-				{/* <CardFooter className="px-6 py-4 border-t">
-					<Button>Save</Button>
-				</CardFooter> */}
 			</Card>
 		</div>
 	)

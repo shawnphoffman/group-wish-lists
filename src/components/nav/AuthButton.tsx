@@ -2,11 +2,11 @@ import { faRightFromBracket } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { redirect } from 'next/navigation'
 
-import { getUser, signOut } from '@/app/actions/auth'
+import { getSessionUser, signOut } from '@/app/actions/auth'
 import { Button } from '@/components/ui/button'
 
 export default async function AuthButton() {
-	const { data: currentUser } = await getUser()
+	const currentUser = await getSessionUser()
 
 	if (!currentUser) {
 		return redirect('/login')
