@@ -28,7 +28,9 @@ export default function SettingsLinks() {
 			<Link href="/settings/purchases" className={pathname === '/settings/purchases' ? activeClasses : ''}>
 				Purchases
 			</Link>
-			<Link href="#">Received (Coming Soon)</Link>
+			<Link href="/settings/received" className={pathname === '/settings/received' ? activeClasses : ''}>
+				Received Gifts
+			</Link>
 		</>
 	)
 }

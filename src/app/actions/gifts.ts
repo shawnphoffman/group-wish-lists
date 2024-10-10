@@ -43,3 +43,22 @@ export const deleteGift = async (itemId: ListItem['id']) => {
 		status: 'success',
 	}
 }
+
+export const getMyGifts = async () => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.auth.getUser()
+	const userId = data?.user?.id
+
+	const resp = await supabase
+		.from('view_sorted_list_items')
+		.select('*,gifted_items!inner(giftedAt:created_at)')
+		.eq('archived', true)
+		.eq('user_id', userId)
+
+	// console.log('getMyGifts.resp', resp)
+
+	return resp
+}
