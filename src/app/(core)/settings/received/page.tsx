@@ -15,7 +15,7 @@ export default async function Page() {
 						up to an event.
 					</CardDescription>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
 					<Suspense fallback={<FallbackRowThick />}>
 						<MyReceived />
 					</Suspense>

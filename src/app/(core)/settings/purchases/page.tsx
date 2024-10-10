@@ -11,7 +11,7 @@ export default async function Page() {
 				<CardHeader>
 					<CardTitle>Purchases</CardTitle>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
 					<Suspense fallback={<FallbackRowThick />}>
 						<MyPurchases />
 					</Suspense>
