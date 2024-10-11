@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ListCategory } from '@/utils/enums'
 
+import { LockIcon, ShareIcon } from '../icons/Icons'
 import { Textarea } from '../ui/textarea'
 
 type Props = {
@@ -21,10 +22,11 @@ type Props = {
 	name: List['name']
 	type: List['type']
 	private: List['private']
+	shared: boolean
 	description: List['description']
 }
 
-export default function ListTitleEditable({ listId, name, type, private: isPrivate, description }: Props) {
+export default function ListTitleEditable({ listId, name, type, private: isPrivate, description, shared: isShared }: Props) {
 	const [state, formAction] = useFormState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
@@ -87,10 +89,15 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 				</Button>
 			</form>
 		)
+
 	return (
 		<div className="relative flex flex-row items-center gap-1">
 			<h1 className="w-fit">{name}</h1>
-			<ListTypeIcon type={type} className="text-[80px] opacity-25 absolute left-4 -top-5 -z-10" />
+			<div className="text-[60px] sm:text-[80px] opacity-25 absolute left-4 -top-2 sm:-top-5 -z-10 flex flex-row gap-4">
+				<ListTypeIcon type={type} className="text-[60px] sm:text-[80px]" />
+				{isPrivate && <LockIcon fade={false} />}
+				{isShared && <ShareIcon />}
+			</div>
 			<Button
 				variant="ghost"
 				type="button"

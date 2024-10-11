@@ -9,15 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ListCategory, ListCategoryType } from '@/utils/enums'
 
-type Props = { type: ListCategoryType; className?: string; isPrivate?: boolean }
+type Props = {
+	type: ListCategoryType
+	className?: string
+}
 
-export default function ListTypeIcon({ type, className = 'text-xl', isPrivate = false }: Props) {
+export default function ListTypeIcon({ type, className = 'text-xl' }: Props) {
 	let iconColor = 'text-yellow-300'
 	let icon = faThoughtBubble
 
-	// if (isPrivate) {
-	// 	iconClass = 'fa-duotone fa-fw fa-lock-keyhole text-violet-300'
-	// } else
 	if (type === ListCategory.Birthday) {
 		icon = faBirthdayCake
 		iconColor = 'text-pink-300'

@@ -9,7 +9,7 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List, ListSharedWithMe, ListSharedWithOthers } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 
-import { LockIcon } from '../icons/Icons'
+import { LockIcon, ShareIcon } from '../icons/Icons'
 
 type Props = {
 	list: List | ListSharedWithOthers | ListSharedWithMe
@@ -30,20 +30,21 @@ export default function ListRow({ list, canEdit }: Props) {
 	if (!list) return null
 
 	const isActive = list.active
-	// const canDelete = canEdit && !isActive
-	// const url = canDelete || !isActive ? undefined : canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
 	const url = canEdit ? `/lists/${list.id}/edit` : `/lists/${list.id}`
 	const LinkOrDiv = url ? Link : 'div'
 
-	// const privateClasses = list?.private ? 'bg-secondary/5 hover:bg-secondary/10' : ''
 	const privateClasses = list?.private ? '' : ''
+	const isShared = canEdit && list.editors?.length
+
+	// console.log('ListRow', list)
 
 	return (
 		<div className={`xs:!text-lg flex-row p-2 bg-transparent hover:bg-muted rounded flex ${privateClasses}`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2`}>
-				<ListTypeIcon type={list.type} isPrivate={list?.private} />
+				<ListTypeIcon type={list.type} />
 				<div className={`${!isActive ? 'line-through opacity-50' : ''} leading-none`}>{list.name}</div>
 				{list?.private && <LockIcon className="text-sm" />}
+				{isShared && <ShareIcon className="text-sm" />}
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-1 !text-lg">
 				{/*  */}

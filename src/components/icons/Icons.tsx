@@ -15,6 +15,7 @@ import {
 	faUpRightFromSquare,
 	faUserUnlock,
 } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faUserGroup } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 
 type IconProps = {
@@ -69,6 +70,9 @@ export function PermissionsIcon({ className, ...rest }: IconProps) {
 			className={`text-amber-300 hover:text-amber-400 group-hover:text-amber-400 ${className}`}
 		/>
 	)
+}
+export function ShareIcon({ className, ...rest }: IconProps) {
+	return <FontAwesomeIcon icon={faUserGroup} {...rest} className={`text-emerald-300 ${className}`} />
 }
 export function MoveIcon({ className, ...rest }: IconProps) {
 	return <FontAwesomeIcon icon={faRightLongToLine} {...rest} className={`text-purple-300 ${className}`} />

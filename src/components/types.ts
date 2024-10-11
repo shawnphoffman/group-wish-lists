@@ -11,6 +11,7 @@ export type List = {
 	user: User
 	list_items: ListItem[]
 	count?: number
+	editors?: Array<ListEditorWrapper>
 }
 export type ListSharedWithOthers = List & {
 	user_shared_with_id: number
@@ -21,6 +22,12 @@ export type ListSharedWithMe = List & {
 	sharer_display_name: string
 	sharer_id: number
 }
+
+export type ListEditorWrapper = {
+	user: ListEditor
+}
+
+export type ListEditor = Pick<User, 'user_id' | 'display_name'>
 
 export type OgImage = {
 	url?: string

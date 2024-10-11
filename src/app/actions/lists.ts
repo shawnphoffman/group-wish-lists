@@ -127,14 +127,16 @@ export const getEditableList = async (listID: number) => {
 	const resp = await supabase
 		.from('view_my_lists2')
 		.select(
-			`name,type,active,user_id,description,private,
-			recipient:recipient_user_id(id,display_name,user_id),
-			listItems:view_sorted_list_items!list_items_list_id_fkey(*)`
+			`name, type, active, user_id, description, private,
+			recipient:recipient_user_id(id, display_name, user_id),
+			listItems:view_sorted_list_items!list_items_list_id_fkey(*),
+			editors:list_editors(user:user_id(display_name, user_id))`
 		)
 		.eq('id', listID)
 		// .not('active', 'is', false)
 		.single()
 
+	// console.log('getEditableList.resp', JSON.stringify(resp, null, 2))
 	// console.log('getEditableList.resp', resp)
 
 	return resp
@@ -288,11 +290,49 @@ export const getListEditors = async (listID: List['id']) => {
 	'use server'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
-	const resp = await supabase.from('list_editors').select('user_id').eq('list_id', listID)
+	const resp = await supabase.from('list_editors').select('id, user_id, list_id').eq('list_id', listID)
 
 	if (resp.data) {
 		return resp.data.map((editor: { user_id: string }) => editor.user_id)
 	}
 
 	return []
+}
+
+export const createEditor = async (listId: List['id'], editorId: User['user_id']) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const editorPromise = supabase.from('list_editors').insert([{ list_id: listId, user_id: editorId }])
+
+	const editor = await Promise.all([
+		editorPromise,
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	console.log('createEditor', editor)
+
+	return {
+		status: 'success',
+	}
+}
+
+export const deleteEditor = async (listId: List['id'], editorId: User['user_id']) => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const editorPromise = supabase.from('list_editors').delete().eq('list_id', Number(listId)).eq('user_id', editorId)
+
+	const editor = await Promise.all([
+		editorPromise,
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	console.log('deleteEditor', { editor, listId, editorId })
+
+	return {
+		status: 'success',
+	}
 }

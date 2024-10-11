@@ -14,7 +14,7 @@ import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import ArchivePurchasedButton from '@/components/lists/buttons/ArchivePurchasedButton'
 import DeleteListButton from '@/components/lists/buttons/DeleteListButton'
 import ListTitleEditable from '@/components/lists/ListTitleEditable'
-import PermissionsButton from '@/components/permissions/PermissionsButton'
+import EditorsButton from '@/components/permissions/EditorsButton'
 import { List, ListItem } from '@/components/types'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -27,54 +27,58 @@ type Props = {
 }
 
 const ShowList = async ({ params }: Props) => {
-	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getEditableList(params.id)
-	// const listsPromise = getMyLists()
+	const sessionPromise = getSessionUser()
+	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	// const [{ data, error }, { data: lists }, currentUser] = await Promise.all([
-	const [{ data, error }, currentUser] = await Promise.all([
+	const [{ data: list, error }, currentUser] = await Promise.all([
 		listPromise,
-		// listsPromise,
-		getSessionUser(),
+		sessionPromise,
 		// fakePromise
 	])
 
-	if (error || !data) {
+	if (error || !list) {
 		return notFound()
 	}
 
-	const items = data.listItems as unknown as ListItem[]
+	// console.log('list', list)
+
+	const items = list.listItems as unknown as ListItem[]
+	// const editors = list.editors as unknown as ListEditorWrapper[]
+
 	return (
 		<>
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
-				{/* <div className="flex flex-row items-center w-full gap-2 flex-3 flex-nowrap"> */}
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
-					<ListTitleEditable listId={params.id} name={data.name} type={data.type} description={data.description} private={data.private} />
+					<ListTitleEditable
+						listId={params.id}
+						name={list.name}
+						type={list.type}
+						description={list.description}
+						private={list.private}
+						shared={!!list.editors.length}
+					/>
 				</div>
-				{/* <div className="flex flex-row flex-wrap justify-center flex-2 gap-0.5 items-center md:justify-end shrink-0"> */}
-				<div className="flex flex-row flex-wrap justify-center flex-1 gap-0.5 items-center md:justify-end shrink-0">
-					<Link href="#add-item" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} gap-1`}>
+				<div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-1 md:justify-end shrink-0">
+					<Link href="#add-item" className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1`}>
 						<AddIcon />
 						Add
 					</Link>
 					<ImportButton listId={params.id} />
-					{currentUser?.id === data.user_id && (
-						<Menubar>
+					{currentUser?.id === list.user_id && (
+						<Menubar className="p-0 h-9">
 							<MenubarMenu>
 								<MenubarTrigger>List Actions</MenubarTrigger>
 								<MenubarContent>
-									<ArchiveListButton listId={params.id} isArchived={!data.active} />
+									<ArchiveListButton listId={params.id} isArchived={!list.active} />
 									<MenubarSeparator />
 									<ArchivePurchasedButton listId={params.id} />
 									<MenubarSeparator />
-									<DeleteListButton listId={params.id} name={data.name} />
-									{process.env.VERCEL_ENV !== 'production' && (
-										<>
-											<MenubarSeparator />
-											<PermissionsButton listId={params.id} />
-										</>
-									)}
+									<DeleteListButton listId={params.id} name={list.name} />
+									<MenubarSeparator />
+									{/* <EditorsButton listId={params.id} editors={editors} /> */}
+									<EditorsButton listId={params.id} />
 								</MenubarContent>
 							</MenubarMenu>
 						</Menubar>
@@ -83,7 +87,7 @@ const ShowList = async ({ params }: Props) => {
 			</div>
 
 			{/* Desc */}
-			{data?.description && <div className="text-sm leading-tight text-muted-foreground">{data.description}</div>}
+			{list?.description && <div className="text-sm leading-tight text-muted-foreground">{list.description}</div>}
 
 			{/* Rows */}
 			<div className="flex flex-col">

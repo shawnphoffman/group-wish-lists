@@ -2,34 +2,38 @@
 
 import { useCallback, useState } from 'react'
 
-import { updateUserPermissions } from '@/app/actions/users'
+import { createEditor, deleteEditor } from '@/app/actions/lists'
 import { LoadingIcon } from '@/components/icons/Icons'
+import { List, User } from '@/components/types'
 import { Checkbox } from '@/components/ui/checkbox'
 
 type Props = {
-	id: number | undefined
-	viewer_id: string
+	id: User['user_id']
+	listId: List['id']
 	isChecked: boolean
 }
 
-export default function PermissionCheckbox({ id, viewer_id, isChecked }: Props) {
+export default function EditorCheckbox({ id, isChecked, listId }: Props) {
 	const [checked, setChecked] = useState(isChecked)
 	const [isPending, setIsPending] = useState(false)
 
 	const handleChange = useCallback(
 		(newChecked: boolean) => {
-			console.log('PermissionCheckbox:', newChecked)
+			// console.log('EditorCheckbox:', newChecked)
 			setIsPending(true)
-			setChecked(newChecked)
-			async function asyncUpdatePermission() {
-				// await new Promise(resolve => setTimeout(resolve, 2000))
-				await updateUserPermissions(id, viewer_id, newChecked)
+
+			async function asyncUpdateEditor() {
+				if (newChecked) {
+					await createEditor(listId, id)
+				} else {
+					await deleteEditor(listId, id)
+				}
+				setChecked(newChecked)
 				setIsPending(false)
-				// router.refresh()
 			}
-			asyncUpdatePermission()
+			asyncUpdateEditor()
 		},
-		[id, viewer_id]
+		[id, listId]
 	)
 
 	return (

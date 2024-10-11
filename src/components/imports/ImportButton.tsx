@@ -73,7 +73,7 @@ export default function ImportButton({ listId }: Props) {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="gap-1" size="sm">
+				<Button variant="outline" className="gap-1" size="sm">
 					<ImportIcon />
 					Import
 				</Button>
