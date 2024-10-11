@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { getViewableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
-import { LoadingIcon } from '@/components/icons/Icons'
+import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
@@ -31,15 +31,16 @@ const ViewListClient = async ({ params }: Props) => {
 		return notFound()
 	}
 
-	// console.log('ViewListClient', { data })
-
 	const items = data.listItems as unknown as ListItem[]
 	const recipient = data.recipient! as unknown as Recipient
+	const visibleItems = items.filter(item => !item.archived)
+
+	// console.log('ViewListClient', { items, visibleItems })
 
 	return (
 		<>
 			{/* Header */}
-			<div className="relative flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap animate-in">
+			<div className="relative flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
 				<h1 className="w-fit">{data?.name}</h1>
 				<ListTypeIcon type={data.type} className="text-[80px] opacity-25 absolute left-4 -top-5 -z-10" />
 				<Badge variant={'outline'}>{recipient.display_name}</Badge>
@@ -49,12 +50,16 @@ const ViewListClient = async ({ params }: Props) => {
 
 			{/* Items */}
 			<div className="flex flex-col">
-				{items?.length === 0 ? (
+				{visibleItems?.length === 0 ? (
 					<EmptyMessage />
 				) : (
 					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
 						{/*  */}
-						{items?.map(item => <ItemRow key={item.id} item={item} isOwnerView={isOwner} />)}
+						{visibleItems?.map(item => (
+							<Suspense key={item.id} fallback={<FallbackRowThick />}>
+								<ItemRow item={item} isOwnerView={isOwner} />
+							</Suspense>
+						))}
 					</div>
 				)}
 			</div>
@@ -65,9 +70,9 @@ const ViewListClient = async ({ params }: Props) => {
 export default async function ViewList({ params }: Props) {
 	return (
 		<>
-			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 ">
+			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 animate-in">
 				<div className="flex flex-col flex-1 gap-6">
-					<Suspense fallback={<LoadingIcon />}>
+					<Suspense fallback={<FallbackRowsMultiple />}>
 						<ViewListClient params={params} />
 					</Suspense>
 				</div>

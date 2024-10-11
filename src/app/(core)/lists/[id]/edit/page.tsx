@@ -46,10 +46,14 @@ const ShowList = async ({ params }: Props) => {
 	const items = list.listItems as unknown as ListItem[]
 	// const editors = list.editors as unknown as ListEditorWrapper[]
 
+	const visibleItems = items.filter(item => !item.archived)
+
+	// console.log('ViewListClient', { items, visibleItems })
+
 	return (
-		<>
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-2 max-md:gap-2 animate-in">
 			{/* Header */}
-			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row animate-in">
+			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
 					<ListTitleEditable
 						listId={params.id}
@@ -91,15 +95,15 @@ const ShowList = async ({ params }: Props) => {
 
 			{/* Rows */}
 			<div className="flex flex-col">
-				{items?.length === 0 ? (
+				{visibleItems?.length === 0 ? (
 					<EmptyMessage />
 				) : (
 					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-						{items?.map(item => <ItemRowEditable key={item.id} item={item} />)}
+						{visibleItems?.map(item => <ItemRowEditable key={item.id} item={item} />)}
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	)
 }
 
@@ -108,20 +112,20 @@ export default async function EditList({ params }: Props) {
 		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-2 max-md:gap-2">
 			<Suspense fallback={<FallbackRowsMultiple />}>
 				<ShowList params={params} />
-			</Suspense>
 
-			{/* Add Item */}
-			<Card id="add-item">
-				<CardHeader>
-					<CardTitle>Add Item</CardTitle>
-					<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<Suspense fallback={<FallbackRowThick />}>
-						<AddItemForm listId={params.id} />
-					</Suspense>
-				</CardContent>
-			</Card>
+				{/* Add Item */}
+				<Card id="add-item animate-in">
+					<CardHeader>
+						<CardTitle>Add Item</CardTitle>
+						<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Suspense fallback={<FallbackRowThick />}>
+							<AddItemForm listId={params.id} />
+						</Suspense>
+					</CardContent>
+				</Card>
+			</Suspense>
 		</div>
 	)
 }
