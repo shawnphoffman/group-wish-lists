@@ -27,7 +27,7 @@ const daysUntilBirthday = (month: string, day: number) => {
 	const currentYear = today.getFullYear()
 
 	// Get the birth month and day
-	const birthMonth = months[month.toLowerCase()]
+	const birthMonth = months[month?.toLowerCase()]
 	const birthDay = day
 
 	// Create a date object for this year's birthday
@@ -46,6 +46,8 @@ const daysUntilBirthday = (month: string, day: number) => {
 }
 
 const birthday = (month: string, day: number) => {
+	if (!month || !day) return null
+
 	return `${month.charAt(0).toUpperCase() + month.slice(1)} ${day}`
 }
 
@@ -67,18 +69,23 @@ export default async function ListsByUser() {
 				{groupedLists?.map(group => {
 					const countdown = daysUntilBirthday(group.birth_month, group.birth_day)
 					const plural = new Intl.PluralRules().select(countdown)
+					const birthdayString = birthday(group.birth_month, group.birth_day)
 					return (
 						<Card key={`group-${group.id}`} className="bg-accent">
 							<CardHeader className="flex-row items-center gap-1 py-5 pb-4">
 								<CardTitle className="flex flex-wrap items-center gap-2">
 									{group.display_name}
-									<Badge variant="outline" className="text-muted-foreground whitespace-nowrap">
-										{birthday(group.birth_month, group.birth_day)}
-									</Badge>
-									{countdown < 31 && (
-										<Badge variant="default" className="whitespace-nowrap">
-											{countdown} {plural === 'one' ? 'day' : 'days'}
-										</Badge>
+									{birthdayString && (
+										<>
+											<Badge variant="outline" className="text-muted-foreground whitespace-nowrap">
+												{birthdayString}
+											</Badge>
+											{countdown < 31 && (
+												<Badge variant="default" className="whitespace-nowrap">
+													{countdown} {plural === 'one' ? 'day' : 'days'}
+												</Badge>
+											)}
+										</>
 									)}
 								</CardTitle>
 							</CardHeader>
