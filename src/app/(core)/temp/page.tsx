@@ -12,7 +12,7 @@ import SuspenseTest from '@/components/utils/SuspenseTest'
 
 export default async function Temp() {
 	return (
-		<div className="flex flex-col flex-1 w-full gap-4 p-4 animate-in">
+		<div className="flex flex-col flex-1 w-full gap-4 p-4 animate-page-in">
 			<h1>Typography</h1>
 			<div className="p-4 border rounded">
 				<h1>Heading 1</h1>

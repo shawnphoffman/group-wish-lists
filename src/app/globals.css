@@ -85,11 +85,11 @@
 }
 
 @layer utilities {
-	.animate-in {
-		animation: animateIn 0.3s ease 0.15s both;
+	.animate-page-in {
+		animation: animatePageIn 0.3s ease 0.15s both;
 	}
 
-	@keyframes animateIn {
+	@keyframes animatePageIn {
 		from {
 			opacity: 0;
 			transform: translateY(10px);
@@ -100,11 +100,11 @@
 		}
 	}
 
-	.animate-in-down {
-		animation: animateInDown 0.3s ease 0.15s both;
+	.animate-page-down {
+		animation: animatePageDown 0.3s ease 0.15s both;
 	}
 
-	@keyframes animateInDown {
+	@keyframes animatePageDown {
 		from {
 			opacity: 0;
 			transform: translateY(-10px);

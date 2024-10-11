@@ -6,7 +6,7 @@ import SettingsLinks from './links'
 
 export default async function SettingsLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="flex flex-col w-full max-w-4xl animate-in">
+		<div className="flex flex-col w-full max-w-4xl animate-page-in">
 			<main className="flex flex-col flex-1 gap-6 px-2">
 				<div className="grid w-full max-w-6xl gap-2 mx-auto">
 					<h1>Settings</h1>
