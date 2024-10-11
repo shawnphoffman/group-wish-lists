@@ -19,7 +19,7 @@ export default async function ImportItem() {
 	const list = lists[0]
 
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 max-md:gap-2">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-3 max-md:gap-2 animate-in">
 			<Card>
 				<CardHeader>
 					<CardTitle>Import Item</CardTitle>

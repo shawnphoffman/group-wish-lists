@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default async function Page() {
 	return (
-		<div className="grid gap-6">
+		<div className="grid gap-6 animate-in">
 			<Card>
 				<CardHeader>
 					<CardTitle>Purchases</CardTitle>

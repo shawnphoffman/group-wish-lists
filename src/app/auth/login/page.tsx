@@ -25,7 +25,7 @@ export default async function Login({ searchParams }: Props) {
 	}
 
 	return (
-		<div className="flex flex-col items-center flex-1 w-full gap-2 px-4 py-8 xs:py-16 xs:max-w-sm">
+		<div className="flex flex-col items-center flex-1 w-full gap-2 px-4 py-8 xs:py-16 xs:max-w-sm animate-in">
 			<Image src={icon} alt="Wish Lists Logo" width={200} height={200} />
 			<form className="flex flex-col justify-center w-full" action={signIn}>
 				<input type="hidden" name="returnUrl" value={returnUrl} />

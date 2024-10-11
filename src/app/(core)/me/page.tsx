@@ -1,12 +1,13 @@
 import { Suspense } from 'react'
 
-import FallbackRow from '@/components/common/Fallbacks'
+import { FallbackRowThick } from '@/components/common/Fallbacks'
 import MyLists from '@/components/me/MyLists'
 import NewListButton from '@/components/me/NewListButton'
 
 export default async function MyStuff() {
+	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl px-2 ">
+		<div className="flex flex-col flex-1 w-full max-w-4xl px-2 animate-in">
 			<main className="flex flex-col flex-1 gap-8 divide-y">
 				{/* LISTS */}
 				<div className="flex flex-col gap-6">
@@ -19,14 +20,14 @@ export default async function MyStuff() {
 						</div>
 					</div>
 					{/* PUBLIC LISTS */}
-					<Suspense fallback={<FallbackRow />}>
+					<Suspense fallback={<FallbackRowThick />}>
 						<MyLists type="public" />
 					</Suspense>
 
 					{/* PRIVATE LISTS */}
 					<div className="flex flex-col gap-3">
 						<h3>My Private Lists</h3>
-						<Suspense fallback={<FallbackRow />}>
+						<Suspense fallback={<FallbackRowThick />}>
 							<MyLists type="private" />
 						</Suspense>
 					</div>
@@ -34,7 +35,7 @@ export default async function MyStuff() {
 					{/* SHARED WITH ME LISTS */}
 					<div className="flex flex-col gap-3">
 						<h3>Lists I Can Edit</h3>
-						<Suspense fallback={<FallbackRow />}>
+						<Suspense fallback={<FallbackRowThick />}>
 							<MyLists type="shared_with_me" />
 						</Suspense>
 					</div>
@@ -42,7 +43,7 @@ export default async function MyStuff() {
 					{/* SHARED LISTS */}
 					<div className="flex flex-col gap-3">
 						<h3>My List Editors</h3>
-						<Suspense fallback={<FallbackRow />}>
+						<Suspense fallback={<FallbackRowThick />}>
 							<MyLists type="shared_with_others" />
 						</Suspense>
 					</div>

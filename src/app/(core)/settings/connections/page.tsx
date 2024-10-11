@@ -19,7 +19,7 @@ export default async function MeClient() {
 	const hasAppleLinked = sessionUser?.identities?.some(i => i.provider === 'apple') || false
 
 	return (
-		<div className="grid gap-6">
+		<div className="grid gap-6 animate-in">
 			<Card>
 				<CardHeader>
 					<CardTitle>Account Linking</CardTitle>

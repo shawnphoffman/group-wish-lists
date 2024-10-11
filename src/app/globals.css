@@ -83,3 +83,53 @@
 		@apply leading-7 [&:not(:first-child)]:mt-6;
 	}
 }
+
+@layer utilities {
+	.animate-in {
+		animation: animateIn 0.3s ease 0.15s both;
+	}
+
+	@keyframes animateIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-in-down {
+		animation: animateInDown 0.3s ease 0.15s both;
+	}
+
+	@keyframes animateInDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+/* @keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+} */

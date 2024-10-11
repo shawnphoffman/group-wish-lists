@@ -9,7 +9,7 @@ export default async function AuthButton() {
 	const currentUser = await getSessionUser()
 
 	if (!currentUser) {
-		return redirect('/login')
+		return redirect('/auth/login')
 	}
 
 	return (

@@ -16,6 +16,7 @@ type Props = {
 }
 
 export default async function MyLists({ type = ListType.ALL }: Props) {
+	// await new Promise(resolve => setTimeout(resolve, 5000))
 	const listsPromise = getMyLists(type)
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export default async function Page() {
 	return (
-		<div className="grid gap-6">
+		<div className="grid gap-6 animate-in">
 			<Card>
 				<CardHeader>
 					<CardTitle>Gifts Received</CardTitle>

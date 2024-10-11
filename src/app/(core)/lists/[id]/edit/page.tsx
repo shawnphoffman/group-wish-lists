@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
-import FallbackRow from '@/components/common/Fallbacks'
+import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import { AddIcon } from '@/components/icons/Icons'
 import ImportButton from '@/components/imports/ImportButton'
 import AddItemForm from '@/components/items/forms/AddItemForm'
@@ -49,7 +49,7 @@ const ShowList = async ({ params }: Props) => {
 	return (
 		<>
 			{/* Header */}
-			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
+			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row animate-in">
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
 					<ListTitleEditable
 						listId={params.id}
@@ -106,7 +106,7 @@ const ShowList = async ({ params }: Props) => {
 export default async function EditList({ params }: Props) {
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-2 max-md:gap-2">
-			<Suspense fallback={<FallbackRow />}>
+			<Suspense fallback={<FallbackRowsMultiple />}>
 				<ShowList params={params} />
 			</Suspense>
 
@@ -117,7 +117,7 @@ export default async function EditList({ params }: Props) {
 					<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<Suspense fallback={<FallbackRow />}>
+					<Suspense fallback={<FallbackRowThick />}>
 						<AddItemForm listId={params.id} />
 					</Suspense>
 				</CardContent>

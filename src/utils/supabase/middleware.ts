@@ -39,13 +39,14 @@ export async function updateSession(request: NextRequest) {
 		!request.nextUrl.pathname.startsWith('/login') &&
 		!request.nextUrl.pathname.startsWith('/auth') &&
 		!request.nextUrl.pathname.includes('.png') &&
+		!request.nextUrl.pathname.includes('.css') &&
 		!request.nextUrl.pathname.startsWith('/monitoring')
 	) {
 		// console.log('updateSession.NO USER', request.nextUrl.pathname)
 		// no user, potentially respond by redirecting the user to the login page
 		const oldUrl = request.nextUrl.clone()
 		const url = request.nextUrl.clone()
-		url.pathname = '/login'
+		url.pathname = '/auth/login'
 		url.searchParams.append('returnUrl', oldUrl.toString())
 
 		return NextResponse.redirect(url)

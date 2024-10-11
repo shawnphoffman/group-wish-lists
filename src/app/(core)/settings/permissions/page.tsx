@@ -49,7 +49,7 @@ export default async function MeClient() {
 	// console.log('reducedUsers', reducedUsers)
 
 	return (
-		<div className="grid gap-6">
+		<div className="grid gap-6 animate-in">
 			<Card>
 				<CardHeader>
 					<CardTitle>Viewing Permissions</CardTitle>

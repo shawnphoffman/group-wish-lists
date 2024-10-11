@@ -53,6 +53,7 @@ const birthday = (month: string, day: number) => {
 
 export default async function ListsByUser() {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
+	// await new Promise(resolve => setTimeout(resolve, 10000))
 	const userPromise = getSessionUser()
 	const listsPromise = getListsGroupedByUser()
 

@@ -10,4 +10,16 @@ export const FallbackRow = () => (
 
 export const FallbackRowThick = () => <Skeleton className="w-full h-16" />
 
+export const FallbackBadge = () => <Skeleton className="w-16 h-5 rounded-full" />
+
+export const FallbackButton = () => <Skeleton className="w-20 h-9" />
+
+export const FallbackRowsMultiple = () => (
+	<>
+		<FallbackRowThick />
+		<FallbackRowThick />
+		<FallbackRowThick />
+	</>
+)
+
 export default FallbackRow

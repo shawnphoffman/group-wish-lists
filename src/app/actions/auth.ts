@@ -32,7 +32,7 @@ export const signOut = async () => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 	await supabase.auth.signOut()
-	return redirect('/login')
+	return redirect('/auth/login')
 }
 
 //
@@ -52,7 +52,7 @@ export const signIn = async (formData: FormData) => {
 	if (error) {
 		console.error('signIn.error', error)
 
-		const url = new URL('/login', 'http://example.com')
+		const url = new URL('/auth/login', 'http://example.com')
 		url.searchParams.append('message', error.message || 'Something went wrong...')
 
 		if (returnUrl) url.searchParams.append('returnUrl', returnUrl)
@@ -85,10 +85,10 @@ export const signUp = async (formData: FormData) => {
 	})
 
 	if (error) {
-		return redirect('/login?message=Could not authenticate user')
+		return redirect('/auth/login?message=Could not authenticate user')
 	}
 
-	return redirect('/login?message=Check email to continue sign in process')
+	return redirect('/auth/login?message=Check email to continue sign in process')
 }
 
 //
