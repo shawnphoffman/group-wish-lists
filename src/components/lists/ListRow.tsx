@@ -1,4 +1,4 @@
-import { faList } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faList, faStar } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
@@ -36,6 +36,8 @@ export default function ListRow({ list, canEdit }: Props) {
 	const privateClasses = list?.private ? '' : ''
 	const isShared = canEdit && list.editors?.length
 
+	const isPrimary = list.primary && canEdit
+
 	// console.log('ListRow', list)
 
 	return (
@@ -45,6 +47,7 @@ export default function ListRow({ list, canEdit }: Props) {
 				<div className={`${!isActive ? 'line-through opacity-50' : ''} leading-none`}>{list.name}</div>
 				{list?.private && <LockIcon className="text-sm" />}
 				{isShared && <ShareIcon className="text-sm" />}
+				{isPrimary && <FontAwesomeIcon icon={faStar} className="text-yellow-500" />}
 			</LinkOrDiv>
 			<div className="flex flex-row items-center justify-end gap-1 !text-lg">
 				{/*  */}
@@ -58,7 +61,7 @@ export default function ListRow({ list, canEdit }: Props) {
 				{(list as ListSharedWithMe).sharer_display_name && (
 					<Badge variant="outline" className="!text-[10px] bg-muted whitespace-nowrap">
 						{/*  */}
-						{(list as ListSharedWithMe).sharer_display_name}
+						For: {(list as ListSharedWithMe).sharer_display_name}
 					</Badge>
 				)}
 				{/* {list?.private && <FontAwesomeIcon icon={faLockKeyhole} fixedWidth className="text-sm text-emerald-300" />} */}

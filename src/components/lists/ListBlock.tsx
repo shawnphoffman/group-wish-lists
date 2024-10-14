@@ -9,9 +9,19 @@ type Props = {
 
 export default async function ListBlock({ lists, isOwner }: Props) {
 	if (lists?.length === 0) return <EmptyMessage message="No lists here" />
+
+	const sortedListed = lists.sort((a, b) => {
+		if (a.primary && !b.primary) return -1
+		if (!a.primary && b.primary) return 1
+
+		if (a.name && !b.name) return -1
+		if (!a.name && b.name) return 1
+		return a.name.localeCompare(b.name)
+	})
+
 	return (
 		<div className="flex flex-col">
-			{lists.map(list => (
+			{sortedListed.map(list => (
 				<ListRow key={list.id} list={list} canEdit={isOwner} />
 			))}
 		</div>

@@ -7,6 +7,8 @@ import { getEditableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import { AddIcon } from '@/components/icons/Icons'
+import ImportAmazonButton from '@/components/imports/ImportAmazonButton'
+import ImportAppleButton from '@/components/imports/ImportAppleButton'
 import ImportButton from '@/components/imports/ImportButton'
 import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
@@ -69,7 +71,17 @@ const ShowList = async ({ params }: Props) => {
 						<AddIcon />
 						Add
 					</Link>
-					<ImportButton listId={params.id} />
+					{/* <ImportButton listId={params.id} /> */}
+					<Menubar className="p-0 h-9">
+						<MenubarMenu>
+							<MenubarTrigger>Import</MenubarTrigger>
+							<MenubarContent>
+								<ImportAppleButton listId={params.id} />
+								<MenubarSeparator />
+								<ImportAmazonButton listId={params.id} />
+							</MenubarContent>
+						</MenubarMenu>
+					</Menubar>
 					{currentUser?.id === list.user_id && (
 						<Menubar className="p-0 h-9">
 							<MenubarMenu>
@@ -81,7 +93,6 @@ const ShowList = async ({ params }: Props) => {
 									<MenubarSeparator />
 									<DeleteListButton listId={params.id} name={list.name} />
 									<MenubarSeparator />
-									{/* <EditorsButton listId={params.id} editors={editors} /> */}
 									<EditorsButton listId={params.id} />
 								</MenubarContent>
 							</MenubarMenu>

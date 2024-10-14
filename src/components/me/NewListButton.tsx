@@ -4,10 +4,10 @@ import { startTransition, useEffect, useRef, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { createList } from '@/app/actions/lists'
+import { createList, getUserEditors } from '@/app/actions/lists'
 import { AddIcon } from '@/components/icons/Icons'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -17,6 +17,17 @@ import ListTypeIcon from '../icons/ListTypeIcon'
 
 function CreateListFields() {
 	const { pending } = useFormStatus()
+
+	const [listOptions, setListOptions] = useState<{ user_id: string; display_name: string }[]>([])
+
+	useEffect(() => {
+		async function asyncGetListOptions() {
+			const opts = await getUserEditors()
+			console.log('opts', opts)
+			setListOptions(opts)
+		}
+		asyncGetListOptions()
+	}, [])
 
 	return (
 		<>
@@ -42,9 +53,27 @@ function CreateListFields() {
 						</RadioGroup>
 					</div>
 
+					{listOptions.length > 0 && (
+						<div className="grid w-full gap-2">
+							<Label htmlFor="list-owner">Who is this list for?</Label>
+							<RadioGroup name="list-owner" defaultValue={''} className="ps-1">
+								<div className="flex items-center space-x-2">
+									<RadioGroupItem value={''} />
+									<Label>You</Label>
+								</div>
+								{listOptions.map(option => (
+									<div key={option.user_id} className="flex items-center space-x-2">
+										<RadioGroupItem value={option.user_id} id={option.user_id} />
+										<Label>{option.display_name}</Label>
+									</div>
+								))}
+							</RadioGroup>
+						</div>
+					)}
+
 					<div className="grid w-full gap-2">
-						<Label htmlFor="list-type">List Type</Label>
-						<RadioGroup name="list-type" defaultValue={`${ListCategory.Christmas}`} className="ps-1">
+						<Label htmlFor="list-type">What type of list is this?</Label>
+						<RadioGroup name="list-type" defaultValue={`${ListCategory.WishList}`} className="ps-1">
 							{Object.entries(ListCategory).map(
 								([key, value]) =>
 									value !== 'test' && (
@@ -86,6 +115,7 @@ export default function NewListButton() {
 			})
 		}
 	}, [state, pathname, router])
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -97,7 +127,7 @@ export default function NewListButton() {
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>New List</DialogTitle>
-					<DialogDescription>Who can help edit the items on this list?</DialogDescription>
+					{/* <DialogDescription>Who can help edit the items on this list?</DialogDescription> */}
 				</DialogHeader>
 				<form action={formAction} ref={formRef}>
 					<CreateListFields />

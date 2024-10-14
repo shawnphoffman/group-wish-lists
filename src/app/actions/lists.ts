@@ -145,8 +145,10 @@ export const getEditableList = async (listID: number) => {
 export const getViewableList = async (listID: number) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
+
 	const { data } = await supabase.auth.getUser()
 	const viewingUserID = data?.user?.id
+
 	const resp = await supabase
 		.from('lists')
 		.select(
@@ -202,11 +204,12 @@ export const createList = async (prevState: any, formData: FormData) => {
 	'use server'
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
+	let owner = formData.get('list-owner') as string
 	const isPrivate = (formData.get('list-privacy') as string) === 'private'
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	console.log('createList', { name, type, isPrivate, formData })
+	// console.log('createList', { name, type, isPrivate, formData, owner })
 
 	if (!name?.trim()) {
 		return {
@@ -214,15 +217,19 @@ export const createList = async (prevState: any, formData: FormData) => {
 			message: 'List name is required',
 		}
 	}
+	if (!owner) {
+		const { data } = await supabase.auth.getUser()
+		owner = data?.user?.id!
+	}
 
-	const me = await supabase.from('view_me').select('user_id').single()
-
-	const createPromise = supabase.from('lists').insert({ recipient_user_id: me.data?.user_id, name, active: true, type, private: isPrivate })
+	const createPromise = supabase.from('lists').insert({ recipient_user_id: owner, name, active: true, type, private: isPrivate })
 
 	const [list] = await Promise.all([
 		createPromise,
 		// new Promise(resolve => setTimeout(resolve, 5000))
 	])
+
+	console.log('createList', list)
 	// console.log('list', list)
 
 	return {
@@ -279,11 +286,35 @@ export const deleteList = async (listID: List['id']) => {
 	const cookieStore = cookies()
 	const supabase = createClient(cookieStore)
 
-	await supabase.from('lists').delete().eq('id', listID)
+	const list = await supabase.from('lists').delete().eq('id', listID)
+
+	console.log('deleteList', list)
 
 	return {
 		status: 'success',
 	}
+}
+
+export const getUserEditors = async () => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.auth.getUser()
+	const editorUserId = data?.user?.id!
+
+	const resp = await supabase.from('user_editors').select('editor:owner_user_id(user_id, display_name)').eq('editor_user_id', editorUserId)
+
+	let newListsFor: { user_id: string; display_name: string }[] = []
+
+	if (resp.data) {
+		// @ts-expect-error
+		newListsFor = [...newListsFor, ...resp.data.map(result => result.editor)]
+	}
+
+	console.log('getUserEditors', resp.data, newListsFor)
+
+	return newListsFor
 }
 
 export const getListEditors = async (listID: List['id']) => {

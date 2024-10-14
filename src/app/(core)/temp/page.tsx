@@ -10,6 +10,10 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import SuspenseTest from '@/components/utils/SuspenseTest'
 
+// TODO
+// - Notifications? Comments?
+// - Wish list importer
+
 export default async function Temp() {
 	return (
 		<div className="flex flex-col flex-1 w-full gap-4 p-4 animate-page-in">
