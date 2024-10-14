@@ -125,7 +125,7 @@ export default async function EditList({ params }: Props) {
 				<ShowList params={params} />
 
 				{/* Add Item */}
-				<Card id="add-item animate-page-in">
+				<Card id="add-item" className="animate-page-in">
 					<CardHeader>
 						<CardTitle>Add Item</CardTitle>
 						<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
