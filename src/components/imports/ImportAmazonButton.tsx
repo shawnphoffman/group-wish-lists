@@ -12,7 +12,8 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { MenubarShortcut } from '@/components/ui/menubar'
-import { Textarea } from '@/components/ui/textarea'
+
+import { Input } from '../ui/input'
 
 type Props = {
 	listId: List['id']
@@ -26,7 +27,7 @@ type MarkdownParse = {
 export default function ImportAmazonButton({ listId }: Props) {
 	const [open, setOpen] = useState(false)
 	const [data, setData] = useState<MarkdownParse[]>([])
-	const [rawMarkdown, setRawMarkdown] = useState('')
+	const [wishlistUrl, setWishlistUrl] = useState('')
 	const [converting, setConverting] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const router = useRouter()
@@ -42,7 +43,7 @@ export default function ImportAmazonButton({ listId }: Props) {
 			if (resp?.status === 'success') {
 				startTransition(() => {
 					setData([])
-					setRawMarkdown('')
+					setWishlistUrl('')
 					router.refresh()
 				})
 			}
@@ -51,16 +52,14 @@ export default function ImportAmazonButton({ listId }: Props) {
 		importItems()
 	}, [data, listId, router])
 
-	const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		e.target.style.height = 'inherit'
-		e.target.style.height = `${e.target.scrollHeight}px`
-		setRawMarkdown(e.target.value)
+	const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setWishlistUrl(e.target.value)
 	}, [])
 
 	const handleConvert = useCallback(() => {
 		setConverting(true)
 		async function doStuff() {
-			const url = `/api/markdown?raw=${encodeURIComponent(rawMarkdown)}`
+			const url = `/api/markdown?raw=${encodeURIComponent(wishlistUrl)}`
 			const resp = await fetch(url)
 
 			if (resp) {
@@ -70,7 +69,7 @@ export default function ImportAmazonButton({ listId }: Props) {
 			setConverting(false)
 		}
 		doStuff()
-	}, [rawMarkdown])
+	}, [wishlistUrl])
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 w-full">
@@ -81,18 +80,20 @@ export default function ImportAmazonButton({ listId }: Props) {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Import from Apple Notes</DialogTitle>
-					<DialogDescription>It is not a perfect import so you might need to make adjustments afterward.</DialogDescription>
+					<DialogTitle>Import from Amazon Wish List</DialogTitle>
+					<DialogDescription>
+						Please make sure that your wish list is public so that the importer can view it appropriately. If you have issues, let me know.
+					</DialogDescription>
 				</DialogHeader>
 				<div className="flex flex-col gap-4 py-4">
 					{/* TEXTAREA */}
 					<div className="grid w-full gap-1.5">
-						<Label htmlFor="notes">Paste Notes Here</Label>
-						<Textarea id="notes" onChange={handleChange} value={rawMarkdown} disabled={loading || converting} />
+						<Label htmlFor="wishlist">Wish List URL</Label>
+						<Input id="wishlist" onChange={handleChange} value={wishlistUrl} disabled={loading || converting} />
 					</div>
-					{/* CONVERT BUTTON */}
-					<Button variant={'secondary'} type="button" onClick={handleConvert} disabled={loading || converting || !rawMarkdown}>
-						{converting ? 'Converting...' : 'Convert Apple Notes'}
+					{/* IMPORT BUTTON */}
+					<Button variant={'secondary'} type="button" onClick={handleConvert} disabled={loading || converting || !wishlistUrl}>
+						{converting ? 'Importing...' : 'Import Wish List'}
 					</Button>
 					{loading && <FontAwesomeIcon icon={faSpinnerScale} fixedWidth spinPulse className="self-center text-xl" />}
 				</div>

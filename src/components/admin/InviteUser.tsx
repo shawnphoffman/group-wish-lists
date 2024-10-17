@@ -2,7 +2,7 @@
 
 import { startTransition, useEffect, useRef } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { inviteUser } from '@/app/(core)/admin/actions'
 
