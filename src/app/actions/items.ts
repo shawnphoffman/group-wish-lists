@@ -51,7 +51,7 @@ export const createMultipleItems = async (listId: List['id'], items: Partial<Lis
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	// console.log('createMultipleItems', { inserted })
+	console.log('createMultipleItems', { inserted })
 
 	return {
 		status: 'success',

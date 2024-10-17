@@ -102,7 +102,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		let data
 
 		const controller = new AbortController()
-		const timeout = setTimeout(() => controller.abort(), 5000) // 5 seconds timeout
+		const timeout = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
 		let apiData: any = null
 		try {

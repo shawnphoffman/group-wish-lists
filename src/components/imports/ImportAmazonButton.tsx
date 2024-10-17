@@ -19,14 +19,14 @@ type Props = {
 	listId: List['id']
 }
 
-type MarkdownParse = {
+type WishListParse = {
 	title: string
-	notes: string
+	url: string
 }
 
 export default function ImportAmazonButton({ listId }: Props) {
 	const [open, setOpen] = useState(false)
-	const [data, setData] = useState<MarkdownParse[]>([])
+	const [data, setData] = useState<WishListParse[]>([])
 	const [wishlistUrl, setWishlistUrl] = useState('')
 	const [converting, setConverting] = useState(false)
 	const [loading, setLoading] = useState(false)
@@ -59,14 +59,35 @@ export default function ImportAmazonButton({ listId }: Props) {
 	const handleConvert = useCallback(() => {
 		setConverting(true)
 		async function doStuff() {
-			const url = `/api/markdown?raw=${encodeURIComponent(wishlistUrl)}`
-			const resp = await fetch(url)
+			const controller = new AbortController()
+			const timeoutId = setTimeout(() => controller.abort(), 30000)
 
-			if (resp) {
-				const json: MarkdownParse[] = await resp?.json()
-				setData(json)
+			try {
+				const url = `https://api.shawn.party/api/amazon/wish-list/scrape?url=${encodeURIComponent(wishlistUrl)}`
+				const resp = await fetch(url, { signal: controller.signal })
+
+				if (resp) {
+					const json: any[] = await resp?.json()
+
+					const remapped: WishListParse[] = json.map(item => {
+						return {
+							title: item.title,
+							url: item.link,
+						}
+					})
+
+					setData(remapped)
+				}
+			} catch (error) {
+				if (error.name === 'AbortError') {
+					console.error('Request timed out')
+				} else {
+					console.error('Fetch error:', error)
+				}
+			} finally {
+				clearTimeout(timeoutId)
+				setConverting(false)
 			}
-			setConverting(false)
 		}
 		doStuff()
 	}, [wishlistUrl])
@@ -78,11 +99,15 @@ export default function ImportAmazonButton({ listId }: Props) {
 					<FontAwesomeIcon icon={faAmazon} />
 				</MenubarShortcut>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent className="max-w-2xl overflow-scroll max-h-dvh">
 				<DialogHeader>
 					<DialogTitle>Import from Amazon Wish List</DialogTitle>
-					<DialogDescription>
-						Please make sure that your wish list is public so that the importer can view it appropriately. If you have issues, let me know.
+					<DialogDescription className="flex flex-col gap-2">
+						<div>
+							Please make sure that your wish list is public so that the importer can view it appropriately. If you have issues, let me
+							know.
+						</div>
+						<div>The process can take a bit of time so please be patient. If it fails to import, always try again just in case.</div>
 					</DialogDescription>
 				</DialogHeader>
 				<div className="flex flex-col gap-4 py-4">
@@ -100,21 +125,21 @@ export default function ImportAmazonButton({ listId }: Props) {
 				<DialogFooter>
 					{data.length > 0 && (
 						<div className="flex flex-col w-full gap-2">
-							<DialogTitle>Conversion Results</DialogTitle>
+							<DialogTitle>Import Results</DialogTitle>
 							<div className="flex flex-col w-full gap-1">
 								{data.map(token => (
 									<div key={token.title} className="">
 										<div className="font-medium">- {token.title}</div>
-										{token.notes && (
-											<div className="pl-4 overflow-hidden text-xs text-muted-foreground whitespace-break-spaces text-ellipsis">
-												{token.notes}
+										{token.url && (
+											<div className="pl-4 overflow-hidden text-xs break-all text-muted-foreground whitespace-break-spaces text-ellipsis">
+												{token.url}
 											</div>
 										)}
 									</div>
 								))}
 							</div>
 							<Button type="button" onClick={handleSubmit} disabled={loading || converting}>
-								{loading ? 'Importing...' : 'Import Conversion'}
+								{loading ? 'Adding...' : 'Add Items to List'}
 							</Button>
 						</div>
 					)}
