@@ -73,9 +73,9 @@ export default function ItemRowEditable({ item }: Props) {
 						<ItemPriorityIcon priority={item.priority} />
 					</div>
 					{/*  */}
-					<div className="flex flex-row items-center flex-1 w-full gap-2 overflow-hidden md:gap-4">
+					<div className="flex flex-col items-center flex-1 w-full gap-2 overflow-hidden xs:flex-row md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col flex-1 overflow-hidden">
+						<div className="flex flex-col flex-1 w-full overflow-hidden">
 							{/* Title */}
 							{item.url ? (
 								<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1 overflow-hidden hover:underline`}>
@@ -95,9 +95,10 @@ export default function ItemRowEditable({ item }: Props) {
 							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 						</div>
 						{/* Image + Actions */}
-						<div className="flex flex-col items-center justify-center gap-1 sm:flex-row">
+						<div className="flex flex-row items-center justify-center gap-1 xs:flex-col sm:flex-row">
 							{/* Image */}
-							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
+							{/* <ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" /> */}
+							<ItemImage url={item.image_url} className="w-fit max-h-32 xs:w-24 xs:max-h-24" />
 							{/* Edit */}
 							{isEditing ? (
 								<Button

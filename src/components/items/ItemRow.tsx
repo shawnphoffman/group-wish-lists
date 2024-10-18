@@ -55,17 +55,15 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						<div className="flex flex-col flex-1 overflow-hidden">
 							{/* Title */}
 							{item.url ? (
-								<Link
-									href={item.url!}
-									target="_blank"
-									className={`flex flex-row flex-1 items-center gap-1 overflow-hidden hover:underline`}
-								>
-									{item.title}
-									<FontAwesomeIcon
-										icon={faLink}
-										className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
-										size="xs"
-									/>
+								<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1 overflow-hidden hover:underline`}>
+									<span>
+										{item.title}
+										<FontAwesomeIcon
+											icon={faLink}
+											className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+											size="xs"
+										/>
+									</span>
 								</Link>
 							) : (
 								<div>{item.title}</div>
