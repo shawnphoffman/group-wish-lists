@@ -74,7 +74,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		}
 	}, [item, notes])
 
-	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		e.target.style.height = 'inherit'
+		e.target.style.height = `${e.target.scrollHeight}px`
 		setTitle(e.target.value)
 	}, [])
 
@@ -82,6 +84,12 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		e.target.style.height = 'inherit'
 		e.target.style.height = `${e.target.scrollHeight}px`
 		setNotes(e.target.value)
+	}, [])
+
+	const handleChangeImageUrl = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		e.target.style.height = 'inherit'
+		e.target.style.height = `${e.target.scrollHeight}px`
+		setImageUrl(e.target.value)
 	}, [])
 
 	const handleChangeUrl = useCallback(
@@ -240,7 +248,14 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							<FontAwesomeIcon icon={faAsterisk} />
 						</span>
 					</Label>
-					<Input type="text" name="title" placeholder="Something cool..." value={title} onChange={handleChangeTitle} />
+					<Textarea
+						name="title"
+						placeholder="Something cool..."
+						rows={1}
+						value={title}
+						onChange={handleChangeTitle}
+						className="min-h-fit"
+					/>
 				</div>
 
 				<div className="grid w-full gap-1.5">
@@ -265,6 +280,13 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				</div>
 
 				{(scrape || imageUrl) && <ItemImagePicker images={scrape?.result?.ogImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
+
+				<div className="grid w-full gap-1.5 text-muted-foreground">
+					<Label htmlFor="image-url-manual" className="italic">
+						Image URL (Manual)
+					</Label>
+					<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
+				</div>
 
 				<div>
 					<Button variant={'secondary'} type="submit" className="w-full" disabled={isDisabled}>

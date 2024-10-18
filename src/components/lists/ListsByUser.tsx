@@ -90,7 +90,7 @@ export default async function ListsByUser() {
 									)}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="pb-5">
+							<CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
 								<ListBlock lists={group.lists as List[]} isOwner={currentUser?.id === group.user_id} />
 							</CardContent>
 						</Card>

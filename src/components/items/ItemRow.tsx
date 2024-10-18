@@ -1,3 +1,5 @@
+import { faLink } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
@@ -52,7 +54,22 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						{/* Title + Notes */}
 						<div className="flex flex-col flex-1 overflow-hidden">
 							{/* Title */}
-							<div>{item.title}</div>
+							{item.url ? (
+								<Link
+									href={item.url!}
+									target="_blank"
+									className={`flex flex-row flex-1 items-center gap-1 overflow-hidden hover:underline`}
+								>
+									{item.title}
+									<FontAwesomeIcon
+										icon={faLink}
+										className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+										size="xs"
+									/>
+								</Link>
+							) : (
+								<div>{item.title}</div>
+							)}
 							{/* Notes */}
 							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 
@@ -70,12 +87,12 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							<div className="flex flex-col items-center justify-center gap-2">
 								{/* Actions */}
-								{item.url && (
-									<Link href={item.url} target="_blank" className="sm:text-xl nav-btn teal">
+								{/* {item.url && (
+									<Link href={item.url} target="_blank" className="nav-btn teal">
 										<OpenUrlIcon />
 										<span className="inline text-sm sm:hidden">Link</span>
 									</Link>
-								)}
+								)} */}
 								{!isComplete && <AddCommentButton itemId={item.id} />}
 							</div>
 						</div>

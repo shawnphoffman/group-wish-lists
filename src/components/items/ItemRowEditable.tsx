@@ -1,6 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
+import { faLink } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -60,6 +62,8 @@ export default function ItemRowEditable({ item }: Props) {
 
 	const pending = isPending || isDeleting
 
+	const LinkOrDiv = item.url ? Link : 'div'
+
 	return (
 		<div className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal`}>
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
@@ -69,11 +73,24 @@ export default function ItemRowEditable({ item }: Props) {
 						<ItemPriorityIcon priority={item.priority} />
 					</div>
 					{/*  */}
-					<div className="flex flex-row items-center flex-1 w-full gap-2 md:gap-4">
+					<div className="flex flex-row items-center flex-1 w-full gap-2 overflow-hidden md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col flex-1 overflow-hidden">
 							{/* Title */}
-							<div>{item.title}</div>
+							{item.url ? (
+								<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1 overflow-hidden hover:underline`}>
+									<span>
+										{item.title}
+										<FontAwesomeIcon
+											icon={faLink}
+											className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+											size="xs"
+										/>
+									</span>
+								</Link>
+							) : (
+								<div>{item.title}</div>
+							)}
 							{/* Notes */}
 							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 						</div>

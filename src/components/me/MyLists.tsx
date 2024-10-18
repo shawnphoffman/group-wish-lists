@@ -31,7 +31,7 @@ export default async function MyLists({ type = ListType.ALL }: Props) {
 
 	return (
 		<Card className="bg-accent">
-			<CardContent className="py-5">
+			<CardContent className="p-3 py-5 sm:p-6">
 				<ListBlock lists={data as List[]} isOwner={true} />
 			</CardContent>
 		</Card>
