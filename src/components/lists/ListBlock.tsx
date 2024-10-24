@@ -20,7 +20,7 @@ export default async function ListBlock({ lists, isOwner }: Props) {
 	})
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-1">
 			{sortedListed.map(list => (
 				<ListRow key={list.id} list={list} canEdit={isOwner} />
 			))}

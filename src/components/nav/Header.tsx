@@ -30,6 +30,12 @@ export default async function Header() {
 							</Link>
 						</Button>
 
+						<Button size="sm" variant={'outline'} asChild>
+							<Link href={`/import`} className="transition-colors" prefetch scroll={false}>
+								Add Item
+							</Link>
+						</Button>
+
 						<Button size="sm" variant={'outline'} asChild className="px-2">
 							<Link href="/settings" className="transition-colors" prefetch={false}>
 								<FontAwesomeIcon size="lg" icon={faCog} />

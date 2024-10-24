@@ -39,7 +39,7 @@ export default function ListRow({ list, canEdit }: Props) {
 	// console.log('ListRow', list)
 
 	return (
-		<div className={`!text-lg flex-row p-0 bg-transparent hover:bg-muted rounded flex ${privateClasses}`}>
+		<div className={`!text-lg flex-row p-0 bg-transparent hover:bg-muted rounded flex ${privateClasses} p-2 ps-4`}>
 			<LinkOrDiv href={url!} className={`flex flex-row flex-1 items-center gap-2 overflow-hidden`}>
 				<div className="flex flex-row items-center flex-1 gap-2 overflow-hidden">
 					<ListTypeIcon type={list.type} />

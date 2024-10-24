@@ -28,8 +28,8 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 						{lists.map((list: List) => (
 							<SelectItem key={list.id} value={`${list.id}`}>
 								{list.name}
-								{list.private && <> (private)</>}
-								{list.primary && <> ✅</>}
+								{list.private && <> 🔒</>}
+								{list.primary && <> ⭐</>}
 							</SelectItem>
 						))}
 					</SelectContent>
