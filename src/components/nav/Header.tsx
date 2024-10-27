@@ -37,7 +37,7 @@ export default async function Header() {
 						</Button>
 
 						<Button size="sm" variant={'outline'} asChild className="px-2">
-							<Link href="/settings" className="transition-colors" prefetch={false}>
+							<Link href="/settings" className="transition-colors" prefetch={false} title="Settings">
 								<FontAwesomeIcon size="lg" icon={faCog} />
 							</Link>
 						</Button>

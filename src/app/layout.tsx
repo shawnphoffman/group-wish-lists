@@ -15,8 +15,8 @@ const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://lo
 export const viewport: Viewport = {
 	themeColor: '#0a0a0a',
 	initialScale: 1,
-	maximumScale: 1,
-	userScalable: false,
+	// maximumScale: 2,
+	// userScalable: false,
 	colorScheme: 'dark',
 	minimumScale: 1,
 	// viewportFit: 'cover'
