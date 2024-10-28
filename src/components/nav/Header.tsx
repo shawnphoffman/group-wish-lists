@@ -44,7 +44,7 @@ export default async function Header() {
 
 						{!isDeployed && (
 							<Button size="sm" variant={'outline'} asChild className="hidden px-2 sm:flex">
-								<Link href="/admin/invite" className="transition-colors" title="Invite" prefetch={false}>
+								<Link href="/admin" className="transition-colors" title="Admin" prefetch={false}>
 									<FontAwesomeIcon size="lg" icon={faLock} />
 								</Link>
 							</Button>

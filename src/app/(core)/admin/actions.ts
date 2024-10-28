@@ -24,3 +24,28 @@ export const inviteUser = async (prevState: any, formData: FormData) => {
 		user: data.user,
 	}
 }
+
+export const adminArchiveCompletedItems = async () => {
+	'use server'
+	const cookieStore = cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemsPromise = await supabase
+		.from('list_items')
+		.update([{ archived: true }])
+		.eq('status', 'complete')
+		.eq('archived', false)
+
+	const [items] = await Promise.all([
+		itemsPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	console.log('adminArchiveCompletedItems', { items, itemsPromise })
+
+	return {
+		status: 'success',
+		items,
+	}
+}

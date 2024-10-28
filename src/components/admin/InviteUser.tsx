@@ -8,6 +8,8 @@ import { inviteUser } from '@/app/(core)/admin/actions'
 
 import ErrorMessage from '../common/ErrorMessage'
 import SuccessMessage from '../common/SuccessMessage'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 
 function InviteUserFields() {
 	const { pending } = useFormStatus()
@@ -16,8 +18,8 @@ function InviteUserFields() {
 			<label className="label" htmlFor="email">
 				Email
 			</label>
-			<input className="input" name="email" placeholder="you@example.com" required />
-			<button className="btn green">{pending ? 'Inviting...' : 'Invite User'}</button>
+			<Input className="input" name="email" placeholder="you@example.com" required />
+			<Button className="btn green">{pending ? 'Inviting...' : 'Invite User'}</Button>
 		</fieldset>
 	)
 }
