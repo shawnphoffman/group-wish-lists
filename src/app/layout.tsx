@@ -42,11 +42,11 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className={`${GeistSans.className} dark`} style={{ colorScheme: 'dark' }}>
+		<html lang="en" className={`${GeistSans.className} dark bg-black`} style={{ colorScheme: 'dark' }}>
 			<body>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Suspense>
-						<main className="flex flex-col items-center px-2 mx-auto h-dvh">{children}</main>
+						<main className="flex flex-col items-center px-2 mx-auto overflow-x-hidden overflow-y-scroll h-dvh">{children}</main>
 					</Suspense>
 					{process.env.VERCEL_ENV && <Analytics />}
 				</ThemeProvider>

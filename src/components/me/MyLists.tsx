@@ -25,9 +25,9 @@ export default async function MyLists({ type = ListType.ALL }: Props) {
 		// fakePromise
 	])
 
-	if (type === ListType.SHARED_WITH_ME) {
-		console.log('shared with me', data)
-	}
+	// if (type === ListType.SHARED_WITH_ME) {
+	// 	console.log('shared with me', data)
+	// }
 
 	return (
 		<Card className="bg-accent">

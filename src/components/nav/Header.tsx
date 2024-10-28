@@ -32,7 +32,7 @@ export default async function Header() {
 
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href={`/import`} className="transition-colors" prefetch scroll={false}>
-								Add Item
+								Quick Add
 							</Link>
 						</Button>
 
