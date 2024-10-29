@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useEffect, useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { faCheck, faPencil, faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
@@ -15,6 +15,7 @@ import { ListCategory } from '@/utils/enums'
 
 import { LockIcon, ShareIcon } from '../icons/Icons'
 import { Textarea } from '../ui/textarea'
+import { useResettableActionState } from '@/hooks/useResettableActionState'
 
 type Props = {
 	listId: List['id']
@@ -26,7 +27,7 @@ type Props = {
 }
 
 export default function ListTitleEditable({ listId, name, type, private: isPrivate, description, shared: isShared }: Props) {
-	const [state, formAction] = useActionState(renameList, {})
+	const [state, formAction, pending, reset] = useResettableActionState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
 	const [isPending, startTransition] = useTransition()
@@ -37,6 +38,7 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 			startTransition(() => {
 				setIsEditing(false)
 				router.refresh()
+				reset()
 			})
 		}
 	}, [isEditing, router, state])
@@ -73,7 +75,7 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 					</div>
 					<Textarea name="list-description" defaultValue={description} placeholder="Description" />
 				</div>
-				<Button type="submit" title="Save" className="text-2xl" disabled={isPending}>
+				<Button type="submit" title="Save" className="text-2xl" disabled={isPending || pending}>
 					<FontAwesomeIcon icon={faCheck} />
 				</Button>
 				<Button
@@ -81,8 +83,11 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 					variant={'outline'}
 					title="Cancel"
 					className="text-2xl"
-					onClick={() => setIsEditing(false)}
-					disabled={isPending}
+					onClick={() => {
+						console.log('cancel')
+						setIsEditing(false)
+					}}
+					disabled={isPending || pending}
 				>
 					<FontAwesomeIcon icon={faXmark} />
 				</Button>
@@ -103,7 +108,7 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 				title="Rename"
 				className="text-2xl text-yellow-300 transition-all hover:text-yellow-400"
 				onClick={() => setIsEditing(true)}
-				disabled={isPending}
+				disabled={isPending || pending}
 			>
 				<FontAwesomeIcon icon={faPencil} />
 			</Button>
