@@ -1,7 +1,7 @@
 'use client'
 
-import { startTransition, useEffect, useRef, useState } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
+import { useFormStatus } from 'react-dom'
 import { faComments } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname, useRouter } from 'next/navigation'
@@ -35,7 +35,7 @@ type Props = {
 
 export default function AddCommentButton({ itemId }: Props) {
 	const [open, setOpen] = useState(false)
-	const [state, formAction] = useFormState(createComment, {})
+	const [state, formAction] = useActionState(createComment, {})
 	const router = useRouter()
 	const pathname = usePathname()
 	const formRef = useRef<HTMLFormElement>(null)

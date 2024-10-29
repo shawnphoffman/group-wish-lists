@@ -1,7 +1,7 @@
 'use client'
 
-import { useTransition } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useActionState, useTransition } from 'react'
+import { useFormStatus } from 'react-dom'
 
 import { updateEmail } from '@/app/actions/auth'
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -48,7 +48,7 @@ const initialState = {
 }
 
 export default function EmailFormWrapper({ email }: WrapperProps) {
-	const [state, formAction] = useFormState(updateEmail, initialState)
+	const [state, formAction] = useActionState(updateEmail, initialState)
 	const [isPending] = useTransition()
 
 	console.log('EmailFormWrapper', { email, state, isPending })

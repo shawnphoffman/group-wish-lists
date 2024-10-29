@@ -2,8 +2,8 @@
 
 import './CreateListModal.css'
 
-import { startTransition, useEffect, useRef } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { startTransition, useActionState, useEffect, useRef } from 'react'
+import { useFormStatus } from 'react-dom'
 import { faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RadioGroup } from '@headlessui/react'
@@ -95,7 +95,7 @@ function CreateListFields() {
 }
 
 export default function CreateListModal() {
-	const [state, formAction] = useFormState(createList, {})
+	const [state, formAction] = useActionState(createList, {})
 	const router = useRouter()
 	const pathname = usePathname()
 	const formRef = useRef<HTMLFormElement>(null)

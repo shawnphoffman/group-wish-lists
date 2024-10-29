@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server'
 
 export const inviteUser = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const email = formData.get('email') as string
@@ -27,7 +27,7 @@ export const inviteUser = async (prevState: any, formData: FormData) => {
 
 export const adminArchiveCompletedItems = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const itemsPromise = await supabase

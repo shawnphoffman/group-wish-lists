@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useMemo, useState, useTransition } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useActionState, useEffect, useMemo, useState, useTransition } from 'react'
+import { useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
 import { updatePassword } from '@/app/actions/auth'
@@ -89,7 +89,7 @@ const initialState = {
 }
 
 export default function PasswordFormWrapper({ id }: WrapperProps) {
-	const [state, formAction] = useFormState(updatePassword, initialState)
+	const [state, formAction] = useActionState(updatePassword, initialState)
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()
 

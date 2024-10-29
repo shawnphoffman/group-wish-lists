@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
-import { useFormState } from 'react-dom'
+import { useActionState, useEffect, useState, useTransition } from 'react'
 import { faCheck, faPencil, faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
@@ -27,7 +26,7 @@ type Props = {
 }
 
 export default function ListTitleEditable({ listId, name, type, private: isPrivate, description, shared: isShared }: Props) {
-	const [state, formAction] = useFormState(renameList, {})
+	const [state, formAction] = useActionState(renameList, {})
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState(false)
 	const [isPending, startTransition] = useTransition()

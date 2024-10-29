@@ -8,7 +8,7 @@ import { createClient } from '@/utils/supabase/server'
 
 export const createItem = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const listId = formData.get('list-id') as string
@@ -39,7 +39,7 @@ export const createItem = async (prevState: any, formData: FormData) => {
 
 export const createMultipleItems = async (listId: List['id'], items: Partial<ListItem>[]) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const itemsToInsert = items.map(item => ({ list_id: listId, ...item }))
@@ -61,7 +61,7 @@ export const createMultipleItems = async (listId: List['id'], items: Partial<Lis
 
 export const editItem = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const id = formData.get('id') as string
@@ -91,7 +91,7 @@ export const editItem = async (prevState: any, formData: FormData) => {
 
 export const moveItem = async (id: ListItem['id'], list_id: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const itemPromise = await supabase.from('list_items').update([{ list_id }]).eq('id', id)
@@ -111,7 +111,7 @@ export const moveItem = async (id: ListItem['id'], list_id: List['id']) => {
 export const deleteItem = async (itemId: string) => {
 	'use server'
 	try {
-		const cookieStore = cookies()
+		const cookieStore = await cookies()
 		const supabase = createClient(cookieStore)
 
 		const itemPromise = supabase.from('list_items').delete().eq('id', itemId)
@@ -136,7 +136,7 @@ export const deleteItem = async (itemId: string) => {
 
 export const archiveCompletedItems = async (list_id: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const itemsPromise = await supabase

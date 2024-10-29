@@ -1,7 +1,7 @@
 'use client'
 
-import { startTransition, useEffect, useRef, useState } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
+import { useFormStatus } from 'react-dom'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { createList, getUserEditors } from '@/app/actions/lists'
@@ -99,7 +99,7 @@ function CreateListFields() {
 
 export default function NewListButton() {
 	const [open, setOpen] = useState(false)
-	const [state, formAction] = useFormState(createList, {})
+	const [state, formAction] = useActionState(createList, {})
 	const router = useRouter()
 	const pathname = usePathname()
 	const formRef = useRef<HTMLFormElement>(null)

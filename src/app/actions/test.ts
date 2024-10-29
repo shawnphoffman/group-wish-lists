@@ -18,7 +18,7 @@ export const fakeAsync = async (timeout = 2000, status = 'success') => {
 
 export const getUsers = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase.from('users').select('id,user_id,display_name').order('id', { ascending: true })
 

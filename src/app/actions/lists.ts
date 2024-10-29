@@ -65,7 +65,7 @@ const sortUserGroupsByBirthDate = (a: Partial<User>, b: Partial<User>) => {
 
 export const getListsGroupedByUser = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase
 		.from('view_users')
@@ -88,7 +88,7 @@ export const getListsGroupedByUser = async () => {
 
 export const getMyLists = async (type = 'all') => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	let resp
 
@@ -112,7 +112,7 @@ export const getMyLists = async (type = 'all') => {
 
 export const getMyPurchases = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase.from('view_my_purchases').select()
 
@@ -122,7 +122,7 @@ export const getMyPurchases = async () => {
 }
 
 export const getEditableList = async (listID: number) => {
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase
 		.from('view_my_lists2')
@@ -143,7 +143,7 @@ export const getEditableList = async (listID: number) => {
 }
 
 export const getViewableList = async (listID: number) => {
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.auth.getUser()
@@ -206,7 +206,7 @@ export const createList = async (prevState: any, formData: FormData) => {
 	const type = formData.get('list-type') as string
 	let owner = formData.get('list-owner') as string
 	const isPrivate = (formData.get('list-privacy') as string) === 'private'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	// console.log('createList', { name, type, isPrivate, formData, owner })
@@ -245,7 +245,7 @@ export const renameList = async (prevState: any, formData: FormData) => {
 	const isPrivate = (formData.get('list-privacy') as string) === 'private'
 	const description = formData.get('list-description') as string
 	const id = formData.get('id') as string
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	await supabase.from('lists').update({ name, type, private: isPrivate, description }).eq('id', id)
@@ -259,7 +259,7 @@ export const renameList = async (prevState: any, formData: FormData) => {
 
 export const archiveList = async (listID: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	await supabase.from('lists').update({ active: false }).eq('id', listID)
@@ -271,7 +271,7 @@ export const archiveList = async (listID: List['id']) => {
 
 export const unarchiveList = async (listID: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	await supabase.from('lists').update({ active: true }).eq('id', listID)
@@ -283,7 +283,7 @@ export const unarchiveList = async (listID: List['id']) => {
 
 export const deleteList = async (listID: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const list = await supabase.from('lists').delete().eq('id', listID)
@@ -297,7 +297,7 @@ export const deleteList = async (listID: List['id']) => {
 
 export const getUserEditors = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.auth.getUser()
@@ -319,7 +319,7 @@ export const getUserEditors = async () => {
 
 export const getListEditors = async (listID: List['id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase.from('list_editors').select('id, user_id, list_id').eq('list_id', listID)
 
@@ -332,7 +332,7 @@ export const getListEditors = async (listID: List['id']) => {
 
 export const createEditor = async (listId: List['id'], editorId: User['user_id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const editorPromise = supabase.from('list_editors').insert([{ list_id: listId, user_id: editorId }])
@@ -351,7 +351,7 @@ export const createEditor = async (listId: List['id'], editorId: User['user_id']
 
 export const deleteEditor = async (listId: List['id'], editorId: User['user_id']) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const editorPromise = supabase.from('list_editors').delete().eq('list_id', Number(listId)).eq('user_id', editorId)

@@ -1,7 +1,7 @@
 'use client'
 
-import { startTransition, useEffect, useRef } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { startTransition, useActionState, useEffect, useRef } from 'react'
+import { useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
 import { inviteUser } from '@/app/(core)/admin/actions'
@@ -25,7 +25,7 @@ function InviteUserFields() {
 }
 
 export default function InviteUserForm() {
-	const [state, formAction] = useFormState(inviteUser, {})
+	const [state, formAction] = useActionState(inviteUser, {})
 	const router = useRouter()
 	const formRef = useRef<HTMLFormElement>(null)
 

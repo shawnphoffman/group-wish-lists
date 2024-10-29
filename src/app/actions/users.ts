@@ -7,7 +7,7 @@ import { createClient } from '@/utils/supabase/server'
 
 export const getUsers = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const resp = await supabase.from('users').select('id,user_id,display_name').order('id', { ascending: true })
 
@@ -18,7 +18,7 @@ export const getUsers = async () => {
 
 export const getUserPermissions = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.auth.getUser()
@@ -39,7 +39,7 @@ export const getUserPermissions = async () => {
 
 export const updateUserPermissions = async (permId: number | undefined, viewerId: string, canView: boolean) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.auth.getUser()

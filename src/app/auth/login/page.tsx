@@ -9,22 +9,23 @@ import SignInWithPassword from '@/components/login/SignInWithPassword'
 import { Separator } from '@/components/ui/separator'
 
 type Props = {
-	searchParams: {
+	searchParams: Promise<{
 		message: string
 		returnUrl: string
-	}
+	}>
 }
 
-export default async function Login({ searchParams }: Props) {
-	const returnUrl = searchParams?.returnUrl
+export default async function Login(props: Props) {
+    const searchParams = await props.searchParams;
+    const returnUrl = searchParams?.returnUrl
 
-	const currentUser = await getSessionUser()
+    const currentUser = await getSessionUser()
 
-	if (currentUser) {
+    if (currentUser) {
 		return redirect(returnUrl || '/')
 	}
 
-	return (
+    return (
 		<div className="flex flex-col items-center flex-1 w-full gap-2 px-4 py-8 xs:py-16 xs:max-w-sm animate-page-in">
 			<Image src={icon} alt="Wish Lists Logo" width={200} height={200} />
 			<form className="flex flex-col justify-center w-full" action={signIn}>

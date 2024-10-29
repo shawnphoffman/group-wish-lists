@@ -22,13 +22,13 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Menubar, MenubarContent, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar'
 
-type Props = {
+type ClientProps = {
 	params: {
 		id: List['id']
 	}
 }
 
-const ShowList = async ({ params }: Props) => {
+const ShowList = async ({ params }: ClientProps) => {
 	const listPromise = getEditableList(params.id)
 	const sessionPromise = getSessionUser()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
@@ -118,7 +118,14 @@ const ShowList = async ({ params }: Props) => {
 	)
 }
 
-export default async function EditList({ params }: Props) {
+type Props = {
+	params: Promise<{
+		id: List['id']
+	}>
+}
+
+export default async function EditList(props: Props) {
+	const params = await props.params
 	return (
 		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-2 max-md:gap-2">
 			<Suspense fallback={<FallbackRowsMultiple />}>

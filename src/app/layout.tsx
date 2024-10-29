@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className={`${GeistSans.className} dark bg-black`} style={{ colorScheme: 'dark' }}>
+		<html lang="en" className={`${GeistSans.className} bg-black dark`} style={{ colorScheme: 'dark' }}>
 			<body>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Suspense>

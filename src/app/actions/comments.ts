@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server'
 
 export const createComment = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.auth.getUser()
@@ -36,7 +36,7 @@ export const createComment = async (prevState: any, formData: FormData) => {
 
 export const editComment = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	// const id = formData.get('id') as string
@@ -67,7 +67,7 @@ export const editComment = async (prevState: any, formData: FormData) => {
 export const deleteComment = async (commentId: number) => {
 	'use server'
 	try {
-		const cookieStore = cookies()
+		const cookieStore = await cookies()
 		const supabase = createClient(cookieStore)
 
 		const itemPromise = supabase.from('item_comments').delete().eq('id', commentId)

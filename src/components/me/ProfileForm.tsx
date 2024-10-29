@@ -1,7 +1,7 @@
 'use client'
 
-import { useCallback, useState, useTransition } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useActionState, useCallback, useState, useTransition } from 'react'
+import { useFormStatus } from 'react-dom'
 
 import { updateProfile } from '@/app/actions/auth'
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -95,7 +95,7 @@ const initialState = {
 }
 
 export default function ProfileFormWrapper({ name, id, birthMonth, birthDay }: WrapperProps) {
-	const [state, formAction] = useFormState(updateProfile, initialState)
+	const [state, formAction] = useActionState(updateProfile, initialState)
 	const [isPending] = useTransition()
 
 	return (

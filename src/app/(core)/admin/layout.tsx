@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server'
 type Props = { children: React.ReactNode }
 
 export default async function AdminLayout({ children }: Props) {
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const { data } = await supabase.from('view_me').select('is_admin').single()
 

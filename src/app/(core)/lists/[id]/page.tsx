@@ -10,15 +10,15 @@ import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 
-const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'), { ssr: false })
+const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'))
 
-type Props = {
+type ClientProps = {
 	params: {
 		id: List['id']
 	}
 }
 
-const ViewListClient = async ({ params }: Props) => {
+const ViewListClient = async ({ params }: ClientProps) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getViewableList(params.id)
 
@@ -67,7 +67,14 @@ const ViewListClient = async ({ params }: Props) => {
 	)
 }
 
-export default async function ViewList({ params }: Props) {
+type Props = {
+	params: Promise<{
+		id: List['id']
+	}>
+}
+
+export default async function ViewList(props: Props) {
+	const params = await props.params
 	return (
 		<>
 			<div className="flex flex-col flex-1 w-full max-w-4xl px-3 animate-page-in">

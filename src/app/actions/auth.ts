@@ -8,7 +8,7 @@ import { createClient } from '@/utils/supabase/server'
 //
 export const getSessionUser = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const { data, error } = await supabase.auth.getUser()
 	if (error || !data?.user) {
@@ -20,7 +20,7 @@ export const getSessionUser = async () => {
 //
 export const getUser = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	// return await supabase.from('view_me').select('id,user_id,display_name,is_parent,email').single()
 	return await supabase.from('view_me').select('id,user_id,display_name,is_parent,birth_month,birth_day').single()
@@ -29,7 +29,7 @@ export const getUser = async () => {
 //
 export const signOut = async () => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	await supabase.auth.signOut()
 	return redirect('/auth/login')
@@ -41,7 +41,7 @@ export const signIn = async (formData: FormData) => {
 	const email = formData.get('email') as string
 	const password = formData.get('password') as string
 	const returnUrl = formData.get('returnUrl') as string
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { error } = await supabase.auth.signInWithPassword({
@@ -70,10 +70,10 @@ export const signIn = async (formData: FormData) => {
 //
 export const signUp = async (formData: FormData) => {
 	'use server'
-	const origin = headers().get('origin')
+	const origin = (await headers()).get('origin')
 	const email = formData.get('email') as string
 	const password = formData.get('password') as string
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { error } = await supabase.auth.signUp({
@@ -94,7 +94,7 @@ export const signUp = async (formData: FormData) => {
 //
 export const updateProfile = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const name = formData.get('name') as string
 	const birth_month = formData.get('birth_month') as string
@@ -122,7 +122,7 @@ export const updateProfile = async (prevState: any, formData: FormData) => {
 //
 export const updatePassword = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	// console.log('updatePassword', { formData })
@@ -162,7 +162,7 @@ export const updatePassword = async (prevState: any, formData: FormData) => {
 //
 export const updateEmail = async (prevState: any, formData: FormData) => {
 	'use server'
-	const cookieStore = cookies()
+	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	// console.log('email', { formData })
