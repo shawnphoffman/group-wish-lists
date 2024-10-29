@@ -11,11 +11,11 @@ import { List } from '@/components/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useResettableActionState } from '@/hooks/useResettableActionState'
 import { ListCategory } from '@/utils/enums'
 
 import { LockIcon, ShareIcon } from '../icons/Icons'
 import { Textarea } from '../ui/textarea'
-import { useResettableActionState } from '@/hooks/useResettableActionState'
 
 type Props = {
 	listId: List['id']
@@ -41,7 +41,7 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 				reset()
 			})
 		}
-	}, [isEditing, router, state])
+	}, [isEditing, reset, router, state])
 
 	if (isEditing)
 		return (

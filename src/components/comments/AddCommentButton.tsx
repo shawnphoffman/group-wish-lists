@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { createComment } from '@/app/actions/comments'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
 
 import { ListItem } from '../types'
@@ -42,6 +42,7 @@ export default function AddCommentButton({ itemId }: Props) {
 
 	useEffect(() => {
 		if (state?.status === 'success') {
+			// console.log('createComment.state', state)
 			startTransition(() => {
 				if (formRef?.current) {
 					formRef.current.reset()
@@ -58,7 +59,10 @@ export default function AddCommentButton({ itemId }: Props) {
 				<FontAwesomeIcon icon={faComments} size="lg" className="text-blue-400 hover:text-blue-300 group-hover:text-blue-300" />
 			</DialogTrigger>
 			<DialogContent>
-				<DialogTitle>Add a Comment</DialogTitle>
+				<DialogHeader>
+					<DialogTitle>Add a Comment</DialogTitle>
+					<DialogDescription>Recipients can see the comments so do not put spoilers in them.</DialogDescription>
+				</DialogHeader>
 				<form action={formAction} ref={formRef} className="flex flex-col gap-4">
 					<input className="input" type="hidden" name="item-id" value={itemId} readOnly />
 					<AddCommentFields />
