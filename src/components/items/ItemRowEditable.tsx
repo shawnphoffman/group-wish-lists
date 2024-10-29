@@ -14,6 +14,9 @@ import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 import { Button } from '@/components/ui/button'
 
+import AddCommentButton from '../comments/AddCommentButton'
+import ItemComments from '../comments/ItemComments'
+
 import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
@@ -62,10 +65,12 @@ export default function ItemRowEditable({ item }: Props) {
 
 	const pending = isPending || isDeleting
 
-	const LinkOrDiv = item.url ? Link : 'div'
+	// const LinkOrDiv = item.url ? Link : 'div'
 
 	return (
-		<div className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal`}>
+		<div
+			className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal gap-2 flex flex-col`}
+		>
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
@@ -100,10 +105,11 @@ export default function ItemRowEditable({ item }: Props) {
 							{/* <ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" /> */}
 							<ItemImage url={item.image_url} className="w-fit max-h-32 xs:w-24 xs:max-h-24" />
 							{/* Edit */}
+							<AddCommentButton itemId={item.id} />
 							{isEditing ? (
 								<Button
-									variant="outline"
-									size="sm"
+									variant="ghost"
+									size="icon"
 									disabled={pending}
 									type="button"
 									onClick={handleEditClick}
@@ -114,8 +120,8 @@ export default function ItemRowEditable({ item }: Props) {
 								</Button>
 							) : (
 								<Button
-									variant="outline"
-									size="sm"
+									variant="ghost"
+									size="icon"
 									disabled={pending}
 									type="button"
 									onClick={handleEditClick}
@@ -168,6 +174,8 @@ export default function ItemRowEditable({ item }: Props) {
 					</>
 				)}
 			</div>
+
+			{item?.item_comments && <ItemComments comments={item.item_comments} />}
 		</div>
 	)
 }

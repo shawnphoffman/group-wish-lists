@@ -75,6 +75,7 @@ export const getListsGroupedByUser = async () => {
 
 	try {
 		if (resp.data) {
+			// @ts-expect-error
 			resp.data.sort(sortUserGroupsByBirthDate)
 		}
 	} catch (error) {
@@ -83,7 +84,7 @@ export const getListsGroupedByUser = async () => {
 
 	// console.log('getListsGroupedByUser.resp', resp)
 
-	return resp
+	return resp as any
 }
 
 export const getMyLists = async (type = 'all') => {
@@ -118,28 +119,70 @@ export const getMyPurchases = async () => {
 
 	// console.log('getMyLists.resp', resp)
 
-	return resp
+	return resp as any
 }
 
 export const getEditableList = async (listID: number) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.auth.getUser()
+	const viewingUserID = data?.user?.id
+
 	const resp = await supabase
 		.from('view_my_lists2')
 		.select(
 			`name, type, active, user_id, description, private,
 			recipient:recipient_user_id(id, display_name, user_id),
-			listItems:view_sorted_list_items!list_items_list_id_fkey(*),
+			listItems:view_sorted_list_items!list_items_list_id_fkey(
+				*,
+				item_comments!item_comments_item_id_fkey(
+					id,
+					item_id,
+					comments,
+					created_at,
+					edited_at,
+					user:user_id(user_id, display_name)
+				)
+			),
 			editors:list_editors(user:user_id(display_name, user_id))`
 		)
 		.eq('id', listID)
+		// .returns<EditableList[]>()
 		// .not('active', 'is', false)
 		.single()
+		.then(async list => {
+			// @ts-expect-error
+			const updatedItems = list.data?.listItems?.map((item: any) => {
+				return {
+					...item,
+					item_comments: item?.item_comments?.map((comment: any) => {
+						// console.log('getViewableList.comment', comment)
+						return {
+							...comment,
+							isOwner: comment.user.user_id === viewingUserID,
+						}
+					}),
+				}
+			})
+			// @ts-expect-error
+			if (list?.data?.listItems && updatedItems) {
+				// @ts-expect-error
+				list.data.listItems = updatedItems
+			}
+
+			return {
+				...(list as any),
+				// @ts-expect-error
+				isOwner: list.data?.user_id === viewingUserID,
+				viewingUserID,
+			}
+		})
 
 	// console.log('getEditableList.resp', JSON.stringify(resp, null, 2))
 	// console.log('getEditableList.resp', resp)
 
-	return resp
+	return resp as any
 }
 
 export const getViewableList = async (listID: number) => {
@@ -171,6 +214,7 @@ export const getViewableList = async (listID: number) => {
 		.not('active', 'is', false)
 		.maybeSingle()
 		.then(async list => {
+			// @ts-expect-error
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
 					...item,
@@ -183,13 +227,15 @@ export const getViewableList = async (listID: number) => {
 					}),
 				}
 			})
-
+			// @ts-expect-error
 			if (list?.data?.listItems && updatedItems) {
+				// @ts-expect-error
 				list.data.listItems = updatedItems
 			}
 
 			return {
-				...list,
+				...(list as any),
+				// @ts-expect-error
 				isOwner: list.data?.user_id === viewingUserID,
 				viewingUserID,
 			}
@@ -324,6 +370,7 @@ export const getListEditors = async (listID: List['id']) => {
 	const resp = await supabase.from('list_editors').select('id, user_id, list_id').eq('list_id', listID)
 
 	if (resp.data) {
+		// @ts-expect-error
 		return resp.data.map((editor: { user_id: string }) => editor.user_id)
 	}
 

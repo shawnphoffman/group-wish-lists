@@ -24,5 +24,5 @@ export const getUsers = async () => {
 
 	// console.log('getUsers.resp', resp)
 
-	return resp
+	return resp as any
 }

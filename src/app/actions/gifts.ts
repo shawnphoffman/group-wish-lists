@@ -60,5 +60,5 @@ export const getMyGifts = async () => {
 
 	// console.log('getMyGifts.resp', resp)
 
-	return resp
+	return resp as any
 }

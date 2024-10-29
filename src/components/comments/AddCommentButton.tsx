@@ -55,8 +55,10 @@ export default function AddCommentButton({ itemId }: Props) {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger>
-				<FontAwesomeIcon icon={faComments} size="lg" className="text-blue-400 hover:text-blue-300 group-hover:text-blue-300" />
+			<DialogTrigger asChild>
+				<Button variant="ghost" type="button" size="icon" className="group">
+					<FontAwesomeIcon icon={faComments} size="lg" className="text-blue-400 hover:text-blue-300 group-hover:text-blue-300" />
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>

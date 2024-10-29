@@ -34,7 +34,7 @@ export const getUserPermissions = async () => {
 
 	// console.log('getUserPermissions', resp)
 
-	return resp
+	return resp as any
 }
 
 export const updateUserPermissions = async (permId: number | undefined, viewerId: string, canView: boolean) => {

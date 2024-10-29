@@ -1,7 +1,7 @@
 import { getMyPurchases } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import PurchaseRow from '@/components/items/PurchaseRow'
-import { Card, CardContent } from '@/components/ui/card'
+// import { Card, CardContent } from '@/components/ui/card'
 
 export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()
