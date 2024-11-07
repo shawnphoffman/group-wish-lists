@@ -14,8 +14,8 @@ export default async function Page() {
 	}
 
 	return (
-		<div className="grid gap-6 animate-page-in">
-			<Card>
+		<div className="grid gap-6 animate-page-in bg-accent">
+			<Card className="bg-accent">
 				<CardHeader>
 					<CardTitle>Security</CardTitle>
 					<CardDescription>Use this to change your password</CardDescription>

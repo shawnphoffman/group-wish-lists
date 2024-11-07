@@ -31,8 +31,8 @@ export default async function Header() {
 						</Button>
 
 						<Button size="sm" variant={'outline'} asChild>
-							{/* <Link href={`/import`} className="transition-colors" prefetch scroll={false}> */}
-							<Link href={`/lists/1/edit#add-item`} className="transition-colors" prefetch scroll={false}>
+							<Link href={`/import`} className="transition-colors" prefetch scroll={false}>
+								{/* <Link href={`/lists/1/edit#add-item`} className="transition-colors" prefetch scroll={false}> */}
 								Quick Add
 							</Link>
 						</Button>

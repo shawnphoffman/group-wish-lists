@@ -18,7 +18,7 @@ export default async function Page() {
 
 	return (
 		<div className="grid gap-6 animate-page-in">
-			<Card>
+			<Card className="bg-accent">
 				<CardHeader>
 					<CardTitle>Profile</CardTitle>
 				</CardHeader>

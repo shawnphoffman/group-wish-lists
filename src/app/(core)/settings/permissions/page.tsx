@@ -50,7 +50,7 @@ export default async function MeClient() {
 
 	return (
 		<div className="grid gap-6 animate-page-in">
-			<Card>
+			<Card className="bg-accent">
 				<CardHeader>
 					<CardTitle>Viewing Permissions</CardTitle>
 					<CardDescription>Select who can interact with your public lists</CardDescription>

@@ -73,6 +73,7 @@ export type ListItem = {
 	image_url?: string
 	item_comments?: Comment[]
 	archived: boolean
+	price?: string
 }
 
 export type Gift = {

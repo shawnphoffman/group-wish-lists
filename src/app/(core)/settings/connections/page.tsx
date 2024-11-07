@@ -20,7 +20,7 @@ export default async function MeClient() {
 
 	return (
 		<div className="grid gap-6 animate-page-in">
-			<Card>
+			<Card className="bg-accent">
 				<CardHeader>
 					<CardTitle>Account Linking</CardTitle>
 					<CardDescription>Use this to connect your account to different services</CardDescription>

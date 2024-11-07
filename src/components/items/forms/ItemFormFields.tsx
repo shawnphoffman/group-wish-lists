@@ -51,6 +51,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [id] = useState<string>(item?.id || '')
 	const [title, setTitle] = useState<string>(item?.title || '')
 	const [notes, setNotes] = useState<string>(item?.notes || '')
+	const [price, setPrice] = useState<string>(item?.price || '')
 	const [url, setUrl] = useState<string>(item?.url || importUrl || '')
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
@@ -84,6 +85,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		e.target.style.height = 'inherit'
 		e.target.style.height = `${e.target.scrollHeight}px`
 		setNotes(e.target.value)
+	}, [])
+
+	const handleChangePrice = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setPrice(e.target.value)
 	}, [])
 
 	const handleChangeImageUrl = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -208,7 +213,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			<input className="input" type="hidden" name="image-url" value={imageUrl} readOnly />
 
 			<div className="flex flex-col justify-between gap-2">
-				<div className="grid w-full items-center gap-1.5">
+				<div className="grid items-center w-full gap-2">
 					<Label htmlFor="email">URL</Label>
 					<div className="flex flex-row justify-between gap-2">
 						<Input
@@ -263,20 +268,27 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
 				</div>
 
-				<div className="grid w-full gap-1.5">
-					<Label htmlFor="priority">Priority</Label>
-					<Select name="priority" value={priority} onValueChange={handleChangePriority}>
-						<SelectTrigger>
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent>
-							{Object.keys(ItemPriority).map((key: any) => (
-								<SelectItem key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
-									{key}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
+				<div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+					<div className="grid w-full gap-1.5">
+						<Label htmlFor="priority">Priority</Label>
+						<Select name="priority" value={priority} onValueChange={handleChangePriority}>
+							<SelectTrigger>
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{Object.keys(ItemPriority).map((key: any) => (
+									<SelectItem key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
+										{key}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
+
+					<div className="grid w-full gap-1.5">
+						<Label htmlFor="price">Price Range</Label>
+						<Input name="price" placeholder="$1" value={price} onChange={handleChangePrice} />
+					</div>
 				</div>
 
 				{(scrape || imageUrl) && <ItemImagePicker images={scrape?.result?.ogImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}

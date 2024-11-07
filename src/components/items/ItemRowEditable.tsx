@@ -12,6 +12,7 @@ import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 import AddCommentButton from '../comments/AddCommentButton'
@@ -80,57 +81,66 @@ export default function ItemRowEditable({ item }: Props) {
 					{/*  */}
 					<div className="flex flex-col items-center flex-1 w-full gap-2 overflow-hidden xs:flex-row md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col flex-1 w-full overflow-hidden">
-							{/* Title */}
-							{item.url ? (
-								<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1 overflow-hidden hover:underline`}>
-									<span>
-										{item.title}
-										<FontAwesomeIcon
-											icon={faLink}
-											className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
-											size="xs"
-										/>
-									</span>
-								</Link>
-							) : (
-								<div>{item.title}</div>
-							)}
+						<div className="flex flex-col justify-center flex-1 gap-1 overflow-hidden">
+							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
+								{/* Title */}
+								{item.url ? (
+									<Link href={item.url!} target="_blank" className={`flex items-center gap-1 overflow-hidden hover:underline`}>
+										<span>
+											{item.title}
+											<FontAwesomeIcon
+												icon={faLink}
+												className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+												size="xs"
+											/>
+										</span>
+									</Link>
+								) : (
+									<div>{item.title}</div>
+								)}
+								{item.price && (
+									<Badge variant="outline" className=" bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
+										~{item.price}
+									</Badge>
+								)}
+							</div>
 							{/* Notes */}
 							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
 						</div>
 						{/* Image + Actions */}
 						<div className="flex flex-row items-center justify-center gap-1 xs:flex-col sm:flex-row">
 							{/* Image */}
-							{/* <ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" /> */}
-							<ItemImage url={item.image_url} className="w-fit max-h-32 xs:w-24 xs:max-h-24" />
-							{/* Edit */}
-							<AddCommentButton itemId={item.id} />
-							{isEditing ? (
-								<Button
-									variant="ghost"
-									size="icon"
-									disabled={pending}
-									type="button"
-									onClick={handleEditClick}
-									className={`text-base sm:text-xl group`}
-								>
-									<span className="inline text-sm sm:hidden">Cancel</span>
-									<CancelIcon />
-								</Button>
-							) : (
-								<Button
-									variant="ghost"
-									size="icon"
-									disabled={pending}
-									type="button"
-									onClick={handleEditClick}
-									className={`text-base sm:text-xl group`}
-								>
-									<span className="inline text-sm sm:hidden">Edit</span>
-									<EditIcon />
-								</Button>
-							)}
+							<ItemImage url={item.image_url} className="max-w-[80%] xs:max-w-full w-fit max-h-32 xs:w-24 xs:max-h-24" />
+
+							<div className="flex flex-col gap-2 xs:flex-row sm:flex-col">
+								{/* Edit */}
+								<AddCommentButton itemId={item.id} />
+								{isEditing ? (
+									<Button
+										variant="ghost"
+										size="icon"
+										disabled={pending}
+										type="button"
+										onClick={handleEditClick}
+										className={`text-base sm:text-xl group `}
+									>
+										{/* <span className="inline text-sm sm:hidden">Cancel</span> */}
+										<CancelIcon />
+									</Button>
+								) : (
+									<Button
+										variant="ghost"
+										size="icon"
+										disabled={pending}
+										type="button"
+										onClick={handleEditClick}
+										className={`text-base sm:text-xl group `}
+									>
+										{/* <span className="inline text-sm sm:hidden">Edit</span> */}
+										<EditIcon />
+									</Button>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
