@@ -5,6 +5,7 @@ import { faLink } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
 
 import { deleteItem } from '@/app/actions/items'
 import { CancelIcon, DeleteIcon, EditIcon, MoveIcon, OpenUrlIcon } from '@/components/icons/Icons'
@@ -75,11 +76,13 @@ export default function ItemRowEditable({ item }: Props) {
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
-					<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
-						<ItemPriorityIcon priority={item.priority} />
-					</div>
+					{item.priority !== 'normal' && (
+						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
+							<ItemPriorityIcon priority={item.priority} />
+						</div>
+					)}
 					{/*  */}
-					<div className="flex flex-col items-center flex-1 w-full gap-2 overflow-hidden xs:flex-row md:gap-4">
+					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-1 overflow-hidden">
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
@@ -99,7 +102,7 @@ export default function ItemRowEditable({ item }: Props) {
 									<div>{item.title}</div>
 								)}
 								{item.price && (
-									<Badge variant="outline" className=" bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
+									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
 										~{item.price}
 									</Badge>
 								)}
@@ -112,7 +115,7 @@ export default function ItemRowEditable({ item }: Props) {
 							{/* Image */}
 							<ItemImage url={item.image_url} className="max-w-[80%] xs:max-w-full w-fit max-h-32 xs:w-24 xs:max-h-24" />
 
-							<div className="flex flex-col gap-2 xs:flex-row sm:flex-col">
+							<div className={twMerge('flex gap-2 ', item.image_url ? 'flex-col xs:flex-row sm:flex-col' : 'flex-row')}>
 								{/* Edit */}
 								<AddCommentButton itemId={item.id} />
 								{isEditing ? (

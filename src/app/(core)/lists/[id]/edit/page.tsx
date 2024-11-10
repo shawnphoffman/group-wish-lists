@@ -127,7 +127,7 @@ type Props = {
 export default async function EditList(props: Props) {
 	const params = await props.params
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-2 max-md:gap-2">
+		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 sm:px-2 max-md:gap-2">
 			<Suspense fallback={<FallbackRowsMultiple />}>
 				<ShowList params={params} />
 

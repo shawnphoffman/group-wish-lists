@@ -68,7 +68,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 									<div>{item.title}</div>
 								)}
 								{item.price && (
-									<Badge variant="outline" className=" bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
+									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
 										~{item.price}
 									</Badge>
 								)}

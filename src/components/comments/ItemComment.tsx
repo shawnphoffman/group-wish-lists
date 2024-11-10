@@ -34,7 +34,7 @@ export default function ItemComment({ comment }: Props) {
 
 	// console.log('comments:', comments)
 	return (
-		<Alert key={id} className="border-0 rounded-none">
+		<Alert key={id} className="px-3 py-2 border-0 rounded-none [&>svg]:left-3 [&>svg]:top-2 [&>svg~*]:pl-6">
 			<FontAwesomeIcon icon={faComment} className="!text-secondary" />
 			<AlertTitle className="flex items-center gap-2">
 				<span>{user.display_name}</span>
