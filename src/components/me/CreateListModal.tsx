@@ -12,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { createList } from '@/app/actions/lists'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
+import { Input } from '@/components/ui/input'
 import { ListCategory, ListPrivacy } from '@/utils/enums'
 
 function CreateListFields() {
@@ -30,7 +31,7 @@ function CreateListFields() {
 					<label htmlFor="input-name" className="block mb-2 label">
 						List Title
 					</label>
-					<input type="text" id="input-name" name="list-name" placeholder="Your Cool List" autoFocus required />
+					<Input type="text" id="input-name" name="list-name" placeholder="Your Cool List" autoFocus required />
 				</div>
 				<div>
 					<RadioGroup name="list-privacy" defaultValue={ListPrivacy.Public}>
