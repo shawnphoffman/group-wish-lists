@@ -291,7 +291,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</div>
 				</div>
 
-				{(scrape || imageUrl) && (
+				{scrape?.result && (
 					<>
 						<div>
 							<Button variant={'secondary'} type="submit" className="w-full" disabled={isDisabled}>

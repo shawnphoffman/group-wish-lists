@@ -21,9 +21,10 @@ export default async function ListBlock({ lists, isOwner }: Props) {
 
 	return (
 		<div className="flex flex-col gap-1">
-			{sortedListed.map(list => (
-				<ListRow key={list.id} list={list} canEdit={isOwner} />
-			))}
+			{sortedListed.map(list => {
+				const keySuffix = 'user_shared_with_id' in list ? list.user_shared_with_id : 'me'
+				return <ListRow key={`${list.id}-${keySuffix}`} list={list} canEdit={isOwner} />
+			})}
 		</div>
 	)
 }
