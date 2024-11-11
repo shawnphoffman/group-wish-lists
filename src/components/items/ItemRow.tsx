@@ -50,7 +50,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} />}
 					</div>
 					{/*  */}
-					<div className="flex flex-row items-center flex-1 gap-2 md:gap-4">
+					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-1 overflow-hidden">
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
@@ -88,7 +88,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						{/* Image + Actions */}
 						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
 							{/* Image */}
-							<ItemImage url={item.image_url} className="w-16 max-h-16 xs:w-24 xs:max-h-24" />
+							<ItemImage url={item.image_url} className="max-[400px]:w-40 max-[400px]:max-h-40 w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							<div className="flex flex-col items-center justify-center gap-2">
 								{/* Actions */}
 								{/* {item.url && (

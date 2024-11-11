@@ -7,13 +7,13 @@ import NewListButton from '@/components/me/NewListButton'
 export default async function MyStuff() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl px-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full max-w-4xl xs:px-2 animate-page-in">
 			<main className="flex flex-col flex-1 gap-8 divide-y">
 				{/* LISTS */}
 				<div className="flex flex-col gap-6">
 					{/* Header */}
-					<div className="flex flex-row justify-between">
-						<h1>My Lists</h1>
+					<div className="flex flex-row flex-wrap justify-between">
+						<h1 className="whitespace-nowrap">My Lists</h1>
 
 						<div className="flex flex-row flex-wrap justify-end flex-1 gap-0.5 items-center md:justify-end shrink-0">
 							<NewListButton />

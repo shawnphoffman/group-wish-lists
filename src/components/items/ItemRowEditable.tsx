@@ -115,7 +115,7 @@ export default function ItemRowEditable({ item }: Props) {
 							{/* Image */}
 							<ItemImage url={item.image_url} className="max-w-[80%] xs:max-w-full w-fit max-h-32 xs:w-24 xs:max-h-24" />
 
-							<div className={twMerge('flex gap-2 ', item.image_url ? 'flex-col xs:flex-row sm:flex-col' : 'flex-row')}>
+							<div className={twMerge('flex gap-2 ', item.image_url ? 'flex-col xs:flex-row sm:flex-col' : 'flex-row justify-end w-full')}>
 								{/* Edit */}
 								<AddCommentButton itemId={item.id} />
 								{isEditing ? (
