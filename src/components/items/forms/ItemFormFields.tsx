@@ -308,9 +308,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</>
 				)}
 
-				<div className="grid w-full gap-1.5 text-muted-foreground">
+				<div className="grid w-full gap-1.5">
 					<Label htmlFor="image-url-manual" className="italic">
-						Image URL (Manual)
+						Image URL (Manual Entry)
 					</Label>
 					<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
 				</div>
