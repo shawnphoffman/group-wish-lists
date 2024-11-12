@@ -24,7 +24,10 @@ type IconProps = {
 
 export function OpenUrlIcon() {
 	return (
-		<FontAwesomeIcon icon={faUpRightFromSquare} className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300" />
+		<FontAwesomeIcon
+			icon={faUpRightFromSquare}
+			className="text-teal-500 hover:text-teal-600 group-hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300 dark:group-hover:text-teal-300"
+		/>
 	)
 }
 export function EditIcon() {
@@ -76,13 +79,18 @@ export function ImportIcon() {
 	)
 }
 export function AddIcon() {
-	return <FontAwesomeIcon icon={faCirclePlus} className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300" />
+	return (
+		<FontAwesomeIcon
+			icon={faCirclePlus}
+			className="text-blue-500 hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
+		/>
+	)
 }
 export function CancelIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faBan}
-			className="text-orange-500 hover:text-orange-600 group-hover:text-orange-300 dark:text-orange-400 dark:hover:text-orange-300 dark:group-hover:text-orange-300"
+			className="text-orange-500 hover:text-orange-600 group-hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 dark:group-hover:text-orange-300"
 		/>
 	)
 }

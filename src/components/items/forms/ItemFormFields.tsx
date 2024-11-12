@@ -229,7 +229,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						<Button
 							type="button"
 							variant="outline"
-							className="text-teal-400 hover:text-teal-300"
+							className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
 							onClick={handleUrlImport}
 							disabled={!url}
 							title="Import"

@@ -16,17 +16,17 @@ export default function ItemPriorityIcon({ priority, className }: Props) {
 	switch (priority) {
 		case ItemPriority['Very High']:
 			title = 'Very High'
-			iconColor = 'text-yellow-400'
+			iconColor = 'text-yellow-500 dark:text-yellow-400'
 			icon = faBolt
 			break
 		case ItemPriority.High:
 			title = 'High'
-			iconColor = 'text-orange-400'
+			iconColor = 'text-orange-500 dark:text-orange-400'
 			icon = faUp
 			break
 		case ItemPriority.Low:
 			title = 'Low'
-			iconColor = 'text-blue-400'
+			iconColor = 'text-blue-500 dark:text-blue-400'
 			icon = faDown
 			break
 	}

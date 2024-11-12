@@ -67,7 +67,7 @@ const ShowList = async ({ params }: ClientProps) => {
 					/>
 				</div>
 				<div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-1 md:justify-end shrink-0">
-					<Link href="#add-item" className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1`}>
+					<Link href="#add-item" className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						<AddIcon />
 						Add
 					</Link>

@@ -151,7 +151,7 @@ export default function ItemRowEditable({ item }: Props) {
 				{isEditing && (
 					<>
 						<div className="flex flex-row flex-wrap items-center justify-end gap-1 p-2 pt-2 pb-0">
-							<Button variant="outline" type="button" size="sm" onClick={handleDeleteClick}>
+							<Button variant="outline" type="button" size="sm" onClick={handleDeleteClick} className="group">
 								Delete
 								<DeleteIcon />
 							</Button>
@@ -167,7 +167,7 @@ export default function ItemRowEditable({ item }: Props) {
 								<MoveIcon />
 							</Button>
 							{item.url && (
-								<Button variant="outline" type="button" size="sm" asChild>
+								<Button variant="outline" type="button" size="sm" className="group" asChild>
 									<Link href={item.url} target="_blank">
 										Open URL
 										<OpenUrlIcon />
