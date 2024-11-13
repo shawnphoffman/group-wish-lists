@@ -151,8 +151,37 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				const resp = await fetch(`/api/scraper?url=${url}`)
 				data = await resp.json()
 				if (!data?.result?.ogImage?.length) {
-					const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`)
-					data = await resp2.json()
+					// const ctr = new AbortController()
+					// const tmt = setTimeout(() => ctr.abort(), 30000) // 10 second timeout
+					try {
+						const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`, {
+							// signal: ctr.signal,
+						})
+						apiData = await resp2.json()
+						if (apiData?.og?.image || apiData?.images?.length) {
+							data = {
+								result: {
+									success: true,
+									ogUrl: apiData.meta.url || apiData.og.url,
+									ogTitle: apiData.meta.title || apiData.og.title,
+									ogDescription: apiData.meta.description || apiData.og.description,
+									ogType: apiData.og.type,
+									ogSiteName: apiData.og.site_name,
+									ogImage: [
+										{
+											url: apiData.og.image,
+										},
+										...apiData.images.map((x: { src: string }) => ({ url: x.src })),
+									],
+								},
+							}
+						}
+						// clearTimeout(tmt)
+					} catch (error) {
+						if ((error as Error).name === 'AbortError') {
+							setImportError('Request timeout 3. Trying something else...')
+						}
+					}
 				}
 			}
 		} catch (error) {
@@ -296,11 +325,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						<div>
 							<Button variant={'secondary'} type="submit" className="w-full" disabled={isDisabled}>
 								{importing ? (
-									<span className="drop-shadow-lg ">Importing URL...</span>
+									<span className="drop-shadow-lg">Importing URL...</span>
 								) : isPending ? (
-									<span className="drop-shadow-lg ">{item ? 'Saving' : 'Adding'}...</span>
+									<span className="drop-shadow-lg">{item ? 'Saving' : 'Adding'}...</span>
 								) : (
-									<span className="drop-shadow-lg ">{item ? 'Save Changes' : 'Add Item'}</span>
+									<span className="drop-shadow-lg">{item ? 'Save Changes' : 'Add Item'}</span>
 								)}
 							</Button>
 						</div>
