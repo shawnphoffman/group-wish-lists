@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
-import { OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import { Gift, ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
+import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority, ItemStatus } from '@/utils/enums'
 
 import AddCommentButton from '../comments/AddCommentButton'
@@ -52,7 +52,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 					{/*  */}
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col justify-center flex-1 gap-1 overflow-hidden">
+						<div className="flex flex-col justify-center flex-1 gap-0 overflow-hidden">
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
 								{/* Title */}
 								{item.url ? (
@@ -75,7 +75,12 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							</div>
 
 							{/* Notes */}
-							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
+							{item.notes && <div className="text-sm break-words whitespace-pre-line text-foreground/75">{item.notes}</div>}
+							{item.created_at && (
+								<div className="text-xs italic break-words whitespace-pre-line text-muted-foreground/50">
+									Added: {formatDateBasedOnAge(item.created_at)}
+								</div>
+							)}
 
 							{/* Gifter */}
 							{isComplete && (

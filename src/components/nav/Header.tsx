@@ -26,14 +26,19 @@ export default async function Header() {
 					<nav className="flex items-center gap-1">
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href="/me" className="transition-colors" prefetch>
+								{/* <span className="hidden xs:inline-block"> */}
 								My Lists
+								{/* </span> */}
+								{/* <span className="inline-block xs:hidden">Mine</span> */}
 							</Link>
 						</Button>
 
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href={`/import`} className="transition-colors" prefetch scroll={false}>
 								{/* <Link href={`/lists/1/edit#add-item`} className="transition-colors" prefetch scroll={false}> */}
-								Quick Add
+
+								<span className="hidden xs:inline-block">Quick Add</span>
+								<span className="inline-block xs:hidden">Add</span>
 							</Link>
 						</Button>
 

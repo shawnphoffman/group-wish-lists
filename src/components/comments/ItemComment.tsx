@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react'
 import { faComment } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { formatDistance, set } from 'date-fns'
+import { formatDistance } from 'date-fns'
 import { useRouter } from 'next/navigation'
 
 import { deleteComment } from '@/app/actions/comments'

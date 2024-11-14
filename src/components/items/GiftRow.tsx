@@ -1,24 +1,11 @@
-import { format, formatRelative, isBefore, subMonths } from 'date-fns'
-
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import { ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
+import { formatDateBasedOnAge } from '@/utils/date'
 
 type Props = {
 	item: ListItem & any
 	// item: any
-}
-
-function formatDateBasedOnAge(date) {
-	const sixMonthsAgo = subMonths(new Date(), 6)
-
-	if (isBefore(date, sixMonthsAgo)) {
-		// If the date is older than 6 months, return relative format
-		return formatRelative(date, new Date())
-	} else {
-		// Otherwise, return the month and day format
-		return format(date, 'MMMM d')
-	}
 }
 
 export default async function GiftRow({ item }: Props) {

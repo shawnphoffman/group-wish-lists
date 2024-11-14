@@ -74,6 +74,7 @@ export type ListItem = {
 	item_comments?: Comment[]
 	archived: boolean
 	price?: string
+	created_at: Date
 }
 
 export type Gift = {
