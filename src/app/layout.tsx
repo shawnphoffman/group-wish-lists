@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
-import { Analytics } from '@vercel/analytics/react'
+// import { Analytics } from '@vercel/analytics/react'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata, Viewport } from 'next'
 config.autoAddCss = false
@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					<Suspense>
 						<main className="flex flex-col items-center px-2 mx-auto overflow-x-hidden overflow-y-scroll h-dvh">{children}</main>
 					</Suspense>
-					{process.env.VERCEL_ENV && <Analytics />}
+					{/* {process.env.VERCEL_ENV && <Analytics />} */}
 				</ThemeProvider>
 			</body>
 		</html>
