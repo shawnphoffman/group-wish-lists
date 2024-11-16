@@ -3,19 +3,17 @@ import { Suspense } from 'react'
 import { getMyLists } from '@/app/actions/lists'
 import ImportUrlClient from '@/components/imports/ImportUrlClient'
 import { ListType } from '@/components/me/MyLists'
-import { List } from '@/components/types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default async function ImportItem() {
-	const listsPromise = getMyLists(ListType.ALL)
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
-
-	const [{ data }] = await Promise.all([
-		listsPromise,
+	const [{ data: myLists }, { data: sharedLists }] = await Promise.all([
+		getMyLists(),
+		getMyLists(ListType.SHARED_WITH_ME),
 		// fakePromise
 	])
 
-	const lists = data as List[]
+	const lists = [...(myLists || []), ...(sharedLists || [])].sort((a, b) => b.name.localeCompare(a.name))
 	const list = lists[0]
 
 	return (

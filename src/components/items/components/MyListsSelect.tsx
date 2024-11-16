@@ -2,6 +2,7 @@
 
 import { startTransition, useCallback, useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
+import { get } from 'http'
 import { useRouter } from 'next/navigation'
 
 import { moveItem } from '@/app/actions/items'
@@ -21,11 +22,25 @@ export default function MyListsSelect({ id, listId }: Props) {
 	const [list, setList] = useState<List | null>(null)
 	const router = useRouter()
 
+	// TODO include shared lists
+
 	useEffect(() => {
 		async function getListsAsync() {
 			setLoading(true)
+
 			// await new Promise(resolve => setTimeout(resolve, 500000))
-			const { data: lists } = await getMyLists()
+			// const { data: lists } = await getMyLists()
+
+			const [{ data: myLists }, { data: sharedLists }] = await Promise.all([
+				getMyLists(),
+				getMyLists('shared_with_me'),
+				// fakePromise
+			])
+
+			const lists = [...(myLists || []), ...(sharedLists || [])]
+
+			console.log('MyListsSelect', { myLists, sharedLists, lists })
+
 			setLists(lists)
 			const currentList = lists.find((list: List) => list.id === listId)
 			setList(currentList || null)
