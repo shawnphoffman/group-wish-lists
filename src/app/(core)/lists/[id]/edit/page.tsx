@@ -53,7 +53,7 @@ const ShowList = async ({ params }: ClientProps) => {
 	// console.log('ViewListClient', { items, visibleItems })
 
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 px-0 max-md:gap-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full gap-6 px-0 max-md:gap-2 animate-page-in">
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
@@ -127,7 +127,7 @@ type Props = {
 export default async function EditList(props: Props) {
 	const params = await props.params
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 sm:px-2 max-md:gap-2">
+		<div className="flex flex-col flex-1 w-full max-w-5xl gap-6 sm:px-2 max-md:gap-2">
 			<Suspense fallback={<FallbackRowsMultiple />}>
 				<ShowList params={params} />
 
