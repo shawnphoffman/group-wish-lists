@@ -15,6 +15,20 @@ import { ItemPriority, ItemStatus } from '@/utils/enums'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
+function getDomainFromUrl(url: string): string {
+	try {
+		const parsedUrl = new URL(url)
+		const parts = parsedUrl.hostname.split('.')
+		if (parts.length > 2) {
+			return parts.slice(-2).join('.') // Returns the last two segments (e.g., example.com)
+		}
+		return parsedUrl.hostname // Return as is for domains without subdomains
+	} catch (error) {
+		console.error('Invalid URL:', error)
+		return ''
+	}
+}
+
 const linkOptions = {
 	className: 'underline hover:text-primary',
 	target: '_blank',
@@ -62,13 +76,14 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
 								{/* Title */}
 								{item.url ? (
-									<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1 overflow-hidden hover:underline`}>
+									<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1.5 overflow-hidden hover:underline`}>
 										{item.title}
 										<FontAwesomeIcon
 											icon={faLink}
 											className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
 											size="xs"
 										/>
+										<span className="hidden text-xs sm:flex text-muted-foreground">{getDomainFromUrl(item.url)}</span>
 									</Link>
 								) : (
 									<div>{item.title}</div>

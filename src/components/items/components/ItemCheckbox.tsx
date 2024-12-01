@@ -47,7 +47,7 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 
 	if (!canChange) {
 		return checked ? (
-			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="xl" className="text-secondary" />
+			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="xl" className="text-destructive" />
 		) : (
 			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="xl" className="text-muted" />
 		)
@@ -56,7 +56,7 @@ export default function ItemCheckbox({ id, isComplete, canChange }: Props) {
 	return (
 		<fieldset disabled={isPending} className="flex items-center justify-center">
 			{isPending ? (
-				<FontAwesomeIcon icon={faSpinnerScale} size="xl" spinPulse />
+				<FontAwesomeIcon icon={faSpinnerScale} size="xl" spinPulse className="text-secondary" />
 			) : (
 				<Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} />
 			)}
