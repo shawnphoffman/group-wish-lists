@@ -1,5 +1,6 @@
 import { faLink } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Linkify from 'linkify-react'
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
@@ -13,6 +14,11 @@ import { ItemPriority, ItemStatus } from '@/utils/enums'
 
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
+
+const linkOptions = {
+	className: 'underline hover:text-primary',
+	target: '_blank',
+}
 
 type Props = {
 	item: ListItem & Gift
@@ -75,7 +81,11 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							</div>
 
 							{/* Notes */}
-							{item.notes && <div className="text-sm break-words whitespace-pre-line text-foreground/75">{item.notes}</div>}
+							{item.notes && (
+								<div className="text-sm break-words whitespace-pre-line text-foreground/75">
+									<Linkify options={linkOptions}>{item.notes}</Linkify>
+								</div>
+							)}
 							{item.created_at && (
 								<div className="text-xs italic break-words whitespace-pre-line text-muted-foreground/50">
 									Added: {formatDateBasedOnAge(item.created_at)}

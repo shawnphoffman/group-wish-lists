@@ -49,7 +49,6 @@ export default function ItemComment({ comment }: Props) {
 				</Badge>
 			</AlertTitle>
 			<AlertDescription className="flex flex-row items-center justify-between">
-				{/* <div className="[&_a]:underline [&_a]:hover:text-primary"> */}
 				<div>
 					<Linkify options={linkOptions}>{comments}</Linkify>
 				</div>
