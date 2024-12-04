@@ -95,7 +95,6 @@ export type Purchase = {
 export type User = {
 	id: number
 	display_name: string
-	is_parent: boolean
 	user_id: string
 	birth_month: number
 	birth_day: number
