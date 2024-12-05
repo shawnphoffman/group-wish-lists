@@ -45,7 +45,7 @@ export default function ListAddon({ id, is_gifter, description, display_name, cr
 				{/*  */}
 				<FontAwesomeIcon icon={faHeadSideBrain} className="text-yellow-600 dark:text-yellow-300" />
 
-				<div className="flex flex-col md:flex-row gap-x-3.5 md:items-center w-full">
+				<div className="flex flex-col xs:flex-row gap-x-3.5 xs:items-center w-full">
 					{/*  */}
 					<div className="flex flex-col justify-center flex-1 gap-0 overflow-hidden">
 						<div className="break-words whitespace-pre-line">
@@ -56,7 +56,7 @@ export default function ListAddon({ id, is_gifter, description, display_name, cr
 						</div>
 					</div>
 
-					<div className="flex flex-row self-end md:self-center items-center gap-3.5">
+					<div className="flex flex-row self-end xs:self-center items-center gap-3.5">
 						{/*  */}
 						<Badge variant={'outline'} className="">
 							{display_name}
