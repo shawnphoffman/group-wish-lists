@@ -241,9 +241,42 @@ export const getViewableList = async (listID: number) => {
 			}
 		})
 
-	console.log('getViewableList.resp', resp)
+	// console.log('getViewableList.resp', resp)
 
 	return resp
+}
+
+export const getListAddons = async (listID: number) => {
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.auth.getUser()
+	const viewingUserID = data?.user?.id
+
+	const resp = await supabase
+		.from('list_addons')
+		.select(`id,created_at,description,user:user_id(user_id, display_name)`)
+		.eq('list_id', listID)
+		.is('archived', false)
+		.order('created_at', { ascending: false })
+		.then(async addons => {
+			const updatedAddons = addons.data?.map((addon: any) => {
+				return {
+					...addon,
+					is_gifter: addon.user.user_id === viewingUserID,
+				}
+			})
+
+			if (addons?.data && updatedAddons) {
+				addons.data = updatedAddons
+			}
+
+			return addons
+		})
+
+	// console.log('getListAddons.resp', resp)
+
+	return resp as any
 }
 
 export const createList = async (prevState: any, formData: FormData) => {
@@ -275,8 +308,7 @@ export const createList = async (prevState: any, formData: FormData) => {
 		// new Promise(resolve => setTimeout(resolve, 5000))
 	])
 
-	console.log('createList', list)
-	// console.log('list', list)
+	// console.log('createList', list)
 
 	return {
 		status: 'success',
@@ -334,7 +366,7 @@ export const deleteList = async (listID: List['id']) => {
 
 	const list = await supabase.from('lists').delete().eq('id', listID)
 
-	console.log('deleteList', list)
+	// console.log('deleteList', list)
 
 	return {
 		status: 'success',
@@ -358,7 +390,7 @@ export const getUserEditors = async () => {
 		newListsFor = [...newListsFor, ...resp.data.map(result => result.editor)]
 	}
 
-	console.log('getUserEditors', resp.data, newListsFor)
+	// console.log('getUserEditors', resp.data, newListsFor)
 
 	return newListsFor
 }
@@ -389,7 +421,7 @@ export const createEditor = async (listId: List['id'], editorId: User['user_id']
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
 
-	console.log('createEditor', editor)
+	// console.log('createEditor', editor)
 
 	return {
 		status: 'success',
@@ -408,7 +440,7 @@ export const deleteEditor = async (listId: List['id'], editorId: User['user_id']
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
 
-	console.log('deleteEditor', { editor, listId, editorId })
+	// console.log('deleteEditor', { editor, listId, editorId })
 
 	return {
 		status: 'success',

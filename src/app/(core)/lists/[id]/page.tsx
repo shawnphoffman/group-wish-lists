@@ -2,7 +2,9 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 
-import { getViewableList } from '@/app/actions/lists'
+import { getListAddons, getViewableList } from '@/app/actions/lists'
+import AddAddonButton from '@/components/addons/AddListAddon'
+import ListAddon from '@/components/addons/ListAddon'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
@@ -21,9 +23,11 @@ type ClientProps = {
 const ViewListClient = async ({ params }: ClientProps) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getViewableList(params.id)
+	const addonsPromise = getListAddons(params.id)
 
-	const [{ data, error, isOwner }] = await Promise.all([
+	const [{ data, error, isOwner }, { data: addons }] = await Promise.all([
 		listPromise,
+		addonsPromise,
 		// fakePromise
 	])
 
@@ -58,6 +62,37 @@ const ViewListClient = async ({ params }: ClientProps) => {
 						{visibleItems?.map(item => (
 							<Suspense key={item.id} fallback={<FallbackRowThick />}>
 								<ItemRow item={item} isOwnerView={isOwner} />
+							</Suspense>
+						))}
+					</div>
+				)}
+			</div>
+
+			{/* Addons */}
+			<div className="flex flex-col gap-1">
+				<div className="flex flex-row items-center justify-between gap-2">
+					<h3>Manual Addons</h3>
+					<AddAddonButton listId={params.id} />
+				</div>
+				<div className="text-sm leading-tight text-muted-foreground">
+					These items are off-list gifts or notes that are manually added to help keep others in the loop. The list owner cannot see items
+					on this list as they are treated like purchased gifts.
+				</div>
+				{addons.length === 0 ? (
+					<EmptyMessage />
+				) : (
+					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
+						{/*  */}
+						{addons?.map(item => (
+							<Suspense key={item.id} fallback={<FallbackRowThick />}>
+								<ListAddon
+									key={item.id}
+									created_at={item.created_at}
+									id={item.id}
+									display_name={item.user.display_name}
+									is_gifter={item.is_gifter}
+									description={item.description}
+								/>
 							</Suspense>
 						))}
 					</div>
