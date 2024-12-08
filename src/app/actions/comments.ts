@@ -102,6 +102,8 @@ export const getCommentsGroupedByItem = async () => {
 				created_at,
 				listItem:view_sorted_list_items!item_comments_item_id_fkey(
 					*,
+					user:users!list_items_user_id_fkey1(user_id, display_name),
+					list:lists!list_items_list_id_fkey(id, name, recipient_user_id),
 					item_comments!item_comments_item_id_fkey(
 						id,
 						item_id,
@@ -109,8 +111,8 @@ export const getCommentsGroupedByItem = async () => {
 						created_at,
 						edited_at,
 						user:user_id(user_id, display_name)
-					)
-				)`
+						)
+					)`
 			)
 			// .not('lists', 'is', null)
 			.order('created_at', { ascending: false })

@@ -21,7 +21,7 @@ type Props = {
 }
 
 const linkOptions = {
-	className: 'underline hover:text-primary',
+	className: 'underline hover:text-primary break-all',
 	target: '_blank',
 }
 
@@ -41,7 +41,7 @@ export default function ListAddon({ id, is_gifter, description, display_name, cr
 
 	return (
 		<div className="flex flex-col w-full gap-2 p-3 hover:bg-muted">
-			<div className="flex flex-row gap-x-3.5 items-center">
+			<div className="flex flex-row gap-x-3.5 items-center overflow-hidden">
 				{/*  */}
 				<FontAwesomeIcon icon={faHeadSideBrain} className="text-yellow-600 dark:text-yellow-300" />
 

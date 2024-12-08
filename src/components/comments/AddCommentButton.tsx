@@ -23,7 +23,9 @@ function AddCommentFields() {
 				<Textarea name="comment" autoFocus required placeholder="Something interesting..." />
 			</fieldset>
 			<DialogFooter>
-				<Button disabled={pending}>{pending ? 'Commenting...' : 'Comment'}</Button>
+				<Button type="submit" disabled={pending}>
+					{pending ? 'Commenting...' : 'Comment'}
+				</Button>
 			</DialogFooter>
 		</>
 	)

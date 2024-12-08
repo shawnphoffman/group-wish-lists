@@ -19,7 +19,7 @@ type Props = {
 }
 
 const linkOptions = {
-	className: 'underline hover:text-primary',
+	className: 'underline hover:text-primary break-all',
 	target: '_blank',
 }
 
