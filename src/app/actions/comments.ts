@@ -88,3 +88,52 @@ export const deleteComment = async (commentId: number) => {
 		}
 	}
 }
+
+export const getCommentsGroupedByItem = async () => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	try {
+		const resp = await supabase
+			.from('item_comments')
+			.select(
+				`item_id,
+				created_at,
+				listItem:view_sorted_list_items!item_comments_item_id_fkey(
+					*,
+					item_comments!item_comments_item_id_fkey(
+						id,
+						item_id,
+						comments,
+						created_at,
+						edited_at,
+						user:user_id(user_id, display_name)
+					)
+				)`
+			)
+			// .not('lists', 'is', null)
+			.order('created_at', { ascending: false })
+			.then(async items => {
+				const temp = items?.data as any
+
+				const uniqueArray = temp?.reduce((acc, current) => {
+					if (!acc.some(obj => obj.item_id === current.item_id)) {
+						acc.push(current)
+					}
+					return acc
+				}, [])
+
+				return {
+					...items,
+					data: uniqueArray,
+				}
+			})
+
+		console.log('getCommentsGroupedByItem.resp', resp)
+
+		return resp as any
+	} catch (error) {
+		console.error('getCommentsGroupedByItem.resp.error', error)
+	}
+}

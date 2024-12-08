@@ -121,19 +121,13 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							<ItemImage url={item.image_url} className="max-[400px]:w-40 max-[400px]:max-h-40 w-16 max-h-16 xs:w-24 xs:max-h-24" />
 							<div className="flex flex-col items-center justify-center gap-2">
 								{/* Actions */}
-								{/* {item.url && (
-									<Link href={item.url} target="_blank" className="nav-btn teal">
-										<OpenUrlIcon />
-										<span className="inline text-sm sm:hidden">Link</span>
-									</Link>
-								)} */}
-								{!isComplete && <AddCommentButton itemId={item.id} />}
+								{<AddCommentButton itemId={item.id} />}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{!isComplete && item?.item_comments && <ItemComments comments={item.item_comments} />}
+			{item?.item_comments && <ItemComments comments={item.item_comments} />}
 		</div>
 	)
 }
