@@ -9,13 +9,15 @@ export const ListType = {
 	PUBLIC: 'public',
 	SHARED_WITH_ME: 'shared_with_me',
 	SHARED_WITH_OTHERS: 'shared_with_others',
+	GIFT_IDEAS: 'gift_ideas',
 } as const
 
 type Props = {
 	type?: string
+	showEmptyMessage?: boolean
 }
 
-export default async function MyLists({ type = ListType.ALL }: Props) {
+export default async function MyLists({ type = ListType.ALL, showEmptyMessage = true }: Props) {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	const listsPromise = getMyLists(type)
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
@@ -25,14 +27,14 @@ export default async function MyLists({ type = ListType.ALL }: Props) {
 		// fakePromise
 	])
 
-	// if (type === ListType.SHARED_WITH_ME) {
-	// 	console.log('shared with me', data)
+	// if (type === ListType.SHARED_WITH_OTHERS) {
+	// 	console.log('shared with others', data)
 	// }
 
 	return (
 		<Card className="bg-accent">
 			<CardContent className="p-2 xs:p-3">
-				<ListBlock lists={data as List[]} isOwner={true} />
+				<ListBlock lists={data as List[]} isOwner={true} showEmptyMessage={showEmptyMessage} />
 			</CardContent>
 		</Card>
 	)

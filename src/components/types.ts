@@ -14,13 +14,20 @@ export type List = {
 	editors?: Array<ListEditorWrapper>
 }
 export type ListSharedWithOthers = List & {
-	user_shared_with_id: number
-	user_shared_with_user_id: string
-	user_shared_with_display_name: string
+	editors?: Array<ListEditorWrapper>
+	// user_shared_with_id: number
+	// user_shared_with_user_id: string
+	// user_shared_with_display_name: string
 }
 export type ListSharedWithMe = List & {
 	sharer_display_name: string
 	sharer_id: number
+}
+export type ListGiftIdeas = List & {
+	owner_display_name: string
+	owner_id: number
+	is_list_owner: boolean
+	is_list_recipient: boolean
 }
 
 export type ListEditorWrapper = {

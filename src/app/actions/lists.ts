@@ -96,14 +96,19 @@ export const getMyLists = async (type = 'all') => {
 	let resp
 
 	// await new Promise(resolve => setTimeout(resolve, 5000))
-	if (type === 'shared_with_me') {
-		resp = await supabase.from('view_shared_with_me').select('*')
-	} else if (type === 'shared_with_others') {
-		resp = await supabase.from('view_shared_with_others').select('*')
-	} else if (type === 'private') {
-		resp = await supabase.from('view_my_lists').select('*').is('private', true)
-	} else if (type === 'public') {
+	if (type === ListType.PUBLIC) {
 		resp = await supabase.from('view_my_lists').select('*').is('private', false)
+	} else if (type === ListType.PRIVATE) {
+		resp = await supabase.from('view_my_lists').select('*').is('private', true).not('type', 'eq', ListCategory.GiftIdeas)
+	} else if (type === ListType.GIFT_IDEAS) {
+		resp = await supabase.from('view_list_gift_ideas').select('*')
+	} else if (type === ListType.SHARED_WITH_ME) {
+		resp = await supabase.from('view_shared_with_me').select('*').not('type', 'eq', ListCategory.GiftIdeas)
+	} else if (type === ListType.SHARED_WITH_OTHERS) {
+		resp = await supabase.from('view_shared_with_others').select(`
+			*,
+			editors:list_editors(user:user_id(display_name, user_id))
+			`)
 	} else {
 		resp = await supabase.from('view_my_lists').select('*')
 	}
