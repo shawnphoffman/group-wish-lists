@@ -36,16 +36,23 @@ export const adminArchiveCompletedItems = async () => {
 		.eq('status', 'complete')
 		.eq('archived', false)
 
-	const [items] = await Promise.all([
+	const addonsPromise = await supabase
+		.from('list_addons')
+		.update([{ archived: true }])
+		.eq('archived', false)
+
+	const [items, addons] = await Promise.all([
 		itemsPromise,
+		addonsPromise,
 		//
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	console.log('adminArchiveCompletedItems', { items, itemsPromise })
+	console.log('adminArchiveCompletedItems', { items, addons })
 
 	return {
 		status: 'success',
 		items,
+		addons,
 	}
 }

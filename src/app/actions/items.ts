@@ -147,13 +147,19 @@ export const archiveCompletedItems = async (list_id: List['id']) => {
 		.eq('status', 'complete')
 		.eq('list_id', list_id)
 
-	const [items] = await Promise.all([
+	const addonsPromise = await supabase
+		.from('list_addons')
+		.update([{ archived: true }])
+		.eq('list_id', list_id)
+
+	const [items, addons] = await Promise.all([
 		itemsPromise,
+		addonsPromise,
 		//
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	console.log('archiveCompletedItems', { items })
+	console.log('archiveCompletedItems', { items, addons })
 
 	return {
 		status: 'success',
