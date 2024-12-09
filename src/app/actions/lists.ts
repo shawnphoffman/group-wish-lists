@@ -2,7 +2,9 @@
 
 import { cookies } from 'next/headers'
 
+import { ListType } from '@/components/me/MyLists'
 import { List, User } from '@/components/types'
+import { ListCategory } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
 const monthToNumber: { [key: string]: number } = {
@@ -284,7 +286,7 @@ export const createList = async (prevState: any, formData: FormData) => {
 	const name = formData.get('list-name') as string
 	const type = formData.get('list-type') as string
 	let owner = formData.get('list-owner') as string
-	const isPrivate = (formData.get('list-privacy') as string) === 'private'
+	const isPrivate = type === ListCategory.GiftIdeas ? true : (formData.get('list-privacy') as string) === 'private'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 

@@ -39,38 +39,7 @@ function CreateListFields() {
 						<Input name="list-name" autoFocus required placeholder="Your Cool List" />
 					</div>
 
-					<div className="grid w-full gap-2">
-						<Label htmlFor="list-privacy">Privacy</Label>
-						<RadioGroup name="list-privacy" defaultValue="public" className="ps-1">
-							<div className="flex items-center space-x-2">
-								<RadioGroupItem value="public" id="public" />
-								<Label>Public</Label>
-							</div>
-							<div className="flex items-center space-x-2">
-								<RadioGroupItem value="private" id="private" />
-								<Label>Private</Label>
-							</div>
-						</RadioGroup>
-					</div>
-
-					{listOptions.length > 0 && (
-						<div className="grid w-full gap-2">
-							<Label htmlFor="list-owner">Who is this list for?</Label>
-							<RadioGroup name="list-owner" defaultValue={''} className="ps-1">
-								<div className="flex items-center space-x-2">
-									<RadioGroupItem value={''} />
-									<Label>You</Label>
-								</div>
-								{listOptions.map(option => (
-									<div key={option.user_id} className="flex items-center space-x-2">
-										<RadioGroupItem value={option.user_id} id={option.user_id} />
-										<Label>{option.display_name}</Label>
-									</div>
-								))}
-							</RadioGroup>
-						</div>
-					)}
-
+					{/* TYPE */}
 					<div className="grid w-full gap-2">
 						<Label htmlFor="list-type">What type of list is this?</Label>
 						<RadioGroup name="list-type" defaultValue={`${ListCategory.WishList}`} className="ps-1">
@@ -88,6 +57,43 @@ function CreateListFields() {
 							)}
 						</RadioGroup>
 					</div>
+
+					{/* PRIVACY */}
+					<div className="grid w-full gap-2">
+						<Label htmlFor="list-privacy" className="flex flex-row items-center gap-2">
+							<span>Privacy</span>
+							<span className="items-center text-sm leading-none text-muted-foreground">(Gift Ideas are always private)</span>
+						</Label>
+						<RadioGroup name="list-privacy" defaultValue="public" className="ps-1">
+							<div className="flex items-center space-x-2">
+								<RadioGroupItem value="public" id="public" />
+								<Label>Public</Label>
+							</div>
+							<div className="flex items-center space-x-2">
+								<RadioGroupItem value="private" id="private" />
+								<Label>Private</Label>
+							</div>
+						</RadioGroup>
+					</div>
+
+					{/* RECIPIENT */}
+					{listOptions.length > 0 && (
+						<div className="grid w-full gap-2">
+							<Label htmlFor="list-owner">Who is this list for?</Label>
+							<RadioGroup name="list-owner" defaultValue={''} className="ps-1">
+								<div className="flex items-center space-x-2">
+									<RadioGroupItem value={''} />
+									<Label>You</Label>
+								</div>
+								{listOptions.map(option => (
+									<div key={option.user_id} className="flex items-center space-x-2">
+										<RadioGroupItem value={option.user_id} id={option.user_id} />
+										<Label>{option.display_name}</Label>
+									</div>
+								))}
+							</RadioGroup>
+						</div>
+					)}
 				</div>
 			</fieldset>
 			<DialogFooter>
