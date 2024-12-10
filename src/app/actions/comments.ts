@@ -103,7 +103,7 @@ export const getCommentsGroupedByItem = async () => {
 				listItem:view_sorted_list_items!item_comments_item_id_fkey(
 					*,
 					user:users!list_items_user_id_fkey1(user_id, display_name),
-					list:lists!list_items_list_id_fkey(id, name, recipient_user_id),
+					list:lists!list_items_list_id_fkey(id, name, recipient_user_id, private, active),
 					item_comments!item_comments_item_id_fkey(
 						id,
 						item_id,
@@ -115,13 +115,17 @@ export const getCommentsGroupedByItem = async () => {
 					)`
 			)
 			// .not('lists', 'is', null)
+			// .eq('listItem.list.active', true)
+			// .eq('listItem.list.private', false)
 			.order('created_at', { ascending: false })
 			.then(async items => {
 				const temp = items?.data as any
 
 				const uniqueArray = temp?.reduce((acc, current) => {
 					if (!acc.some(obj => obj.item_id === current.item_id)) {
-						acc.push(current)
+						if (current.listItem?.list?.active && !current.listItem?.list?.private) {
+							acc.push(current)
+						}
 					}
 					return acc
 				}, [])
