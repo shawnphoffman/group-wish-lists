@@ -34,14 +34,17 @@ export default async function CommentsByItem() {
 				{error && <ErrorMessage />}
 				{listItems?.map(group => {
 					const item = group.listItem
-					const url = item.list.recipient_user_id === currentUser?.id ? `/lists/${item.list.id}/edit` : `/lists/${item.list.id}`
-					console.log('CommentsByItem', item)
+					const url =
+						item.list.recipient_user_id === currentUser?.id
+							? `/lists/${item.list.id}/edit#item-${item.id}`
+							: `/lists/${item.list.id}#item-${item.id}`
+					// console.log('CommentsByItem', item)
 					return (
 						<Card key={`group-${group.item_id}`} className="bg-accent">
 							<CardHeader className="flex-row items-center gap-1 py-4 pb-4">
-								<CardTitle className="flex flex-col flex-wrap items-center justify-between w-full gap-2 xs:flex-row">
-									<div className="flex flex-row items-center justify-center gap-2 max-xs:self-start">
-										<div className="flex flex-col items-start gap-2">
+								<CardTitle className="flex flex-col items-center justify-between w-full gap-2 xs:flex-row">
+									<div className="flex flex-row items-center justify-center w-full gap-2 max-xs:self-start">
+										<div className="flex flex-col items-start w-full gap-2">
 											<span>{item.title}</span>
 											<Badge variant="outline" className="text-muted-foreground whitespace-nowrap">
 												{item.user.display_name} - {item.list.name}

@@ -11,6 +11,7 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
+import HashScroller from '@/components/utils/HashScroller'
 
 const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListener'))
 
@@ -120,6 +121,7 @@ export default async function ViewList(props: Props) {
 				</div>
 			</div>
 			<RealTimeListener listId={params.id} />
+			<HashScroller />
 		</>
 	)
 }

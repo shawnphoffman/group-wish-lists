@@ -71,6 +71,7 @@ export default function ItemRowEditable({ item }: Props) {
 
 	return (
 		<div
+			id={`item-${item.id}`}
 			className={`${pending ? 'pending' : ''} ${isEditing ? 'editing' : ''} p-3 hover:bg-muted font-medium leading-normal gap-2 flex flex-col`}
 		>
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">

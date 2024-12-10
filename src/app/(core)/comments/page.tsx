@@ -16,7 +16,7 @@ export default async function Comments() {
 					<span>Grapevine</span>
 				</h1>
 				<div className="text-sm leading-tight text-muted-foreground">
-					This page is a work-in-progress because Madison treats this like a social media site...
+					This page is a special request because Madison treats this like a social media site...
 				</div>
 				<Suspense fallback={<FallbackRowsMultiple />}>
 					<CommentsByItem />

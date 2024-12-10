@@ -114,9 +114,7 @@ export const getCommentsGroupedByItem = async () => {
 						)
 					)`
 			)
-			// .not('lists', 'is', null)
-			// .eq('listItem.list.active', true)
-			// .eq('listItem.list.private', false)
+			.is('listItem.list.private', false)
 			.order('created_at', { ascending: false })
 			.then(async items => {
 				const temp = items?.data as any

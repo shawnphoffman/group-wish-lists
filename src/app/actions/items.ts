@@ -166,3 +166,31 @@ export const archiveCompletedItems = async (list_id: List['id']) => {
 		items,
 	}
 }
+
+export const getRecentItems = async () => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	try {
+		const resp = await supabase
+			.from('list_items')
+			.select(
+				`id, list_id, title, created_at, image_url, priority,
+				lists!inner(id, name, recipient_user_id, private, active),
+				user:users!list_items_user_id_fkey1(user_id, display_name)
+				`
+			)
+			.is('archived', false)
+			.is('lists.private', false)
+			.is('lists.active', true)
+			.order('created_at', { ascending: false })
+			.limit(50)
+
+		// console.log('getCommentsGroupedByItem.resp', resp)
+
+		return resp as any
+	} catch (error) {
+		console.error('getCommentsGroupedByItem.resp.error', error)
+	}
+}

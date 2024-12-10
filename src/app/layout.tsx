@@ -46,7 +46,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 			<body>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Suspense>
-						<main className="flex flex-col items-center px-2 mx-auto overflow-x-hidden overflow-y-scroll h-dvh">{children}</main>
+						<main className="flex flex-col items-center px-2 mx-auto overflow-x-hidden overflow-y-scroll h-dvh scroll-py-14">
+							{children}
+						</main>
 					</Suspense>
 					{/* {process.env.VERCEL_ENV && <Analytics />} */}
 				</ThemeProvider>

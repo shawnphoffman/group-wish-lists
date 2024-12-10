@@ -59,7 +59,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 	const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
 
 	return (
-		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`}>
+		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`} id={`item-${item.id}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority & Checkbox */}

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { faGift } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
-import { faCog, faComments, faLock } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faCog, faComments, faLock, faRadio } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
@@ -24,24 +24,23 @@ export default async function Header() {
 						<span className="inline-block text-lg font-bold sm:hidden">Lists</span>
 					</Link>
 					<nav className="flex items-center gap-1">
+						{/* */}
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href="/me" className="transition-colors" prefetch>
-								{/* <span className="hidden xs:inline-block"> */}
 								My Lists
-								{/* </span> */}
-								{/* <span className="inline-block xs:hidden">Mine</span> */}
 							</Link>
 						</Button>
 
+						{/* */}
 						<Button size="sm" variant={'outline'} asChild>
 							<Link href={`/import`} className="transition-colors" prefetch scroll={false}>
 								{/* <Link href={`/lists/1/edit#add-item`} className="transition-colors" prefetch scroll={false}> */}
-
 								<span className="hidden xs:inline-block">Quick Add</span>
 								<span className="inline-block xs:hidden">Add</span>
 							</Link>
 						</Button>
 
+						{/*  */}
 						<Button size="sm" variant={'outline'} asChild className="px-2">
 							<Link
 								href="/comments"
@@ -50,6 +49,18 @@ export default async function Header() {
 								title="Comments Feed"
 							>
 								<FontAwesomeIcon size="lg" icon={faComments} />
+							</Link>
+						</Button>
+
+						{/*  */}
+						<Button size="sm" variant={'outline'} asChild className="px-2">
+							<Link
+								href="/recent"
+								className="text-orange-500 transition-colors hover:text-orange-600 group-hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 dark:group-hover:text-orange-300"
+								prefetch={false}
+								title="Recent Items"
+							>
+								<FontAwesomeIcon size="lg" icon={faRadio} />
 							</Link>
 						</Button>
 
