@@ -1,6 +1,10 @@
 import { Suspense } from 'react'
 import { faGift } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
-import { faCog, faComments, faLock } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import {
+	faCog,
+	// faComments,
+	faLock,
+} from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
@@ -42,7 +46,7 @@ export default async function Header() {
 							</Link>
 						</Button>
 
-						<Button size="sm" variant={'outline'} asChild className="px-2">
+						{/* <Button size="sm" variant={'outline'} asChild className="px-2">
 							<Link
 								href="/comments"
 								className="text-blue-500 transition-colors hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
@@ -51,7 +55,7 @@ export default async function Header() {
 							>
 								<FontAwesomeIcon size="lg" icon={faComments} />
 							</Link>
-						</Button>
+						</Button> */}
 
 						<Button size="sm" variant={'outline'} asChild className="px-2">
 							<Link
