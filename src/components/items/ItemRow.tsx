@@ -110,7 +110,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							{/* Gifter */}
 							{isComplete && (
 								<Badge variant={'outline'} className="self-start mt-1">
-									{item.display_name}
+									{item.display_name} {item.additional_gifter_ids && `+${item.additional_gifter_ids.length}`}
 								</Badge>
 							)}
 						</div>

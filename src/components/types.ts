@@ -82,6 +82,7 @@ export type ListItem = {
 	archived: boolean
 	price?: string
 	created_at: Date
+	additional_gifter_ids?: User['user_id'][]
 }
 
 export type Gift = {
