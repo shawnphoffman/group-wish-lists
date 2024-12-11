@@ -16,9 +16,10 @@ export default function RealTimeListener({ listId }: Props) {
 	const isSubscribed = useRef(false)
 
 	useEffect(() => {
+		const filters = listId ? { filter: `list_id=eq.${listId}` } : {}
 		const channels = supabase
 			.channel('list_items')
-			.on('postgres_changes', { event: '*', schema: 'public', table: 'list_items', filter: `list_id=eq.${listId}` }, payload => {
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'list_items', ...filters }, payload => {
 				console.log('RealTime Event', payload)
 				startTransition(() => {
 					router.refresh()

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { FallbackRowsMultiple } from '@/components/common/Fallbacks'
 import RecentItems from '@/components/items/RecentItems'
+import RealTimeListener from '@/components/utils/RealTimeListener'
 
 export default async function RecentItemsPage() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
@@ -19,6 +20,8 @@ export default async function RecentItemsPage() {
 					<RecentItems />
 				</Suspense>
 			</div>
+
+			<RealTimeListener />
 		</div>
 	)
 }
