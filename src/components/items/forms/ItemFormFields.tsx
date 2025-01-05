@@ -217,6 +217,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				setUrl('')
 				setPriority(ItemPriority.Normal)
 				setImageUrl('')
+				setPrice('')
 				setScrape(undefined)
 				if (pathname === '/import') {
 					router.push(`/lists/${listId}/edit`)
