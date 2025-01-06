@@ -16,6 +16,7 @@ import { ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
+// import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
@@ -97,6 +98,7 @@ export default function ItemRowEditable({ item }: Props) {
 												className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
 												size="xs"
 											/>
+											{/* <span className="hidden text-xs sm:flex text-muted-foreground">{getDomainFromUrl(item.url)}</span> */}
 										</span>
 									</Link>
 								) : (

@@ -11,23 +11,10 @@ import { Gift, ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority, ItemStatus } from '@/utils/enums'
+import { getDomainFromUrl } from '@/utils/urls'
 
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
-
-function getDomainFromUrl(url: string): string {
-	try {
-		const parsedUrl = new URL(url)
-		const parts = parsedUrl.hostname.split('.')
-		if (parts.length > 2) {
-			return parts.slice(-2).join('.') // Returns the last two segments (e.g., example.com)
-		}
-		return parsedUrl.hostname // Return as is for domains without subdomains
-	} catch (error) {
-		console.error('Invalid URL:', error)
-		return ''
-	}
-}
 
 const linkOptions = {
 	className: 'underline hover:text-primary',
