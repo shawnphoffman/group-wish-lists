@@ -20,7 +20,12 @@ function AddCommentFields() {
 		<>
 			<fieldset disabled={pending} className="flex flex-col gap-4">
 				{/* <Label htmlFor="comment">Add a Comment</Label> */}
-				<Textarea name="comment" autoFocus required placeholder="Something interesting..." />
+				<Textarea
+					name="comment"
+					autoFocus
+					required
+					placeholder="The list owner will be able to see this. Seriously, don't put that you purchased it in the comment."
+				/>
 			</fieldset>
 			<DialogFooter>
 				<Button type="submit" disabled={pending}>
