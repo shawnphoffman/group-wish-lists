@@ -66,6 +66,7 @@ export type Comment = {
 	edited_at?: Date
 	created_at: Date
 	isOwner?: boolean
+	archived: boolean
 }
 
 export type ListItem = {

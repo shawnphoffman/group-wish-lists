@@ -110,11 +110,13 @@ export const getCommentsGroupedByItem = async () => {
 						comments,
 						created_at,
 						edited_at,
+						archived,
 						user:user_id(user_id, display_name)
-						)
-					)`
+					)
+				)`
 			)
 			.is('listItem.list.private', false)
+			.is('listItem.item_comments.archived', false)
 			.order('created_at', { ascending: false })
 			.then(async items => {
 				const temp = items?.data as any

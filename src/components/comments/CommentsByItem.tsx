@@ -67,7 +67,11 @@ export default async function CommentsByItem() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
-								<ItemComments comments={group.listItem.item_comments} />
+								{group.listItem.item_comments.length > 0 ? (
+									<ItemComments comments={group.listItem.item_comments} />
+								) : (
+									<div className="text-sm italic text-muted-foreground">Comments archived</div>
+								)}
 							</CardContent>
 						</Card>
 					)

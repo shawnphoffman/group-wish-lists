@@ -19,9 +19,9 @@ export function getDomainFromUrl(url: string): string {
 			domain = parsedUrl.hostname // Return as is for domains without subdomains
 		}
 		if (domain) {
-			console.log('domain', domain)
+			// console.log('domain', domain)
 			const temp = Object.keys(commonDomains).find(x => {
-				console.log('x', x)
+				// console.log('x', x)
 				return domain.includes(x)
 			})
 			return temp ? commonDomains[temp] : domain

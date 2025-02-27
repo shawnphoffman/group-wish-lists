@@ -149,6 +149,7 @@ export const getEditableList = async (listID: number) => {
 					comments,
 					created_at,
 					edited_at,
+					archived,
 					user:user_id(user_id, display_name)
 				)
 			),
@@ -163,13 +164,18 @@ export const getEditableList = async (listID: number) => {
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
 					...item,
-					item_comments: item?.item_comments?.map((comment: any) => {
-						// console.log('getViewableList.comment', comment)
-						return {
-							...comment,
-							isOwner: comment.user.user_id === viewingUserID,
-						}
-					}),
+					item_comments: item?.item_comments
+						?.map((comment: any) => {
+							// console.log('getViewableList.comment', comment)
+							if (comment.archived && comment.user.user_id !== viewingUserID) {
+								return null
+							}
+							return {
+								...comment,
+								isOwner: comment.user.user_id === viewingUserID,
+							}
+						})
+						.filter((comment: any) => comment),
 				}
 			})
 			// @ts-expect-error
@@ -212,6 +218,7 @@ export const getViewableList = async (listID: number) => {
 					comments,
 					created_at,
 					edited_at,
+					archived,
 					user:user_id(user_id, display_name)
 				)
 			)`
@@ -225,13 +232,19 @@ export const getViewableList = async (listID: number) => {
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
 					...item,
-					item_comments: item?.item_comments?.map((comment: any) => {
-						// console.log('getViewableList.comment', comment)
-						return {
-							...comment,
-							isOwner: comment.user.user_id === viewingUserID,
-						}
-					}),
+					item_comments: item?.item_comments
+						?.map((comment: any) => {
+							// console.log('getViewableList.comment', comment)
+							if (comment.archived && comment.user.user_id !== viewingUserID) {
+								return null
+							}
+
+							return {
+								...comment,
+								isOwner: comment.user.user_id === viewingUserID,
+							}
+						})
+						.filter((comment: any) => comment),
 				}
 			})
 			// @ts-expect-error
