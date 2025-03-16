@@ -15,8 +15,8 @@ import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { getDomainFromUrl } from '@/utils/urls'
 
-// import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
@@ -86,20 +86,24 @@ export default function ItemRowEditable({ item }: Props) {
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col justify-center flex-1 gap-1 overflow-hidden">
+						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
 								{/* Title */}
 								{item.url ? (
-									<Link href={item.url!} target="_blank" className={`flex items-center gap-1 overflow-hidden hover:underline`}>
-										<span>
-											{item.title}
+									<Link
+										href={item.url!}
+										target="_blank"
+										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline`}
+									>
+										{item.title}
+										<div className="flex flex-row items-center gap-1">
 											<FontAwesomeIcon
 												icon={faLink}
-												className="ml-1 text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+												className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
 												size="xs"
 											/>
-											{/* <span className="hidden text-xs sm:flex text-muted-foreground">{getDomainFromUrl(item.url)}</span> */}
-										</span>
+											<span className="flex text-xs text-muted-foreground">{getDomainFromUrl(item.url)}</span>
+										</div>
 									</Link>
 								) : (
 									<div>{item.title}</div>

@@ -59,18 +59,24 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 					{/*  */}
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
-						<div className="flex flex-col justify-center flex-1 gap-0 overflow-hidden">
+						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
 								{/* Title */}
 								{item.url ? (
-									<Link href={item.url!} target="_blank" className={`flex flex-1 items-center gap-1.5 overflow-hidden hover:underline`}>
+									<Link
+										href={item.url!}
+										target="_blank"
+										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline`}
+									>
 										{item.title}
-										<FontAwesomeIcon
-											icon={faLink}
-											className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
-											size="xs"
-										/>
-										<span className="hidden text-xs sm:flex text-muted-foreground">{getDomainFromUrl(item.url)}</span>
+										<div className="flex flex-row items-center gap-1">
+											<FontAwesomeIcon
+												icon={faLink}
+												className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
+												size="xs"
+											/>
+											<span className="flex text-xs text-muted-foreground">{getDomainFromUrl(item.url)}</span>
+										</div>
 									</Link>
 								) : (
 									<div>{item.title}</div>
