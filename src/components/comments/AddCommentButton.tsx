@@ -16,6 +16,8 @@ import { ListItem } from '../types'
 function AddCommentFields() {
 	const { pending } = useFormStatus()
 
+	// TODO Detect if they put the word "purchased" in the comment and warn them that the list owner will see it.
+
 	return (
 		<>
 			<fieldset disabled={pending} className="flex flex-col gap-4">
