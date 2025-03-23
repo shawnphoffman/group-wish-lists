@@ -20,6 +20,7 @@ import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
+import MarkdownBlock from './components/MarkdownBlock'
 import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
@@ -87,7 +88,7 @@ export default function ItemRowEditable({ item }: Props) {
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
-							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
+							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
 									<Link
@@ -115,7 +116,12 @@ export default function ItemRowEditable({ item }: Props) {
 								)}
 							</div>
 							{/* Notes */}
-							{item.notes && <div className="text-sm break-words whitespace-pre-line text-muted-foreground">{item.notes}</div>}
+							{item.notes && (
+								//
+								<div className="inline-flex flex-col gap-0 text-sm text-foreground/75">
+									<MarkdownBlock>{item.notes}</MarkdownBlock>
+								</div>
+							)}
 						</div>
 						{/* Image + Actions */}
 						<div className="flex flex-row items-center justify-center gap-1 xs:flex-col sm:flex-row">

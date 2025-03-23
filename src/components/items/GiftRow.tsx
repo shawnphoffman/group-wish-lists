@@ -3,6 +3,8 @@ import { ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { formatDateBasedOnAge } from '@/utils/date'
 
+import MarkdownBlock from './components/MarkdownBlock'
+
 type Props = {
 	item: ListItem & any
 	// item: any
@@ -30,7 +32,11 @@ export default async function GiftRow({ item }: Props) {
 						{/* Title */}
 						<div>{item.title}</div>
 						{/* Notes */}
-						{item.notes && <div className="notes">{item.notes}</div>}
+						{item.notes && (
+							<div className="text-sm break-words text-foreground/75">
+								<MarkdownBlock>{item.notes}</MarkdownBlock>
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col items-center justify-center gap-1 md:flex-row">

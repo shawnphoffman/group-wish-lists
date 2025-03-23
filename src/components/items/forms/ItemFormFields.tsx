@@ -17,6 +17,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 
 import ItemImagePicker from '../components/ItemImagePicker'
+import MarkdownBlock from '../components/MarkdownBlock'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -59,6 +60,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const isPending = isFormPending || isTransitionPending || importing
 	const isDisabled = isPending || title.trim().length === 0
+
+	// const mdNotes = useMemo(() => DOMPurify.sanitize(snarkdown(notes.replace(/\n/g, '  \n'))), [notes])
+	// const mdNotes = useMemo(() => DOMPurify.sanitize(snarkdown(notes)), [notes])
 
 	useEffect(() => {
 		if (item || !scrape?.result) return
@@ -301,9 +305,21 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					/>
 				</div>
 
-				<div className="grid w-full gap-1.5">
-					<Label htmlFor="notes">Notes</Label>
-					<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
+				<div className="flex flex-col items-center gap-2">
+					<div className="grid w-full gap-1.5 col-span-2">
+						<Label htmlFor="notes">Notes</Label>
+						<div className="grid ">
+							<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
+						</div>
+					</div>
+					<div className="flex flex-col w-full gap-1.5">
+						<Label htmlFor="notes">Preview</Label>
+						<div className="grid ">
+							<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
+								<MarkdownBlock>{notes}</MarkdownBlock>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div className="flex flex-col gap-2 sm:flex-row sm:items-center">

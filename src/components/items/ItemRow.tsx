@@ -1,6 +1,5 @@
 import { faLink } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Linkify from 'linkify-react'
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
@@ -16,10 +15,12 @@ import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
-const linkOptions = {
-	className: 'underline hover:text-primary',
-	target: '_blank',
-}
+import MarkdownBlock from './components/MarkdownBlock'
+
+// const linkOptions = {
+// 	className: 'underline hover:text-primary',
+// 	target: '_blank',
+// }
 
 type Props = {
 	item: ListItem & Gift
@@ -60,13 +61,13 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
-							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden">
+							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
 									<Link
 										href={item.url!}
 										target="_blank"
-										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline`}
+										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline `}
 									>
 										{item.title}
 										<div className="flex flex-row items-center gap-1">
@@ -90,8 +91,8 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 
 							{/* Notes */}
 							{item.notes && (
-								<div className="text-sm break-words whitespace-pre-line text-foreground/75">
-									<Linkify options={linkOptions}>{item.notes}</Linkify>
+								<div className="inline-flex flex-col gap-0 text-sm text-foreground/75">
+									<MarkdownBlock>{item.notes}</MarkdownBlock>
 								</div>
 							)}
 							{item.created_at && (

@@ -82,6 +82,37 @@
 	p {
 		@apply leading-7 [&:not(:first-child)]:mt-6;
 	}
+	ul {
+		@apply list-disc;
+	}
+	ol {
+		@apply list-decimal;
+	}
+	ul,
+	ol {
+		@apply pl-4 m-0 [&_*]:m-0 [&_ul]:pl-2 [&_ol]:pl-2 list-outside;
+	}
+
+	.markdown {
+		@apply ps-2;
+		> * {
+			@apply border-none;
+		}
+		> :not(:first-child) {
+			@apply mt-2;
+		}
+		a {
+			@apply transition-colors text-primary hover:underline underline-offset-4;
+		}
+		p {
+			@apply text-sm;
+		}
+		h1,
+		h2,
+		h3 {
+			@apply p-0;
+		}
+	}
 }
 
 @layer utilities {

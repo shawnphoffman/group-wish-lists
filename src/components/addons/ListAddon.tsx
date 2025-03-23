@@ -12,6 +12,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { formatDateBasedOnAge } from '@/utils/date'
 
+import MarkdownBlock from '../items/components/MarkdownBlock'
+
 type Props = {
 	created_at: string
 	id: number
@@ -48,8 +50,8 @@ export default function ListAddon({ id, is_gifter, description, display_name, cr
 				<div className="flex flex-col xs:flex-row gap-x-3.5 xs:items-center w-full">
 					{/*  */}
 					<div className="flex flex-col justify-center flex-1 gap-0 overflow-hidden">
-						<div className="break-words whitespace-pre-line">
-							<Linkify options={linkOptions}>{description}</Linkify>
+						<div className="break-words">
+							<MarkdownBlock>{description}</MarkdownBlock>
 						</div>
 						<div className="text-xs italic break-words whitespace-pre-line text-muted-foreground/50">
 							Added: {formatDateBasedOnAge(created_at)}

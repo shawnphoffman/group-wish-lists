@@ -2,6 +2,8 @@ import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import { Gift, ListItem, Purchase } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 
+import MarkdownBlock from './components/MarkdownBlock'
+
 type Props = {
 	item: ListItem & Gift & Purchase
 }
@@ -28,7 +30,11 @@ export default async function PurchaseRow({ item }: Props) {
 						{/* Title */}
 						<div>{item.title}</div>
 						{/* Notes */}
-						{item.notes && <div className="text-sm break-words whitespace-pre-line text-foreground/75">{item.notes}</div>}
+						{item.notes && (
+							<div className="text-sm break-words text-foreground/75">
+								<MarkdownBlock>{item.notes}</MarkdownBlock>
+							</div>
+						)}
 					</div>
 
 					<div className="flex flex-col items-center justify-center gap-1">

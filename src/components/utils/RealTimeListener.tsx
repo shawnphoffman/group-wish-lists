@@ -15,6 +15,8 @@ export default function RealTimeListener({ listId }: Props) {
 	const router = useRouter()
 	const isSubscribed = useRef(false)
 
+	console.log('RealTimeListener', { listId })
+
 	useEffect(() => {
 		const filters = listId ? { filter: `list_id=eq.${listId}` } : {}
 		const channels = supabase
