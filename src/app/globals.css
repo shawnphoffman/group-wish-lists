@@ -94,7 +94,7 @@
 	}
 
 	.markdown {
-		@apply ps-2;
+		/* @apply ps-2; */
 		> * {
 			@apply border-none;
 		}

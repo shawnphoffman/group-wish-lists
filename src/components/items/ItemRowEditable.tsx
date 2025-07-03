@@ -10,11 +10,13 @@ import { twMerge } from 'tailwind-merge'
 import { deleteItem } from '@/app/actions/items'
 import { CancelIcon, DeleteIcon, EditIcon, MoveIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
+import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { ItemStatus, ListCategory, ListCategoryType } from '@/utils/enums'
 import { getDomainFromUrl } from '@/utils/urls'
 
 import AddCommentButton from '../comments/AddCommentButton'
@@ -25,9 +27,10 @@ import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
+	listType: ListCategoryType
 }
 
-export default function ItemRowEditable({ item }: Props) {
+export default function ItemRowEditable({ item, listType }: Props) {
 	const [isMoving, setIsMoving] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
@@ -83,6 +86,10 @@ export default function ItemRowEditable({ item }: Props) {
 						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
 							<ItemPriorityIcon priority={item.priority} />
 						</div>
+					)}
+					{/* Checkbox */}
+					{listType === ListCategory.Todos && (
+						<ItemCheckbox id={item.id} isComplete={item.status === ItemStatus.Complete} canChange={true} />
 					)}
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">

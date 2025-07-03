@@ -312,14 +312,16 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							<Textarea name="notes" placeholder="Size: Schmedium" rows={3} value={notes} onChange={handleChangeNotes} ref={notesRef} />
 						</div>
 					</div>
-					<div className="flex flex-col w-full gap-1.5">
-						<Label htmlFor="notes">Preview</Label>
-						<div className="grid ">
-							<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
-								<MarkdownBlock>{notes}</MarkdownBlock>
+					{notes && (
+						<div className="flex flex-col w-full gap-1.5">
+							<Label htmlFor="notes">Preview</Label>
+							<div className="grid ">
+								<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
+									<MarkdownBlock>{notes}</MarkdownBlock>
+								</div>
 							</div>
 						</div>
-					</div>
+					)}
 				</div>
 
 				<div className="flex flex-col gap-2 sm:flex-row sm:items-center">

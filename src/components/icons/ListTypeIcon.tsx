@@ -1,5 +1,6 @@
 import {
 	faBirthdayCake,
+	faCheckDouble,
 	faLightbulb,
 	faThoughtBubble,
 	faTreeChristmas,
@@ -30,6 +31,9 @@ export default function ListTypeIcon({ type, className = 'text-xl' }: Props) {
 	} else if (type === ListCategory.GiftIdeas) {
 		icon = faLightbulb
 		iconColor = 'text-teal-600 dark:text-teal-300'
+	} else if (type === ListCategory.Todos) {
+		icon = faCheckDouble
+		iconColor = 'text-orange-600 dark:text-orange-300'
 	}
 
 	return <FontAwesomeIcon icon={icon} className={`${iconColor} ${className}`} />

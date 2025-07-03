@@ -1,16 +1,12 @@
-import { Suspense } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList } from '@/app/actions/lists'
 import EmptyMessage from '@/components/common/EmptyMessage'
-import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import { AddIcon } from '@/components/icons/Icons'
 import ImportAmazonButton from '@/components/imports/ImportAmazonButton'
 import ImportAppleButton from '@/components/imports/ImportAppleButton'
-import ImportButton from '@/components/imports/ImportButton'
-import AddItemForm from '@/components/items/forms/AddItemForm'
 import ItemRowEditable from '@/components/items/ItemRowEditable'
 import ArchiveListButton from '@/components/lists/buttons/ArchiveListButton'
 import ArchivePurchasedButton from '@/components/lists/buttons/ArchivePurchasedButton'
@@ -19,7 +15,6 @@ import ListTitleEditable from '@/components/lists/ListTitleEditable'
 import EditorsButton from '@/components/permissions/EditorsButton'
 import { List, ListItem } from '@/components/types'
 import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Menubar, MenubarContent, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar'
 
 type ClientProps = {
@@ -53,10 +48,10 @@ const ShowList = async ({ params }: ClientProps) => {
 	// console.log('ViewListClient', { items, visibleItems })
 
 	return (
-		<div className="flex flex-col flex-1 w-full gap-6 px-0 max-md:gap-2 animate-page-in">
+		<div className="flex flex-col flex-1 gap-6 px-0 w-full max-md:gap-2 animate-page-in">
 			{/* Header */}
-			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
-				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
+			<div className="flex flex-col gap-2 justify-between items-center md:gap-2 md:flex-row">
+				<div className="flex flex-row flex-nowrap flex-1 gap-2 items-center w-full">
 					<ListTitleEditable
 						listId={params.id}
 						name={list.name}
@@ -66,7 +61,7 @@ const ShowList = async ({ params }: ClientProps) => {
 						shared={!!list.editors.length}
 					/>
 				</div>
-				<div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-1 md:justify-end shrink-0">
+				<div className="flex flex-row flex-wrap flex-1 gap-1 justify-center items-center md:justify-end shrink-0">
 					<Link href="#add-item" className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						<AddIcon />
 						Add
@@ -82,6 +77,10 @@ const ShowList = async ({ params }: ClientProps) => {
 							</MenubarContent>
 						</MenubarMenu>
 					</Menubar>
+					<Link href={`/lists/${params.id}/edit/select`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
+						{/* <AddIcon /> */}
+						Bulk Actions
+					</Link>
 					{currentUser?.id === list.user_id && (
 						<Menubar className="p-0 h-9">
 							<MenubarMenu>
@@ -109,8 +108,8 @@ const ShowList = async ({ params }: ClientProps) => {
 				{visibleItems?.length === 0 ? (
 					<EmptyMessage />
 				) : (
-					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-						{visibleItems?.map(item => <ItemRowEditable key={item.id} item={item} />)}
+					<div className="flex overflow-hidden flex-col rounded-lg border divide-y shadow-sm text-card-foreground bg-accent">
+						{visibleItems?.map(item => <ItemRowEditable key={item.id} item={item} listType={list.type} />)}
 					</div>
 				)}
 			</div>
@@ -126,24 +125,5 @@ type Props = {
 
 export default async function EditList(props: Props) {
 	const params = await props.params
-	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl gap-6 sm:px-2 max-md:gap-2">
-			<Suspense fallback={<FallbackRowsMultiple />}>
-				<ShowList params={params} />
-
-				{/* Add Item */}
-				<Card id="add-item" className="animate-page-in bg-accent">
-					<CardHeader>
-						<CardTitle>Add Item</CardTitle>
-						<CardDescription>Enter the information manually or import content from a URL below</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<Suspense fallback={<FallbackRowThick />}>
-							<AddItemForm listId={params.id} />
-						</Suspense>
-					</CardContent>
-				</Card>
-			</Suspense>
-		</div>
-	)
+	return <ShowList params={params} />
 }
