@@ -48,10 +48,10 @@ const ShowList = async ({ params }: ClientProps) => {
 	// console.log('ViewListClient', { items, visibleItems })
 
 	return (
-		<div className="flex flex-col flex-1 gap-6 px-0 w-full max-md:gap-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full gap-6 px-0 max-md:gap-2 animate-page-in">
 			{/* Header */}
-			<div className="flex flex-col gap-2 justify-between items-center md:gap-2 md:flex-row">
-				<div className="flex flex-row flex-nowrap flex-1 gap-2 items-center w-full">
+			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
+				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
 					<ListTitleEditable
 						listId={params.id}
 						name={list.name}
@@ -61,7 +61,7 @@ const ShowList = async ({ params }: ClientProps) => {
 						shared={!!list.editors.length}
 					/>
 				</div>
-				<div className="flex flex-row flex-wrap flex-1 gap-1 justify-center items-center md:justify-end shrink-0">
+				<div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-1 md:justify-end shrink-0">
 					<Link href="#add-item" className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						<AddIcon />
 						Add
@@ -77,7 +77,7 @@ const ShowList = async ({ params }: ClientProps) => {
 							</MenubarContent>
 						</MenubarMenu>
 					</Menubar>
-					<Link href={`/lists/${params.id}/edit/select`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
+					<Link href={`/lists/${params.id}/select`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						{/* <AddIcon /> */}
 						Bulk Actions
 					</Link>
@@ -108,7 +108,7 @@ const ShowList = async ({ params }: ClientProps) => {
 				{visibleItems?.length === 0 ? (
 					<EmptyMessage />
 				) : (
-					<div className="flex overflow-hidden flex-col rounded-lg border divide-y shadow-sm text-card-foreground bg-accent">
+					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
 						{visibleItems?.map(item => <ItemRowEditable key={item.id} item={item} listType={list.type} />)}
 					</div>
 				)}

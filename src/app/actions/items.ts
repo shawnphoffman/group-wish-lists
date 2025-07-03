@@ -91,6 +91,24 @@ export const editItem = async (prevState: any, formData: FormData) => {
 	}
 }
 
+export const moveItems = async (ids: ListItem['id'][], list_id: List['id']) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemsPromise = await supabase.from('list_items').update([{ list_id }]).in('id', ids)
+
+	const [items] = await Promise.all([
+		itemsPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	return {
+		status: 'success',
+		items,
+	}
+}
 export const moveItem = async (id: ListItem['id'], list_id: List['id']) => {
 	'use server'
 	const cookieStore = await cookies()

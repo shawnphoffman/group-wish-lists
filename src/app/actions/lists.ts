@@ -77,7 +77,6 @@ export const getListsGroupedByUser = async () => {
 
 	try {
 		if (resp.data) {
-			// @ts-expect-error
 			resp.data.sort(sortUserGroupsByBirthDate)
 		}
 	} catch (error) {
@@ -160,7 +159,6 @@ export const getEditableList = async (listID: number) => {
 		// .not('active', 'is', false)
 		.single()
 		.then(async list => {
-			// @ts-expect-error
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
 					...item,
@@ -178,15 +176,14 @@ export const getEditableList = async (listID: number) => {
 						.filter((comment: any) => comment),
 				}
 			})
-			// @ts-expect-error
+
 			if (list?.data?.listItems && updatedItems) {
-				// @ts-expect-error
 				list.data.listItems = updatedItems
 			}
 
 			return {
 				...(list as any),
-				// @ts-expect-error
+
 				isOwner: list.data?.user_id === viewingUserID,
 				viewingUserID,
 			}
@@ -228,7 +225,6 @@ export const getViewableList = async (listID: number) => {
 		.not('active', 'is', false)
 		.maybeSingle()
 		.then(async list => {
-			// @ts-expect-error
 			const updatedItems = list.data?.listItems?.map((item: any) => {
 				return {
 					...item,
@@ -247,15 +243,14 @@ export const getViewableList = async (listID: number) => {
 						.filter((comment: any) => comment),
 				}
 			})
-			// @ts-expect-error
+
 			if (list?.data?.listItems && updatedItems) {
-				// @ts-expect-error
 				list.data.listItems = updatedItems
 			}
 
 			return {
 				...(list as any),
-				// @ts-expect-error
+
 				isOwner: list.data?.user_id === viewingUserID,
 				viewingUserID,
 			}
@@ -406,7 +401,7 @@ export const getUserEditors = async () => {
 	let newListsFor: { user_id: string; display_name: string }[] = []
 
 	if (resp.data) {
-		// @ts-expect-error
+		// @ts-expect-error TODO: fix this
 		newListsFor = [...newListsFor, ...resp.data.map(result => result.editor)]
 	}
 
@@ -422,7 +417,6 @@ export const getListEditors = async (listID: List['id']) => {
 	const resp = await supabase.from('list_editors').select('id, user_id, list_id').eq('list_id', listID)
 
 	if (resp.data) {
-		// @ts-expect-error
 		return resp.data.map((editor: { user_id: string }) => editor.user_id)
 	}
 

@@ -10,7 +10,7 @@ export default async function UserBadge() {
 	}
 
 	return (
-		<Badge variant="outline" className="items-center hidden sm:flex text-accent-foreground bg-accent">
+		<Badge variant="outline" className="items-center hidden sm:flex text-accent-foreground bg-accent whitespace-nowrap">
 			<span>{currentUser?.display_name}</span>
 		</Badge>
 	)
