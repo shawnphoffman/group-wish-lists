@@ -41,7 +41,8 @@ export default function ListRow({ list, canEdit }: Props) {
 
 	return (
 		<div className={`!text-lg flex-row p-0 bg-transparent hover:bg-muted rounded flex ${privateClasses} px-1 py-2 xs:pe-2 xs:ps-4`}>
-			<LinkOrDiv href={url!} className={`flex flex-col xs:flex-row w-full flex-1 xs:items-center gap-2 overflow-hidden`}>
+			{/* <LinkOrDiv href={url!} className={`flex flex-col xs:flex-row w-full flex-1 xs:items-center gap-2 overflow-hidden`}> */}
+			<LinkOrDiv href={url!} className={`flex flex-row w-full flex-1 xs:items-center gap-2 overflow-hidden`}>
 				<div className="flex flex-row items-center flex-1 gap-2 overflow-hidden">
 					<ListTypeIcon type={list.type} />
 					<div className={`${!isActive ? 'line-through opacity-50' : ''} leading-none text-ellipsis whitespace-nowrap overflow-hidden`}>
