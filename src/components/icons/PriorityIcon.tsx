@@ -33,7 +33,12 @@ export default function ItemPriorityIcon({ priority, className }: Props) {
 
 	return (
 		<span title={`${title} Priority`}>
-			<FontAwesomeIcon icon={icon!} className={`${iconColor} text-lg ${className}`} beatFade={priority === ItemPriority['Very High']} />
+			<FontAwesomeIcon
+				icon={icon!}
+				className={`${iconColor} text-lg ${className}`}
+				beatFade={priority === ItemPriority['Very High']}
+				fixedWidth
+			/>
 		</span>
 	)
 }
