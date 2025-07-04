@@ -1,5 +1,29 @@
 import { ItemPriorityType, ItemStatusType, ListCategoryType } from '@/utils/enums'
 
+/* ------------- */
+/* USER TYPES    */
+/* ------------- */
+
+export type User = {
+	id: number
+	display_name: string
+	user_id: string
+	birth_month: number
+	birth_day: number
+}
+
+export type Recipient = Pick<User, 'id' | 'display_name'>
+
+export type ListEditor = Pick<User, 'user_id' | 'display_name'>
+
+export type ListEditorWrapper = {
+	user: ListEditor
+}
+
+/* ------------- */
+/* CORE TYPES    */
+/* ------------- */
+
 export type List = {
 	id: number
 	active: boolean
@@ -13,16 +37,43 @@ export type List = {
 	count?: number
 	editors?: Array<ListEditorWrapper>
 }
+
+export type ListItem = {
+	id: string
+	list_id: List['id']
+	title: string
+	url?: string
+	scrape?: ScrapeResponse
+	status: ItemStatusType
+	priority: ItemPriorityType
+	notes?: string
+	image_url?: string
+	item_comments?: Comment[]
+	archived: boolean
+	price?: string
+	created_at: Date
+	quantity?: number
+	tags?: string[]
+	/* RELATIONSHIPS */
+	additional_gifter_ids?: User['user_id'][]
+}
+
+/* ------------- */
+/* LIST MAPPINGS */
+/* ------------- */
+
 export type ListSharedWithOthers = List & {
 	editors?: Array<ListEditorWrapper>
 	// user_shared_with_id: number
 	// user_shared_with_user_id: string
 	// user_shared_with_display_name: string
 }
+
 export type ListSharedWithMe = List & {
 	sharer_display_name: string
 	sharer_id: number
 }
+
 export type ListGiftIdeas = List & {
 	owner_display_name: string
 	owner_id: number
@@ -30,11 +81,9 @@ export type ListGiftIdeas = List & {
 	is_list_recipient: boolean
 }
 
-export type ListEditorWrapper = {
-	user: ListEditor
-}
-
-export type ListEditor = Pick<User, 'user_id' | 'display_name'>
+/* ------------- */
+/* WEIRD SHIT    */
+/* ------------- */
 
 export type OgImage = {
 	url?: string
@@ -69,23 +118,6 @@ export type Comment = {
 	archived: boolean
 }
 
-export type ListItem = {
-	id: string
-	list_id: List['id']
-	title: string
-	url?: string
-	scrape?: ScrapeResponse
-	status: ItemStatusType
-	priority: ItemPriorityType
-	notes?: string
-	image_url?: string
-	item_comments?: Comment[]
-	archived: boolean
-	price?: string
-	created_at: Date
-	additional_gifter_ids?: User['user_id'][]
-}
-
 export type Gift = {
 	quantity?: number
 	display_name?: User['display_name']
@@ -100,35 +132,3 @@ export type Purchase = {
 	recipient_id?: User['id']
 	gift_created_at?: Date
 }
-
-export type User = {
-	id: number
-	display_name: string
-	user_id: string
-	birth_month: number
-	birth_day: number
-}
-
-export type Recipient = Pick<User, 'id' | 'display_name'>
-
-// export interface Scrape {
-// 	error: boolean
-// 	result: Result
-// }
-
-export interface Result {
-	ogUrl: string
-	ogTitle: string
-	ogDescription: string
-	ogImage: OgImage[]
-	ogLocale: string
-	charset: string
-	requestUrl: string
-	success: boolean
-	error: string
-}
-
-// export interface OgImage {
-// 	url: string
-// 	type: string
-// }
