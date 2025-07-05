@@ -1,4 +1,4 @@
-import { faList, faLockKeyhole, faStar, faUser } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faList, faLockKeyhole, faStar } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 

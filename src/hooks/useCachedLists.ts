@@ -22,7 +22,14 @@ export const useCachedLists = (type = 'all') => {
 				const [{ data: myLists }, { data: sharedLists }] = await Promise.all([getMyLists(), getMyLists('shared_with_me')])
 
 				if (mounted) {
-					const allLists = [...(myLists || []), ...(sharedLists || [])]
+					// TODO Change this stupid pattern
+					const allLists = [
+						//
+						...(myLists ? myLists.map(l => ({ ...l, _my_list: true })) : []),
+						//
+						...(sharedLists ? sharedLists.map(l => ({ ...l, _shared_with_me: true })) : []),
+					]
+
 					setLists(allLists)
 					setLoading(false)
 				}

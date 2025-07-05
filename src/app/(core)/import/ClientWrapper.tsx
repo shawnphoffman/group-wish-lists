@@ -1,5 +1,4 @@
 'use client'
-// import { Suspense } from 'react'
 
 // TODO CHANGE THIS STUPID PATTERN
 
@@ -9,15 +8,11 @@ import { useCachedLists } from '@/hooks/useCachedLists'
 
 export default function ImportItemClient() {
 	const { lists, loading } = useCachedLists()
-	const list = lists[0]
+	const list = lists.find(l => l.primary) ?? lists[0]
 
 	if (loading) {
 		return <LoadingIcon className="!border-0" />
 	}
 
-	return (
-		// <Suspense>
-		<ImportUrlClient lists={lists} list={list} />
-		// </Suspense>
-	)
+	return <ImportUrlClient lists={lists} list={list} />
 }
