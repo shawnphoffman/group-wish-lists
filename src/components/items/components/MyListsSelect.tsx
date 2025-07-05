@@ -5,49 +5,29 @@ import { RadioGroup } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 
 import { moveItem, moveItems } from '@/app/actions/items'
-import { getMyLists } from '@/app/actions/lists'
+import { clearListsCache } from '@/app/actions/lists'
 import { LoadingIcon, LockIcon, MoveIcon } from '@/components/icons/Icons'
 import { List, ListItem } from '@/components/types'
 import { Button } from '@/components/ui/button'
+import { useCachedLists } from '@/hooks/useCachedLists'
 
 type Props = { listId: List['id']; id?: ListItem['id']; ids?: Set<ListItem['id']> }
 
 export default function MyListsSelect({ id, listId, ids }: Props) {
-	const [lists, setLists] = useState<List[]>([])
-	const [loading, setLoading] = useState(true)
+	const { lists, loading } = useCachedLists()
 	const [list, setList] = useState<List | null>(null)
 	const router = useRouter()
 
-	// TODO include shared lists
-
+	// Set the current list when lists are loaded
 	useEffect(() => {
-		async function getListsAsync() {
-			setLoading(true)
-
-			// await new Promise(resolve => setTimeout(resolve, 500000))
-			// const { data: lists } = await getMyLists()
-
-			const [{ data: myLists }, { data: sharedLists }] = await Promise.all([
-				getMyLists(),
-				getMyLists('shared_with_me'),
-				// fakePromise
-			])
-
-			const lists = [...(myLists || []), ...(sharedLists || [])]
-
-			console.log('MyListsSelect', { myLists, sharedLists, lists })
-
-			setLists(lists)
+		if (lists.length > 0) {
 			const currentList = lists.find((list: List) => list.id === Number(listId))
 			setList(currentList || null)
-			setLoading(false)
 		}
-		getListsAsync()
-	}, [listId])
+	}, [lists, listId])
 
 	const handleMoveItem = useCallback(async () => {
 		if (!list || (!id && !ids?.size)) return
-		setLoading(true)
 		let resp: { status: string; items?: any } | null = null
 		if (ids?.size) {
 			resp = await moveItems(Array.from(ids), list?.id)
@@ -55,8 +35,9 @@ export default function MyListsSelect({ id, listId, ids }: Props) {
 			resp = await moveItem(id!, list?.id)
 		}
 		if (resp.status === 'success') {
+			// Clear cache to ensure fresh data after moving items
+			clearListsCache()
 			startTransition(() => {
-				setLoading(false)
 				router.refresh()
 			})
 		}

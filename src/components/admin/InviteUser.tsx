@@ -30,7 +30,7 @@ export default function InviteUserForm() {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	useEffect(() => {
-		console.log('state', state)
+		// console.log('state', state)
 		if (state?.status === 'success') {
 			startTransition(() => {
 				if (formRef?.current) {

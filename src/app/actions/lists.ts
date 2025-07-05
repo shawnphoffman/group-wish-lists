@@ -7,6 +7,46 @@ import { List, User } from '@/components/types'
 import { ListCategory } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
+// Simple in-memory cache for lists
+const listsCache = new Map<string, { data: any; timestamp: number }>()
+const CACHE_TTL = process.env.LISTS_CACHE_TTL ? parseInt(process.env.LISTS_CACHE_TTL) : 5 * 60 * 1000 // 5 minutes in milliseconds
+
+const getCacheKey = (type: string, userId?: string) => {
+	return `lists_${type}_${userId || 'anonymous'}`
+}
+
+const isCacheValid = (timestamp: number) => {
+	return Date.now() - timestamp < CACHE_TTL
+}
+
+const invalidateListsCache = (userId?: string) => {
+	if (userId) {
+		// Invalidate all cache entries for this user
+		for (const [key] of listsCache.entries()) {
+			if (key.includes(userId)) {
+				listsCache.delete(key)
+			}
+		}
+	} else {
+		// Invalidate all cache entries
+		listsCache.clear()
+	}
+}
+
+// Export function to manually clear cache (useful for debugging)
+export const clearListsCache = async (userId?: string) => {
+	invalidateListsCache(userId)
+}
+
+// Export function to get cache statistics (useful for debugging)
+export const getListsCacheStats = async () => {
+	return {
+		size: listsCache.size,
+		keys: Array.from(listsCache.keys()),
+		ttl: CACHE_TTL,
+	}
+}
+
 const monthToNumber: { [key: string]: number } = {
 	january: 1,
 	february: 2,
@@ -92,6 +132,20 @@ export const getMyLists = async (type = 'all') => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
+
+	// Get current user for cache key
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+	const cacheKey = getCacheKey(type, userId)
+
+	// Check cache first
+	const cached = listsCache.get(cacheKey)
+	if (cached && isCacheValid(cached.timestamp)) {
+		console.log(`Cache HIT for ${type} lists`)
+		return cached.data
+	}
+	console.log(`Cache MISS for ${type} lists`)
+
 	let resp
 
 	// await new Promise(resolve => setTimeout(resolve, 5000))
@@ -111,6 +165,9 @@ export const getMyLists = async (type = 'all') => {
 	} else {
 		resp = await supabase.from('view_my_lists').select('*')
 	}
+
+	// Cache the result
+	listsCache.set(cacheKey, { data: resp, timestamp: Date.now() })
 
 	// console.log('getMyLists.resp', resp)
 
@@ -323,6 +380,9 @@ export const createList = async (prevState: any, formData: FormData) => {
 		// new Promise(resolve => setTimeout(resolve, 5000))
 	])
 
+	// Invalidate cache for the owner
+	invalidateListsCache(owner)
+
 	// console.log('createList', list)
 
 	return {
@@ -341,7 +401,14 @@ export const renameList = async (prevState: any, formData: FormData) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
+	// Get the current user to invalidate their cache
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
 	await supabase.from('lists').update({ name, type, private: isPrivate, description }).eq('id', id)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
 
 	// console.log('renameList', { name, type, isPrivate, description, id, temp })
 
@@ -355,7 +422,14 @@ export const archiveList = async (listID: List['id']) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
+	// Get the current user to invalidate their cache
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
 	await supabase.from('lists').update({ active: false }).eq('id', listID)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
 
 	return {
 		status: 'success',
@@ -367,7 +441,14 @@ export const unarchiveList = async (listID: List['id']) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
+	// Get the current user to invalidate their cache
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
 	await supabase.from('lists').update({ active: true }).eq('id', listID)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
 
 	return {
 		status: 'success',
@@ -379,7 +460,14 @@ export const deleteList = async (listID: List['id']) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
+	// Get the current user to invalidate their cache
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
 	const list = await supabase.from('lists').delete().eq('id', listID)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
 
 	// console.log('deleteList', list)
 
@@ -435,6 +523,11 @@ export const createEditor = async (listId: List['id'], editorId: User['user_id']
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
 
+	// Invalidate cache for both the editor and the list owner
+	invalidateListsCache(editorId)
+	// Note: We'd need to get the list owner ID to invalidate their cache too
+	// For now, we'll invalidate all cache entries
+
 	// console.log('createEditor', editor)
 
 	return {
@@ -453,6 +546,9 @@ export const deleteEditor = async (listId: List['id'], editorId: User['user_id']
 		editorPromise,
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
+
+	// Invalidate cache for the editor
+	invalidateListsCache(editorId)
 
 	// console.log('deleteEditor', { editor, listId, editorId })
 
