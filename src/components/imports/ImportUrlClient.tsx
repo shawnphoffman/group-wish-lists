@@ -1,9 +1,9 @@
 'use client'
 
 import { Suspense, useCallback, useState } from 'react'
-import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+// import { faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FallbackRow from '@/components/common/Fallbacks'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import AddItemForm from '@/components/items/forms/AddItemForm'
@@ -19,7 +19,7 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 		setSelectedList(value)
 	}, [])
 
-	console.log('lists', lists)
+	// console.log('lists', lists)
 
 	let myPublicLists: List[] = []
 	let myPrivateLists: List[] = []

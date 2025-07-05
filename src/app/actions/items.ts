@@ -19,10 +19,27 @@ export const createItem = async (prevState: any, formData: FormData) => {
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
 	const scrape = formData.get('scrape') as string
 	const imageUrl = formData.get('image-url') as string
+	const tagsRaw = (formData.get('tags') as string).split(',').map(t => t.trim())
+	const quantity = formData.get('quantity') as string
+
+	const tags = tagsRaw.filter(Boolean)
 
 	const itemPromise = supabase
 		.from('list_items')
-		.insert([{ list_id: listId, title, url, notes, price, priority, scrape: JSON.parse(scrape), image_url: imageUrl }])
+		.insert([
+			{
+				list_id: listId,
+				title,
+				url,
+				notes,
+				price,
+				priority,
+				scrape: JSON.parse(scrape),
+				image_url: imageUrl,
+				tags: tags.length > 0 ? tags : null,
+				quantity,
+			},
+		])
 
 	const [item] = await Promise.all([
 		itemPromise,
@@ -73,10 +90,26 @@ export const editItem = async (prevState: any, formData: FormData) => {
 	const priority = formData.get('priority') || (ItemPriority.Normal as string)
 	const scrape = formData.get('scrape') as string
 	const imageUrl = formData.get('image-url') as string
+	const tagsRaw = (formData.get('tags') as string).split(',').map(t => t.trim())
+	const quantity = formData.get('quantity') as string
+
+	const tags = tagsRaw.filter(Boolean)
 
 	const itemPromise = await supabase
 		.from('list_items')
-		.update([{ title, url, notes, price, priority, image_url: imageUrl, scrape: JSON.parse(scrape) }])
+		.update([
+			{
+				title,
+				url,
+				notes,
+				price,
+				priority,
+				image_url: imageUrl,
+				scrape: JSON.parse(scrape),
+				tags: tags.length > 0 ? tags : null,
+				quantity,
+			},
+		])
 		.eq('id', id)
 
 	const [item] = await Promise.all([

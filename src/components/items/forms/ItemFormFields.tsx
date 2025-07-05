@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 import { faArrowDownToLine, faAsterisk, faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Tag, TagInput } from 'emblor'
 import { mergician } from 'mergician'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -48,6 +49,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const notesRef = useRef<HTMLTextAreaElement>(null)
 
+	// console.log('item', { item })
+
 	// Item Fields
 	const [scrape, setScrape] = useState<ScrapeResponse | undefined>(item?.scrape)
 	const [id] = useState<string>(item?.id || '')
@@ -57,6 +60,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [url, setUrl] = useState<string>(item?.url || importUrl || '')
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
+	const [quantity, setQty] = useState<number>(item?.quantity || 1)
+	const [tags, setTags] = useState<Tag[]>(item?.tags?.map(t => ({ id: t, text: t })) || [])
+	const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null)
+	const [tagsInput, setTagsInput] = useState<string>('')
 
 	const isPending = isFormPending || isTransitionPending || importing
 	const isDisabled = isPending || title.trim().length === 0
@@ -80,6 +87,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		}
 	}, [item, notes])
 
+	useEffect(() => {
+		setTagsInput(tags.map(t => t.text).join(', '))
+	}, [tags])
+
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = 'inherit'
 		e.target.style.height = `${e.target.scrollHeight}px`
@@ -94,6 +105,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const handleChangePrice = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setPrice(e.target.value)
+	}, [])
+
+	const handleChangeQuantity = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setQty(Number(e.target.value))
 	}, [])
 
 	const handleChangeImageUrl = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -222,6 +237,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				setPriority(ItemPriority.Normal)
 				setImageUrl('')
 				setPrice('')
+				setQty(1)
+				setTags([])
 				setScrape(undefined)
 				if (pathname === '/import') {
 					router.push(`/lists/${listId}/edit`)
@@ -253,6 +270,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			<input className="input" type="hidden" name="list-id" value={listId} readOnly />
 			<input className="input" type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
 			<input className="input" type="hidden" name="image-url" value={imageUrl} readOnly />
+			<input className="input" type="hidden" name="tags" value={tagsInput} readOnly />
 
 			<div className="flex flex-col justify-between gap-2">
 				<div className="grid items-center w-full gap-2">
@@ -345,6 +363,35 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						<Label htmlFor="price">Price Range</Label>
 						<Input name="price" placeholder="$1" value={price} onChange={handleChangePrice} />
 					</div>
+
+					<div className="grid w-full gap-1.5">
+						<Label htmlFor="quantity">Quantity</Label>
+						<Input name="quantity" placeholder="1" type="number" min={0} step={1} value={quantity} onChange={handleChangeQuantity} />
+					</div>
+				</div>
+
+				<div className="grid w-full gap-1.5">
+					<Label htmlFor="tags">Tags</Label>
+					{/* <Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" /> */}
+					<TagInput
+						placeholder="Add some tags"
+						tags={tags}
+						sortTags={true}
+						allowDuplicates={false}
+						setTags={newTags => {
+							setTags(newTags)
+						}}
+						activeTagIndex={activeTagIndex}
+						setActiveTagIndex={setActiveTagIndex}
+						styleClasses={{
+							inlineTagsContainer: 'min-h-[42px]',
+							input: 'w-full',
+							tag: {
+								body: 'pl-2 bg-muted',
+							},
+						}}
+						size="sm"
+					/>
 				</div>
 
 				{scrape?.result && (
