@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button'
 import { isDeployed } from '@/utils/environment'
 
 import { FallbackBadge, FallbackButton } from '../common/Fallbacks'
-import { ModeToggle } from '../ModeToggle'
 
+// import { ModeToggle } from '../ModeToggle'
 import AuthButton from './AuthButton'
 import UserBadge from './UserBadge'
 
@@ -64,17 +64,6 @@ export default async function Header() {
 							</Link>
 						</Button>
 
-						<Button size="sm" variant={'outline'} asChild className="px-2">
-							<Link
-								href="/settings"
-								className="text-green-500 transition-colors hover:text-green-600 group-hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 dark:group-hover:text-green-300"
-								prefetch={false}
-								title="Settings"
-							>
-								<FontAwesomeIcon size="lg" icon={faCog} />
-							</Link>
-						</Button>
-
 						{!isDeployed && (
 							<Button size="sm" variant={'outline'} asChild className="hidden px-2 sm:flex">
 								<Link
@@ -93,11 +82,25 @@ export default async function Header() {
 						</Link> */}
 					</nav>
 				</div>
-				<div className="flex items-center gap-1 sm:gap-2">
+				<div className="flex items-center gap-1 sm:gap-1">
+					{/*  */}
 					<Suspense fallback={<FallbackBadge />}>
 						<UserBadge />
 					</Suspense>
-					<ModeToggle />
+					{/*  */}
+					<Button size="sm" variant={'outline'} asChild className="px-2">
+						<Link
+							href="/settings"
+							className="text-green-500 transition-colors hover:text-green-600 group-hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 dark:group-hover:text-green-300"
+							prefetch={false}
+							title="Settings"
+						>
+							<FontAwesomeIcon size="lg" icon={faCog} />
+						</Link>
+					</Button>
+					{/*  */}
+					{/* <ModeToggle /> */}
+					{/*  */}
 					<Suspense fallback={<FallbackButton />}>
 						<AuthButton />
 					</Suspense>

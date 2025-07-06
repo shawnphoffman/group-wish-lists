@@ -22,8 +22,7 @@ export const getUser = async () => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
-	// return await supabase.from('view_me').select('id,user_id,display_name,email').single()
-	return (await supabase.from('view_me').select('id,user_id,display_name,birth_month,birth_day').single()) as any
+	return await supabase.from('view_me').select('id,user_id,display_name,birth_month,birth_day,image').single()
 }
 
 //

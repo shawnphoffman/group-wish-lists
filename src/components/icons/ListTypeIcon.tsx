@@ -9,7 +9,7 @@ type Props = {
 	className?: string
 }
 
-export default function ListTypeIcon({ type, className = 'text-xl' }: Props) {
+export default function ListTypeIcon({ type, className = 'text-base' }: Props) {
 	// let iconColor = 'text-yellow-600 dark:text-yellow-300'
 	// let icon = faThoughtBubble
 	let iconColor = 'text-red-500'
