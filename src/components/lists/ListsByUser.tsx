@@ -76,9 +76,11 @@ export default async function ListsByUser() {
 						<Card key={`group-${group.id}`} className="bg-accent">
 							<CardHeader className="flex-row items-center gap-1 py-5 pb-4">
 								<CardTitle className="flex flex-wrap items-center gap-2">
-									<Avatar className="border w-9 h-9 border-input">
+									<Avatar className="border w-7 h-7 border-input">
 										<AvatarImage src={group.image} />
-										<AvatarFallback className="font-bold bg-background text-foreground">{group.display_name?.charAt(0)}</AvatarFallback>
+										<AvatarFallback className="text-xl font-bold bg-background text-foreground">
+											{group.display_name?.charAt(0)}
+										</AvatarFallback>
 									</Avatar>
 									{group.display_name}
 									{birthdayString && (

@@ -263,7 +263,7 @@ export const getViewableList = async (listID: number) => {
 		.from('lists')
 		.select(
 			`name,type,user_id,description,
-			recipient:recipient_user_id(id,display_name,user_id),
+			recipient:recipient_user_id(id,display_name,user_id,image),
 			listItems:view_sorted_list_items!list_items_list_id_fkey(
 				*,
 				item_comments!item_comments_item_id_fkey(

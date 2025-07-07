@@ -10,9 +10,10 @@ export type User = {
 	user_id: string
 	birth_month: number
 	birth_day: number
+	image?: string
 }
 
-export type Recipient = Pick<User, 'id' | 'display_name'>
+export type Recipient = Pick<User, 'id' | 'display_name' | 'image'>
 
 export type ListEditor = Pick<User, 'user_id' | 'display_name'>
 

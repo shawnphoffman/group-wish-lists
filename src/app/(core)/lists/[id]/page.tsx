@@ -10,6 +10,7 @@ import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fall
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import ItemRow from '@/components/items/ItemRow'
 import { List, ListItem, Recipient } from '@/components/types'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import HashScroller from '@/components/utils/HashScroller'
 
@@ -46,6 +47,10 @@ const ViewListClient = async ({ params }: ClientProps) => {
 		<>
 			{/* Header */}
 			<div className="relative flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
+				<Avatar className="w-10 h-10 border border-input">
+					<AvatarImage src={recipient.image} />
+					<AvatarFallback className="text-2xl font-bold bg-background text-foreground">{recipient.display_name?.charAt(0)}</AvatarFallback>
+				</Avatar>
 				<h1 className="w-fit">{data?.name}</h1>
 				<ListTypeIcon type={data.type} className="text-[80px] opacity-25 absolute left-4 -top-5 -z-10" />
 				<Badge variant={'outline'}>{recipient.display_name}</Badge>
