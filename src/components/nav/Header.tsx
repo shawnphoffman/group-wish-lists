@@ -1,15 +1,13 @@
 import { Suspense } from 'react'
 import { faGift } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
-import { faCog, faComments, faLock, faRadio } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faComments, faRadio } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { isDeployed } from '@/utils/environment'
 
-import { FallbackBadge, FallbackButton } from '../common/Fallbacks'
+import { FallbackButton } from '../common/Fallbacks'
 
-// import { ModeToggle } from '../ModeToggle'
 import AuthButton from './AuthButton'
 import UserBadge from './UserBadge'
 
@@ -64,19 +62,6 @@ export default async function Header() {
 							</Link>
 						</Button>
 
-						{!isDeployed && (
-							<Button size="sm" variant={'outline'} asChild className="hidden px-2 sm:flex">
-								<Link
-									href="/admin"
-									className="text-red-500 transition-colors hover:text-red-600 group-hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 dark:group-hover:text-red-300"
-									title="Admin"
-									prefetch={false}
-								>
-									<FontAwesomeIcon size="lg" icon={faLock} />
-								</Link>
-							</Button>
-						)}
-
 						{/* <Link href="/faq" className={'text-xl px-2  hidden sm:inline-block hover:text-secondary transition-colors'} title="FAQ">
 							<FontAwesomeIcon fixedWidth icon={faSealQuestion} />
 						</Link> */}
@@ -84,11 +69,18 @@ export default async function Header() {
 				</div>
 				<div className="flex items-center gap-1 sm:gap-1">
 					{/*  */}
-					<Suspense fallback={<FallbackBadge />}>
-						<UserBadge />
+					<Suspense>
+						<Link
+							href="/settings"
+							// prefetch={false}
+							title="Settings"
+						>
+							{/* fallback={<FallbackBadge />}> */}
+							<UserBadge />
+						</Link>
 					</Suspense>
 					{/*  */}
-					<Button size="sm" variant={'outline'} asChild className="px-2">
+					{/* <Button size="sm" variant={'outline'} asChild className="px-2">
 						<Link
 							href="/settings"
 							className="text-green-500 transition-colors hover:text-green-600 group-hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 dark:group-hover:text-green-300"
@@ -97,7 +89,7 @@ export default async function Header() {
 						>
 							<FontAwesomeIcon size="lg" icon={faCog} />
 						</Link>
-					</Button>
+					</Button> */}
 					{/*  */}
 					{/* <ModeToggle /> */}
 					{/*  */}

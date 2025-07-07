@@ -23,10 +23,10 @@
     "@csstools/css-tokenizer" "^3.0.3"
     lru-cache "^10.4.3"
 
-"@awesome.me/kit-ac8ad9255a@^1.0.9":
-  version "1.0.9"
-  resolved "https://npm.fontawesome.com/@awesome.me/kit-ac8ad9255a/-/kit-ac8ad9255a-1.0.9.tgz#3c2177198bef0c6a2c22a6c506f61bbd19e2086a"
-  integrity sha512-To8DHBgNu9+MSVQfvmlWdglSltskfOhDnbKnel3A6XUSVGy+59BsalfbsjT01hYnPf75zs2tRk03pzQL1Di8Gg==
+"@awesome.me/kit-ac8ad9255a@^1.0.15":
+  version "1.0.15"
+  resolved "https://npm.fontawesome.com/@awesome.me/kit-ac8ad9255a/-/kit-ac8ad9255a-1.0.15.tgz#217dc055614cca138b3823de653090c15c448341"
+  integrity sha512-Be+cRTgCOw/7mwBI667s6j60czNY8AQ8qje7iULjJYkfjhWGMcbnI62duhzTaV7ETacSDY/B5r+Vs+HdEKwZ8w==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^6.7.2"
 

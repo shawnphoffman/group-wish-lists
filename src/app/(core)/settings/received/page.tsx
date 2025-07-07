@@ -1,4 +1,6 @@
 import { Suspense } from 'react'
+import { faSharpSolidGiftCircleArrowLeft } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { FallbackRowThick } from '@/components/common/Fallbacks'
 import MyReceived from '@/components/me/MyReceived'
@@ -9,7 +11,10 @@ export default async function Page() {
 		<div className="grid gap-6 animate-page-in">
 			<Card className=" bg-accent">
 				<CardHeader>
-					<CardTitle>Gifts Received</CardTitle>
+					<CardTitle>
+						<FontAwesomeIcon size="sm" icon={faSharpSolidGiftCircleArrowLeft} className="mr-1" />
+						Gifts Received
+					</CardTitle>
 					<CardDescription>
 						Things will only appear here after you have archived purchased items on a list. This prevents you from seeing spoilers leading
 						up to an event.
