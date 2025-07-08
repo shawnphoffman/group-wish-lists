@@ -74,7 +74,7 @@ export default async function ListsByUser() {
 					const birthdayString = birthday(group.birth_month, group.birth_day)
 					return (
 						<Card key={`group-${group.id}`} className="bg-accent">
-							<CardHeader className="flex-row items-center gap-1 py-5 pb-4">
+							<CardHeader className="flex-row items-center gap-1 px-3 py-5 pb-4 xs:px-6">
 								<CardTitle className="flex flex-wrap items-center gap-2">
 									<Avatar className="border w-7 h-7 border-input">
 										<AvatarImage src={group.image} />
