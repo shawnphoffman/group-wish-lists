@@ -10,7 +10,7 @@ export default async function UserBadge() {
 	}
 
 	return (
-		<Avatar className="border w-9 h-9 border-input">
+		<Avatar className="border w-9 h-9 border-foreground">
 			<AvatarImage src={currentUser?.image} />
 			<AvatarFallback className="font-bold">{currentUser?.display_name?.charAt(0)}</AvatarFallback>
 		</Avatar>

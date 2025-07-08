@@ -47,7 +47,7 @@ const ViewListClient = async ({ params }: ClientProps) => {
 		<>
 			{/* Header */}
 			<div className="relative flex flex-row items-center flex-initial gap-2 w-fit flex-nowrap">
-				<Avatar className="w-10 h-10 border border-input">
+				<Avatar className="w-10 h-10 border border-foreground">
 					<AvatarImage src={recipient.image} />
 					<AvatarFallback className="text-2xl font-bold bg-background text-foreground">{recipient.display_name?.charAt(0)}</AvatarFallback>
 				</Avatar>

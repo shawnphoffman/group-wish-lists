@@ -76,7 +76,7 @@ export default async function ListsByUser() {
 						<Card key={`group-${group.id}`} className="bg-accent">
 							<CardHeader className="flex-row items-center gap-1 px-3 py-5 pb-4 xs:px-6">
 								<CardTitle className="flex flex-wrap items-center gap-2">
-									<Avatar className="border w-7 h-7 border-input">
+									<Avatar className="border w-7 h-7 border-foreground">
 										<AvatarImage src={group.image} />
 										<AvatarFallback className="text-xl font-bold bg-background text-foreground">
 											{group.display_name?.charAt(0)}

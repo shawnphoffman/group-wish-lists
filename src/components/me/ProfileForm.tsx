@@ -99,7 +99,7 @@ export default function ProfileFormWrapper({ name, id, birthMonth, birthDay }: W
 	const [isPending] = useTransition()
 
 	return (
-		<form className="text-foreground" action={formAction} id="update-profile-form">
+		<form className="w-full text-foreground" action={formAction} id="update-profile-form">
 			<fieldset className="flex flex-col justify-center w-full gap-3" disabled={isPending}>
 				<ProfileForm name={name} id={id} state={state} birthMonth={birthMonth} birthDay={birthDay} />
 			</fieldset>
