@@ -21,7 +21,6 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 
 	const handleClick = useCallback(
 		async (e: React.MouseEvent<SVGSVGElement>) => {
-			console.log('handleClick', listId, isPrimary)
 			e.preventDefault()
 			const resp = isPrimary ? await unsetPrimaryList(listId) : await setPrimaryList(listId)
 			if (resp?.status === 'success') {
@@ -39,16 +38,14 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 		<FontAwesomeIcon
 			title="Click to turn off your primary list"
 			fixedWidth
-			size="lg"
 			icon={faStar}
-			className="text-yellow-500 cursor-pointer"
+			className="text-yellow-500 cursor-pointer hover:text-yellow-400"
 			onClick={handleClick}
 		/>
 	) : (
 		<FontAwesomeIcon
 			title="Click to set as primary list"
 			fixedWidth
-			size="lg"
 			icon={faStarRegular}
 			className="cursor-pointer text-yellow-500/50 hover:text-yellow-500/75"
 			onClick={handleClick}

@@ -53,8 +53,6 @@ export default function UserImpersonation() {
 		} catch (error) {
 			console.error('Error impersonating user:', error)
 			setResult({ status: 'error', error: 'An unexpected error occurred' })
-		} finally {
-			console.log('finally')
 			setIsLoading(false)
 		}
 	}

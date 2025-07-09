@@ -115,7 +115,7 @@ export const stopImpersonation = async (email: string) => {
 	const impersonationLoginLink = `/auth/confirm?${searchParams}`
 
 	cookieStore.set('admin-impersonation', '', {
-		maxAge: 0,
+		maxAge: 1,
 	})
 
 	return {

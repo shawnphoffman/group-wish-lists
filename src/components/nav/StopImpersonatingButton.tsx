@@ -15,7 +15,9 @@ export default function StopImpersonatingButton({ impersonating }: Props) {
 		const result = await stopImpersonation(impersonating)
 		console.log('result', result)
 		if (result.link) {
-			window.location.href = result.link
+			setTimeout(() => {
+				window.location.href = result.link
+			}, 10)
 		}
 	}
 
