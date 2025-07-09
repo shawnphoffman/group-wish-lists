@@ -57,12 +57,12 @@ export default function UserImpersonation() {
 				const currentUser = await getSessionUser()
 
 				console.log('result', result, currentUser)
-				// if (currentUser) {
-				// 	setAdminUserId(currentUser.id)
-				// }
+				if (currentUser) {
+					setAdminUserId(currentUser.id)
+				}
 
 				// Redirect to the impersonation link
-				// window.location.href = result.link
+				window.location.href = result.link
 			}
 		} catch (error) {
 			setResult({ status: 'error', error: 'An unexpected error occurred' })
