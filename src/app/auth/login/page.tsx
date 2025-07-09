@@ -22,7 +22,7 @@ export default async function Login(props: Props) {
 	const currentUser = await getSessionUser()
 
 	if (currentUser) {
-		console.log('Login: already logged in', currentUser)
+		// console.log('Login: already logged in', currentUser)
 		return redirect(returnUrl || '/')
 	}
 

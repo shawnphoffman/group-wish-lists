@@ -24,22 +24,20 @@ export const createItem = async (prevState: any, formData: FormData) => {
 
 	const tags = tagsRaw.filter(Boolean)
 
-	const itemPromise = supabase
-		.from('list_items')
-		.insert([
-			{
-				list_id: listId,
-				title,
-				url,
-				notes,
-				price,
-				priority,
-				scrape: JSON.parse(scrape),
-				image_url: imageUrl,
-				tags: tags.length > 0 ? tags : null,
-				quantity,
-			},
-		])
+	const itemPromise = supabase.from('list_items').insert([
+		{
+			list_id: listId,
+			title,
+			url,
+			notes,
+			price,
+			priority,
+			scrape: JSON.parse(scrape),
+			image_url: imageUrl,
+			tags: tags.length > 0 ? tags : null,
+			quantity,
+		},
+	])
 
 	const [item] = await Promise.all([
 		itemPromise,
@@ -69,7 +67,7 @@ export const createMultipleItems = async (listId: List['id'], items: Partial<Lis
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	console.log('createMultipleItems', { inserted })
+	// console.log('createMultipleItems', { inserted })
 
 	return {
 		status: 'success',
@@ -210,7 +208,7 @@ export const archiveCompletedItems = async (list_id: List['id']) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	console.log('archiveCompletedItems', { items, addons })
+	// console.log('archiveCompletedItems', { items, addons })
 
 	return {
 		status: 'success',

@@ -58,7 +58,7 @@ export const signIn = async (formData: FormData) => {
 
 		if (error.code) url.searchParams.append('code', error.code)
 
-		console.log('url', url)
+		// console.log('url', url)
 
 		return redirect(`${url.pathname}${url.search}`)
 	}

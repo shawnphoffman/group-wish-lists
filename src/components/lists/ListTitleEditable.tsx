@@ -84,7 +84,7 @@ export default function ListTitleEditable({ listId, name, type, private: isPriva
 					title="Cancel"
 					className="text-2xl"
 					onClick={() => {
-						console.log('cancel')
+						// console.log('cancel')
 						setIsEditing(false)
 					}}
 					disabled={isPending || pending}

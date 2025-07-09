@@ -41,7 +41,7 @@ export async function GET(request: Request) {
 				}
 
 				// console.log('✅ success', { result, userAgent, url, output })
-				console.log('✅ success')
+				// console.log('✅ success')
 
 				return NextResponse.json({ result: output, userAgent: userAgent[0] })
 			} catch (ex) {
@@ -50,7 +50,7 @@ export async function GET(request: Request) {
 		}
 
 		if (output?.ogTitle) {
-			console.log('✅ mixed-success', { output, url })
+			// console.log('✅ mixed-success', { output, url })
 			return NextResponse.json({ result: output, userAgent: 'mix' })
 		}
 

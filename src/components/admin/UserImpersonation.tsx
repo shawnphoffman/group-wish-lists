@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { impersonateUser } from '@/app/actions/admin'
 import { getUsersForImpersonation } from '@/app/actions/users'
@@ -18,6 +19,7 @@ export default function UserImpersonation() {
 	const [result, setResult] = useState<{ status?: string; error?: string; link?: string; user?: any }>({})
 	const [users, setUsers] = useState<Array<{ id: string; email: string }>>([])
 	const [selectedEmail, setSelectedEmail] = useState<string>('')
+	const router = useRouter()
 
 	// Fetch users on component mount
 	useEffect(() => {
@@ -48,11 +50,15 @@ export default function UserImpersonation() {
 			const result = await impersonateUser(selectedEmail)
 
 			if (result.link) {
-				window.location.href = result.link
+				router.push(result.link)
+				router.refresh()
+			} else if (result.error) {
+				setResult({ status: 'error', error: result.error })
 			}
 		} catch (error) {
 			console.error('Error impersonating user:', error)
 			setResult({ status: 'error', error: 'An unexpected error occurred' })
+		} finally {
 			setIsLoading(false)
 		}
 	}

@@ -4,7 +4,7 @@ import { faComments, faRadio } from '@awesome.me/kit-ac8ad9255a/icons/sharp/soli
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-import { isImpersonating, stopImpersonation } from '@/app/actions/admin'
+import { isImpersonating } from '@/app/actions/admin'
 import { Button } from '@/components/ui/button'
 
 import { FallbackButton } from '../common/Fallbacks'
@@ -15,7 +15,7 @@ import UserBadge from './UserBadge'
 
 export default async function Header() {
 	let impersonating = await isImpersonating()
-	console.log('impersonating user:', impersonating)
+	// console.log('impersonating user:', impersonating)
 
 	return (
 		<header className="sticky top-0 z-20 w-full border-b bg-background animate-page-down">
@@ -69,7 +69,7 @@ export default async function Header() {
 					</nav>
 				</div>
 				<div className="flex items-center gap-1 sm:gap-1">
-					{!!impersonating && <StopImpersonatingButton impersonating={impersonating} />}
+					<Suspense fallback={null}>{!!impersonating && <StopImpersonatingButton impersonating={impersonating} />}</Suspense>
 					{/*  */}
 					<Suspense>
 						<Link href="/settings" title="Settings">

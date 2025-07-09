@@ -17,14 +17,14 @@ export const isImpersonating = async () => {
 	const cookie = cookieStore.get('admin-impersonation')
 	try {
 		if (cookie) {
-			console.log('cookie', cookie)
+			// console.log('cookie', cookie)
 			const token = impersonationJwtVerifier(cookie.value)
-			console.log('token', token)
+			// console.log('token', token)
 			return token.admin_email
 		}
 		return false
 	} catch (error) {
-		console.log('error', error)
+		// console.log('error', error)
 		return false
 	}
 }
@@ -72,7 +72,7 @@ export const impersonateUser = async (email: string) => {
 	const jwt = impersonationJwtSigner({
 		admin_email: currentUser.user!.email,
 	})
-	console.log('currentUser', { currentUser, jwt })
+	// console.log('currentUser', { currentUser, jwt })
 	cookieStore.set('admin-impersonation', jwt, {
 		path: '/',
 		httpOnly: false,

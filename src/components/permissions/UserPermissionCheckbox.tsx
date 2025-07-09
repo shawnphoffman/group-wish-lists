@@ -18,7 +18,7 @@ export default function PermissionCheckbox({ id, viewer_id, isChecked }: Props) 
 
 	const handleChange = useCallback(
 		(newChecked: boolean) => {
-			console.log('PermissionCheckbox:', newChecked)
+			// console.log('PermissionCheckbox:', newChecked)
 			setIsPending(true)
 			setChecked(newChecked)
 			async function asyncUpdatePermission() {

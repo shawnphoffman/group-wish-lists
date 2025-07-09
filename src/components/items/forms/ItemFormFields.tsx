@@ -266,7 +266,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const handleBlurUrl = useCallback(() => {
 		if (url && url.length > 0 && !scrape) {
-			console.log('handleBlurUrl', { url })
+			// console.log('handleBlurUrl', { url })
 			handleUrlImport()
 		}
 	}, [url, scrape, handleUrlImport])

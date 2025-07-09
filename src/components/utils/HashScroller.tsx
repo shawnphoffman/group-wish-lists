@@ -10,7 +10,7 @@ export default function HashScroller() {
 				setTimeout(() => {
 					const elementId = hash.startsWith('#') ? hash.substring(1) : hash
 					const element = document.getElementById(elementId)
-					console.log('scrolling to hash', { hash, element })
+					// console.log('scrolling to hash', { hash, element })
 					if (element) {
 						element.scrollIntoView({ behavior: 'smooth', block: 'start' })
 					} else {

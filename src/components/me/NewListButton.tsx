@@ -23,7 +23,7 @@ function CreateListFields() {
 	useEffect(() => {
 		async function asyncGetListOptions() {
 			const opts = await getUserEditors()
-			console.log('opts', opts)
+			// console.log('opts', opts)
 			setListOptions(opts)
 		}
 		asyncGetListOptions()

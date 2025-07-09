@@ -7,7 +7,7 @@ export const importAmazonList = async (url: string) => {
 	const html = await resp.text()
 
 	console.clear()
-	console.log('resp', html)
+	// console.log('resp', html)
 
 	// console.log('gift', gift)
 

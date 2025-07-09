@@ -77,7 +77,7 @@ export const deleteComment = async (commentId: number) => {
 			// new Promise(resolve => setTimeout(resolve, 5000)),
 		])
 
-		console.log('deleteComment', { temp, commentId })
+		// console.log('deleteComment', { temp, commentId })
 
 		return {
 			status: 'success',
@@ -136,7 +136,7 @@ export const getCommentsGroupedByItem = async () => {
 				}
 			})
 
-		console.log('getCommentsGroupedByItem.resp', resp)
+		// console.log('getCommentsGroupedByItem.resp', resp)
 
 		return resp as any
 	} catch (error) {

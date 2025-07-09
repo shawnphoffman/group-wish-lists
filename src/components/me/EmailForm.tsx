@@ -21,7 +21,7 @@ type FormProps = {
 function EmailForm({ email, state }: FormProps) {
 	const { pending, data } = useFormStatus()
 
-	console.log('EmailForm', { email, state, pending, data })
+	// console.log('EmailForm', { email, state, pending, data })
 
 	return (
 		<>
@@ -51,7 +51,7 @@ export default function EmailFormWrapper({ email }: WrapperProps) {
 	const [state, formAction] = useActionState(updateEmail, initialState)
 	const [isPending] = useTransition()
 
-	console.log('EmailFormWrapper', { email, state, isPending })
+	// console.log('EmailFormWrapper', { email, state, isPending })
 
 	return (
 		<form className="text-foreground" action={formAction}>
