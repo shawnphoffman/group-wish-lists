@@ -52,8 +52,8 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 			{/* Header */}
 			<div className="flex flex-col items-center justify-between w-full gap-2 md:gap-2 md:flex-row">
 				<div className="relative flex flex-row items-center gap-1">
-					<h1 className="w-fit">{list.name}</h1>
-					<div className="text-[60px] sm:text-[80px] opacity-25 absolute left-4 -top-2 sm:-top-5 flex flex-row gap-4">
+					<h1 className="z-10 w-fit">{list.name}</h1>
+					<div className="text-[60px] sm:text-[80px] opacity-25 absolute left-4 -top-2 sm:-top-5 flex flex-row gap-4 ">
 						<ListTypeIcon type={list.type} className="text-[60px] sm:text-[80px]" />
 						{/* {isPrivate && <LockIcon fade={false} />} */}
 						{/* {isShared && <ShareIcon />} */}

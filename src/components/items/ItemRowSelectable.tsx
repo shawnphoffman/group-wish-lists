@@ -8,10 +8,10 @@ import Link from 'next/link'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import { ListItem } from '@/components/types'
-import { Badge } from '@/components/ui/badge'
+// import { Badge } from '@/components/ui/badge'
 import { getDomainFromUrl } from '@/utils/urls'
 
-import ItemComments from '../comments/ItemComments'
+// import ItemComments from '../comments/ItemComments'
 import { Checkbox } from '../ui/checkbox'
 
 type Props = {
@@ -39,15 +39,17 @@ export default function ItemRowSelectable({ item, onSelect }: Props) {
 			className={`${isSelected ? 'bg-muted' : ''} p-3 hover:bg-muted font-medium leading-normal gap-2 flex flex-col`}
 		>
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
-				<div className="flex flex-row  gap-x-3.5 items-center">
-					{/* Checkbox */}
-					<Checkbox checked={isSelected} onCheckedChange={handleSelect} className="w-5 h-5" />
-					{/* Priority */}
-					{item.priority !== 'normal' && (
-						<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
-							<ItemPriorityIcon priority={item.priority} />
-						</div>
-					)}
+				<div className="flex flex-row gap-x-3.5 items-center">
+					<div className="flex flex-col items-center justify-center gap-2 xs:flex-row shrink-0">
+						{/* Checkbox */}
+						<Checkbox checked={isSelected} onCheckedChange={handleSelect} className="w-5 h-5" />
+						{/* Priority */}
+						{item.priority !== 'normal' && (
+							<div className="flex flex-col items-center justify-center max-w-4 shrink-0">
+								<ItemPriorityIcon priority={item.priority} />
+							</div>
+						)}
+					</div>
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}
@@ -55,21 +57,17 @@ export default function ItemRowSelectable({ item, onSelect }: Props) {
 							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
-									<Link
-										href={item.url!}
-										target="_blank"
-										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline`}
-									>
+									<div className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden`}>
 										{item.title}
-										<div className="flex flex-row items-center gap-1">
+										<Link href={item.url!} target="_blank" className="flex flex-row items-center gap-1 hover:underline">
 											<FontAwesomeIcon
 												icon={faLink}
 												className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
 												size="xs"
 											/>
 											<span className="flex text-xs text-muted-foreground">{getDomainFromUrl(item.url)}</span>
-										</div>
-									</Link>
+										</Link>
+									</div>
 								) : (
 									<div>{item.title}</div>
 								)}
@@ -88,8 +86,7 @@ export default function ItemRowSelectable({ item, onSelect }: Props) {
 							)} */}
 						</div>
 						{/* Image + Actions */}
-						<div className="flex flex-row items-center justify-center gap-1 xs:flex-col sm:flex-row">
-							{/* Image */}
+						<div className="flex-row items-center justify-center hidden gap-1 xs:flex-col sm:flex-row xs:flex">
 							<ItemImage url={item.image_url} className="h-fit max-w-12 xs:w-24 xs:max-h-24" />
 						</div>
 					</div>
