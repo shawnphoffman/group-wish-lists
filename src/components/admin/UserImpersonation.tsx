@@ -17,7 +17,7 @@ export default function UserImpersonation() {
 	const [email, setEmail] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [result, setResult] = useState<{ status?: string; error?: string; link?: string; user?: any }>({})
-	const [users, setUsers] = useState<Array<{ id: string; email: string }>>([])
+	const [users, setUsers] = useState<Array<{ id: string; email: string; display_name: string }>>([])
 	const [selectedEmail, setSelectedEmail] = useState<string>('')
 	const router = useRouter()
 
@@ -79,7 +79,7 @@ export default function UserImpersonation() {
 							<SelectContent>
 								{users.map(user => (
 									<SelectItem key={user.email} value={user.email}>
-										{user.email}
+										{user.display_name}
 									</SelectItem>
 								))}
 							</SelectContent>

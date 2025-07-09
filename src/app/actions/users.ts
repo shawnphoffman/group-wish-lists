@@ -12,10 +12,20 @@ export const getUsersForImpersonation = async () => {
 	const supabase = createAdminClient()
 
 	const { data, error } = await supabase.auth.admin.listUsers()
+	const { data: users } = await supabase.from('users').select('id,user_id,display_name')
+
+	const allUsers = Object.values(data?.users || {}).reduce((acc: any, user) => {
+		const displayName = users?.find(u => u.user_id === user.id)?.display_name
+		if (displayName) {
+			acc.push({ id: user.id, email: user.email, display_name: users?.find(u => u.user_id === user.id)?.display_name })
+		}
+		return acc.sort((a, b) => a.display_name.localeCompare(b.display_name))
+	}, [] as any)
 
 	// console.log('getUsersForImpersonation.resp', data, error)
 
-	return data?.users.map(user => ({ id: user.id, email: user.email })) || []
+	return allUsers
+	// return data?.users.map(user => ({ id: user.id, email: user.email })) || []
 }
 
 export const isAdmin = async () => {
