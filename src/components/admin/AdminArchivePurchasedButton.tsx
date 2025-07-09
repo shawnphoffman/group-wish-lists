@@ -15,13 +15,12 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { MenubarShortcut } from '@/components/ui/menubar'
 
 import { Button } from '../ui/button'
 
 export default function AdminArchivePurchasedButton() {
 	const router = useRouter()
-	const [isPending, startTransition] = useTransition()
+	const [_, startTransition] = useTransition()
 
 	const handleClick = useCallback(async () => {
 		const resp = await adminArchiveCompletedItems()

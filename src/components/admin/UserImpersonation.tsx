@@ -69,8 +69,8 @@ export default function UserImpersonation() {
 				<CardTitle>User Impersonation</CardTitle>
 			</CardHeader>
 			<CardContent className="space-y-4">
-				<form onSubmit={handleImpersonate} className="space-y-4">
-					<div className="space-y-2">
+				<form onSubmit={handleImpersonate} className="flex flex-col w-full gap-4">
+					<fieldset disabled={isLoading} className="flex flex-col justify-center w-full gap-2">
 						<Label htmlFor="user-select">Select User</Label>
 						<Select value={selectedEmail} onValueChange={setSelectedEmail}>
 							<SelectTrigger>
@@ -84,9 +84,9 @@ export default function UserImpersonation() {
 								))}
 							</SelectContent>
 						</Select>
-					</div>
+					</fieldset>
 
-					<div className="space-y-2">
+					<fieldset disabled={isLoading} className="flex flex-col justify-center w-full gap-2">
 						<Label htmlFor="email">Or Enter Email Manually</Label>
 						<Input
 							id="email"
@@ -95,7 +95,7 @@ export default function UserImpersonation() {
 							onChange={e => setEmail(e.target.value)}
 							placeholder="Enter user email to impersonate"
 						/>
-					</div>
+					</fieldset>
 
 					<Button type="submit" disabled={isLoading}>
 						{isLoading ? 'Impersonating...' : 'Impersonate User'}
