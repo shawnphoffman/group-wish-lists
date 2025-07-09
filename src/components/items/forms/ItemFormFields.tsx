@@ -47,6 +47,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const router = useRouter()
 
+	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const notesRef = useRef<HTMLTextAreaElement>(null)
 
 	// console.log('item', { item })
@@ -88,12 +89,19 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	}, [item, notes])
 
 	useEffect(() => {
+		if (titleRef.current) {
+			titleRef.current.style.height = 'inherit'
+			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
+		}
+	}, [title])
+
+	useEffect(() => {
 		setTagsInput(tags.map(t => t.text).join(', '))
 	}, [tags])
 
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		e.target.style.height = 'inherit'
-		e.target.style.height = `${e.target.scrollHeight}px`
+		// e.target.style.height = 'inherit'
+		// e.target.style.height = `${e.target.scrollHeight}px`
 		setTitle(e.target.value)
 	}, [])
 
@@ -328,6 +336,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						value={title}
 						onChange={handleChangeTitle}
 						className="min-h-fit"
+						ref={titleRef}
 					/>
 				</div>
 
