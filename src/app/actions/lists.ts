@@ -556,3 +556,41 @@ export const deleteEditor = async (listId: List['id'], editorId: User['user_id']
 		status: 'success',
 	}
 }
+
+export const setPrimaryList = async (listId: List['id']) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
+	await supabase.from('lists').update({ primary: false }).eq('user_id', userId).eq('private', false).eq('active', true)
+
+	await supabase.from('lists').update({ primary: true }).eq('id', listId)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
+
+	return {
+		status: 'success',
+	}
+}
+
+export const unsetPrimaryList = async (listId: List['id']) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data: userData } = await supabase.auth.getUser()
+	const userId = userData?.user?.id
+
+	await supabase.from('lists').update({ primary: false }).eq('id', listId)
+
+	// Invalidate cache for the current user
+	invalidateListsCache(userId)
+
+	return {
+		status: 'success',
+	}
+}

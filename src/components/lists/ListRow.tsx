@@ -1,4 +1,4 @@
-import { faList, faLockKeyhole, faStar } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faList, faLockKeyhole } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
@@ -9,9 +9,12 @@ import { Badge } from '@/components/ui/badge'
 // import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { LockIcon, ShareIcon } from '../icons/Icons'
 
+import PrimaryListButton from './buttons/PrimaryListButton'
+
 type Props = {
 	list: List | ListSharedWithOthers | ListSharedWithMe
 	canEdit: boolean
+	canBePrimary?: boolean
 }
 
 const CountBadge = ({ count }: { count: number }) => (
@@ -25,7 +28,7 @@ const CountBadge = ({ count }: { count: number }) => (
 	</Badge>
 )
 
-export default function ListRow({ list, canEdit }: Props) {
+export default function ListRow({ list, canEdit, canBePrimary = false }: Props) {
 	if (!list) return null
 
 	const isActive = list.active
@@ -35,7 +38,7 @@ export default function ListRow({ list, canEdit }: Props) {
 	const privateClasses = list?.private ? '' : ''
 	const isShared = canEdit && list.editors?.length
 
-	const isPrimary = list.primary && canEdit
+	// const isPrimary = list.primary && canEdit
 
 	// console.log('ListRow', list)
 
@@ -60,7 +63,7 @@ export default function ListRow({ list, canEdit }: Props) {
 				</TooltipProvider> */}
 					{list?.private && <LockIcon className="text-sm" />}
 					{isShared && <ShareIcon className="text-sm" />}
-					{isPrimary && <FontAwesomeIcon icon={faStar} className="text-yellow-500" />}
+					{/* {isPrimary && <FontAwesomeIcon icon={faStar} className="text-yellow-500" />} */}
 				</div>
 
 				<div className="flex flex-row items-center justify-end gap-1 !text-lg">
@@ -91,6 +94,8 @@ export default function ListRow({ list, canEdit }: Props) {
 					)}
 					{/*  */}
 					<CountBadge count={list.count!} />
+
+					{canBePrimary && <PrimaryListButton listId={list.id} isPrimary={list.primary} />}
 				</div>
 			</LinkOrDiv>
 		</div>
