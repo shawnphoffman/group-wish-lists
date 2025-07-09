@@ -74,7 +74,7 @@ export default async function ListsByUser() {
 					const birthdayString = birthday(group.birth_month, group.birth_day)
 					return (
 						<Card key={`group-${group.id}`} className="bg-accent">
-							<CardHeader className="flex-row items-center gap-1 px-3 py-5 pb-4 xs:px-6">
+							<CardHeader className="flex-row items-center gap-1 p-4 pb-0">
 								<CardTitle className="flex flex-wrap items-center gap-2">
 									<Avatar className="border w-7 h-7 border-foreground">
 										<AvatarImage src={group.image} />
@@ -97,7 +97,7 @@ export default async function ListsByUser() {
 									)}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+							<CardContent className="p-3 pt-2 pb-1">
 								<ListBlock lists={group.lists as List[]} isOwner={currentUser?.id === group.user_id} />
 							</CardContent>
 						</Card>

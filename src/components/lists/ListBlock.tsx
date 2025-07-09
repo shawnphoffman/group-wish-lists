@@ -22,8 +22,7 @@ export default async function ListBlock({ lists, isOwner, showEmptyMessage = tru
 	})
 
 	return (
-		// <div className="flex flex-col gap-1 divide-y xs:divide-y-0">
-		<div className="flex flex-col gap-1 xs:divide-y-0">
+		<div className="flex flex-col gap-0 xs:divide-y-0">
 			{sortedListed.map(list => {
 				const keySuffix = 'user_shared_with_id' in list ? list.user_shared_with_id : 'me'
 				return <ListRow key={`${list.id}-${keySuffix}`} list={list} canEdit={isOwner} canBePrimary={canBePrimary} />

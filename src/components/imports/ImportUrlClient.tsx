@@ -57,7 +57,7 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 					</SelectTrigger>
 					<SelectContent>
 						{/* MY PUBLIC LISTS */}
-						{myPublicLists.length && (
+						{myPublicLists.length > 0 && (
 							<SelectGroup>
 								<SelectLabel>My Public Lists</SelectLabel>
 								{myPublicLists.map((list: List) => (
@@ -73,7 +73,7 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 							</SelectGroup>
 						)}
 						{/* MY PRIVATE LISTS */}
-						{myPrivateLists.length && (
+						{myPrivateLists.length > 0 && (
 							<SelectGroup>
 								<SelectLabel>My Private Lists</SelectLabel>
 								{myPrivateLists.map((list: List) => (
@@ -89,7 +89,7 @@ export default function ImportUrlClient({ lists, list }: { lists: List[]; list: 
 							</SelectGroup>
 						)}
 						{/* SHARED WITH ME */}
-						{sharedWithMeLists.length && (
+						{sharedWithMeLists.length > 0 && (
 							<SelectGroup>
 								<SelectLabel>Lists I Can Edit</SelectLabel>
 								{sharedWithMeLists.map((list: List) => (

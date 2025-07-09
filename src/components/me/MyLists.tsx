@@ -33,7 +33,7 @@ export default async function MyLists({ type = ListType.ALL, showEmptyMessage = 
 
 	return (
 		<Card className="bg-accent">
-			<CardContent className="p-2 xs:p-3">
+			<CardContent className="p-1">
 				<ListBlock lists={data as List[]} isOwner={true} showEmptyMessage={showEmptyMessage} canBePrimary={type === ListType.PUBLIC} />
 			</CardContent>
 		</Card>

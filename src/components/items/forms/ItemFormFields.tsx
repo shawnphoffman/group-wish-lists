@@ -264,6 +264,13 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setUrl(() => firstURL)
 	}, [])
 
+	const handleBlurUrl = useCallback(() => {
+		if (url && url.length > 0 && !scrape) {
+			console.log('handleBlurUrl', { url })
+			handleUrlImport()
+		}
+	}, [url, scrape, handleUrlImport])
+
 	return (
 		<fieldset disabled={isPending}>
 			<input className="input" type="hidden" name="id" value={id} readOnly />
@@ -285,6 +292,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							onChange={handleChangeUrl}
 							onPaste={handlePaste}
 							onFocus={event => event.target.select()}
+							onBlur={handleBlurUrl}
 						/>
 						<Button
 							type="button"
@@ -372,7 +380,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 				<div className="grid w-full gap-1.5">
 					<Label htmlFor="tags">Tags</Label>
-					{/* <Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" /> */}
 					<TagInput
 						placeholder="Add some tags"
 						tags={tags}
@@ -385,7 +392,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						setActiveTagIndex={setActiveTagIndex}
 						styleClasses={{
 							inlineTagsContainer: 'min-h-[42px]',
-							input: 'w-full',
+							input: 'w-full text-base',
 							tag: {
 								body: 'pl-2 bg-muted',
 							},

@@ -37,13 +37,8 @@ export default function ListRow({ list, canEdit, canBePrimary = false }: Props) 
 	const privateClasses = list?.private ? '' : ''
 	const isShared = canEdit && list.editors?.length
 
-	// const isPrimary = list.primary && canEdit
-
-	// console.log('ListRow', list)
-
 	return (
-		<div className={`!text-lg flex-row p-0 bg-transparent hover:bg-muted rounded flex ${privateClasses} px-1 py-2 xs:pe-2 xs:ps-4`}>
-			{/* <LinkOrDiv href={url!} className={`flex flex-col xs:flex-row w-full flex-1 xs:items-center gap-2 overflow-hidden`}> */}
+		<div className={`!text-lg flex-row bg-transparent hover:bg-muted rounded flex ${privateClasses} p-2`}>
 			<LinkOrDiv href={url!} className={`flex flex-row w-full flex-1 xs:items-center gap-2 overflow-hidden`}>
 				<div className="flex flex-row items-center flex-1 gap-2 overflow-hidden">
 					<ListTypeIcon type={list.type} />
@@ -52,7 +47,6 @@ export default function ListRow({ list, canEdit, canBePrimary = false }: Props) 
 					</div>
 					{list?.private && <LockIcon className="text-sm" />}
 					{isShared && <ShareIcon className="text-sm" />}
-					{/* {isPrimary && <FontAwesomeIcon icon={faStar} className="text-yellow-500" />} */}
 				</div>
 
 				<div className="flex flex-row items-center justify-end gap-1 !text-lg">

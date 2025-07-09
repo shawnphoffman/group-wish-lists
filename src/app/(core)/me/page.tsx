@@ -21,7 +21,7 @@ export default async function MyStuff() {
 					</div>
 
 					{/* PUBLIC LISTS */}
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<h3>My Public Lists</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							These are the lists that everybody can see and use for gift-giving. If a list is not in this section then it is either not
@@ -33,7 +33,7 @@ export default async function MyStuff() {
 					</div>
 
 					{/* PRIVATE LISTS */}
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<h3>My Private Lists</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							Nobody else can see these lists unless you explicitly make them an editor. These are nice for personal shopping lists or
@@ -45,7 +45,7 @@ export default async function MyStuff() {
 					</div>
 
 					{/* GIFT IDEAS LISTS */}
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<h3>Gift Ideas for Others</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							These are idea lists for other people. These are helpful for adding things throughout the year that you think someone might
@@ -59,7 +59,7 @@ export default async function MyStuff() {
 					{/* <Separator /> */}
 
 					{/* SHARED WITH ME LISTS */}
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<h3>Lists I Can Edit</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							These are lists that others created and then added you as an editor. You can edit these lists from here or, if they are
@@ -71,7 +71,7 @@ export default async function MyStuff() {
 					</div>
 
 					{/* SHARED LISTS */}
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<h3>My List Editors</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							These are lists that you have added editors to. Editors are able to modify the items on your list just as you do but they can
