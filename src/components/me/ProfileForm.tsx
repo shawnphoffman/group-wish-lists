@@ -29,7 +29,7 @@ function ProfileForm({ name, id, state, birthMonth, birthDay }: FormProps) {
 		setSelectedMonth(value)
 	}, [])
 
-	console.log('ProfileForm', { name, id, state, pending, birthMonth, birthDay, selectedMonth })
+	// console.log('ProfileForm', { name, id, state, pending, birthMonth, birthDay, selectedMonth })
 
 	return (
 		<>

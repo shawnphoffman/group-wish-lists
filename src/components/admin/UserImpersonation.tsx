@@ -1,10 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
-import { impersonateUser, stopImpersonation } from '@/app/actions/auth'
-import { getSessionUser } from '@/app/actions/auth'
+import { impersonateUser } from '@/app/actions/admin'
 import { getUsersForImpersonation } from '@/app/actions/users'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import SuccessMessage from '@/components/common/SuccessMessage'
@@ -18,10 +16,8 @@ export default function UserImpersonation() {
 	const [email, setEmail] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [result, setResult] = useState<{ status?: string; error?: string; link?: string; user?: any }>({})
-	const [adminUserId, setAdminUserId] = useState<string | null>(null)
 	const [users, setUsers] = useState<Array<{ id: string; email: string }>>([])
 	const [selectedEmail, setSelectedEmail] = useState<string>('')
-	const router = useRouter()
 
 	// Fetch users on component mount
 	useEffect(() => {
@@ -50,47 +46,15 @@ export default function UserImpersonation() {
 			}
 
 			const result = await impersonateUser(selectedEmail)
-			setResult(result)
 
-			if (result.status === 'success' && result.link) {
-				// Store the current admin user ID for returning later
-				const currentUser = await getSessionUser()
-
-				console.log('result', result, currentUser)
-				if (currentUser) {
-					setAdminUserId(currentUser.id)
-				}
-
-				// Redirect to the impersonation link
+			if (result.link) {
 				window.location.href = result.link
 			}
 		} catch (error) {
+			console.error('Error impersonating user:', error)
 			setResult({ status: 'error', error: 'An unexpected error occurred' })
 		} finally {
-			setIsLoading(false)
-		}
-	}
-
-	const handleStopImpersonation = async () => {
-		if (!adminUserId) {
-			setResult({ status: 'error', error: 'No admin user ID found' })
-			return
-		}
-
-		setIsLoading(true)
-		setResult({})
-
-		try {
-			const result = await stopImpersonation(adminUserId)
-			setResult(result)
-
-			if (result.status === 'success' && result.link) {
-				// Redirect back to admin user
-				window.location.href = result.link
-			}
-		} catch (error) {
-			setResult({ status: 'error', error: 'An unexpected error occurred' })
-		} finally {
+			console.log('finally')
 			setIsLoading(false)
 		}
 	}
@@ -136,15 +100,6 @@ export default function UserImpersonation() {
 
 				{result.error && <ErrorMessage error={result.error} />}
 				{result.status === 'success' && <SuccessMessage />}
-
-				{adminUserId && (
-					<div className="pt-4 border-t">
-						<p className="mb-2 text-sm text-muted-foreground">Currently impersonating a user. Click below to return to admin account.</p>
-						<Button onClick={handleStopImpersonation} disabled={isLoading} variant="outline">
-							{isLoading ? 'Returning...' : 'Return to Admin'}
-						</Button>
-					</div>
-				)}
 			</CardContent>
 		</Card>
 	)

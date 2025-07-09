@@ -37,6 +37,7 @@
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
 		"emblor": "^1.4.8",
+		"fast-jwt": "^6.0.2",
 		"geist": "^1.4.2",
 		"isomorphic-dompurify": "^2.25.0",
 		"linkify-react": "^4.3.1",

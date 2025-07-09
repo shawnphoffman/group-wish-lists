@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
 import { signOut } from '@/app/actions/auth'
+import AdminSettingsLink from '@/components/admin/AdminSettingsLink'
 import { Separator } from '@/components/ui/separator'
 import { isDeployed } from '@/utils/environment'
 
@@ -47,17 +48,6 @@ export default function SettingsLinks() {
 				Received Gifts
 			</Link>
 			<Separator />
-			{!isDeployed && (
-				<Link
-					href="/admin"
-					className="flex flex-row items-center gap-1 text-red-500 transition-colors hover:text-red-600 group-hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 dark:group-hover:text-red-300"
-					title="Admin"
-					prefetch={false}
-				>
-					<FontAwesomeIcon size="sm" icon={faLock} />
-					Admin
-				</Link>
-			)}
 			<Link href="#" onClick={signOut} className="flex flex-row items-center gap-1">
 				<FontAwesomeIcon size="sm" icon={faRightFromBracket} />
 				Logout

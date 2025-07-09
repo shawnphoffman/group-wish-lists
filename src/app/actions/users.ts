@@ -18,6 +18,15 @@ export const getUsersForImpersonation = async () => {
 	return data?.users.map(user => ({ id: user.id, email: user.email })) || []
 }
 
+export const isAdmin = async () => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+	const { data } = await supabase.from('view_me').select('is_admin').single()
+
+	return data?.is_admin || false
+}
+
 export const getUsers = async () => {
 	'use server'
 	const cookieStore = await cookies()
