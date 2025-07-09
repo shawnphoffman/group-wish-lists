@@ -3,7 +3,20 @@
 import { PostgrestSingleResponse } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
+import { createAdminClient } from '@/utils/supabase/admin'
 import { createClient } from '@/utils/supabase/server'
+
+export const getUsersForImpersonation = async () => {
+	'use server'
+	// const cookieStore = await cookies()
+	const supabase = createAdminClient()
+
+	const { data, error } = await supabase.auth.admin.listUsers()
+
+	// console.log('getUsersForImpersonation.resp', data, error)
+
+	return data?.users.map(user => ({ id: user.id, email: user.email })) || []
+}
 
 export const getUsers = async () => {
 	'use server'

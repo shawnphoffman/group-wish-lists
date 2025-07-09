@@ -61,37 +61,15 @@ export default async function Header() {
 								<FontAwesomeIcon size="lg" icon={faRadio} />
 							</Link>
 						</Button>
-
-						{/* <Link href="/faq" className={'text-xl px-2  hidden sm:inline-block hover:text-secondary transition-colors'} title="FAQ">
-							<FontAwesomeIcon fixedWidth icon={faSealQuestion} />
-						</Link> */}
 					</nav>
 				</div>
 				<div className="flex items-center gap-1 sm:gap-1">
 					{/*  */}
 					<Suspense>
-						<Link
-							href="/settings"
-							// prefetch={false}
-							title="Settings"
-						>
-							{/* fallback={<FallbackBadge />}> */}
+						<Link href="/settings" title="Settings">
 							<UserBadge />
 						</Link>
 					</Suspense>
-					{/*  */}
-					{/* <Button size="sm" variant={'outline'} asChild className="px-2">
-						<Link
-							href="/settings"
-							className="text-green-500 transition-colors hover:text-green-600 group-hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 dark:group-hover:text-green-300"
-							prefetch={false}
-							title="Settings"
-						>
-							<FontAwesomeIcon size="lg" icon={faCog} />
-						</Link>
-					</Button> */}
-					{/*  */}
-					{/* <ModeToggle /> */}
 					{/*  */}
 					<Suspense fallback={<FallbackButton />}>
 						<AuthButton />

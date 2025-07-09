@@ -10,9 +10,11 @@ export default async function UserBadge() {
 	}
 
 	return (
-		<Avatar className="border w-9 h-9 border-foreground">
-			<AvatarImage src={currentUser?.image} />
-			<AvatarFallback className="font-bold">{currentUser?.display_name?.charAt(0)}</AvatarFallback>
-		</Avatar>
+		<div className="transition-all will-change-auto hover:scale-105">
+			<Avatar className="transition-colors border w-9 h-9 will-change-auto border-foreground hover:border-primary">
+				<AvatarImage src={currentUser?.image} />
+				<AvatarFallback className="font-bold">{currentUser?.display_name?.charAt(0)}</AvatarFallback>
+			</Avatar>
+		</div>
 	)
 }

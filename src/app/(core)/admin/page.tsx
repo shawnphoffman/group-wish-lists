@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import AdminArchivePurchasedButton from '@/components/admin/AdminArchivePurchasedButton'
 import InviteUser from '@/components/admin/InviteUser'
+import UserImpersonation from '@/components/admin/UserImpersonation'
 
 export default async function Admin() {
 	// await new Promise(resolve => setTimeout(resolve, 50000))
@@ -13,6 +14,12 @@ export default async function Admin() {
 					<h2>Invite User</h2>
 					<Suspense>
 						<InviteUser />
+					</Suspense>
+				</div>
+				<div className="flex flex-col gap-2">
+					<h2>User Impersonation</h2>
+					<Suspense>
+						<UserImpersonation />
 					</Suspense>
 				</div>
 				<div className="flex flex-col gap-2">

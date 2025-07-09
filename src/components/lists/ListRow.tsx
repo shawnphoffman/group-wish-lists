@@ -6,7 +6,6 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import { List, ListGiftIdeas, ListSharedWithMe, ListSharedWithOthers } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 
-// import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { LockIcon, ShareIcon } from '../icons/Icons'
 
 import PrimaryListButton from './buttons/PrimaryListButton'
@@ -51,16 +50,6 @@ export default function ListRow({ list, canEdit, canBePrimary = false }: Props) 
 					<div className={`${!isActive ? 'line-through opacity-50' : ''} leading-none text-ellipsis whitespace-nowrap overflow-hidden`}>
 						{list.name}
 					</div>
-					{/* <TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger
-							className={`${!isActive ? 'line-through opacity-50' : ''} leading-none text-ellipsis whitespace-nowrap overflow-hidden`}
-						>
-							{list.name}
-						</TooltipTrigger>
-						<TooltipContent className="max-w-60 text-pretty">{list.name}</TooltipContent>
-					</Tooltip>
-				</TooltipProvider> */}
 					{list?.private && <LockIcon className="text-sm" />}
 					{isShared && <ShareIcon className="text-sm" />}
 					{/* {isPrimary && <FontAwesomeIcon icon={faStar} className="text-yellow-500" />} */}
