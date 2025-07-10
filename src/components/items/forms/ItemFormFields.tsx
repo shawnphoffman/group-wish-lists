@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
+import { cleanTitle } from '@/utils/openai'
 
 import ItemImagePicker from '../components/ItemImagePicker'
 import MarkdownBlock from '../components/MarkdownBlock'
@@ -73,11 +74,14 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	// const mdNotes = useMemo(() => DOMPurify.sanitize(snarkdown(notes)), [notes])
 
 	useEffect(() => {
-		if (item || !scrape?.result) return
+		if (!scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
-		const imageUrl = getImageFromScrape(scrape)
-		// console.log('scrape', { scrape })
-		setImageUrl(imageUrl)
+
+		if (!item) {
+			const imageUrl = getImageFromScrape(scrape)
+			// console.log('scrape', { scrape })
+			setImageUrl(imageUrl)
+		}
 	}, [item, scrape])
 
 	useEffect(() => {
@@ -228,6 +232,31 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		// console.log('data', { data })
 
 		if (data?.result?.success) {
+			if (data.result.ogTitle) {
+				try {
+					const controller = new AbortController()
+					const timeout = setTimeout(() => controller.abort(), 5000)
+
+					const cleanedTitle = await Promise.race([
+						cleanTitle(data.result.ogTitle),
+						new Promise(resolve => {
+							setTimeout(() => {
+								// If timed out, resolve with original title
+								resolve(data.result.ogTitle)
+							}, 5000)
+						}),
+					])
+					data.result.ogTitle = cleanedTitle
+
+					// TODO - Try to extract more from the scrape data like size, color, description, price, etc.
+
+					clearTimeout(timeout)
+				} catch (error) {
+					// Continue with original title if cleaning times out
+					console.log('Title cleaning timed out')
+				}
+			}
+
 			setScrape(data)
 		} else {
 			setImportError('Sorry. No data found for this URL.')
