@@ -8,7 +8,7 @@ type Props = {
 	item: ListItem & Gift & Purchase
 }
 
-export default async function PurchaseRow({ item }: Props) {
+export default function PurchaseRow({ item }: Props) {
 	if (!item) return null
 
 	// console.log('PurchaseRow', item)
