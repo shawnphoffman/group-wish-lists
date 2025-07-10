@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
-import { faArrowDownToLine, faAsterisk, faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faArrowsRotate, faAsterisk, faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Tag, TagInput } from 'emblor'
 import { mergician } from 'mergician'
@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
+import { isDeployed } from '@/utils/environment'
 import { cleanTitle } from '@/utils/openai'
 
 import ItemImagePicker from '../components/ItemImagePicker'
@@ -339,11 +340,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							disabled={!url}
 							title="Import"
 						>
-							<span className="hidden sm:flex">Import</span>
+							{/* <span className="hidden sm:flex">Import</span> */}
 							{importing ? (
 								<FontAwesomeIcon size="xl" icon={faSpinnerScale} spinPulse fixedWidth />
 							) : (
-								<FontAwesomeIcon size="xl" icon={faArrowDownToLine} fixedWidth />
+								<FontAwesomeIcon size="xl" icon={faArrowsRotate} fixedWidth />
 							)}
 						</Button>
 					</div>
@@ -416,28 +417,30 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</div>
 				</div>
 
-				<div className="grid w-full gap-1.5">
-					<Label htmlFor="tags">Tags</Label>
-					<TagInput
-						placeholder="Add some tags"
-						tags={tags}
-						sortTags={true}
-						allowDuplicates={false}
-						setTags={newTags => {
-							setTags(newTags)
-						}}
-						activeTagIndex={activeTagIndex}
-						setActiveTagIndex={setActiveTagIndex}
-						styleClasses={{
-							inlineTagsContainer: 'min-h-[42px]',
-							input: 'w-full text-base',
-							tag: {
-								body: 'pl-2 bg-muted',
-							},
-						}}
-						size="sm"
-					/>
-				</div>
+				{!isDeployed ? (
+					<div className="grid w-full gap-1.5 text-destructive">
+						<Label htmlFor="tags">Tags</Label>
+						<TagInput
+							placeholder="Add some tags"
+							tags={tags}
+							sortTags={true}
+							allowDuplicates={false}
+							setTags={newTags => {
+								setTags(newTags)
+							}}
+							activeTagIndex={activeTagIndex}
+							setActiveTagIndex={setActiveTagIndex}
+							styleClasses={{
+								inlineTagsContainer: 'min-h-[42px]',
+								input: 'w-full text-base',
+								tag: {
+									body: 'pl-2 bg-muted',
+								},
+							}}
+							size="sm"
+						/>
+					</div>
+				) : null}
 
 				{scrape?.result && (
 					<>

@@ -20,6 +20,7 @@ export const ItemStatus = {
 	Incomplete: 'incomplete',
 	Complete: 'complete',
 	Partial: 'partial',
+	Unavailable: 'unavailable',
 } as const
 export type ItemStatusType = (typeof ItemStatus)[keyof typeof ItemStatus]
 
