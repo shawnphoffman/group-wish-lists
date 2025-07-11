@@ -54,9 +54,8 @@ export default function ItemRowActions({ itemId, status }: Props) {
 					<DropdownMenuItem asChild>
 						<Link href={`/clone/${itemId}`}>Copy to your own list</Link>
 					</DropdownMenuItem>
-					{status === ItemStatus.Unavailable ? (
-						<DropdownMenuItem onClick={handleMarkAsAvailable}>Mark as available</DropdownMenuItem>
-					) : (
+					{status === ItemStatus.Unavailable && <DropdownMenuItem onClick={handleMarkAsAvailable}>Mark as available</DropdownMenuItem>}
+					{status !== ItemStatus.Unavailable && status !== ItemStatus.Complete && (
 						<DropdownMenuItem onClick={handleMarkAsUnavailable}>Mark as unavailable</DropdownMenuItem>
 					)}
 				</DropdownMenuGroup>
