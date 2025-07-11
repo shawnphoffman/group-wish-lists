@@ -216,6 +216,25 @@ export const archiveCompletedItems = async (list_id: List['id']) => {
 	}
 }
 
+export const updateItemStatus = async (itemId: ListItem['id'], status: string) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemPromise = await supabase.from('list_items').update([{ status }]).eq('id', itemId)
+
+	const [item] = await Promise.all([
+		itemPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	return {
+		status: 'success',
+		item,
+	}
+}
+
 export const getRecentItems = async () => {
 	'use server'
 	const cookieStore = await cookies()

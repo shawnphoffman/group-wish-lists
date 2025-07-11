@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import SuspenseTest from '@/components/utils/SuspenseTest'
+import { ItemStatus } from '@/utils/enums'
 
 // TODO
 // - Notifications? Comments?
@@ -90,10 +91,11 @@ export default async function Temp() {
 				<input type="radio" />
 				<input type="checkbox" checked readOnly />
 				<input type="checkbox" /> */}
-					<ItemCheckbox id="test" isComplete={false} canChange={false} />
-					<ItemCheckbox id="test" isComplete={true} canChange={false} />
-					<ItemCheckbox id="test" isComplete={false} canChange={false} />
-					<ItemCheckbox id="test" isComplete={true} canChange={true} />
+					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Incomplete} />
+					<ItemCheckbox id="test" isComplete={true} canChange={false} status={ItemStatus.Complete} />
+					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Incomplete} />
+					<ItemCheckbox id="test" isComplete={true} canChange={true} status={ItemStatus.Complete} />
+					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Unavailable} />
 				</div>
 
 				<hr />

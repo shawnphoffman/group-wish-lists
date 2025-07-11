@@ -89,7 +89,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 					)}
 					{/* Checkbox */}
 					{listType === ListCategory.Todos && (
-						<ItemCheckbox id={item.id} isComplete={item.status === ItemStatus.Complete} canChange={true} />
+						<ItemCheckbox id={item.id} isComplete={item.status === ItemStatus.Complete} canChange={true} status={item.status} />
 					)}
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
@@ -119,6 +119,11 @@ export default function ItemRowEditable({ item, listType }: Props) {
 								{item.price && (
 									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
 										~{item.price}
+									</Badge>
+								)}
+								{item.status === ItemStatus.Unavailable && (
+									<Badge className="whitespace-nowrap bg-destructive text-destructive-foreground h-4 w-fit px-1.5 ml-2 text-[10px] hover:bg-destructive/90">
+										Unavailable
 									</Badge>
 								)}
 							</div>

@@ -56,7 +56,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						{/* Priority */}
 						{item.priority !== ItemPriority.Normal && <ItemPriorityIcon priority={item.priority} />}
 						{/* Checkbox */}
-						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} />}
+						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} status={item.status} />}
 					</div>
 					{/*  */}
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
@@ -84,8 +84,13 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 									<div>{item.title}</div>
 								)}
 								{item.price && (
-									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
+									<Badge variant="outline" className="whitespace-nowrap bg-card h-4 w-fit px-1.5 ml-2 text-[10px]">
 										~{item.price}
+									</Badge>
+								)}
+								{item.status === ItemStatus.Unavailable && (
+									<Badge className="whitespace-nowrap bg-destructive text-destructive-foreground h-4 w-fit px-1.5 ml-2 text-[10px]">
+										Unavailable
 									</Badge>
 								)}
 							</div>
@@ -117,7 +122,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							{/* <div className="flex flex-col items-center justify-center gap-2"> */}
 							<div className="flex flex-row-reverse items-center justify-center gap-1 sm:flex-col">
 								{/* Actions */}
-								<ItemRowActions itemId={item.id} />
+								<ItemRowActions itemId={item.id} status={item.status} />
 								<AddCommentButton itemId={item.id} />
 							</div>
 						</div>
