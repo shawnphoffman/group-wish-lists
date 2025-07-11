@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation'
 import { deleteComment } from '@/app/actions/comments'
 import { DeleteIcon, LoadingIcon } from '@/components/icons/Icons'
 import { Comment } from '@/components/types'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
@@ -40,24 +39,26 @@ export default function ItemComment({ comment }: Props) {
 
 	// console.log('comments:', comments)
 	return (
-		<Alert key={id} className="px-3 py-2 border-0 rounded-none [&>svg]:left-3 [&>svg]:top-2 [&>svg~*]:pl-6">
-			<FontAwesomeIcon icon={faComment} className="!text-secondary" />
-			<AlertTitle className="flex items-center gap-2">
-				<span>{user.display_name}</span>
-				<Badge variant={'outline'} className="text-[11px]">
-					{formatDistance(new Date(created_at), new Date(), { addSuffix: true })}
-				</Badge>
-			</AlertTitle>
-			<AlertDescription className="flex flex-row items-center justify-between">
-				<div>
+		<div key={id} className="flex flex-row items-center gap-2 px-3 py-2 border-0 rounded-none justify-stretch bg-background">
+			<div className="!text-secondary self-start leading-6">
+				<FontAwesomeIcon icon={faComment} />
+			</div>
+			<div className="flex flex-col items-start w-full gap-1">
+				<div className="flex items-center justify-center gap-2">
+					<span className="font-medium">{user.display_name}</span>
+					<Badge variant={'outline'} className="text-[11px]">
+						{formatDistance(new Date(created_at), new Date(), { addSuffix: true })}
+					</Badge>
+				</div>
+				<div className="flex flex-row items-center justify-between text-sm">
 					<Linkify options={linkOptions}>{comments}</Linkify>
 				</div>
-				{isOwner && (
-					<Button variant="outline" size="sm" className="w-8 h-8 p-2" onClick={handleDelete} disabled={loading}>
-						{loading ? <LoadingIcon size="lg" /> : <DeleteIcon />}
-					</Button>
-				)}
-			</AlertDescription>
-		</Alert>
+			</div>
+			{isOwner && (
+				<Button variant="ghost" size="icon" onClick={handleDelete} disabled={loading}>
+					{loading ? <LoadingIcon size="lg" /> : <DeleteIcon size="lg" />}
+				</Button>
+			)}
+		</div>
 	)
 }

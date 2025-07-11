@@ -18,6 +18,8 @@ import {
 import { faUserGroup } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 
+import { cn } from '@/lib/utils'
+
 type IconProps = {
 	className?: string
 } & Partial<FontAwesomeIconProps>
@@ -38,12 +40,16 @@ export function EditIcon() {
 		/>
 	)
 }
-export function DeleteIcon() {
+export function DeleteIcon({ className, ...rest }: IconProps) {
 	return (
 		<FontAwesomeIcon
 			icon={faTrashXmark}
 			fixedWidth
-			className="text-red-500 hover:text-red-600 group-hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 dark:group-hover:text-red-300"
+			className={cn(
+				`text-red-500 hover:text-red-600 group-hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 dark:group-hover:text-red-300`,
+				className
+			)}
+			{...rest}
 		/>
 	)
 }

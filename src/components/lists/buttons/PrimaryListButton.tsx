@@ -36,7 +36,7 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 
 	return isPrimary ? (
 		<FontAwesomeIcon
-			title="Click to turn off your primary list"
+			// title="Click to turn off your primary list"
 			fixedWidth
 			icon={faStar}
 			className="text-yellow-500 cursor-pointer hover:text-yellow-400"
@@ -44,7 +44,7 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 		/>
 	) : (
 		<FontAwesomeIcon
-			title="Click to set as primary list"
+			// title="Click to set as primary list"
 			fixedWidth
 			icon={faStarRegular}
 			className="cursor-pointer text-yellow-500/50 hover:text-yellow-500/75"
