@@ -21,8 +21,8 @@ const CountBadge = ({ count }: { count: number }) => (
 		variant={'outline'}
 		className={`gap-x-1.5 py-1 px-3 text-xs whitespace-nowrap inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}
 	>
-		{/* <FontAwesomeIcon icon={faList} className="!hidden sm:!inline" /> */}
-		<FontAwesomeIcon icon={faList} className="" />
+		<FontAwesomeIcon icon={faList} className="!hidden sm:!inline" />
+		{/* <FontAwesomeIcon icon={faList} className="" /> */}
 		{count}
 	</Badge>
 )

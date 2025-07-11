@@ -306,7 +306,7 @@ export const getViewableList = async (listID: number) => {
 			}
 
 			return {
-				...(list as any),
+				...list,
 
 				isOwner: list.data?.user_id === viewingUserID,
 				viewingUserID,
