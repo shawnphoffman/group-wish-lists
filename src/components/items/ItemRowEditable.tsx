@@ -117,12 +117,17 @@ export default function ItemRowEditable({ item, listType }: Props) {
 									<div>{item.title}</div>
 								)}
 								{item.price && (
-									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
+									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
 										~{item.price}
 									</Badge>
 								)}
+								{item.quantity && item.quantity > 1 && (
+									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
+										Qty: {item.quantity}
+									</Badge>
+								)}
 								{item.status === ItemStatus.Unavailable && (
-									<Badge className="whitespace-nowrap bg-destructive text-destructive-foreground h-4 w-fit px-1.5 ml-2 text-[10px] hover:bg-destructive/90">
+									<Badge className="px-2 text-xs whitespace-nowrap bg-destructive text-destructive-foreground w-fit hover:bg-destructive/90">
 										Unavailable
 									</Badge>
 								)}
