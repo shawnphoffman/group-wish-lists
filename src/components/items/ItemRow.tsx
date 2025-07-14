@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import { getSessionUser } from '@/app/actions/auth'
+import { getUserById, getUsers } from '@/app/actions/users'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
@@ -35,17 +36,21 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
-	const [currentUser] = await Promise.all([
+	const usersPromise = getUsers()
+	const [currentUser, users] = await Promise.all([
 		userPromise,
+		usersPromise,
 		// fakePromise
 	])
 
-	// console.log('ListItemRow', item)
+	console.log('ListItemRow', { item, users })
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
 
 	const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
+
+	const additionalGifters = await Promise.all(item?.additional_gifter_ids?.map(async g => await getUserById(g)) || [])
 
 	return (
 		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`} id={`item-${item.id}`}>
@@ -109,9 +114,16 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 
 							{/* Gifter */}
 							{isComplete && (
-								<Badge variant={'outline'} className="self-start mt-1">
-									{item.display_name} {item.additional_gifter_ids && `+${item.additional_gifter_ids.length}`}
-								</Badge>
+								<div className="flex flex-row items-center gap-1 mt-1 text-sm">
+									<Badge variant={'outline'} className="flex flex-row items-center leading-tight">
+										{item.display_name}
+									</Badge>
+									{additionalGifters.map(g => (
+										<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
+											+{g.display_name}
+										</Badge>
+									))}
+								</div>
 							)}
 						</div>
 
@@ -122,7 +134,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							{/* <div className="flex flex-col items-center justify-center gap-2"> */}
 							<div className="flex flex-row-reverse items-center justify-center gap-1 sm:flex-col">
 								{/* Actions */}
-								<ItemRowActions itemId={item.id} status={item.status} />
+								<ItemRowActions itemId={item.id} status={item.status} additionalGifterIds={item.additional_gifter_ids} />
 								<AddCommentButton itemId={item.id} />
 							</div>
 						</div>

@@ -125,6 +125,7 @@ export type Gift = {
 	item_id?: ListItem['id']
 	gifter_user_id?: User['user_id']
 	gifter_id?: User['id']
+	additional_gifters?: Pick<User, 'user_id' | 'display_name'>[]
 }
 
 export type Purchase = {

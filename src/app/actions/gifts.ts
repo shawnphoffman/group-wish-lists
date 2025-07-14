@@ -63,3 +63,26 @@ export const getMyGifts = async () => {
 
 	return resp as any
 }
+
+export const updateItemAdditionalGifters = async (itemId: ListItem['id'], additionalGifterIds: string[]) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const itemPromise = await supabase
+		.from('gifted_items')
+		.update([{ additional_gifter_ids: additionalGifterIds }])
+		.eq('item_id', itemId)
+		.maybeSingle()
+
+	const [item] = await Promise.all([
+		itemPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 5000)),
+	])
+
+	return {
+		status: 'success',
+		item,
+	}
+}

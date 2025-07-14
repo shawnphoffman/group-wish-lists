@@ -1,5 +1,5 @@
 import { getSessionUser } from '@/app/actions/auth'
-import { getUsers } from '@/app/actions/test'
+import { getUsers } from '@/app/actions/users'
 import { getUserPermissions } from '@/app/actions/users'
 import UserPermissionCheckbox from '@/components/permissions/UserPermissionCheckbox'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

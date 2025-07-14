@@ -1,6 +1,6 @@
 import { getSessionUser } from '@/app/actions/auth'
 import { getListEditors } from '@/app/actions/lists'
-import { getUsers } from '@/app/actions/test'
+import { getUsers } from '@/app/actions/users'
 import { ShareIcon } from '@/components/icons/Icons'
 import { List } from '@/components/types'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
