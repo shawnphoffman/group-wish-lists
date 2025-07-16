@@ -4,6 +4,7 @@ import '@/app/globals.css'
 import { Suspense } from 'react'
 import { Flip, ToastContainer } from 'react-toastify'
 
+import { NavigationEvents } from '@/components/navigation-events'
 import { AppSidebar } from '@/components/sidebar/app-sidebar'
 import NavBreadcrumbs from '@/components/sidebar/nav-breadcrumbs'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
@@ -33,8 +34,13 @@ export default async function CoreLayout({ children }: Props) {
 						<Suspense fallback={<Loading />}>{children}</Suspense>
 					</div>
 				</SidebarInset>
+				{/* Handle navigation changes */}
+				<Suspense fallback={null}>
+					<NavigationEvents />
+				</Suspense>
 			</SidebarProvider>
 			{/*  */}
+
 			<ToastContainer
 				position="bottom-center"
 				autoClose={2500}
