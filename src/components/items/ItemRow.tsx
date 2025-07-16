@@ -43,7 +43,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 		// fakePromise
 	])
 
-	console.log('ListItemRow', { item, users })
+	// console.log('ListItemRow', { item, users })
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
@@ -100,9 +100,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 									</Badge>
 								)}
 								{item.status === ItemStatus.Unavailable && (
-									<Badge className="whitespace-nowrap bg-destructive text-destructive-foreground h-4 w-fit px-2 ml-2 text-[10px]">
-										Unavailable
-									</Badge>
+									<Badge className="h-4 px-2 text-xs whitespace-nowrap bg-destructive text-destructive-foreground w-fit">Unavailable</Badge>
 								)}
 							</div>
 
