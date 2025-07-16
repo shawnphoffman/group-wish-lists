@@ -31,7 +31,7 @@ export default async function Temp() {
 
 			<div className="flex flex-col justify-center w-full max-w-xl gap-8 mx-auto">
 				<h1>Fallbacks</h1>
-				<div className="flex flex-col flex-1 w-full max-w-4xl gap-2 px-4">
+				<div className="flex flex-col flex-1 w-full max-w-5xl gap-2 px-4">
 					<FallbackRow />
 					<Separator />
 					<FallbackRowThick />
@@ -43,7 +43,7 @@ export default async function Temp() {
 					<FallbackButton />
 				</div>
 				<h2>Fallback Tests</h2>
-				<div className="flex flex-col flex-1 w-full max-w-4xl gap-2 px-4">
+				<div className="flex flex-col flex-1 w-full max-w-5xl gap-2 px-4">
 					<Suspense fallback={<FallbackRowThick />}>
 						<SuspenseTest />
 					</Suspense>
@@ -59,7 +59,7 @@ export default async function Temp() {
 				</div>
 
 				<h1>Containers</h1>
-				<div className="flex flex-col flex-1 w-full max-w-4xl gap-2 px-4">
+				<div className="flex flex-col flex-1 w-full max-w-5xl gap-2 px-4">
 					<div className="w-full p-4 border rounded bg-background text-foreground">bg-background text-foreground</div>
 					<div className="w-full p-4 border rounded bg-accent text-accent-foreground">bg-accent text-accent-foreground</div>
 					<div className="w-full p-4 border rounded bg-primary text-primary-foreground">bg-primary text-primary-foreground</div>
@@ -71,7 +71,7 @@ export default async function Temp() {
 				</div>
 
 				<h1>Badges</h1>
-				<div className="flex flex-row flex-1 w-full max-w-4xl gap-2 px-4">
+				<div className="flex flex-row flex-1 w-full max-w-5xl gap-2 px-4">
 					<Badge variant="default">default</Badge>
 					<Badge variant="destructive">destructive</Badge>
 					<Badge variant="outline">outline</Badge>

@@ -13,7 +13,7 @@ type Props = {
 export default async function CloneItem({ params }: Props) {
 	const { id } = await params
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl gap-6 sm:px-3 max-md:gap-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full max-w-5xl gap-6 sm:px-3 max-md:gap-2 animate-page-in">
 			<Card className="bg-accent">
 				<CardHeader>
 					<CardTitle>Clone Item</CardTitle>

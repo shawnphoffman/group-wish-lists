@@ -29,6 +29,14 @@
 		--chart-3: 197 37% 24%;
 		--chart-4: 43 74% 66%;
 		--chart-5: 27 87% 67%;
+		--sidebar-background: 0 0% 98%;
+		--sidebar-foreground: 240 5.3% 26.1%;
+		--sidebar-primary: 240 5.9% 10%;
+		--sidebar-primary-foreground: 0 0% 98%;
+		--sidebar-accent: 240 4.8% 95.9%;
+		--sidebar-accent-foreground: 240 5.9% 10%;
+		--sidebar-border: 220 13% 91%;
+		--sidebar-ring: 217.2 91.2% 59.8%;
 	}
 	.dark {
 		--background: 0 0% 3.9%;
@@ -53,6 +61,14 @@
 		--chart-3: 30 80% 55%;
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
+		--sidebar-background: 240 5.9% 10%;
+		--sidebar-foreground: 240 4.8% 95.9%;
+		--sidebar-primary: 224.3 76.3% 48%;
+		--sidebar-primary-foreground: 0 0% 100%;
+		--sidebar-accent: 240 3.7% 15.9%;
+		--sidebar-accent-foreground: 240 4.8% 95.9%;
+		--sidebar-border: 240 3.7% 15.9%;
+		--sidebar-ring: 217.2 91.2% 59.8%;
 	}
 }
 
@@ -64,7 +80,7 @@
 		@apply scroll-smooth;
 	}
 	body {
-		@apply overflow-x-hidden bg-background text-foreground;
+		@apply overflow-x-hidden text-foreground bg-sidebar;
 	}
 	h1 {
 		@apply text-4xl font-extrabold tracking-tight whitespace-normal scroll-m-20 lg:text-5xl;
@@ -81,16 +97,6 @@
 
 	p {
 		@apply leading-7 [&:not(:first-child)]:mt-6;
-	}
-	ul {
-		@apply list-disc;
-	}
-	ol {
-		@apply list-decimal;
-	}
-	ul,
-	ol {
-		@apply pl-4 m-0 [&_*]:m-0 [&_ul]:pl-2 [&_ol]:pl-2 list-outside;
 	}
 
 	.markdown {
@@ -111,6 +117,16 @@
 		h2,
 		h3 {
 			@apply p-0;
+		}
+		ul {
+			@apply list-disc;
+		}
+		ol {
+			@apply list-decimal;
+		}
+		ul,
+		ol {
+			@apply pl-4 m-0 [&_*]:m-0 [&_ul]:pl-2 [&_ol]:pl-2 list-outside;
 		}
 	}
 }
@@ -164,3 +180,12 @@
 		opacity: 0;
 	}
 } */
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}

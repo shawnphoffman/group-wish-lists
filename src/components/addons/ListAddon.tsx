@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react'
 import { faHeadSideBrain } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Linkify from 'linkify-react'
 import { useRouter } from 'next/navigation'
 
 import { deleteAddon } from '@/app/actions/addons'

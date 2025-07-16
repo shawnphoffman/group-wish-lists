@@ -1,4 +1,6 @@
 import { Suspense } from 'react'
+import { faListOl } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { FallbackRowThick } from '@/components/common/Fallbacks'
 import MyLists, { ListType } from '@/components/me/MyLists'
@@ -8,13 +10,14 @@ import NewListButton from '@/components/me/NewListButton'
 export default async function MyStuff() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl xs:px-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full max-w-5xl xs:px-2 animate-page-in">
 			<main className="flex flex-col flex-1 gap-8 divide-y">
 				{/* LISTS */}
 				<div className="flex flex-col gap-8">
 					{/* Header */}
-					<div className="flex flex-row flex-wrap justify-between">
-						<h1 className="whitespace-nowrap">My Lists</h1>
+					<div className="relative flex flex-row flex-wrap justify-between gap-2">
+						<h1 className="flex flex-row items-center gap-2">My Lists</h1>
+						<FontAwesomeIcon icon={faListOl} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-red-500" />
 						<div className="flex flex-row flex-wrap justify-end flex-1 gap-0.5 items-center md:justify-end shrink-0">
 							<NewListButton />
 						</div>

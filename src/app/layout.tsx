@@ -3,12 +3,12 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { Suspense } from 'react'
 import { config } from '@fortawesome/fontawesome-svg-core'
-// import { Analytics } from '@vercel/analytics/react'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata, Viewport } from 'next'
 config.autoAddCss = false
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { isDeployed } from '@/utils/environment'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://hoffstuff.com` : 'http://localhost:3002'
 
@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
-	title: 'Wish Lists',
+	title: `Wish Lists ${isDeployed ? '' : '| Dev'}`,
 	description: 'Sharing wish lists made easy.',
 	openGraph: {
 		title: 'Wish Lists',
@@ -42,14 +42,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className={`${GeistSans.className} bg-black dark`} style={{ colorScheme: 'dark' }}>
+		<html lang="en" className={`${GeistSans.className} bg-sidebar dark`} style={{ colorScheme: 'dark' }}>
 			<body>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-					<Suspense>
-						<main className="flex flex-col items-center px-2 mx-auto overflow-x-hidden overflow-y-scroll h-dvh scroll-py-14">
-							{children}
-						</main>
-					</Suspense>
+					<Suspense>{children}</Suspense>
 					{/* {process.env.VERCEL_ENV && <Analytics />} */}
 				</ThemeProvider>
 			</body>
