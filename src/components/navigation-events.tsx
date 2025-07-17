@@ -13,9 +13,6 @@ export function NavigationEvents() {
 		if (isMobile) {
 			// console.log('closing mobile sidebar')
 			setOpenMobile(false)
-		} else {
-			// console.log('closing desktop sidebar')
-			setOpen(false)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pathname, isMobile])
