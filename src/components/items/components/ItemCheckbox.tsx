@@ -3,7 +3,7 @@ import { faSquareCheck, faSquareRing, faSquareX } from '@awesome.me/kit-ac8ad925
 import { faSolidSquareCheckLock } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { getGiftsForCheckbox } from '@/app/actions/gifts'
+import { getGifts } from '@/app/actions/gifts'
 import { ListItem } from '@/components/types'
 import { cn } from '@/lib/utils'
 import { ItemStatus, ItemStatusType } from '@/utils/enums'
@@ -23,20 +23,23 @@ const commonIconSizes = 'text-3xl sm:text-2xl'
 export default async function ItemCheckbox({ id, status, requestedQty = 1, currentUserId }: Props) {
 	if (status === ItemStatus.Incomplete) {
 		return (
-			<ItemRowCheckbox type={'add'} id={id}>
+			<ItemRowCheckbox type={'add'} id={id} otherQty={0} selfQty={0} quantity={requestedQty}>
 				<FontAwesomeIcon icon={faSquare} className={cn('text-green-500', commonIconSizes)} />
 			</ItemRowCheckbox>
 		)
 	}
 
-	const gifts = await getGiftsForCheckbox(id)
+	const gifts = await getGifts(id)
 
 	const giftQty = gifts?.reduce((acc, gift) => acc + gift.quantity, 0) || 0
 
 	const isPartial = giftQty < requestedQty
 	const isComplete = giftQty === requestedQty
 
-	const userHasGifted = gifts?.some(gift => gift.gifter_id === currentUserId)
+	const selfQty = gifts?.find(gift => gift.gifter_id === currentUserId)?.quantity || 0
+	const otherQty = giftQty - selfQty
+
+	const userHasGifted = selfQty > 0
 	const isLocked = isComplete && !userHasGifted
 
 	if (status === ItemStatus.Unavailable) {
@@ -58,8 +61,7 @@ export default async function ItemCheckbox({ id, status, requestedQty = 1, curre
 	const clickType = !isPartial ? 'delete' : userHasGifted ? 'edit' : 'add'
 
 	return (
-		// {/* <Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} /> */}
-		<ItemRowCheckbox type={clickType} id={id}>
+		<ItemRowCheckbox type={clickType} id={id} otherQty={otherQty} selfQty={selfQty} quantity={requestedQty}>
 			{isPartial ? (
 				<FontAwesomeIcon icon={faSquareRing} className={cn('text-orange-500', commonIconSizes)} />
 			) : isComplete ? (

@@ -85,9 +85,9 @@ export default function ItemRowActions({ itemId, status, additionalGifterIds = [
 	}
 
 	// Update selected users when additionalGifterIds changes
-	useEffect(() => {
-		setSelectedUsers(new Set(additionalGifterIds))
-	}, [additionalGifterIds])
+	// useEffect(() => {
+	// 	setSelectedUsers(new Set(additionalGifterIds))
+	// }, [additionalGifterIds])
 
 	const handleSaveGifters = async () => {
 		setIsLoading(true)

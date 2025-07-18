@@ -26,7 +26,7 @@ export const createComment = async (prevState: any, formData: FormData) => {
 
 	const comm = resp.data
 
-	console.log({ comm })
+	// console.log({ comm })
 
 	return {
 		status: 'success',

@@ -2,9 +2,11 @@
 
 import { cookies } from 'next/headers'
 
-import { getSessionUser } from '@/app/actions/auth'
+import { getSessionUser, getUser } from '@/app/actions/auth'
 import { ListItem } from '@/components/types'
 import { createClient } from '@/utils/supabase/server'
+
+import { getUsers } from './users'
 
 export const createGift = async (itemId: ListItem['id']) => {
 	'use server'
@@ -87,12 +89,45 @@ export const updateItemAdditionalGifters = async (itemId: ListItem['id'], additi
 	}
 }
 
-export const getGiftsForCheckbox = async (itemId: ListItem['id']) => {
+export const getGifts = async (itemId: ListItem['id']) => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
 	const { data } = await supabase.from('gifted_items').select('gift_id,item_id,quantity,gifter_id').eq('item_id', itemId)
 
-	return data
+	const { data: users } = (await getUsers()) || []
+
+	const gifts = data?.map(d => ({
+		...d,
+		user: users.find(u => u.user_id === d.gifter_id),
+	}))
+
+	// console.log('getGifts.data', { gifts })
+
+	return gifts
+}
+
+export const updateGiftQuantity = async (itemId: ListItem['id'], quantity: number) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+	const data = await getSessionUser()
+
+	const giftPromise = await supabase
+		.from('gifted_items')
+		.update([{ quantity }])
+		.eq('item_id', itemId)
+		.eq('gifter_id', data?.id)
+		.maybeSingle()
+
+	await Promise.all([
+		giftPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	return {
+		status: 'success',
+	}
 }

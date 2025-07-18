@@ -90,14 +90,14 @@ export default async function Temp() {
 					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Unavailable} />
 				</div> */}
 
-				<div className="flex flex-col gap-2">
+				{/* <div className="flex flex-col gap-2">
 					<ItemRowCheckbox status={ItemStatus.Incomplete} />
 					<ItemRowCheckbox status={ItemStatus.Complete} />
 					<ItemRowCheckbox status={'complete-locked'} />
 					<ItemRowCheckbox status={ItemStatus.Partial} />
 					<ItemRowCheckbox status={ItemStatus.Unavailable} />
 					<ItemRowCheckbox status={'pending'} />
-				</div>
+				</div> */}
 
 				<hr />
 

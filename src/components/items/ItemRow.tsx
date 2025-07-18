@@ -16,6 +16,7 @@ import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
+import ItemGifters from './components/ItemGifters'
 import MarkdownBlock from './components/MarkdownBlock'
 import ItemRowActions from './ItemRowActions'
 
@@ -41,7 +42,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 	// console.log('ListItemRow', { item, users })
 
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
-	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
+	// const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
 
 	// const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
 	const completeClass = ''
@@ -115,17 +116,18 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 							)}
 
 							{/* Gifter */}
-							{isComplete && (
-								<div className="flex flex-row items-center gap-1 mt-1 text-sm">
-									<Badge variant={'outline'} className="flex flex-row items-center leading-tight">
-										{item.display_name}
-									</Badge>
-									{additionalGifters.map(g => (
-										<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
-											+{g.display_name}
-										</Badge>
-									))}
-								</div>
+							{!isOwnerView && (
+								<ItemGifters id={item.id} requestedQty={item.quantity || 1} />
+								// <div className="flex flex-row items-center gap-1 mt-1 text-sm">
+								// 	<Badge variant={'outline'} className="flex flex-row items-center leading-tight">
+								// 		{item.display_name}
+								// 	</Badge>
+								// 	{additionalGifters.map(g => (
+								// 		<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
+								// 			+{g.display_name}
+								// 		</Badge>
+								// 	))}
+								// </div>
 							)}
 						</div>
 

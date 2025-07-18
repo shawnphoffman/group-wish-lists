@@ -17,7 +17,7 @@ export const createAddon = async (prevState: any, formData: FormData) => {
 
 	const addonPromise = supabase.from('list_addons').insert({ list_id: listId, description, user_id: addonUserID })
 
-	console.log('createAddon', { list_id: listId, description, user_id: addonUserID })
+	// console.log('createAddon', { list_id: listId, description, user_id: addonUserID })
 
 	const [resp] = await Promise.all([
 		addonPromise,
@@ -27,7 +27,7 @@ export const createAddon = async (prevState: any, formData: FormData) => {
 
 	const addon = resp.data
 
-	console.log({ addon })
+	// console.log({ addon })
 
 	return {
 		status: 'success',
@@ -48,7 +48,7 @@ export const deleteAddon = async (addonId: number) => {
 			// new Promise(resolve => setTimeout(resolve, 5000)),
 		])
 
-		console.log('deleteAddon', { temp, addonId })
+		// console.log('deleteAddon', { temp, addonId })
 
 		return {
 			status: 'success',
