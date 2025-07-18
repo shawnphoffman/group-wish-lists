@@ -88,9 +88,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 						</div>
 					)}
 					{/* Checkbox */}
-					{listType === ListCategory.Todos && (
-						<ItemCheckbox id={item.id} isComplete={item.status === ItemStatus.Complete} canChange={true} status={item.status} />
-					)}
+					{listType === ListCategory.Todos && <ItemCheckbox id={item.id} status={item.status} requestedQty={item.quantity || 1} />}
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}

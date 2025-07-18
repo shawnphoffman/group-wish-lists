@@ -1,76 +1,70 @@
-'use client'
-
-import { useCallback, useEffect, useState } from 'react'
+import { faSquare } from '@awesome.me/kit-ac8ad9255a/icons/classic/regular'
+import { faSquareCheck, faSquareRing, faSquareX } from '@awesome.me/kit-ac8ad9255a/icons/classic/solid'
 import { faSolidSquareCheckLock } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
-import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { faEmptySet } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/light'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRouter } from 'next/navigation'
 
-import { createGift, deleteGift } from '@/app/actions/gifts'
+import { getGiftsForCheckbox } from '@/app/actions/gifts'
 import { ListItem } from '@/components/types'
-import { Checkbox } from '@/components/ui/checkbox'
+import { cn } from '@/lib/utils'
 import { ItemStatus, ItemStatusType } from '@/utils/enums'
+
+import ItemRowCheckbox from './ItemRowCheckbox'
 
 type Props = {
 	id: ListItem['id']
-	isComplete: boolean
-	canChange: boolean
 	status: ItemStatusType
+	requestedQty: number
+	currentUserId?: string
 }
 
-export default function ItemCheckbox({ id, isComplete, canChange, status }: Props) {
-	const [checked, setChecked] = useState(isComplete)
-	const [isPending, setIsPending] = useState(false)
-	const router = useRouter()
+const commonSizes = 'w-10 h-8 sm:h-6 flex flex-row items-center justify-center'
+const commonIconSizes = 'text-3xl sm:text-2xl'
 
-	const handleChange = useCallback(
-		(newChecked: boolean) => {
-			setIsPending(true)
-			setChecked(newChecked)
-			async function updateItemStatus() {
-				if (newChecked) {
-					await createGift(id)
-				} else {
-					await deleteGift(id)
-				}
-				setIsPending(false)
-				router.refresh()
-			}
-			updateItemStatus()
-		},
-		[router, id]
-	)
+export default async function ItemCheckbox({ id, status, requestedQty = 1, currentUserId }: Props) {
+	if (status === ItemStatus.Incomplete) {
+		return (
+			<ItemRowCheckbox type={'add'} id={id}>
+				<FontAwesomeIcon icon={faSquare} className={cn('text-green-500', commonIconSizes)} />
+			</ItemRowCheckbox>
+		)
+	}
 
-	useEffect(() => {
-		if (isComplete !== checked) {
-			setChecked(isComplete)
-		}
-	}, [checked, isComplete])
+	const gifts = await getGiftsForCheckbox(id)
+
+	const giftQty = gifts?.reduce((acc, gift) => acc + gift.quantity, 0) || 0
+
+	const isPartial = giftQty < requestedQty
+	const isComplete = giftQty === requestedQty
+
+	const userHasGifted = gifts?.some(gift => gift.gifter_id === currentUserId)
+	const isLocked = isComplete && !userHasGifted
 
 	if (status === ItemStatus.Unavailable) {
 		return (
-			<div className="flex items-center justify-center w-8 h-8 cursor-not-allowed sm:h-6 sm:w-6">
-				<FontAwesomeIcon icon={faEmptySet} size="2xl" className="text-destructive" />
+			<div className={cn('cursor-not-allowed', commonSizes)}>
+				<FontAwesomeIcon icon={faSquareX} className={cn('text-destructive/75', commonIconSizes)} />
 			</div>
 		)
 	}
 
-	if (!canChange) {
-		return checked ? (
-			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="2xl" className="text-destructive" />
-		) : (
-			<FontAwesomeIcon icon={faSolidSquareCheckLock} size="2xl" className="text-muted" />
+	if (isLocked) {
+		return (
+			<div className={cn('cursor-not-allowed', commonSizes)}>
+				<FontAwesomeIcon icon={faSolidSquareCheckLock} className={cn('text-sky-500', commonIconSizes)} />
+			</div>
 		)
 	}
 
+	const clickType = !isPartial ? 'delete' : userHasGifted ? 'edit' : 'add'
+
 	return (
-		<fieldset disabled={isPending} className="flex items-center justify-center w-8 h-8 sm:h-6 sm:w-6">
-			{isPending ? (
-				<FontAwesomeIcon icon={faSpinnerScale} size="2xl" spinPulse className="text-secondary" />
-			) : (
-				<Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} />
-			)}
-		</fieldset>
+		// {/* <Checkbox checked={checked} disabled={isPending} onCheckedChange={handleChange} /> */}
+		<ItemRowCheckbox type={clickType} id={id}>
+			{isPartial ? (
+				<FontAwesomeIcon icon={faSquareRing} className={cn('text-orange-500', commonIconSizes)} />
+			) : isComplete ? (
+				<FontAwesomeIcon icon={faSquareCheck} className={cn('text-green-500', commonIconSizes)} />
+			) : null}
+		</ItemRowCheckbox>
 	)
 }

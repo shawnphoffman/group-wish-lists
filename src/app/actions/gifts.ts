@@ -86,3 +86,13 @@ export const updateItemAdditionalGifters = async (itemId: ListItem['id'], additi
 		item,
 	}
 }
+
+export const getGiftsForCheckbox = async (itemId: ListItem['id']) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.from('gifted_items').select('gift_id,item_id,quantity,gifter_id').eq('item_id', itemId)
+
+	return data
+}

@@ -4,7 +4,8 @@ import EmptyMessage from '@/components/common/EmptyMessage'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import FallbackRow, { FallbackBadge, FallbackButton, FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import SuccessMessage from '@/components/common/SuccessMessage'
-import ItemCheckbox from '@/components/items/components/ItemCheckbox'
+// import ItemCheckbox from '@/components/items/components/ItemCheckbox'
+import ItemRowCheckbox from '@/components/items/components/ItemRowCheckbox'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
@@ -81,21 +82,21 @@ export default async function Temp() {
 				<h1>Forms</h1>
 				<Input placeholder="Store Name" />
 
-				<div className="flex flex-col gap-2">
-					{/* <input type="text" defaultValue="Wow cool guy" />
-				<input type="text" placeholder="Wow cool guy" />
-				<input type="password" placeholder="Wow cool guy" />
-				<input type="email" placeholder="Wow cool guy" />
-				<input type="url" placeholder="Wow cool guy" />
-				<input type="radio" checked readOnly />
-				<input type="radio" />
-				<input type="checkbox" checked readOnly />
-				<input type="checkbox" /> */}
+				{/* <div className="flex flex-col gap-2">
 					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Incomplete} />
 					<ItemCheckbox id="test" isComplete={true} canChange={false} status={ItemStatus.Complete} />
 					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Incomplete} />
 					<ItemCheckbox id="test" isComplete={true} canChange={true} status={ItemStatus.Complete} />
 					<ItemCheckbox id="test" isComplete={false} canChange={false} status={ItemStatus.Unavailable} />
+				</div> */}
+
+				<div className="flex flex-col gap-2">
+					<ItemRowCheckbox status={ItemStatus.Incomplete} />
+					<ItemRowCheckbox status={ItemStatus.Complete} />
+					<ItemRowCheckbox status={'complete-locked'} />
+					<ItemRowCheckbox status={ItemStatus.Partial} />
+					<ItemRowCheckbox status={ItemStatus.Unavailable} />
+					<ItemRowCheckbox status={'pending'} />
 				</div>
 
 				<hr />

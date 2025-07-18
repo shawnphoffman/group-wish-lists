@@ -19,11 +19,6 @@ import ItemComments from '../comments/ItemComments'
 import MarkdownBlock from './components/MarkdownBlock'
 import ItemRowActions from './ItemRowActions'
 
-// const linkOptions = {
-// 	className: 'underline hover:text-primary',
-// 	target: '_blank',
-// }
-
 type Props = {
 	item: ListItem & Gift
 	isOwnerView: boolean
@@ -36,10 +31,10 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const userPromise = getSessionUser()
-	const usersPromise = getUsers()
-	const [currentUser, users] = await Promise.all([
+	// const usersPromise = getUsers()
+	const [currentUser] = await Promise.all([
 		userPromise,
-		usersPromise,
+		// usersPromise,
 		// fakePromise
 	])
 
@@ -48,7 +43,8 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const userCanChange = item?.gifter_user_id === currentUser?.id || item.status !== ItemStatus.Complete
 
-	const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
+	// const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
+	const completeClass = ''
 
 	const additionalGifters = await Promise.all(item?.additional_gifter_ids?.map(async g => await getUserById(g)) || [])
 
@@ -61,7 +57,9 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 						{/* Priority */}
 						{item.priority !== ItemPriority.Normal && <ItemPriorityIcon priority={item.priority} />}
 						{/* Checkbox */}
-						{!isOwnerView && <ItemCheckbox id={item.id} isComplete={isComplete} canChange={userCanChange} status={item.status} />}
+						{!isOwnerView && (
+							<ItemCheckbox id={item.id} status={item.status} requestedQty={item.quantity || 1} currentUserId={currentUser!.id} />
+						)}
 					</div>
 					{/*  */}
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
