@@ -19,6 +19,7 @@ import { ItemPriority, ItemPriorityType } from '@/utils/enums'
 import { isDeployed } from '@/utils/environment'
 import { cleanTitle } from '@/utils/openai'
 
+import ItemImage from '../components/ItemImage'
 import ItemImagePicker from '../components/ItemImagePicker'
 import MarkdownBlock from '../components/MarkdownBlock'
 
@@ -463,7 +464,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<Label htmlFor="image-url-manual" className="italic">
 						Image URL (Manual Entry)
 					</Label>
-					<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
+					<div className="flex flex-row gap-2">
+						<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
+						{imageUrl && <ItemImage className="hidden sm:block max-w-32" url={imageUrl} />}
+					</div>
 				</div>
 
 				<div>
