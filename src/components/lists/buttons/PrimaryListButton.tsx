@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useTransition } from 'react'
-import { faStar as faStarRegular } from '@awesome.me/kit-ac8ad9255a/icons/sharp/regular'
-import { faStar } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faStar as faStarRegular } from '@awesome.me/kit-f973af7de0/icons/sharp/regular'
+import { faStar } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 

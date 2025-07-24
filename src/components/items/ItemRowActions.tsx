@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useEffect, useState, useTransition } from 'react'
-import { faEllipsisVertical } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faEllipsisVertical } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

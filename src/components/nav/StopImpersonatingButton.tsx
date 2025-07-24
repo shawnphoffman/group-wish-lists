@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { faFaceDisguise } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faFaceDisguise } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 

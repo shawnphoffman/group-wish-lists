@@ -1,6 +1,6 @@
-import { faSquare } from '@awesome.me/kit-ac8ad9255a/icons/classic/regular'
-import { faSquareCheck, faSquareRing, faSquareX } from '@awesome.me/kit-ac8ad9255a/icons/classic/solid'
-import { faSolidSquareCheckLock } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
+import { faSharpSolidSquareCheckLock } from '@awesome.me/kit-f973af7de0/icons/kit/custom'
+import { faSquare } from '@awesome.me/kit-f973af7de0/icons/sharp/regular'
+import { faSquareCheck, faSquareRing, faSquareX } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { getGifts } from '@/app/actions/gifts'
@@ -24,7 +24,7 @@ export default async function ItemCheckbox({ id, status, requestedQty = 1, curre
 	if (status === ItemStatus.Incomplete) {
 		return (
 			<ItemRowCheckbox type={'add'} id={id} otherQty={0} selfQty={0} quantity={requestedQty}>
-				<FontAwesomeIcon icon={faSquare} className={cn('text-green-500', commonIconSizes)} />
+				<FontAwesomeIcon widthAuto={false} icon={faSquare} className={cn('text-green-500', commonIconSizes)} />
 			</ItemRowCheckbox>
 		)
 	}
@@ -53,7 +53,7 @@ export default async function ItemCheckbox({ id, status, requestedQty = 1, curre
 	if (isLocked) {
 		return (
 			<div className={cn('cursor-not-allowed', commonSizes)}>
-				<FontAwesomeIcon icon={faSolidSquareCheckLock} className={cn('text-sky-500', commonIconSizes)} />
+				<FontAwesomeIcon widthAuto={false} icon={faSharpSolidSquareCheckLock} className={cn('text-sky-500', commonIconSizes)} />
 			</div>
 		)
 	}
@@ -63,9 +63,9 @@ export default async function ItemCheckbox({ id, status, requestedQty = 1, curre
 	return (
 		<ItemRowCheckbox type={clickType} id={id} otherQty={otherQty} selfQty={selfQty} quantity={requestedQty}>
 			{isPartial ? (
-				<FontAwesomeIcon icon={faSquareRing} className={cn('text-orange-500', commonIconSizes)} />
+				<FontAwesomeIcon widthAuto={false} icon={faSquareRing} className={cn('text-orange-500', commonIconSizes)} />
 			) : isComplete ? (
-				<FontAwesomeIcon icon={faSquareCheck} className={cn('text-green-500', commonIconSizes)} />
+				<FontAwesomeIcon widthAuto={false} icon={faSquareCheck} className={cn('text-green-500', commonIconSizes)} />
 			) : null}
 		</ItemRowCheckbox>
 	)

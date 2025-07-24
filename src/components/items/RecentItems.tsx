@@ -1,4 +1,4 @@
-import { faListCheck } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faListCheck } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatDistance } from 'date-fns/formatDistance'
 import Link from 'next/link'

@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { faMoon, faSun } from '@awesome.me/kit-ac8ad9255a/icons/classic/solid'
+import { faMoon, faSun } from '@awesome.me/kit-f973af7de0/icons/classic/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTheme } from 'next-themes'
 

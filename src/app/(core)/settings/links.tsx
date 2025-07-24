@@ -1,7 +1,7 @@
 'use client'
 
-import { faSharpSolidGiftCircleArrowLeft, faSharpSolidGiftCircleArrowRight } from '@awesome.me/kit-ac8ad9255a/icons/kit/custom'
-import { faLock, faRightFromBracket } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faSharpSolidGiftCircleArrowLeft, faSharpSolidGiftCircleArrowRight } from '@awesome.me/kit-f973af7de0/icons/kit/custom'
+import { faLock, faRightFromBracket } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { faSpinner, faUpload } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faSpinner, faUpload } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 

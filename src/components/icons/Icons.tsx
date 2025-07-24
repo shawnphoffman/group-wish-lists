@@ -14,8 +14,8 @@ import {
 	faTrashXmark,
 	faUpRightFromSquare,
 	faUserUnlock,
-} from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
-import { faUserGroup } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+} from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faUserGroup } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 
 import { cn } from '@/lib/utils'

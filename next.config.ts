@@ -1,9 +1,14 @@
+import type { NextConfig } from 'next'
+
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // 	enabled: process.env.ANALYZE === 'true',
 // })
 
-/** @type {import('next').NextConfig} */
-let nextConfig = {}
+const nextConfig: NextConfig = {
+	// experimental: {
+	// 	useCache: true,
+	// },
+}
 
 // module.exports = withBundleAnalyzer(nextConfig)
-module.exports = nextConfig
+export default nextConfig

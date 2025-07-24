@@ -4,7 +4,7 @@ import './CreateListModal.css'
 
 import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { useFormStatus } from 'react-dom'
-import { faXmark } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faXmark } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link'

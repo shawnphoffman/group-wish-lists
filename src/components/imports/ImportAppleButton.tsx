@@ -1,8 +1,8 @@
 'use client'
 
 import { startTransition, useCallback, useState } from 'react'
-import { faApple } from '@awesome.me/kit-ac8ad9255a/icons/classic/brands'
-import { faSpinnerScale } from '@awesome.me/kit-ac8ad9255a/icons/sharp/solid'
+import { faApple } from '@awesome.me/kit-f973af7de0/icons/classic/brands'
+import { faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 

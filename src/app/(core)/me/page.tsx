@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { faListOl } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { faListOl } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { FallbackRowThick } from '@/components/common/Fallbacks'

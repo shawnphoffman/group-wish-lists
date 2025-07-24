@@ -11,7 +11,7 @@ type Props = {
 export default async function ItemGifters({ id, requestedQty = 1 }: Props) {
 	const gifts = await getGifts(id)
 
-	console.log('gifts', gifts)
+	// console.log('gifts', gifts)
 
 	if (!gifts) {
 		return null

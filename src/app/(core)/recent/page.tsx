@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { faRadio } from '@awesome.me/kit-ac8ad9255a/icons/duotone/solid'
+import { faRadio } from '@awesome.me/kit-f973af7de0/icons/duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { FallbackRowsMultiple } from '@/components/common/Fallbacks'

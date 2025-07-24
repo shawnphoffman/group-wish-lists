@@ -1,5 +1,5 @@
-import { faBirthdayCake, faGift, faLightbulb, faTreeChristmas, faVialVirus } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/light'
-import { faCheckDouble } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { faBirthdayCake, faGift, faLightbulb, faTreeChristmas, faVialVirus } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/light'
+import { faCheckDouble } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ListCategory, ListCategoryType } from '@/utils/enums'

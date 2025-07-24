@@ -1,6 +1,6 @@
 'use client'
 
-import { faApple } from '@awesome.me/kit-ac8ad9255a/icons/classic/brands'
+import { faApple } from '@awesome.me/kit-f973af7de0/icons/classic/brands'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Button } from '@/components/ui/button'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Suspense } from 'react'
-import { faCog } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { faCog } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 
 import { isImpersonating } from '@/app/actions/admin'
 import { SidebarGroup, SidebarGroupContent, SidebarMenu } from '@/components/ui/sidebar'

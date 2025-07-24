@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { faCirclePlus } from '@awesome.me/kit-ac8ad9255a/icons/sharp-duotone/solid'
+import { faCirclePlus } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
