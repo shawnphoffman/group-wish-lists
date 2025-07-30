@@ -16,7 +16,6 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { ItemPriority, ItemPriorityType } from '@/utils/enums'
-import { isDeployed } from '@/utils/environment'
 import { cleanTitle } from '@/utils/openai'
 
 import ItemImage from '../components/ItemImage'
@@ -418,30 +417,28 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</div>
 				</div>
 
-				{!isDeployed ? (
-					<div className="grid w-full gap-1.5 text-destructive">
-						<Label htmlFor="tags">Tags</Label>
-						<TagInput
-							placeholder="Add some tags"
-							tags={tags}
-							sortTags={true}
-							allowDuplicates={false}
-							setTags={newTags => {
-								setTags(newTags)
-							}}
-							activeTagIndex={activeTagIndex}
-							setActiveTagIndex={setActiveTagIndex}
-							styleClasses={{
-								inlineTagsContainer: 'min-h-[42px]',
-								input: 'w-full text-base',
-								tag: {
-									body: 'pl-2 bg-muted',
-								},
-							}}
-							size="sm"
-						/>
-					</div>
-				) : null}
+				<div className="grid w-full gap-1.5 text-destructive">
+					<Label htmlFor="tags">Tags</Label>
+					<TagInput
+						placeholder="Add some tags"
+						tags={tags}
+						sortTags={true}
+						allowDuplicates={false}
+						setTags={newTags => {
+							setTags(newTags)
+						}}
+						activeTagIndex={activeTagIndex}
+						setActiveTagIndex={setActiveTagIndex}
+						styleClasses={{
+							inlineTagsContainer: 'min-h-[42px]',
+							input: 'w-full text-base',
+							tag: {
+								body: 'pl-2 bg-muted',
+							},
+						}}
+						size="sm"
+					/>
+				</div>
 
 				{scrape?.result && (
 					<>
