@@ -23,7 +23,8 @@ import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
 import MarkdownBlock from './components/MarkdownBlock'
-import MyListsSelect from './components/MyListsSelect'
+import MoveItemButtonDialog from './components/MoveItemButtonDialog'
+// import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
@@ -31,7 +32,7 @@ type Props = {
 }
 
 export default function ItemRowEditable({ item, listType }: Props) {
-	const [isMoving, setIsMoving] = useState(false)
+	// const [isMoving, setIsMoving] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 
@@ -183,7 +184,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 								Delete
 								<DeleteIcon />
 							</Button>
-							<Button
+							{/* <Button
 								variant="outline"
 								type="button"
 								size="sm"
@@ -193,7 +194,8 @@ export default function ItemRowEditable({ item, listType }: Props) {
 							>
 								Move
 								<MoveIcon />
-							</Button>
+							</Button> */}
+							<MoveItemButtonDialog id={item.id} listId={item.list_id} />
 							{item.url && (
 								<Button variant="outline" type="button" size="sm" className="group" asChild>
 									<Link href={item.url} target="_blank">
@@ -210,7 +212,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 									</button>
 								)} */}
 						</div>
-						{isMoving && <MyListsSelect id={item.id} listId={item.list_id} />}
+						{/* {isMoving && <MyListsSelect id={item.id} listId={item.list_id} />} */}
 						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}

@@ -1,16 +1,14 @@
 'use client'
 
 import { faSharpSolidGiftCircleArrowLeft, faSharpSolidGiftCircleArrowRight } from '@awesome.me/kit-f973af7de0/icons/kit/custom'
-import { faLock, faRightFromBracket } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faRightFromBracket } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
 import { signOut } from '@/app/actions/auth'
-import AdminSettingsLink from '@/components/admin/AdminSettingsLink'
 import { Separator } from '@/components/ui/separator'
-import { isDeployed } from '@/utils/environment'
 
 export default function SettingsLinks() {
 	const pathname = usePathname()
