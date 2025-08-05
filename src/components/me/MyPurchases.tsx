@@ -7,7 +7,7 @@ export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data: items }] = await Promise.all([
+	const [items] = await Promise.all([
 		listsPromise,
 		//
 		// fakePromise
@@ -21,7 +21,7 @@ export default async function MyPurchases() {
 				<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
 					{items?.map(item => (
 						//
-						<PurchaseRow key={item.id} item={item} />
+						<PurchaseRow key={`${item.gifter_id}-${item.id}`} item={item} />
 					))}
 				</div>
 			)}

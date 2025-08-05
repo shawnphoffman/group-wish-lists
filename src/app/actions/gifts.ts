@@ -56,14 +56,24 @@ export const getMyGifts = async () => {
 
 	const resp = await supabase
 		.from('view_sorted_list_items')
-		.select('*,gifted_items!inner(giftedAt:created_at),lists!list_items_list_id_fkey(recipient_user_id)')
+		.select('*,gifted_items!inner(giftedAt:created_at,gifter_id),lists!list_items_list_id_fkey(recipient_user_id)')
 		.eq('archived', true)
 		.not('lists', 'is', null)
 		.eq('lists.recipient_user_id', userId)
 
-	// console.log('getMyGifts.resp', resp.data)
+	const { data: users } = (await getUsers()) || []
 
-	return resp as any
+	const gifts = resp.data?.map(d => ({
+		...d,
+		// gifters: users.find(u => u.user_id === d.gifter_id),
+		gifters: d.gifted_items.map(gi => ({
+			user_id: gi.gifter_id,
+			display_name: users.find(u => u.user_id === gi.gifter_id)?.display_name,
+		})),
+	}))
+	// console.log('getMyGifts.resp', gifts)
+
+	return gifts as any
 }
 
 export const updateItemAdditionalGifters = async (itemId: ListItem['id'], additionalGifterIds: string[]) => {

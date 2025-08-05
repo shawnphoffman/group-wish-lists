@@ -2,6 +2,7 @@ import { getSessionUser } from '@/app/actions/auth'
 import { getUsers } from '@/app/actions/users'
 import { getUserPermissions } from '@/app/actions/users'
 import UserPermissionCheckbox from '@/components/permissions/UserPermissionCheckbox'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 type PermUser = {
@@ -10,6 +11,7 @@ type PermUser = {
 	can_view: boolean
 	perm_id: number | undefined
 	owner_id: string
+	image: string
 }
 
 export default async function MeClient() {
@@ -42,6 +44,7 @@ export default async function MeClient() {
 				can_view: !(permResp?.can_view === false),
 				perm_id: permResp?.id,
 				owner_id: permResp?.owner_user_id,
+				image: user.image,
 			}
 			return memo
 		}, {})
@@ -65,6 +68,10 @@ export default async function MeClient() {
 										viewer_id={reducedUsers[name].user_id}
 										isChecked={reducedUsers[name].can_view}
 									/>
+									<Avatar className="w-8 h-8 border border-foreground">
+										<AvatarImage src={reducedUsers[name].image} />
+										<AvatarFallback className="text-2xl font-bold bg-background text-foreground">{name?.charAt(0)}</AvatarFallback>
+									</Avatar>
 									<div>{name}</div>
 								</div>
 							))}

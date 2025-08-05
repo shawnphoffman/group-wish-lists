@@ -7,7 +7,7 @@ export default async function MyReceived() {
 	const giftsPromise = getMyGifts()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data: gifts }] = await Promise.all([
+	const [gifts] = await Promise.all([
 		giftsPromise,
 		//
 		// fakePromise
@@ -18,6 +18,8 @@ export default async function MyReceived() {
 		const bDate = new Date(b.gifted_items[0]?.giftedAt)
 		return bDate.getTime() - aDate.getTime()
 	})
+
+	// console.log('sortedGifts', sortedGifts)
 
 	return (
 		<div className="flex flex-col">

@@ -41,7 +41,11 @@ export default async function GiftRow({ item }: Props) {
 
 					<div className="flex flex-col items-center justify-center gap-1 md:flex-row">
 						{/* Recipient */}
-						<Badge variant="outline">{item.display_name}</Badge>
+						{item.gifters.map(g => (
+							<Badge key={g.user_id} variant="outline">
+								{g.display_name}
+							</Badge>
+						))}
 						{/* Gifted Date */}
 						{giftedDate && <Badge variant="secondary">{giftedDate}</Badge>}
 					</div>
