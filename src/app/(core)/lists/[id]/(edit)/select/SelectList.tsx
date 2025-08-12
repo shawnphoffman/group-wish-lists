@@ -9,6 +9,7 @@ import {
 	MoveIcon,
 } from '@/components/icons/Icons'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
+import MoveItemButtonDialog from '@/components/items/components/MoveItemButtonDialog'
 import MyListsSelect from '@/components/items/components/MyListsSelect'
 import ItemRowSelectable from '@/components/items/ItemRowSelectable'
 import { List, ListItem } from '@/components/types'
@@ -63,7 +64,8 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 					<Link href={`/lists/${id}/edit`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						Go Back
 					</Link>
-					<MoveItemsButton id={id} selectedItems={selectedItems} />
+					<MoveItemButtonDialog listId={id} ids={selectedItems} />
+					{/* <MoveItemsButton id={id} selectedItems={selectedItems} /> */}
 					{/* <Button
 						variant="outline"
 						type="button"

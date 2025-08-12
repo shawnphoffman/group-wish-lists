@@ -20,13 +20,15 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
+// import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCachedLists } from '@/hooks/useCachedLists'
 
 type Props = { listId: List['id']; id?: ListItem['id']; ids?: Set<ListItem['id']> }
 
 export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
+	const [open, setOpen] = useState(false)
+
 	const { lists, loading } = useCachedLists()
 	const [list, setList] = useState<List | null>(null)
 	const router = useRouter()
@@ -85,6 +87,7 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 			clearListsCache()
 			startTransition(() => {
 				router.refresh()
+				setOpen(false)
 			})
 		}
 	}, [id, ids, list, router])
@@ -98,10 +101,10 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 	// }
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant="outline" type="button" size="sm">
-					Move
+				<Button variant="outline" type="button" size="sm" disabled={ids?.size === 0 && !id}>
+					Move {ids?.size ? `(${ids?.size})` : ''}
 					<MoveIcon />
 				</Button>
 			</DialogTrigger>

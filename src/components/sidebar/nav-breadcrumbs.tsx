@@ -9,12 +9,13 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 export default function NavBreadcrumbs() {
 	const pathname = usePathname()
 
-	const isEditingList = pathname.includes('/edit')
+	const isBeyondEditing = pathname.includes('/select')
+	const isEditingList = pathname.includes('/edit') || isBeyondEditing
 	const isViewingList = pathname.includes('/lists/')
 
 	const parentCrumb = isEditingList
 		? {
-				href: '/',
+				href: '/me',
 				label: 'My Lists',
 			}
 		: isViewingList
@@ -36,10 +37,16 @@ export default function NavBreadcrumbs() {
 							<Link href={parentCrumb.href}>{parentCrumb.label}</Link>
 						</BreadcrumbLink>
 					</BreadcrumbItem>
-					{/*
-					<BreadcrumbItem>
-						<BreadcrumbPage>Data Fetching</BreadcrumbPage>
-					</BreadcrumbItem> */}
+					{isBeyondEditing && (
+						<>
+							<BreadcrumbSeparator />
+							<BreadcrumbItem>
+								<BreadcrumbLink asChild>
+									<Link href={pathname.replace('/select', '/edit')}>Current List</Link>
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+						</>
+					)}
 				</BreadcrumbList>
 			</Breadcrumb>
 		</>

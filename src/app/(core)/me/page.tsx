@@ -28,7 +28,7 @@ export default async function MyStuff() {
 						<h3>My Public Lists</h3>
 						<div className="text-sm italic leading-tight text-muted-foreground">
 							These are the lists that everybody can see and use for gift-giving. If a list is not in this section then it is either not
-							public or you are not marked as the recipient.
+							public or you are not marked as the recipient. You can change your primary list by clicking on the list&apos;s star icon.
 						</div>
 						<Suspense fallback={<FallbackRowThick />}>
 							<MyLists type={ListType.PUBLIC} />
