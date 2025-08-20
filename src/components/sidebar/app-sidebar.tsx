@@ -45,6 +45,11 @@ const actions: NavItem[] = [
 		url: '/import',
 		icon: faCirclePlus,
 	},
+	{
+		name: 'Create New List',
+		url: '/me?new=true',
+		icon: faCirclePlus,
+	},
 ]
 
 const feeds: NavItem[] = [

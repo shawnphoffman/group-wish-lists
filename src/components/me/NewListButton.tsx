@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
 import { useFormStatus } from 'react-dom'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { createList, getUserEditors } from '@/app/actions/lists'
 import { AddIcon } from '@/components/icons/Icons'
@@ -108,6 +108,7 @@ export default function NewListButton() {
 	const [state, formAction] = useActionState(createList, {})
 	const router = useRouter()
 	const pathname = usePathname()
+	const searchParams = useSearchParams()
 	const formRef = useRef<HTMLFormElement>(null)
 
 	useEffect(() => {
@@ -121,6 +122,13 @@ export default function NewListButton() {
 			})
 		}
 	}, [state, pathname, router])
+
+	useEffect(() => {
+		if (searchParams.get('new')) {
+			setOpen(true)
+			router.replace(`${pathname}`)
+		}
+	}, [pathname, router, searchParams])
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
