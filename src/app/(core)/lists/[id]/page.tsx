@@ -76,7 +76,7 @@ const ViewListClient = async ({ params }: ClientProps) => {
 			</div>
 
 			{/* Addons */}
-			{data.type !== ListCategory.WishList && (
+			{data.type !== ListCategory.GiftIdeas && (
 				<div className="flex flex-col gap-1">
 					<div className="flex flex-row items-center justify-between gap-2">
 						<h3>Manual Addons</h3>
