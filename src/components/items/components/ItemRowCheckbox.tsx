@@ -21,7 +21,8 @@ type Props = {
 	selfQty: number
 }
 
-const commonSizes = 'w-10 h-8 sm:h-6 flex flex-row items-center justify-center'
+// const commonSizes = 'w-10 h-8 sm:h-6 flex flex-row items-center justify-center'
+const commonSizes = 'w-10 h-8 flex flex-row items-center justify-center'
 const commonIconSizes = 'text-3xl sm:text-2xl'
 
 export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty, quantity: requestedQty }: Props) {
