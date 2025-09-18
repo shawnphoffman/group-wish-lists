@@ -42,7 +42,7 @@ export const NavItem = ({ item }: { item: NavItem }) => {
 export default function NavSection({ title, items, className }: Props) {
 	return (
 		<SidebarGroup className={cn('group-data-[collapsible=icon]:hidden', className)}>
-			<SidebarGroupLabel>{title}</SidebarGroupLabel>
+			<SidebarGroupLabel className="text-sm underline underline-offset-4 decoration-dashed">{title}</SidebarGroupLabel>
 			<SidebarGroupContent>
 				<SidebarMenu>
 					{items.map(item => (
