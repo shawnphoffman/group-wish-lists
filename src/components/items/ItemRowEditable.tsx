@@ -22,6 +22,7 @@ import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
+import ItemCheckboxClient from './components/ItemCheckboxClient'
 import MarkdownBlock from './components/MarkdownBlock'
 import MoveItemButtonDialog from './components/MoveItemButtonDialog'
 // import MyListsSelect from './components/MyListsSelect'
@@ -90,7 +91,14 @@ export default function ItemRowEditable({ item, listType }: Props) {
 					)}
 					{/* Checkbox */}
 					{/* TODO FIX THIS */}
-					{listType === ListCategory.Todos && <ItemCheckbox id={item.id} status={item.status} requestedQty={item.quantity || 1} />}
+					{listType === ListCategory.Todos && (
+						<ItemCheckboxClient
+							id={item.id}
+							status={item.status}
+							requestedQty={item.quantity || 1}
+							gifts={item.status === ItemStatus.Complete ? [{ quantity: 1 }] : []}
+						/>
+					)}
 					{/*  */}
 					<div className="flex flex-col flex-1 w-full gap-2 overflow-hidden xs:items-center xs:flex-row md:gap-4">
 						{/* Title + Notes */}
