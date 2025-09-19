@@ -2,13 +2,16 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 
+import { getSessionUser } from '@/app/actions/auth'
+import { getGifts } from '@/app/actions/gifts'
 import { getListAddons, getViewableList } from '@/app/actions/lists'
+import { getUsers } from '@/app/actions/users'
 import AddAddonButton from '@/components/addons/AddListAddon'
 import ListAddon from '@/components/addons/ListAddon'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import { FallbackRowsMultiple, FallbackRowThick } from '@/components/common/Fallbacks'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
-import ItemRow from '@/components/items/ItemRow'
+import FilterableListViewClient from '@/components/lists/FilterableListViewClient'
 import { List, ListItem, Recipient } from '@/components/types'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -27,10 +30,14 @@ const ViewListClient = async ({ params }: ClientProps) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 	const listPromise = getViewableList(params.id)
 	const addonsPromise = getListAddons(params.id)
+	const userPromise = getSessionUser()
+	const usersPromise = getUsers()
 
-	const [{ data, error, isOwner }, { data: addons }] = await Promise.all([
+	const [{ data, error, isOwner }, { data: addons }, currentUser, { data: users }] = await Promise.all([
 		listPromise,
 		addonsPromise,
+		userPromise,
+		usersPromise,
 		// fakePromise
 	])
 
@@ -40,7 +47,17 @@ const ViewListClient = async ({ params }: ClientProps) => {
 
 	const items = data.listItems as unknown as ListItem[]
 	const recipient = data.recipient! as unknown as Recipient
-	const visibleItems = items.filter(item => !item.archived)
+
+	// Fetch gift data for all items
+	const itemsWithGifts = await Promise.all(
+		items.map(async item => {
+			const gifts = await getGifts(item.id)
+			return {
+				...item,
+				gifts: gifts || [],
+			}
+		})
+	)
 
 	// console.log('ViewListClient', { items, visibleItems })
 
@@ -60,20 +77,13 @@ const ViewListClient = async ({ params }: ClientProps) => {
 			{data?.description && <div className="text-sm leading-tight text-muted-foreground">{data.description}</div>}
 
 			{/* Items */}
-			<div className="flex flex-col">
-				{visibleItems?.length === 0 ? (
-					<EmptyMessage />
-				) : (
-					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-						{/*  */}
-						{visibleItems?.map(item => (
-							<Suspense key={item.id} fallback={<FallbackRowThick />}>
-								<ItemRow item={item} isOwnerView={isOwner} />
-							</Suspense>
-						))}
-					</div>
-				)}
-			</div>
+			<FilterableListViewClient
+				items={itemsWithGifts}
+				recipient={recipient}
+				isOwner={isOwner}
+				currentUser={currentUser}
+				users={users || []}
+			/>
 
 			{/* Addons */}
 			{data.type !== ListCategory.GiftIdeas && (

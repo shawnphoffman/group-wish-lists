@@ -21,18 +21,18 @@ export default function FilterableListView({ items, recipient, isOwner, currentU
 	const visibleItems = items.filter(item => !item.archived)
 
 	const [filters, setFilters] = useState<FilterState>({
-		showCompleted: true,
-		showUnavailable: true,
-		priorities: []
+		showPurchasedOnly: false,
+		showUnpurchasedOnly: false,
+		priorities: [],
 	})
 
 	const filteredItems = useMemo(() => {
 		return visibleItems.filter(item => {
-			if (!filters.showCompleted && item.status === ItemStatus.Complete) {
+			if (filters.showPurchasedOnly && !(item.status === ItemStatus.Complete || item.status === ItemStatus.Partial)) {
 				return false
 			}
 
-			if (!filters.showUnavailable && item.status === ItemStatus.Unavailable) {
+			if (filters.showUnpurchasedOnly && !(item.status === ItemStatus.Unavailable || item.status === ItemStatus.Incomplete)) {
 				return false
 			}
 
@@ -45,13 +45,8 @@ export default function FilterableListView({ items, recipient, isOwner, currentU
 	}, [visibleItems, filters])
 
 	return (
-		<div className="flex flex-col gap-6">
-			<FilterControls
-				filters={filters}
-				onChange={setFilters}
-				totalCount={visibleItems.length}
-				filteredCount={filteredItems.length}
-			/>
+		<div className="flex flex-col gap-3">
+			<FilterControls filters={filters} onChange={setFilters} />
 
 			<div className="flex flex-col">
 				{filteredItems.length === 0 ? (
