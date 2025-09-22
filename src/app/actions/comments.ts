@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 
+import { sendNewCommentEmail } from '@/utils/resend'
 import { createClient } from '@/utils/supabase/server'
 
 export const createComment = async (prevState: any, formData: FormData) => {
@@ -25,6 +26,19 @@ export const createComment = async (prevState: any, formData: FormData) => {
 	])
 
 	const comm = resp.data
+
+	// if (resp.status === 200) {
+	try {
+		const username = 'Shawn'
+		const recipient = 'shawn.p.hoffman@gmail.com'
+		const commenter = 'User-' + commentingUserID
+		const itemTitle = 'Item' + itemId
+		const listId = 45
+		await sendNewCommentEmail(username, recipient, commenter, comment, itemTitle, listId, Number(itemId))
+	} catch (error) {
+		console.error('createComment.error', error)
+	}
+	// }
 
 	// console.log({ comm })
 
