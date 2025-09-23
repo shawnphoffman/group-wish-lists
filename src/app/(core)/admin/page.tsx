@@ -33,6 +33,26 @@ export default async function Admin() {
 						<InviteUser />
 					</Suspense>
 				</div>
+
+				<div className="flex flex-col gap-2">
+					<Suspense>
+						<Card>
+							<CardHeader>
+								<CardTitle>Env</CardTitle>
+							</CardHeader>
+							<CardContent className="flex flex-col gap-4 p-6 pt-0">
+								{Object.entries(process.env)
+									.sort((a, b) => a[0].localeCompare(b[0]))
+									.map(([key, value]) => (
+										<div key={key} className="flex flex-col w-full overflow-hidden">
+											<span className="font-mono text-xs text-gray-500">{key}</span>
+											<span className="font-mono text-xs break-all">{String(value)}</span>
+										</div>
+									))}
+							</CardContent>
+						</Card>
+					</Suspense>
+				</div>
 			</div>
 		</div>
 	)
