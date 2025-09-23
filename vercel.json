@@ -2,8 +2,7 @@
 	"crons": [
 		{
 			"path": "/api/cron/birthdays",
-			"schedule": "0 8 * * *",
-			"timezone": "America/Los_Angeles"
+			"schedule": "0 15 * * *"
 		}
 	]
 }
