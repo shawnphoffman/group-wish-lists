@@ -1,20 +1,4 @@
-import {
-	Body,
-	Button,
-	Column,
-	Container,
-	Head,
-	Heading,
-	Hr,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Row,
-	Section,
-	Tailwind,
-	Text,
-} from '@react-email/components'
+import { Body, Button, Container, Head, Heading, Html, Img, Section, Tailwind, Text } from '@react-email/components'
 
 interface TestEmailProps {
 	username?: string
@@ -25,7 +9,7 @@ interface TestEmailProps {
 	comment?: string
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3002'
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3002'
 
 export function TestEmail({ username, commenter, listId, itemId, comment, itemTitle }: TestEmailProps) {
 	const itemUrl = `${baseUrl}/lists/${listId}#item-${itemId}`
