@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers'
 
 import { ListType } from '@/components/me/MyLists'
-import { List, User } from '@/components/types'
+import { List, ListItem, User } from '@/components/types'
 import { ListCategory } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 
@@ -604,4 +604,16 @@ export const unsetPrimaryList = async (listId: List['id']) => {
 	return {
 		status: 'success',
 	}
+}
+
+export const getListById = async (id: List['id']) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data } = await supabase.from('lists').select().eq('id', id).single()
+
+	console.log('getListById', data)
+
+	return data
 }

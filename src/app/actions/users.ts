@@ -46,6 +46,13 @@ export const getUsersCacheStats = async () => {
 	}
 }
 
+export const getUserEmail = async (userId: string) => {
+	'use server'
+	const supabase = createAdminClient()
+	const { data } = await supabase.auth.admin.getUserById(userId)
+	return data.user?.email
+}
+
 export const getUsersForImpersonation = async () => {
 	'use server'
 	// const cookieStore = await cookies()
