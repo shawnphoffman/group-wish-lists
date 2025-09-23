@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import BirthdayEmail from '@/emails/happy-birthday'
+import BirthdayEmail from '@/emails/happy-birthday-email'
 import { resendClient } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 

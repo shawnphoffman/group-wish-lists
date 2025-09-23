@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 
-import NewCommentEmail from '@/emails/new-comment'
+import NewCommentEmail from '@/emails/new-comment-email'
 
 export const resendClient = new Resend(process.env.RESEND_API_KEY)
 
