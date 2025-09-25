@@ -19,12 +19,13 @@ import { Menubar, MenubarContent, MenubarMenu, MenubarSeparator, MenubarTrigger 
 
 type ClientProps = {
 	params: {
-		id: List['id']
+		id: string
 	}
 }
 
 const ShowList = async ({ params }: ClientProps) => {
-	const listPromise = getEditableList(params.id)
+	const listId = Number(params.id)
+	const listPromise = getEditableList(listId)
 	const sessionPromise = getSessionUser()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
@@ -53,7 +54,7 @@ const ShowList = async ({ params }: ClientProps) => {
 			<div className="flex flex-col items-center justify-between gap-2 md:gap-2 md:flex-row">
 				<div className="flex flex-row items-center flex-1 w-full gap-2 flex-nowrap">
 					<ListTitleEditable
-						listId={params.id}
+						listId={listId}
 						name={list.name}
 						type={list.type}
 						description={list.description}
@@ -71,13 +72,13 @@ const ShowList = async ({ params }: ClientProps) => {
 						<MenubarMenu>
 							<MenubarTrigger>Import</MenubarTrigger>
 							<MenubarContent>
-								<ImportAppleButton listId={params.id} />
+								<ImportAppleButton listId={listId} />
 								<MenubarSeparator />
-								<ImportAmazonButton listId={params.id} />
+								<ImportAmazonButton listId={listId} />
 							</MenubarContent>
 						</MenubarMenu>
 					</Menubar>
-					<Link href={`/lists/${params.id}/select`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
+					<Link href={`/lists/${listId}/select`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						{/* <AddIcon /> */}
 						Bulk Actions
 					</Link>
@@ -86,13 +87,13 @@ const ShowList = async ({ params }: ClientProps) => {
 							<MenubarMenu>
 								<MenubarTrigger>List Actions</MenubarTrigger>
 								<MenubarContent>
-									<ArchiveListButton listId={params.id} isArchived={!list.active} />
+									<ArchiveListButton listId={listId} isArchived={!list.active} />
 									<MenubarSeparator />
-									<ArchivePurchasedButton listId={params.id} />
+									<ArchivePurchasedButton listId={listId} />
 									<MenubarSeparator />
-									<DeleteListButton listId={params.id} name={list.name} />
+									<DeleteListButton listId={listId} name={list.name} />
 									<MenubarSeparator />
-									<EditorsButton listId={params.id} />
+									<EditorsButton listId={listId} />
 								</MenubarContent>
 							</MenubarMenu>
 						</Menubar>
@@ -109,7 +110,9 @@ const ShowList = async ({ params }: ClientProps) => {
 					<EmptyMessage />
 				) : (
 					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-						{visibleItems?.map(item => <ItemRowEditable key={item.id} item={item} listType={list.type} />)}
+						{visibleItems?.map(item => (
+							<ItemRowEditable key={item.id} item={item} listType={list.type} />
+						))}
 					</div>
 				)}
 			</div>
@@ -119,7 +122,7 @@ const ShowList = async ({ params }: ClientProps) => {
 
 type Props = {
 	params: Promise<{
-		id: List['id']
+		id: string
 	}>
 }
 

@@ -22,14 +22,15 @@ const RealTimeListener = dynamic(() => import('@/components/utils/RealTimeListen
 
 type ClientProps = {
 	params: {
-		id: List['id']
+		id: string
 	}
 }
 
 const ViewListClient = async ({ params }: ClientProps) => {
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
-	const listPromise = getViewableList(params.id)
-	const addonsPromise = getListAddons(params.id)
+	const listId = Number(params.id)
+	const listPromise = getViewableList(listId)
+	const addonsPromise = getListAddons(listId)
 	const userPromise = getSessionUser()
 	const usersPromise = getUsers()
 
@@ -90,7 +91,7 @@ const ViewListClient = async ({ params }: ClientProps) => {
 				<div className="flex flex-col gap-1">
 					<div className="flex flex-row items-center justify-between gap-2">
 						<h3>Manual Addons</h3>
-						<AddAddonButton listId={params.id} />
+						<AddAddonButton listId={listId} />
 					</div>
 					<div className="text-sm leading-tight text-muted-foreground">
 						These items are off-list gifts or notes that are manually added to help keep others in the loop. The list owner cannot see items
@@ -123,7 +124,7 @@ const ViewListClient = async ({ params }: ClientProps) => {
 
 type Props = {
 	params: Promise<{
-		id: List['id']
+		id: string
 	}>
 }
 
@@ -138,7 +139,7 @@ export default async function ViewList(props: Props) {
 					</Suspense>
 				</div>
 			</div>
-			<RealTimeListener listId={params.id} />
+			<RealTimeListener listId={Number(params.id)} />
 			<HashScroller />
 		</>
 	)

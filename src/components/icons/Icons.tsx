@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import React, { type CSSProperties } from 'react'
 import {
 	faBan,
 	faBoxArchive,
@@ -105,7 +105,7 @@ export function LockIcon({ className, ...rest }: IconProps) {
 		<FontAwesomeIcon
 			icon={faLockKeyhole}
 			fade
-			style={{ '--fa-animation-duration': '2s', '--fa-fade-opacity': '0.75' } as CSSProperties}
+			style={{ '--fa-animation-duration': '2s', '--fa-fade-opacity': '0.75' } as any}
 			{...rest}
 			className={`text-violet-600 dark:text-violet-300 ${className}`}
 		/>

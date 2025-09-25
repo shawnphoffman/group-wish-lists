@@ -53,7 +53,7 @@ export default function CloneItemForm({ lists, list, item }: Props) {
 	return (
 		<>
 			<div className="grid w-full gap-1.5">
-				<Label htmlFor="list">Select List to Clone To</Label>
+				<Label>Select List to Clone To</Label>
 				<Select name="list" value={selectedList} onValueChange={handleChangeList}>
 					<SelectTrigger>
 						<SelectValue />

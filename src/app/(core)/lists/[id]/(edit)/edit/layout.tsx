@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 type LayoutProps = {
 	params: Promise<{
-		id: List['id']
+		id: string
 	}>
 	children: React.ReactNode
 }
@@ -26,7 +26,7 @@ export default async function EditLayout({ params, children }: LayoutProps) {
 				</CardHeader>
 				<CardContent>
 					<Suspense fallback={<FallbackRowThick />}>
-						<AddItemForm listId={resolvedParams.id} />
+						<AddItemForm listId={Number(resolvedParams.id)} />
 					</Suspense>
 				</CardContent>
 			</Card>

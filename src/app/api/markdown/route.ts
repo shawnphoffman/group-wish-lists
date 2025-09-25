@@ -1,9 +1,17 @@
-import markdownit, { Token } from 'markdown-it'
+import markdownit from 'markdown-it'
 import { NextResponse } from 'next/server'
 
 const md = markdownit()
 
-function cleanItemList(items: any[]) {
+interface MarkdownToken {
+	content: string
+	level: number
+	children?: MarkdownToken[]
+	map?: [number, number]
+	[key: string]: any
+}
+
+function cleanItemList(items: MarkdownToken[]) {
 	interface CleanedItem {
 		title: string
 		notes: string
@@ -71,14 +79,15 @@ export async function GET(request: Request) {
 			return NextResponse.json({ error: 'No data found', markdownString })
 		}
 
-		const clean = result.reduce((acc: any[], curr: Token) => {
+		const clean = result.reduce((acc: MarkdownToken[], curr: any) => {
 			if (curr.content === '') return acc
 
-			const cleanCurr: Partial<Token> = {
-				...curr,
+			const cleanCurr: MarkdownToken = {
+				content: curr.content || '',
+				level: curr.level || 0,
+				children: undefined,
+				map: undefined,
 			}
-			cleanCurr.children = undefined
-			cleanCurr.map = undefined
 
 			acc.push(cleanCurr)
 

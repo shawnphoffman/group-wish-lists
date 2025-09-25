@@ -24,10 +24,11 @@ export default function FilterableListView({ items, recipient, isOwner, currentU
 		showPurchasedOnly: false,
 		showUnpurchasedOnly: false,
 		priorities: [],
+		sort: 'priority-desc',
 	})
 
 	const filteredItems = useMemo(() => {
-		return visibleItems.filter(item => {
+		const result = visibleItems.filter(item => {
 			if (filters.showPurchasedOnly && !(item.status === ItemStatus.Complete || item.status === ItemStatus.Partial)) {
 				return false
 			}
@@ -41,6 +42,22 @@ export default function FilterableListView({ items, recipient, isOwner, currentU
 			}
 
 			return true
+		})
+
+		return result.sort((a, b) => {
+			const [sortBy, sortOrder] = filters.sort.split('-') as [string, 'asc' | 'desc']
+
+			if (sortBy === 'date') {
+				const aTime = new Date(a.created_at).getTime()
+				const bTime = new Date(b.created_at).getTime()
+				return sortOrder === 'asc' ? aTime - bTime : bTime - aTime
+			} else {
+				// Priority sorting: Very High > High > Normal > Low
+				const priorityOrder = { veryhigh: 4, high: 3, normal: 2, low: 1 }
+				const aPriority = priorityOrder[a.priority as keyof typeof priorityOrder] || 0
+				const bPriority = priorityOrder[b.priority as keyof typeof priorityOrder] || 0
+				return sortOrder === 'asc' ? aPriority - bPriority : bPriority - aPriority
+			}
 		})
 	}, [visibleItems, filters])
 

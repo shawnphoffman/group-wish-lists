@@ -8,13 +8,14 @@ import SelectList from './SelectList'
 
 type Props = {
 	params: Promise<{
-		id: List['id']
+		id: string
 	}>
 }
 
 export default async function EditSelectPage(props: Props) {
 	const resolvedParams = await props.params
-	const listPromise = getEditableList(resolvedParams.id)
+	const listId = Number(resolvedParams.id)
+	const listPromise = getEditableList(listId)
 	const sessionPromise = getSessionUser()
 
 	const [{ data: list, error }, currentUser] = await Promise.all([listPromise, sessionPromise])
@@ -25,5 +26,5 @@ export default async function EditSelectPage(props: Props) {
 
 	// console.log('xxx', { items: list?.listItems, currentUser, resolvedParams })
 
-	return <SelectList id={resolvedParams.id} items={list.listItems} list={list} />
+	return <SelectList id={listId} items={list.listItems} list={list} />
 }
