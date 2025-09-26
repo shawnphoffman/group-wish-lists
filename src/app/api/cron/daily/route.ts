@@ -85,6 +85,7 @@ export async function GET(req: Request) {
 					{
 						from: 'HoffStuff <admin@hoffstuff.com>',
 						to: recipient,
+						bcc: ['shawn@sent.as'],
 						subject: 'A look back at your birthday 👀',
 						react: PostBirthdayEmail({ name: user.display_name || 'user-with-no-name', items: formattedItems }),
 					},

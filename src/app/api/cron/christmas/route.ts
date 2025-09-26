@@ -37,6 +37,7 @@ export async function GET(req: Request) {
 					{
 						from: 'HoffStuff <admin@hoffstuff.com>',
 						to: user?.email,
+						bcc: ['shawn@sent.as'],
 						subject: 'Merry Christmas! 🎄',
 						react: ChristmasEmail(),
 					},

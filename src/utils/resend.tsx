@@ -14,8 +14,9 @@ export const sendNewCommentEmail = async (
 	itemId: number
 ) => {
 	const emailResp = await resendClient.emails.send({
-		from: 'admin@hoffstuff.com',
+		from: 'HoffStuff <admin@hoffstuff.com>',
 		to: recipient,
+		bcc: ['shawn@sent.as'],
 		subject: 'New Comment on Wish Lists',
 		react: (
 			<NewCommentEmail username={username} commenter={commenter} comment={comment} itemTitle={itemTitle} listId={listId} itemId={itemId} />
