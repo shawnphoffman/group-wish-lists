@@ -8,12 +8,12 @@ import { createClient } from '@/utils/supabase/server'
 
 import { getUsers } from './users'
 
-export const createGift = async (itemId: ListItem['id']) => {
+export const createGift = async (itemId: ListItem['id'], quantity: number) => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 	const data = await getSessionUser()
-	const giftPromise = await supabase.from('gifted_items').insert([{ item_id: itemId, gifter_id: data?.id }])
+	const giftPromise = await supabase.from('gifted_items').insert([{ item_id: itemId, gifter_id: data?.id, quantity }])
 	// const [gift] = await Promise.all([
 	await Promise.all([
 		giftPromise,

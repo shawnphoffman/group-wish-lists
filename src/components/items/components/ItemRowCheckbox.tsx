@@ -41,14 +41,14 @@ export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty,
 		setIsPending(true)
 
 		if (type === 'add') {
-			await createGift(id)
+			await createGift(id, quantity)
 		} else if (type === 'delete') {
 			await deleteGift(id)
 		}
 
 		setIsPending(false)
 		router.refresh()
-	}, [id, router, type])
+	}, [id, router, type, quantity])
 
 	const handleUpdateQuantity = useCallback(async () => {
 		setIsUpdating(true)
