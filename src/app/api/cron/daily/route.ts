@@ -5,11 +5,11 @@ import { resendClient } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(req: Request) {
-	// // Verify secret to prevent abuse
-	// const auth = req.headers.get('authorization')
-	// if (auth !== `Bearer ${process.env.CRON_SECRET}` && process.env.NODE_ENV === 'production') {
-	// 	return new NextResponse('Unauthorized', { status: 401 })
-	// }
+	// Verify secret to prevent abuse
+	const auth = req.headers.get('authorization')
+	if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+		return new NextResponse('Unauthorized', { status: 401 })
+	}
 
 	const supabase = createAdminClient()
 
@@ -93,22 +93,21 @@ export async function GET(req: Request) {
 				await resendClient.emails.send(
 					{
 						from: 'HoffStuff <admin@hoffstuff.com>',
-						// to: recipient,
-						// bcc: ['shawn@sent.as'],
-						to: ['shawn@sent.as'],
+						to: recipient,
+						bcc: ['shawn@sent.as'],
+						// to: ['shawn@sent.as'],
 						subject: 'A look back at your birthday 👀',
 						react: PostBirthdayEmail({ name: user.display_name || 'user-with-no-name', items: formattedItems }),
+					},
+					{
+						idempotencyKey: `post-birthday-email/${now.getFullYear()}/${user.user_id}`,
 					}
-					// {
-					// 	idempotencyKey: `post-birthday-archive/${now.getFullYear()}/${user.user_id}`,
-					// }
 				)
 
-				// const updates = await supabase
-				// 	.from('list_items')
-				// 	.update([{ archived: true }])
-				// 	.in('id', items.data?.map((item: any) => item.id) || [])
-				const updates = null
+				const updates = await supabase
+					.from('list_items')
+					.update([{ archived: true }])
+					.in('id', items.data?.map((item: any) => item.id) || [])
 
 				return { id: user.user_id, ok: true, formattedItems, items: items.data, lists: lists.data, updates }
 			} catch (e: any) {
