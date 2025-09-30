@@ -72,6 +72,8 @@ export async function GET(req: Request) {
 						}
 					})
 
+				console.log('items', items)
+
 				if (!items) return { id: user.user_id, ok: false, error: 'Error fetching items or no items found' }
 
 				const formattedItems =
@@ -81,26 +83,36 @@ export async function GET(req: Request) {
 						gifters: item.gifted_items?.map((gift: any) => gift.gifter_display_name) || [],
 					})) || []
 
+				console.log('formattedItems', { user, formattedItems, recipient })
+
+				if (formattedItems.length === 0) {
+					console.log('🔴 no items found', { user, formattedItems, recipient })
+					return { id: user.user_id, ok: false, error: 'No items found' }
+				}
+
 				await resendClient.emails.send(
 					{
 						from: 'HoffStuff <admin@hoffstuff.com>',
-						to: recipient,
-						bcc: ['shawn@sent.as'],
+						// to: recipient,
+						// bcc: ['shawn@sent.as'],
+						to: ['shawn@sent.as'],
 						subject: 'A look back at your birthday 👀',
 						react: PostBirthdayEmail({ name: user.display_name || 'user-with-no-name', items: formattedItems }),
-					},
-					{
-						idempotencyKey: `post-birthday-archive/${now.getFullYear()}/${user.user_id}`,
 					}
+					// {
+					// 	idempotencyKey: `post-birthday-archive/${now.getFullYear()}/${user.user_id}`,
+					// }
 				)
 
-				const updates = await supabase
-					.from('list_items')
-					.update([{ archived: true }])
-					.in('id', items.data?.map((item: any) => item.id) || [])
+				// const updates = await supabase
+				// 	.from('list_items')
+				// 	.update([{ archived: true }])
+				// 	.in('id', items.data?.map((item: any) => item.id) || [])
+				const updates = null
 
 				return { id: user.user_id, ok: true, formattedItems, items: items.data, lists: lists.data, updates }
 			} catch (e: any) {
+				console.log('🔴 daily cron error', e)
 				return { id: user.user_id, ok: false, error: e?.message }
 			}
 		})
