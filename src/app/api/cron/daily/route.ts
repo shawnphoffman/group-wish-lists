@@ -5,11 +5,11 @@ import { resendClient } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(req: Request) {
-	// Verify secret to prevent abuse
-	const auth = req.headers.get('authorization')
-	if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
-		return new NextResponse('Unauthorized', { status: 401 })
-	}
+	// // Verify secret to prevent abuse
+	// const auth = req.headers.get('authorization')
+	// if (auth !== `Bearer ${process.env.CRON_SECRET}` && process.env.NODE_ENV === 'production') {
+	// 	return new NextResponse('Unauthorized', { status: 401 })
+	// }
 
 	const supabase = createAdminClient()
 
