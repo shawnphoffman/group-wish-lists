@@ -1,9 +1,7 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import shawnEslint from '@shawnphoffman/eslint-config/eslint.config.mjs'
 import react from 'eslint-plugin-react'
-import storybook from 'eslint-plugin-storybook'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -17,17 +15,15 @@ const compat = new FlatCompat({
 
 const config = [
 	...compat.extends('next/core-web-vitals'),
-	...shawnEslint,
 	{
 		plugins: {
 			react,
 		},
-
 		rules: {
 			'react/no-unescaped-entities': 'warn',
 		},
 	},
-	...storybook.configs['flat/recommended'],
+	reactYouMightNotNeedAnEffect.configs.recommended,
 ]
 
 export default config

@@ -39,5 +39,3 @@ next-env.d.ts
 # Sentry Config File
 .sentryclirc
 /db
-*storybook.log
-storybook-static
