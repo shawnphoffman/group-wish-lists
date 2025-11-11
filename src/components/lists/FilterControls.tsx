@@ -1,21 +1,10 @@
 'use client'
 
-import {
-	faSharpSolidBoltCircleArrowDown,
-	faSharpSolidBoltCircleArrowUp,
-	faSharpSolidCalendarCircleArrowDown,
-	faSharpSolidCalendarCircleArrowUp,
-} from '@awesome.me/kit-f973af7de0/icons/kit/custom'
-import { faSquare } from '@awesome.me/kit-f973af7de0/icons/sharp/regular'
-import { faBolt, faDown, faLeftRight, faSort, faSquareCheck, faUp, faXmark } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
-import { faFilters } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
+import { faXmark, faSort, faFilter } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Button } from '@/components/ui/button'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { cn } from '@/lib/utils'
-import { ItemPriority } from '@/utils/enums'
 
 export type SortOption = 'date-asc' | 'date-desc' | 'priority-asc' | 'priority-desc'
 
@@ -31,8 +20,13 @@ type Props = {
 	onChange: (filters: FilterState) => void
 }
 
-const commonButtonClasses =
-	'rounded-none first:rounded-l last:rounded-r data-[state=on]:bg-primary data-[state=on]:text-primary-foreground [&_svg]:size-5'
+type FilterOption = 'showUnpurchasedOnly' | 'showPurchasedOnly' | ''
+
+const getFilterLabel = (filters: FilterState): string => {
+	if (filters.showPurchasedOnly) return 'Purchased Only'
+	if (filters.showUnpurchasedOnly) return 'Unpurchased Only'
+	return 'All Items'
+}
 
 const getSortLabel = (sort: FilterState['sort']): string => {
 	switch (sort) {
@@ -50,22 +44,32 @@ const getSortLabel = (sort: FilterState['sort']): string => {
 }
 
 export default function FilterControls({ filters, onChange }: Props) {
-	const filterByPriority = (priority: string | null) => {
-		if (!priority || priority === '') {
-			onChange({ ...filters, priorities: [] })
-			return
-		}
-
-		const newPriorities = filters.priorities.includes(priority) ? [] : [priority]
-		onChange({ ...filters, priorities: newPriorities })
+	const getCurrentFilterValue = (): FilterOption => {
+		if (filters.showPurchasedOnly) return 'showPurchasedOnly'
+		if (filters.showUnpurchasedOnly) return 'showUnpurchasedOnly'
+		return ''
 	}
 
-	const filterByStatus = (purchased: string | null) => {
-		onChange({
-			...filters,
-			showPurchasedOnly: purchased === 'showPurchasedOnly',
-			showUnpurchasedOnly: purchased === 'showUnpurchasedOnly',
-		})
+	const handleFilterChange = (value: string) => {
+		if (value === 'showPurchasedOnly') {
+			onChange({
+				...filters,
+				showPurchasedOnly: true,
+				showUnpurchasedOnly: false,
+			})
+		} else if (value === 'showUnpurchasedOnly') {
+			onChange({
+				...filters,
+				showPurchasedOnly: false,
+				showUnpurchasedOnly: true,
+			})
+		} else {
+			onChange({
+				...filters,
+				showPurchasedOnly: false,
+				showUnpurchasedOnly: false,
+			})
+		}
 	}
 
 	const resetFilters = () => {
@@ -77,7 +81,7 @@ export default function FilterControls({ filters, onChange }: Props) {
 		})
 	}
 
-	const hasActiveFilters = filters.showPurchasedOnly || filters.showUnpurchasedOnly || filters.priorities.length > 0
+	const hasActiveFilters = filters.showPurchasedOnly || filters.showUnpurchasedOnly
 
 	const isValidSortOption = (value: string): value is SortOption => {
 		return ['date-asc', 'date-desc', 'priority-asc', 'priority-desc'].includes(value)
@@ -90,48 +94,22 @@ export default function FilterControls({ filters, onChange }: Props) {
 	}
 
 	return (
-		<div className="flex flex-col justify-between gap-2 lg:items-center sm:flex-row">
-			<div className="flex flex-row items-center gap-2">
-				{/* <FontAwesomeIcon icon={faFilters} size="lg" className="text-muted-foreground" /> */}
-				<div>Filter</div>
-
-				{/* PURCHASED / UNPURCHASED */}
-				<ToggleGroup
-					type="single"
-					size={'sm'}
-					className="gap-0 border rounded-md w-fit"
-					onValueChange={filterByStatus}
-					value={filters.showPurchasedOnly ? 'showPurchasedOnly' : filters.showUnpurchasedOnly ? 'showUnpurchasedOnly' : ''}
-				>
-					<ToggleGroupItem value="showUnpurchasedOnly" className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faSquare} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value="showPurchasedOnly" className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faSquareCheck} />
-					</ToggleGroupItem>
-				</ToggleGroup>
-
-				{/* PRIORITY */}
-				<ToggleGroup
-					type="single"
-					size={'sm'}
-					className="gap-0 border rounded-md w-fit"
-					onValueChange={filterByPriority}
-					value={filters.priorities[0] || ''}
-				>
-					<ToggleGroupItem value={ItemPriority['Very High']} className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faBolt} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value={ItemPriority.High} className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faUp} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value={ItemPriority.Normal} className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faLeftRight} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value={ItemPriority.Low} className={cn(commonButtonClasses)}>
-						<FontAwesomeIcon icon={faDown} />
-					</ToggleGroupItem>
-				</ToggleGroup>
+		<div className="flex flex-row justify-between gap-2 lg:items-center">
+			<div className="flex flex-row items-center flex-1 gap-2">
+				<div className="hidden sm:flex">Filter</div>
+				<div className="flex sm:hidden">
+					<FontAwesomeIcon icon={faFilter} />
+				</div>
+				<Select value={getCurrentFilterValue()} onValueChange={handleFilterChange}>
+					<SelectTrigger className="sm:w-[200px]">
+						<SelectValue placeholder="All Items">{getFilterLabel(filters)}</SelectValue>
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="showAll">All Items</SelectItem>
+						<SelectItem value="showUnpurchasedOnly">Unpurchased Only</SelectItem>
+						<SelectItem value="showPurchasedOnly">Purchased Only</SelectItem>
+					</SelectContent>
+				</Select>
 
 				{hasActiveFilters && (
 					<Button variant="destructive" size="icon" onClick={resetFilters}>
@@ -141,11 +119,13 @@ export default function FilterControls({ filters, onChange }: Props) {
 			</div>
 
 			{/* SORT */}
-			<div className="flex flex-row items-center gap-2">
-				{/* <FontAwesomeIcon icon={faSort} size="lg" className="text-muted-foreground" /> */}
-				<div className="flex flex-row gap-2">Sort</div>
+			<div className="flex flex-row items-center justify-end flex-1 gap-2">
+				<div className="hidden sm:flex">Sort</div>
+				<div className="flex sm:hidden">
+					<FontAwesomeIcon icon={faSort} />
+				</div>
 				<Select value={filters.sort} onValueChange={handleSortChange}>
-					<SelectTrigger className="w-[200px]">
+					<SelectTrigger className="sm:w-[200px]">
 						<SelectValue placeholder="Select sort order">{getSortLabel(filters.sort)}</SelectValue>
 					</SelectTrigger>
 					<SelectContent>
