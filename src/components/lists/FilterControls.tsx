@@ -13,14 +13,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { ItemPriority } from '@/utils/enums'
+
+export type SortOption = 'date-asc' | 'date-desc' | 'priority-asc' | 'priority-desc'
 
 export type FilterState = {
 	showPurchasedOnly: boolean
 	showUnpurchasedOnly: boolean
 	priorities: string[]
-	sort: 'date-asc' | 'date-desc' | 'priority-asc' | 'priority-desc'
+	sort: SortOption
 }
 
 type Props = {
@@ -30,6 +33,21 @@ type Props = {
 
 const commonButtonClasses =
 	'rounded-none first:rounded-l last:rounded-r data-[state=on]:bg-primary data-[state=on]:text-primary-foreground [&_svg]:size-5'
+
+const getSortLabel = (sort: FilterState['sort']): string => {
+	switch (sort) {
+		case 'date-desc':
+			return 'Date (Newest First)'
+		case 'date-asc':
+			return 'Date (Oldest First)'
+		case 'priority-desc':
+			return 'Priority (High to Low)'
+		case 'priority-asc':
+			return 'Priority (Low to High)'
+		default:
+			return 'Select sort order'
+	}
+}
 
 export default function FilterControls({ filters, onChange }: Props) {
 	const filterByPriority = (priority: string | null) => {
@@ -61,8 +79,18 @@ export default function FilterControls({ filters, onChange }: Props) {
 
 	const hasActiveFilters = filters.showPurchasedOnly || filters.showUnpurchasedOnly || filters.priorities.length > 0
 
+	const isValidSortOption = (value: string): value is SortOption => {
+		return ['date-asc', 'date-desc', 'priority-asc', 'priority-desc'].includes(value)
+	}
+
+	const handleSortChange = (value: string) => {
+		if (isValidSortOption(value)) {
+			onChange({ ...filters, sort: value })
+		}
+	}
+
 	return (
-		<div className="flex flex-col justify-between gap-2 lg:items-center lg:flex-row">
+		<div className="flex flex-col justify-between gap-2 lg:items-center sm:flex-row">
 			<div className="flex flex-row items-center gap-2">
 				{/* <FontAwesomeIcon icon={faFilters} size="lg" className="text-muted-foreground" /> */}
 				<div>Filter</div>
@@ -116,29 +144,17 @@ export default function FilterControls({ filters, onChange }: Props) {
 			<div className="flex flex-row items-center gap-2">
 				{/* <FontAwesomeIcon icon={faSort} size="lg" className="text-muted-foreground" /> */}
 				<div className="flex flex-row gap-2">Sort</div>
-				<ToggleGroup
-					type="single"
-					size={'sm'}
-					className="gap-0 border rounded-md w-fit"
-					onValueChange={(value: string) => {
-						if (!value) return
-						onChange({ ...filters, sort: value as 'date-asc' | 'date-desc' | 'priority-asc' | 'priority-desc' })
-					}}
-					value={filters.sort}
-				>
-					<ToggleGroupItem value="date-desc" className={cn(commonButtonClasses)} aria-label="Sort by date descending">
-						<FontAwesomeIcon icon={faSharpSolidCalendarCircleArrowDown} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value="date-asc" className={cn(commonButtonClasses)} aria-label="Sort by date ascending">
-						<FontAwesomeIcon icon={faSharpSolidCalendarCircleArrowUp} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value="priority-desc" className={cn(commonButtonClasses)} aria-label="Sort by priority descending">
-						<FontAwesomeIcon icon={faSharpSolidBoltCircleArrowDown} />
-					</ToggleGroupItem>
-					<ToggleGroupItem value="priority-asc" className={cn(commonButtonClasses)} aria-label="Sort by priority ascending">
-						<FontAwesomeIcon icon={faSharpSolidBoltCircleArrowUp} />
-					</ToggleGroupItem>
-				</ToggleGroup>
+				<Select value={filters.sort} onValueChange={handleSortChange}>
+					<SelectTrigger className="w-[200px]">
+						<SelectValue placeholder="Select sort order">{getSortLabel(filters.sort)}</SelectValue>
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="date-desc">Date (Newest First)</SelectItem>
+						<SelectItem value="date-asc">Date (Oldest First)</SelectItem>
+						<SelectItem value="priority-desc">Priority (High to Low)</SelectItem>
+						<SelectItem value="priority-asc">Priority (Low to High)</SelectItem>
+					</SelectContent>
+				</Select>
 			</div>
 		</div>
 	)
