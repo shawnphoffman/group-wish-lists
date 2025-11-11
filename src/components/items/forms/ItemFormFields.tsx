@@ -21,6 +21,7 @@ import { cleanTitle } from '@/utils/openai'
 import ItemImage from '../components/ItemImage'
 import ItemImagePicker from '../components/ItemImagePicker'
 import MarkdownBlock from '../components/MarkdownBlock'
+import SuccessMessage from '@/components/common/SuccessMessage'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -43,6 +44,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const [importing, setImporting] = useState(false)
 	const [importError, setImportError] = useState('')
+	const [importMessage, setImportMessage] = useState('')
 
 	const [isTransitionPending, startTransition] = useTransition()
 	const { pending: isFormPending } = useFormStatus()
@@ -130,13 +132,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setImageUrl(e.target.value)
 	}, [])
 
-	const handleChangeUrl = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			setUrl(e.target.value)
-			if (importError) setImportError('')
-		},
-		[importError]
-	)
+	const handleChangeUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setUrl(e.target.value)
+		setImportError('')
+		setImportMessage('')
+	}, [])
 
 	const handleChangePriority = useCallback(value => {
 		setPriority(value as (typeof ItemPriority)[keyof typeof ItemPriority])
@@ -144,7 +144,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const handleUrlImport = useCallback(async () => {
 		setImporting(true)
-		if (importError) setImportError('')
+		setImportError('')
+		setImportMessage('')
 		let data: any = {}
 
 		const controller = new AbortController()
@@ -269,13 +270,17 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				}
 			}
 
+			setImportMessage(
+				"We tried our best. If things don't look right, try again a little bit later or manually enter the information below."
+			)
 			setScrape(data)
 		} else {
-			setImportError('Sorry. No data found for this URL.')
+			setImportError('Sorry. No data found for this URL. Maybe try again later?')
+			setImportMessage('')
 		}
 
 		setImporting(false)
-	}, [importError, url])
+	}, [url])
 
 	useEffect(() => {
 		if (formState?.status === 'success') {
@@ -362,6 +367,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				</div>
 
 				{importError && <ErrorMessage error={importError} includeTitle={false} />}
+				{importMessage && <SuccessMessage message={importMessage} includeTitle={false} />}
 
 				<div className="grid w-full items-center gap-1.5">
 					<Label htmlFor="title">
