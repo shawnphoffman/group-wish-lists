@@ -35,12 +35,12 @@ export default async function RecentItems() {
 						item.lists.recipient_user_id === currentUser?.id
 							? `/lists/${item.lists.id}/edit#item-${item.id}`
 							: `/lists/${item.lists.id}#item-${item.id}`
+					item.url = url
 					const user = users?.find(user => user.user_id === item.user.user_id)
 					if (user?.image) {
 						item.user.image = user.image
 					}
 					// console.log('RecentItems', item)
-					item.url = url
 					return (
 						<Fragment key={`group-${item.id}`}>
 							<Card className="bg-accent">
