@@ -195,23 +195,38 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						// signal: ctr.signal,
 					})
 					apiData = await resp2.json()
-					if (apiData?.og?.image || apiData?.images?.length) {
+					if (apiData?.og?.['og:image'] || apiData?.images?.length) {
+						const ogUrl = apiData.meta.url || apiData.og?.['og:url']
+						// If og:url does not look like an absolute URL, use original "url" instead
+						let resolvedOgUrl = ogUrl
+						try {
+							const tempUrlObj = new URL(ogUrl)
+							// If the constructor doesn't throw, use ogUrl as is
+						} catch {
+							// ogUrl is not a valid absolute URL, fall back to original url variable
+							resolvedOgUrl = url
+						}
+
 						const temp = mergician(data, {
 							result: {
 								success: true,
-								ogUrl: apiData.meta.url || apiData.og.url,
-								ogTitle: apiData.meta.title || apiData.og.title,
-								ogDescription: apiData.meta.description || apiData.og.description,
-								ogType: apiData.og.type,
-								ogSiteName: apiData.og.site_name,
+								ogUrl: resolvedOgUrl,
+								ogTitle: apiData.meta.title || apiData.og?.['og:title'],
+								ogDescription: apiData.meta.description || apiData.og?.['og:description'],
+								ogType: apiData.og?.['og:type'],
+								ogSiteName: apiData.og?.['og:site_name'],
+								ogPrice: apiData.og?.['og:price:amount'],
+								ogPriceCurrency: apiData.og?.['og:price:currency'],
+								ogAvailability: apiData.og?.['og:availability'],
 								ogImage: [
 									{
-										url: apiData.og.image,
+										url: apiData.og?.['og:image'],
 									},
 									...apiData.images.map((x: { src: string }) => ({ url: x.src })),
 								],
 							},
 						})
+
 						data = temp
 					}
 					// clearTimeout(tmt)
