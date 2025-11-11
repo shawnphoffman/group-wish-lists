@@ -145,7 +145,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const handleUrlImport = useCallback(async () => {
 		setImporting(true)
 		if (importError) setImportError('')
-		let data
+		let data: any = {}
 
 		const controller = new AbortController()
 		const timeout = setTimeout(() => controller.abort(), 10000) // 10 second timeout
@@ -182,14 +182,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				}
 			}
 
-			// console.log('apiData', { apiData })
-
 			if ((apiData?.images?.length || 0) < 2) {
-				// const resp = await fetch(`/api/scraper?url=${url}`)
-				// data = await resp.json()
-				// if (!data?.result?.ogImage?.length) {
-				// const ctr = new AbortController()
-				// const tmt = setTimeout(() => ctr.abort(), 30000) // 10 second timeout
 				try {
 					const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`, {
 						// signal: ctr.signal,
@@ -207,45 +200,48 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							resolvedOgUrl = url
 						}
 
-						const temp = mergician(data, {
-							result: {
-								success: true,
-								ogUrl: resolvedOgUrl,
-								ogTitle: apiData.meta.title || apiData.og?.['og:title'],
-								ogDescription: apiData.meta.description || apiData.og?.['og:description'],
-								ogType: apiData.og?.['og:type'],
-								ogSiteName: apiData.og?.['og:site_name'],
-								ogPrice: apiData.og?.['og:price:amount'],
-								ogPriceCurrency: apiData.og?.['og:price:currency'],
-								ogAvailability: apiData.og?.['og:availability'],
-								ogImage: [
-									{
-										url: apiData.og?.['og:image'],
-									},
-									...apiData.images.map((x: { src: string }) => ({ url: x.src })),
-								],
-							},
-						})
-
+						let temp: any = null
+						try {
+							const newData = {
+								result: {
+									success: true,
+									ogUrl: resolvedOgUrl,
+									ogTitle: apiData.meta.title || apiData.og?.['og:title'],
+									ogDescription: apiData.meta.description || apiData.og?.['og:description'],
+									ogType: apiData.og?.['og:type'],
+									ogSiteName: apiData.og?.['og:site_name'],
+									ogPrice: apiData.og?.['og:price:amount'],
+									ogPriceCurrency: apiData.og?.['og:price:currency'],
+									ogAvailability: apiData.og?.['og:availability'],
+									ogImage: [
+										{
+											url: apiData.og?.['og:image'],
+										},
+										...apiData.images.map((x: { src: string }) => ({ url: x.src })),
+									],
+								},
+							}
+							// Only merge if data exists, otherwise use newData directly
+							temp = data ? mergician(data, newData) : newData
+						} catch (error) {
+							console.log('scrape error 2', error)
+						}
 						data = temp
 					}
-					// clearTimeout(tmt)
 				} catch (error) {
 					if ((error as Error).name === 'AbortError') {
 						setImportError('Request timeout 3. Trying something else...')
 					}
-					// }
 				}
 			}
 		} catch (error) {
+			console.log('scrape error 1', error)
 			data = error
 		} finally {
 			if (data?.result?.success) {
 				setImportError('')
 			}
 		}
-
-		// console.log('data', { data })
 
 		if (data?.result?.success) {
 			if (data.result.ogTitle) {
