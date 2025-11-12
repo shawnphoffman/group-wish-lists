@@ -11,8 +11,12 @@ type Props = {
 export default function SuccessMessage({ message = 'Successfully updated.', includeTitle = true }: Props) {
 	return (
 		<Alert className="border-primary !text-primary">
-			<FontAwesomeIcon icon={faCircleCheck} className="text-xl !text-primary" />
-			{includeTitle && <AlertTitle>Success</AlertTitle>}
+			{includeTitle && (
+				<>
+					<FontAwesomeIcon icon={faCircleCheck} className="text-xl !text-primary" />
+					<AlertTitle>Success</AlertTitle>
+				</>
+			)}
 			<AlertDescription>{message}</AlertDescription>
 		</Alert>
 	)

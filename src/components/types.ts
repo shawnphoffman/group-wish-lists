@@ -99,6 +99,9 @@ export type ScrapeResponse = {
 		ogDescription?: string
 		ogType?: string
 		ogSiteName?: string
+		ogPrice?: string
+		ogPriceCurrency?: string
+		ogAvailability?: string
 		ogImage?: OgImage[]
 		ogLocale?: string
 		charset?: string

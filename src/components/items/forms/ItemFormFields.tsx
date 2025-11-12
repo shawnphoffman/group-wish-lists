@@ -22,6 +22,7 @@ import ItemImage from '../components/ItemImage'
 import ItemImagePicker from '../components/ItemImagePicker'
 import MarkdownBlock from '../components/MarkdownBlock'
 import SuccessMessage from '@/components/common/SuccessMessage'
+import PlainMessage from '@/components/common/PlainMessage'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -45,6 +46,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [importing, setImporting] = useState(false)
 	const [importError, setImportError] = useState('')
 	const [importMessage, setImportMessage] = useState('')
+	const [importSuccess, setImportSuccess] = useState('')
 
 	const [isTransitionPending, startTransition] = useTransition()
 	const { pending: isFormPending } = useFormStatus()
@@ -79,6 +81,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	useEffect(() => {
 		if (!scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
+		if (scrape.result?.ogPrice) setPrice(scrape.result.ogPrice)
+		// if (scrape.result?.ogPriceCurrency) setPriceCurrency(scrape.result.ogPriceCurrency)
+		// if (scrape.result?.ogAvailability) setAvailability(scrape.result.ogAvailability)
 
 		if (!item) {
 			const imageUrl = getImageFromScrape(scrape)
@@ -136,6 +141,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setUrl(e.target.value)
 		setImportError('')
 		setImportMessage('')
+		setImportSuccess('')
 	}, [])
 
 	const handleChangePriority = useCallback(value => {
@@ -146,6 +152,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setImporting(true)
 		setImportError('')
 		setImportMessage('')
+		setImportSuccess('')
 		let data: any = {}
 
 		const controller = new AbortController()
@@ -153,85 +160,90 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 		let apiData: any = null
 		try {
+			// ==============================
 			try {
-				const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`, {
-					signal: controller.signal,
+				setImportMessage('Scraping attempt #1...')
+				const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`, {
+					// signal: ctr.signal,
 				})
-				apiData = await apiResp.json()
-				clearTimeout(timeout)
+				apiData = await resp2.json()
+				if (apiData?.og?.['og:image'] || apiData?.images?.length) {
+					const ogUrl = apiData.meta.url || apiData.og?.['og:url']
+					// If og:url does not look like an absolute URL, use original "url" instead
+					let resolvedOgUrl = ogUrl
+					try {
+						const tempUrlObj = new URL(ogUrl)
+						// If the constructor doesn't throw, use ogUrl as is
+					} catch {
+						// ogUrl is not a valid absolute URL, fall back to original url variable
+						resolvedOgUrl = url
+					}
+
+					let temp: any = null
+					try {
+						const newData = {
+							result: {
+								success: true,
+								ogUrl: resolvedOgUrl,
+								ogTitle: apiData.meta.title || apiData.og?.['og:title'],
+								ogDescription: apiData.meta.description || apiData.og?.['og:description'],
+								ogType: apiData.og?.['og:type'],
+								ogSiteName: apiData.og?.['og:site_name'],
+								ogPrice: apiData.og?.['og:price:amount'],
+								ogPriceCurrency: apiData.og?.['og:price:currency'],
+								ogAvailability: apiData.og?.['og:availability'],
+								ogImage: [
+									{
+										url: apiData.og?.['og:image'],
+									},
+									...apiData.images.map((x: { src: string }) => ({ url: x.src })),
+								],
+							},
+						}
+						// Only merge if data exists, otherwise use newData directly
+						temp = data ? mergician(data, newData) : newData
+					} catch (error) {
+						console.log('scrape error 2', error)
+					}
+					data = temp
+				}
 			} catch (error) {
 				if ((error as Error).name === 'AbortError') {
-					setImportError('Request timeout. Trying something else...')
+					setImportError('Request timeout 3. Trying something else...')
 				}
 			}
-			if (apiData?.og?.image || apiData?.images?.length) {
-				data = {
-					result: {
-						success: true,
-						ogUrl: apiData?.meta?.url || apiData?.og?.url,
-						ogTitle: apiData?.meta?.title || apiData?.og?.title,
-						ogDescription: apiData?.meta?.description || apiData?.og?.description,
-						ogType: apiData?.og?.type,
-						ogSiteName: apiData?.og?.site_name,
-						ogImage: [
-							{
-								url: apiData?.og?.image,
-							},
-							...apiData?.images?.map((x: { src: string }) => ({ url: x.src })),
-						],
-					},
-				}
-			}
-
 			if ((apiData?.images?.length || 0) < 2) {
+				setImportMessage('Scraping attempt #2...')
 				try {
-					const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`, {
-						// signal: ctr.signal,
+					const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`, {
+						signal: controller.signal,
 					})
-					apiData = await resp2.json()
-					if (apiData?.og?.['og:image'] || apiData?.images?.length) {
-						const ogUrl = apiData.meta.url || apiData.og?.['og:url']
-						// If og:url does not look like an absolute URL, use original "url" instead
-						let resolvedOgUrl = ogUrl
-						try {
-							const tempUrlObj = new URL(ogUrl)
-							// If the constructor doesn't throw, use ogUrl as is
-						} catch {
-							// ogUrl is not a valid absolute URL, fall back to original url variable
-							resolvedOgUrl = url
-						}
-
-						let temp: any = null
-						try {
-							const newData = {
-								result: {
-									success: true,
-									ogUrl: resolvedOgUrl,
-									ogTitle: apiData.meta.title || apiData.og?.['og:title'],
-									ogDescription: apiData.meta.description || apiData.og?.['og:description'],
-									ogType: apiData.og?.['og:type'],
-									ogSiteName: apiData.og?.['og:site_name'],
-									ogPrice: apiData.og?.['og:price:amount'],
-									ogPriceCurrency: apiData.og?.['og:price:currency'],
-									ogAvailability: apiData.og?.['og:availability'],
-									ogImage: [
-										{
-											url: apiData.og?.['og:image'],
-										},
-										...apiData.images.map((x: { src: string }) => ({ url: x.src })),
-									],
-								},
-							}
-							// Only merge if data exists, otherwise use newData directly
-							temp = data ? mergician(data, newData) : newData
-						} catch (error) {
-							console.log('scrape error 2', error)
-						}
-						data = temp
-					}
+					apiData = await apiResp.json()
+					clearTimeout(timeout)
 				} catch (error) {
 					if ((error as Error).name === 'AbortError') {
-						setImportError('Request timeout 3. Trying something else...')
+						setImportError('Request timeout. Trying something else...')
+					}
+				}
+				if (apiData?.og?.image || apiData?.images?.length) {
+					data = {
+						result: {
+							success: true,
+							ogUrl: apiData?.meta?.url || apiData?.og?.url,
+							ogTitle: apiData?.meta?.title || apiData?.og?.title,
+							ogDescription: apiData?.meta?.description || apiData?.og?.description,
+							ogType: apiData?.og?.type,
+							ogPrice: apiData?.og?.price,
+							ogPriceCurrency: apiData?.og?.priceCurrency,
+							ogAvailability: apiData?.og?.availability,
+							ogSiteName: apiData?.og?.site_name,
+							ogImage: [
+								{
+									url: apiData?.og?.image,
+								},
+								...apiData?.images?.map((x: { src: string }) => ({ url: x.src })),
+							],
+						},
 					}
 				}
 			}
@@ -270,13 +282,15 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				}
 			}
 
-			setImportMessage(
+			setImportMessage('')
+			setImportSuccess(
 				"We tried our best. If things don't look right, try again a little bit later or manually enter the information below."
 			)
 			setScrape(data)
 		} else {
 			setImportError('Sorry. No data found for this URL. Maybe try again later?')
 			setImportMessage('')
+			setImportSuccess('')
 		}
 
 		setImporting(false)
@@ -367,7 +381,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				</div>
 
 				{importError && <ErrorMessage error={importError} includeTitle={false} />}
-				{importMessage && <SuccessMessage message={importMessage} includeTitle={false} />}
+				{importMessage && <PlainMessage message={importMessage} />}
+				{importSuccess && <SuccessMessage message={importSuccess} includeTitle={false} />}
 
 				<div className="grid w-full items-center gap-1.5">
 					<Label htmlFor="title">
