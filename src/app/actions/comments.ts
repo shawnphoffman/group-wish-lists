@@ -39,21 +39,24 @@ export const createComment = async (prevState: any, formData: FormData) => {
 	// Only send email if insert succeeded; do not block response
 	if (!resp?.error && comm) {
 		const listResp = await getListById(comm.listItem.list_id)
-		const recipientUser = await getUserById(listResp?.recipient_user_id)
-		const username = recipientUser?.display_name
-		const recipient = await getUserEmail(recipientUser?.user_id)
-		const commenter = comm.user.display_name
-		const itemTitle = comm.listItem.title
-		const listId = comm.listItem.list_id
 
-		if (username && recipient) {
-			// Fire and forget - don't await
-			console.log('createComment.email', { username, recipient, commenter, itemTitle, listId, itemId })
-			sendNewCommentEmail(username, recipient, commenter, comment, itemTitle, listId, Number(itemId)).catch(error =>
-				console.error('createComment.emailError 1', error)
-			)
-		} else {
-			console.error('createComment.emailError 2', { username, recipient })
+		if (listResp?.recipient_user_id !== comm.user.user_id) {
+			const recipientUser = await getUserById(listResp?.recipient_user_id)
+			const username = recipientUser?.display_name
+			const recipient = await getUserEmail(recipientUser?.user_id)
+			const commenter = comm.user.display_name
+			const itemTitle = comm.listItem.title
+			const listId = comm.listItem.list_id
+
+			if (username && recipient) {
+				// Fire and forget - don't await
+				console.log('createComment.email', { username, recipient, commenter, itemTitle, listId, itemId })
+				sendNewCommentEmail(username, recipient, commenter, comment, itemTitle, listId, Number(itemId)).catch(error =>
+					console.error('createComment.emailError 1', error)
+				)
+			} else {
+				console.error('createComment.emailError 2', { username, recipient })
+			}
 		}
 	}
 
