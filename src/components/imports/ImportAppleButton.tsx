@@ -96,8 +96,8 @@ export default function ImportAppleButton({ listId }: Props) {
 					</Button>
 					{loading && <FontAwesomeIcon icon={faSpinnerScale} fixedWidth spinPulse className="self-center text-xl" />}
 				</div>
-				<DialogFooter>
-					{data.length > 0 && (
+				{data.length > 0 && (
+					<DialogFooter>
 						<div className="flex flex-col w-full gap-2">
 							<DialogTitle>Conversion Results</DialogTitle>
 							<div className="flex flex-col w-full gap-1">
@@ -116,8 +116,8 @@ export default function ImportAppleButton({ listId }: Props) {
 								{loading ? 'Importing...' : 'Import Conversion'}
 							</Button>
 						</div>
-					)}
-				</DialogFooter>
+					</DialogFooter>
+				)}
 			</DialogContent>
 		</Dialog>
 	)
