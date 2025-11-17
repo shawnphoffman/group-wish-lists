@@ -135,6 +135,9 @@
 	.animate-page-in {
 		animation: animatePageIn 0.3s ease 0.15s both;
 	}
+	.animate-page-in-delayed {
+		animation: animatePageIn 0.3s ease 1.15s both;
+	}
 
 	@keyframes animatePageIn {
 		from {

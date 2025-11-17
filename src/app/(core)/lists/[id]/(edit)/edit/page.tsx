@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { getSessionUser } from '@/app/actions/auth'
 import { getEditableList } from '@/app/actions/lists'
@@ -36,7 +36,7 @@ const ShowList = async ({ params }: ClientProps) => {
 	])
 
 	if (error || !list) {
-		return notFound()
+		return redirect(`/lists/${listId}`)
 	}
 
 	// console.log('list', list)
