@@ -105,9 +105,9 @@ export default async function ItemRowSimple({ item }: Props) {
 								{item.created_at && (
 									<div
 										className="text-xs italic break-words whitespace-pre-line text-muted-foreground/50"
-										title={formatDateBasedOnAge(item.created_at)}
+										title={formatDateBasedOnAge(item.updated_at)}
 									>
-										Added: {formatDistance(new Date(item.created_at), new Date(), { addSuffix: true })}
+										Updated: {formatDistance(new Date(item.updated_at), new Date(), { addSuffix: true })}
 									</div>
 								)}
 							</div>

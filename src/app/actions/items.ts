@@ -244,7 +244,7 @@ export const getRecentItems = async () => {
 		const resp = await supabase
 			.from('list_items')
 			.select(
-				`id, list_id, title, created_at, image_url, priority,
+				`id, list_id, title, created_at, updated_at, image_url, priority,
 				lists!inner(id, name, recipient_user_id, private, active),
 				user:users!list_items_user_id_fkey1(user_id, display_name)
 				`
@@ -252,7 +252,7 @@ export const getRecentItems = async () => {
 			.is('archived', false)
 			.is('lists.private', false)
 			.is('lists.active', true)
-			.order('created_at', { ascending: false })
+			.order('updated_at', { ascending: false })
 			.limit(50)
 
 		// console.log('getCommentsGroupedByItem.resp', resp)
