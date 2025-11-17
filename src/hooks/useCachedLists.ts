@@ -4,9 +4,12 @@ import { useEffect, useState } from 'react'
 
 import { getMyLists } from '@/app/actions/lists'
 import { List } from '@/components/types'
+import { ListType } from '@/components/me/MyLists'
 
 export const useCachedLists = (type = 'all') => {
-	const [lists, setLists] = useState<List[]>([])
+	const [lists, setLists] = useState<
+		(List & { listType: 'public' | 'private' | 'gift_ideas' | 'shared_with_me' | 'shared_with_others' })[]
+	>([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 
@@ -18,16 +21,28 @@ export const useCachedLists = (type = 'all') => {
 				setLoading(true)
 				setError(null)
 
-				// Fetch both my lists and shared lists for MyListsSelect
-				const [{ data: myLists }, { data: sharedLists }] = await Promise.all([getMyLists(), getMyLists('shared_with_me')])
+				const [
+					{ data: publicLists },
+					{ data: privateLists },
+					{ data: giftIdeasList },
+					{ data: sharedWithMeLists },
+					{ data: sharedWithOthersLists },
+				] = await Promise.all([
+					getMyLists(ListType.PUBLIC),
+					getMyLists(ListType.PRIVATE),
+					getMyLists(ListType.GIFT_IDEAS),
+					getMyLists(ListType.SHARED_WITH_ME),
+					getMyLists(ListType.SHARED_WITH_OTHERS),
+				])
 
 				if (mounted) {
 					// TODO Change this stupid pattern
 					const allLists = [
-						//
-						...(myLists ? myLists.map(l => ({ ...l, _my_list: true })) : []),
-						//
-						...(sharedLists ? sharedLists.map(l => ({ ...l, _shared_with_me: true })) : []),
+						...(publicLists ? publicLists.map(l => ({ ...l, listType: 'public' })) : []),
+						...(privateLists ? privateLists.map(l => ({ ...l, listType: 'private' })) : []),
+						...(giftIdeasList ? giftIdeasList.map(l => ({ ...l, listType: 'gift_ideas' })) : []),
+						...(sharedWithMeLists ? sharedWithMeLists.map(l => ({ ...l, listType: 'shared_with_me' })) : []),
+						...(sharedWithOthersLists ? sharedWithOthersLists.map(l => ({ ...l, listType: 'shared_with_others' })) : []),
 					]
 
 					setLists(allLists)

@@ -1,7 +1,7 @@
 'use client'
 
 import { startTransition, useCallback, useEffect, useState } from 'react'
-import { RadioGroup } from '@headlessui/react'
+import { RadioGroup, Radio } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 
 import { moveItem, moveItems } from '@/app/actions/items'
@@ -55,14 +55,14 @@ export default function MyListsSelect({ id, listId, ids }: Props) {
 		<fieldset className="flex flex-col items-center gap-2 pt-2 sm:flex-row !leading-none" disabled={loading || ids?.size === 0}>
 			<RadioGroup value={list} onChange={setList} className="items-start flex flex-col gap-0.5 text-left flex-1 w-full">
 				{lists.map(list => (
-					<RadioGroup.Option value={list} key={list.id} className={'grid'}>
+					<Radio value={list} key={list.id} className={'grid'}>
 						{({ checked }) => (
 							<Button variant={checked ? 'secondary' : 'ghost'} size="sm" className="">
 								{list.id === Number(listId) ? <>{list.name} (Current)</> : list.name}
 								{list?.private && <LockIcon />}
 							</Button>
 						)}
-					</RadioGroup.Option>
+					</Radio>
 				))}
 			</RadioGroup>
 			<Button variant={'outline'} disabled={listId === list.id} onClick={handleMoveItem}>

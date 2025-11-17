@@ -4,17 +4,11 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import EmptyMessage from '@/components/common/EmptyMessage'
-import {
-	// DeleteIcon,
-	MoveIcon,
-} from '@/components/icons/Icons'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import MoveItemButtonDialog from '@/components/items/components/MoveItemButtonDialog'
-import MyListsSelect from '@/components/items/components/MyListsSelect'
 import ItemRowSelectable from '@/components/items/ItemRowSelectable'
 import { List, ListItem } from '@/components/types'
-import { Button, buttonVariants } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { buttonVariants } from '@/components/ui/button'
 
 type ClientProps = { id: List['id']; items: ListItem[]; list: List }
 
@@ -34,10 +28,6 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 			return newSet
 		})
 	}
-
-	// const handleDeleteClick = () => {
-	// 	console.log('delete', selectedItems)
-	// }
 
 	useEffect(() => {
 		// Reset selected items if any selected items are not in visible items
@@ -65,17 +55,6 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 						Go Back
 					</Link>
 					<MoveItemButtonDialog listId={id} ids={selectedItems} />
-					{/* <MoveItemsButton id={id} selectedItems={selectedItems} /> */}
-					{/* <Button
-						variant="outline"
-						type="button"
-						size="sm"
-						onClick={handleDeleteClick}
-						className={`group ${selectedItems.size === 0 ? 'opacity-50 pointer-events-none' : ''}`}
-					>
-						Delete ({selectedItems.size})
-						<DeleteIcon />
-					</Button> */}
 				</div>
 			</div>
 			<div className="flex flex-col w-full gap-2 px-0">
@@ -97,34 +76,6 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 				)}
 			</div>
 		</div>
-	)
-}
-
-function MoveItemsButton({ id, selectedItems }: { id: List['id']; selectedItems: Set<string> }) {
-	const [open, setOpen] = useState(false)
-
-	useEffect(() => {
-		if (selectedItems.size === 0) {
-			setOpen(false)
-		}
-	}, [selectedItems])
-
-	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				<Button variant="outline" size="sm" className={`gap-1 group ${selectedItems.size === 0 ? 'opacity-50 pointer-events-none' : ''}`}>
-					Move ({selectedItems.size})
-					<MoveIcon />
-				</Button>
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Move Items</DialogTitle>
-					<DialogDescription>What list would you like to move the {selectedItems.size} items to?</DialogDescription>
-				</DialogHeader>
-				<MyListsSelect listId={id} ids={selectedItems} />
-			</DialogContent>
-		</Dialog>
 	)
 }
 

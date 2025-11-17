@@ -10,7 +10,6 @@ import { twMerge } from 'tailwind-merge'
 import { deleteItem } from '@/app/actions/items'
 import { CancelIcon, DeleteIcon, EditIcon, MoveIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
-import ItemCheckbox from '@/components/items/components/ItemCheckbox'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
 import { ListItem } from '@/components/types'
@@ -25,7 +24,6 @@ import ItemComments from '../comments/ItemComments'
 import ItemCheckboxClient from './components/ItemCheckboxClient'
 import MarkdownBlock from './components/MarkdownBlock'
 import MoveItemButtonDialog from './components/MoveItemButtonDialog'
-// import MyListsSelect from './components/MyListsSelect'
 
 type Props = {
 	item: ListItem
@@ -33,7 +31,6 @@ type Props = {
 }
 
 export default function ItemRowEditable({ item, listType }: Props) {
-	// const [isMoving, setIsMoving] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 
@@ -43,11 +40,6 @@ export default function ItemRowEditable({ item, listType }: Props) {
 	const handleEditClick = useCallback(() => {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
-
-	// const handleDuplicateClick = useCallback(() => {
-	// 	// TODO
-	// 	console.log('DUPLICATE ITEM')
-	// }, [])
 
 	const handleDeleteClick = useCallback(async () => {
 		if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
@@ -142,7 +134,6 @@ export default function ItemRowEditable({ item, listType }: Props) {
 							</div>
 							{/* Notes */}
 							{item.notes && (
-								//
 								<div className="inline-flex flex-col gap-0 text-sm text-foreground/75">
 									<MarkdownBlock>{item.notes}</MarkdownBlock>
 								</div>
@@ -165,7 +156,6 @@ export default function ItemRowEditable({ item, listType }: Props) {
 										onClick={handleEditClick}
 										className={`text-base sm:text-xl group `}
 									>
-										{/* <span className="inline text-sm sm:hidden">Cancel</span> */}
 										<CancelIcon />
 									</Button>
 								) : (
@@ -177,7 +167,6 @@ export default function ItemRowEditable({ item, listType }: Props) {
 										onClick={handleEditClick}
 										className={`text-base sm:text-xl group `}
 									>
-										{/* <span className="inline text-sm sm:hidden">Edit</span> */}
 										<EditIcon />
 									</Button>
 								)}
@@ -193,17 +182,6 @@ export default function ItemRowEditable({ item, listType }: Props) {
 								Delete
 								<DeleteIcon />
 							</Button>
-							{/* <Button
-								variant="outline"
-								type="button"
-								size="sm"
-								onClick={() => {
-									setIsMoving(!isMoving)
-								}}
-							>
-								Move
-								<MoveIcon />
-							</Button> */}
 							<MoveItemButtonDialog id={item.id} listId={item.list_id} />
 							{item.url && (
 								<Button variant="outline" type="button" size="sm" className="group" asChild>
@@ -213,15 +191,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 									</Link>
 								</Button>
 							)}
-							{/* {!isDeployed && (
-									// TODO
-									<button type="button" className="nav-btn orange" onClick={handleDuplicateClick}>
-										<FontAwesomeIcon icon={faCopy} />
-										Duplicate
-									</button>
-								)} */}
 						</div>
-						{/* {isMoving && <MyListsSelect id={item.id} listId={item.list_id} />} */}
 						<EditItemForm listId={item.list_id} item={item} />
 					</>
 				)}
