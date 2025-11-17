@@ -23,6 +23,7 @@ import {
 // import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCachedLists } from '@/hooks/useCachedLists'
+import { removeEmojis } from '@/components/imports/ImportUrlClient'
 
 type Props = { listId: List['id']; id?: ListItem['id']; ids?: Set<ListItem['id']> }
 
@@ -35,28 +36,54 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 
 	let myPublicLists: List[] = []
 	let myPrivateLists: List[] = []
+	let giftIdeasList: List[] = []
 	let sharedWithMeLists: List[] = []
+	// let sharedWithOthersLists: List[] = []
 
 	lists.forEach(l => {
-		if ((l as ListSharedWithMe).sharer_id) {
-			sharedWithMeLists.push(l)
-		} else if (l.private) {
-			myPrivateLists.push(l)
-		} else {
+		if (l.listType === 'public') {
 			myPublicLists.push(l)
+		} else if (l.listType === 'private') {
+			myPrivateLists.push(l)
+		} else if (l.listType === 'gift_ideas') {
+			giftIdeasList.push(l)
+		} else if (l.listType === 'shared_with_me') {
+			sharedWithMeLists.push(l)
+			// } else if (l.listType === 'shared_with_others') {
+			// 	sharedWithOthersLists.push(l)
 		}
 	})
 
+	myPublicLists.sort((a, b) => {
+		// Primary lists always come first
+		if (a.primary && !b.primary) return -1
+		if (!a.primary && b.primary) return 1
+
+		// const typeCompare = a.type.localeCompare(b.type)
+		// if (typeCompare !== 0) return typeCompare
+		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
+	})
+
 	myPrivateLists.sort((a, b) => {
-		const typeCompare = a.type.localeCompare(b.type)
-		if (typeCompare !== 0) return typeCompare
-		return a.name.localeCompare(b.name)
+		// Primary lists always come first
+		if (a.primary && !b.primary) return -1
+		if (!a.primary && b.primary) return 1
+
+		// const typeCompare = a.type.localeCompare(b.type)
+		// if (typeCompare !== 0) return typeCompare
+		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
+	})
+
+	giftIdeasList.sort((a, b) => {
+		// const typeCompare = a.type.localeCompare(b.type)
+		// if (typeCompare !== 0) return typeCompare
+		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
 	})
 
 	sharedWithMeLists.sort((a, b) => {
-		const typeCompare = a.type.localeCompare(b.type)
-		if (typeCompare !== 0) return typeCompare
-		return a.name.localeCompare(b.name)
+		// const typeCompare = a.type.localeCompare(b.type)
+		// if (typeCompare !== 0) return typeCompare
+		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
 	})
 
 	// Set the current list when lists are loaded

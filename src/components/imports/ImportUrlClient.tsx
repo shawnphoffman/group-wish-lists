@@ -16,7 +16,7 @@ type Props = {
 }
 
 // Helper function to remove emojis from a string for sorting
-function removeEmojis(str: string): string {
+export function removeEmojis(str: string): string {
 	// Remove emojis using a regex that matches emoji Unicode ranges
 	return str
 		.replace(
@@ -51,10 +51,6 @@ export default function ImportUrlClient({ lists, list }: Props) {
 			// } else if (l.listType === 'shared_with_others') {
 			// 	sharedWithOthersLists.push(l)
 		}
-	})
-
-	myPrivateLists.forEach(l => {
-		console.log(removeEmojis(l.name), l.type)
 	})
 
 	myPublicLists.sort((a, b) => {
