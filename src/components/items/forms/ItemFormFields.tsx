@@ -308,6 +308,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				setQty(1)
 				setTags([])
 				setScrape(undefined)
+				setTagsInput('')
+				setImportError('')
+				setImportMessage('')
+				setImportSuccess('')
 				if (pathname === '/import') {
 					router.push(`/lists/${listId}/edit`)
 				} else {
