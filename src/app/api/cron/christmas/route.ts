@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import ChristmasEmail from '@/emails/christmas-email'
-import { resendClient } from '@/utils/resend'
+import { resendClient, getFromEmail } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(req: Request) {
@@ -35,7 +35,7 @@ export async function GET(req: Request) {
 
 				await resendClient.emails.send(
 					{
-						from: process.env.RESEND_FROM_EMAIL!,
+						from: getFromEmail(),
 						to: user?.email,
 						bcc: ['shawn@sent.as'],
 						subject: 'Merry Christmas! 🎄',

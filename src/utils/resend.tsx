@@ -4,6 +4,12 @@ import NewCommentEmail from '@/emails/new-comment-email'
 
 export const resendClient = new Resend(process.env.RESEND_API_KEY)
 
+export const getFromEmail = (): string => {
+	const email = process.env.RESEND_FROM_EMAIL!
+	const name = process.env.RESEND_FROM_NAME
+	return name ? `${name} <${email}>` : email
+}
+
 export const sendNewCommentEmail = async (
 	username: string,
 	recipient: string,
@@ -14,7 +20,7 @@ export const sendNewCommentEmail = async (
 	itemId: number
 ) => {
 	const emailResp = await resendClient.emails.send({
-		from: process.env.RESEND_FROM_EMAIL!,
+		from: getFromEmail(),
 		to: recipient,
 		bcc: ['shawn@sent.as'],
 		subject: 'New Comment on Wish Lists',
