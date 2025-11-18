@@ -66,14 +66,10 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
-							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
+							<div className="flex flex-row items-start flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
-									<Link
-										href={item.url!}
-										target="_blank"
-										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline `}
-									>
+									<Link href={item.url!} target="_blank" className={`flex flex-col gap-0.5 md:gap-1 overflow-hidden hover:underline`}>
 										{item.title}
 										<div className="flex flex-row items-center gap-1">
 											<FontAwesomeIcon
@@ -89,7 +85,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										~{item.price}
+										{item.price}
 									</Badge>
 								)}
 

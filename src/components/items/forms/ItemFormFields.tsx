@@ -5,7 +5,6 @@ import { useFormStatus } from 'react-dom'
 import { faArrowsRotate, faAsterisk, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Tag, TagInput } from 'emblor'
-import { mergician } from 'mergician'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -23,6 +22,8 @@ import ItemImagePicker from '../components/ItemImagePicker'
 import MarkdownBlock from '../components/MarkdownBlock'
 import SuccessMessage from '@/components/common/SuccessMessage'
 import PlainMessage from '@/components/common/PlainMessage'
+import { scrapeUrl1, scrapeUrl2 } from '@/utils/scrapers/scraper'
+import { scrapeUrlOld } from '@/utils/scrapers/scraper-old'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -163,92 +164,30 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			// ==============================
 			try {
 				setImportMessage('Scraping attempt #1...')
-				const resp2 = await fetch(`https://api.shawn.party/api/open-graph/scrape?url=${url}`, {
-					// signal: ctr.signal,
-				})
-				apiData = await resp2.json()
-				if (apiData?.og?.['og:image'] || apiData?.images?.length) {
-					const ogUrl = apiData.meta.url || apiData.og?.['og:url']
-					// If og:url does not look like an absolute URL, use original "url" instead
-					let resolvedOgUrl = ogUrl
-					try {
-						const tempUrlObj = new URL(ogUrl)
-						// If the constructor doesn't throw, use ogUrl as is
-					} catch {
-						// ogUrl is not a valid absolute URL, fall back to original url variable
-						resolvedOgUrl = url
-					}
-
-					let temp: any = null
-					try {
-						const newData = {
-							result: {
-								success: true,
-								ogUrl: resolvedOgUrl,
-								ogTitle: apiData.meta.title || apiData.og?.['og:title'],
-								ogDescription: apiData.meta.description || apiData.og?.['og:description'],
-								ogType: apiData.og?.['og:type'],
-								ogSiteName: apiData.og?.['og:site_name'],
-								ogPrice: apiData.og?.['og:price:amount'],
-								ogPriceCurrency: apiData.og?.['og:price:currency'],
-								ogAvailability: apiData.og?.['og:availability'],
-								ogImage: [
-									{
-										url: apiData.og?.['og:image'],
-									},
-									...apiData.images.map((x: { src: string }) => ({ url: x.src })),
-								],
-							},
-						}
-						// Only merge if data exists, otherwise use newData directly
-						temp = data ? mergician(data, newData) : newData
-					} catch (error) {
-						console.log('scrape error 2', error)
-					}
-					data = temp
-				}
-			} catch (error) {
-				if ((error as Error).name === 'AbortError') {
-					setImportError('Request timeout 3. Trying something else...')
-				}
+				data = await scrapeUrl1(url, data)
+			} catch (e) {
+				console.error('scrape error 1', e)
 			}
-			if ((apiData?.images?.length || 0) < 2) {
-				setImportMessage('Scraping attempt #2...')
+			if ((data?.result?.ogImage?.length || 0) < 2) {
 				try {
-					const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`, {
-						signal: controller.signal,
-					})
-					apiData = await apiResp.json()
-					clearTimeout(timeout)
-				} catch (error) {
-					if ((error as Error).name === 'AbortError') {
-						setImportError('Request timeout. Trying something else...')
-					}
+					// ==============================
+					setImportMessage('Scraping attempt #2...')
+					data = await scrapeUrl2(url, data)
+				} catch (e) {
+					console.error('scrape error 2', e)
 				}
-				if (apiData?.og?.image || apiData?.images?.length) {
-					data = {
-						result: {
-							success: true,
-							ogUrl: apiData?.meta?.url || apiData?.og?.url,
-							ogTitle: apiData?.meta?.title || apiData?.og?.title,
-							ogDescription: apiData?.meta?.description || apiData?.og?.description,
-							ogType: apiData?.og?.type,
-							ogPrice: apiData?.og?.price,
-							ogPriceCurrency: apiData?.og?.priceCurrency,
-							ogAvailability: apiData?.og?.availability,
-							ogSiteName: apiData?.og?.site_name,
-							ogImage: [
-								{
-									url: apiData?.og?.image,
-								},
-								...apiData?.images?.map((x: { src: string }) => ({ url: x.src })),
-							],
-						},
+				if ((data?.result?.ogImage?.length || 0) < 2) {
+					try {
+						// ==============================
+						setImportMessage('Scraping attempt #3...')
+						data = await scrapeUrlOld(url, data)
+					} catch (e) {
+						console.error('scrape error 3', e)
 					}
 				}
 			}
 		} catch (error) {
-			console.log('scrape error 1', error)
+			console.log('scrape error 0', error)
 			data = error
 		} finally {
 			if (data?.result?.success) {
@@ -256,9 +195,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			}
 		}
 
+		// AI Cleanup
 		if (data?.result?.success) {
 			if (data.result.ogTitle) {
 				try {
+					setImportMessage('Cleaning scraped data...')
 					const controller = new AbortController()
 					const timeout = setTimeout(() => controller.abort(), 5000)
 
@@ -286,8 +227,10 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			setImportSuccess(
 				"We tried our best. If things don't look right, try again a little bit later or manually enter the information below."
 			)
+			// TODO - Save the scrape data to the database
 			setScrape(data)
 		} else {
+			// TODO - Save the scrape data to the database
 			setImportError('Sorry. No data found for this URL. Maybe try again later?')
 			setImportMessage('')
 			setImportSuccess('')

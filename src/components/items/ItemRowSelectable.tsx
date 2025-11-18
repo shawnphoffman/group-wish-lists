@@ -73,7 +73,7 @@ export default function ItemRowSelectable({ item, onSelect }: Props) {
 								)}
 								{/* {item.price && (
 									<Badge variant="outline" className="whitespace-nowrap bg-card h-5 w-fit px-1.5 ml-2 text-[10px]">
-										~{item.price}
+										{item.price}
 									</Badge>
 								)} */}
 							</div>

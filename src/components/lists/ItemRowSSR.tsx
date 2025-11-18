@@ -15,9 +15,10 @@ import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority, ItemStatus } from '@/utils/enums'
 import { getDomainFromUrl } from '@/utils/urls'
 
-type ItemWithGifts = ListItem & Gift & {
-	gifts?: any[]
-}
+type ItemWithGifts = ListItem &
+	Gift & {
+		gifts?: any[]
+	}
 
 type Props = {
 	item: ItemWithGifts
@@ -33,9 +34,7 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const completeClass = ''
 
-	const additionalGifters = item?.additional_gifter_ids?.map(gifterId =>
-		users.find(u => u.user_id === gifterId)
-	).filter(Boolean) || []
+	const additionalGifters = item?.additional_gifter_ids?.map(gifterId => users.find(u => u.user_id === gifterId)).filter(Boolean) || []
 
 	return (
 		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`} id={`item-${item.id}`}>
@@ -60,14 +59,10 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
-							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
+							<div className="flex flex-row items-start flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
-									<Link
-										href={item.url!}
-										target="_blank"
-										className={`flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1 overflow-hidden hover:underline `}
-									>
+									<Link href={item.url!} target="_blank" className={`flex flex-col gap-0.5 overflow-hidden hover:underline`}>
 										{item.title}
 										<div className="flex flex-row items-center gap-1">
 											<FontAwesomeIcon
@@ -83,7 +78,7 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										~{item.price}
+										{item.price}
 									</Badge>
 								)}
 
