@@ -92,7 +92,7 @@ export async function GET(req: Request) {
 
 				await resendClient.emails.send(
 					{
-						from: 'HoffStuff <admin@hoffstuff.com>',
+						from: process.env.RESEND_FROM_EMAIL!,
 						to: recipient,
 						bcc: ['shawn@sent.as'],
 						// to: ['shawn@sent.as'],

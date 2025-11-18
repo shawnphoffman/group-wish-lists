@@ -14,7 +14,7 @@ export const sendNewCommentEmail = async (
 	itemId: number
 ) => {
 	const emailResp = await resendClient.emails.send({
-		from: 'HoffStuff <admin@hoffstuff.com>',
+		from: process.env.RESEND_FROM_EMAIL!,
 		to: recipient,
 		bcc: ['shawn@sent.as'],
 		subject: 'New Comment on Wish Lists',

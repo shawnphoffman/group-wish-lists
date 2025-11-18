@@ -35,7 +35,7 @@ export async function GET(req: Request) {
 
 				await resendClient.emails.send(
 					{
-						from: 'HoffStuff <admin@hoffstuff.com>',
+						from: process.env.RESEND_FROM_EMAIL!,
 						to: user?.email,
 						bcc: ['shawn@sent.as'],
 						subject: 'Merry Christmas! 🎄',
