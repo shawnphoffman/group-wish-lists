@@ -10,7 +10,7 @@ config.autoAddCss = false
 import { ThemeProvider } from '@/components/theme-provider'
 import { isDeployed } from '@/utils/environment'
 
-const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3002'
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || `http://localhost:${process.env.PORT || 3002}`
 
 export const viewport: Viewport = {
 	themeColor: '#0a0a0a',

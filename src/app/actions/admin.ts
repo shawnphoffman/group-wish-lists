@@ -2,7 +2,6 @@
 
 import { createSigner, createVerifier } from 'fast-jwt'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 import { createAdminClient } from '@/utils/supabase/admin'
 import { createClient } from '@/utils/supabase/server'
@@ -53,11 +52,7 @@ export const impersonateUser = async (email: string) => {
 	// Generate sign-in link for the target user
 	const { data: signInData, error: signInError } = await adminClient.auth.admin.generateLink({
 		type: 'magiclink',
-		// email: targetUser.email!,
 		email: email,
-		// options: {
-		// 	redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3002'}/auth/confirm`,
-		// },
 	})
 
 	if (signInError) {

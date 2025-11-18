@@ -5,8 +5,8 @@ export default function manifest(): MetadataRoute.Manifest {
 		short_name: 'Wish Lists',
 		name: 'Group Wish Lists',
 		description: 'Sharing wish lists made easy.',
-		scope: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3002',
-		start_url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3002',
+		scope: process.env.NEXT_PUBLIC_SITE_URL || `http://localhost:${process.env.PORT || 3002}`,
+		start_url: process.env.NEXT_PUBLIC_SITE_URL || `http://localhost:${process.env.PORT || 3002}`,
 		display: 'standalone',
 		theme_color: '#000000',
 		shortcuts: [
