@@ -23,7 +23,7 @@ export default async function RecentItems() {
 		// fakePromise
 	])
 
-	console.log('RecentItems', { users })
+	// console.log('RecentItems', { users })
 	// console.log('RecentItems', { data, error })
 
 	return (

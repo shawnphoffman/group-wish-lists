@@ -70,6 +70,7 @@ export default function AddCommentButton({ itemId }: Props) {
 						icon={faComments}
 						size="lg"
 						className="text-blue-500 hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
+						suppressHydrationWarning
 					/>
 				</Button>
 			</DialogTrigger>
