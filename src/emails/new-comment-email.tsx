@@ -9,7 +9,7 @@ interface TestEmailProps {
 	comment?: string
 }
 
-const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3002'
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3002'
 
 export function TestEmail({ username, commenter, listId, itemId, comment, itemTitle }: TestEmailProps) {
 	const itemUrl = `${baseUrl}/lists/${listId}#item-${itemId}`
