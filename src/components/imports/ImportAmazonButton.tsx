@@ -63,7 +63,7 @@ export default function ImportAmazonButton({ listId }: Props) {
 			const timeoutId = setTimeout(() => controller.abort(), 30000)
 
 			try {
-				const url = `https://api.shawn.party/api/amazon/wish-list/scrape?url=${encodeURIComponent(wishlistUrl)}`
+				const url = `${process.env.AMAZON_WISH_LIST_SCRAPE_URL}?url=${encodeURIComponent(wishlistUrl)}`
 				const resp = await fetch(url, { signal: controller.signal })
 
 				if (resp) {

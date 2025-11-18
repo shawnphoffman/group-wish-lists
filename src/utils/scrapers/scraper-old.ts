@@ -9,15 +9,16 @@ export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = 
 	let apiData: any = null
 
 	try {
-		const apiResp = await fetch(`https://api.shawn.party/api/open-graph?scrape=${url}`, {
+		const apiResp = await fetch(`${process.env.OPEN_GRAPH_SCRAPE_URL}?scrape=${url}`, {
 			signal: controller.signal,
 		})
 		apiData = await apiResp.json()
 		clearTimeout(timeout)
 	} catch (error) {
-		console.error('scraper-2.1 error', error)
-		throw new Error('scraper-2.1 error', { cause: error })
+		console.error('scraper-3.1 error', error)
+		throw new Error('scraper-3.1 error', { cause: error })
 	}
+
 	if (apiData?.og?.image || apiData?.images?.length) {
 		try {
 			const newData = {
@@ -41,8 +42,8 @@ export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = 
 			}
 			result = existingData ? mergician(existingData, newData) : newData
 		} catch (error) {
-			console.error('scraper-2.2 error', error)
-			throw new Error('scraper-2.2 error', { cause: error })
+			console.error('scraper-3.2 error', error)
+			throw new Error('scraper-3.2 error', { cause: error })
 		}
 	} else {
 		result = existingData

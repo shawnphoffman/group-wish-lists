@@ -16,11 +16,11 @@ export type ScrapeUrlResult = {
 }
 
 export const scrapeUrl1 = async (url: string, existingData: ScrapeUrlResult = {}) => {
-	return scrapeUrl(`https://api.shawn.party/api/open-graph/scrape/1?url=${url}`, url, existingData)
+	return scrapeUrl(`${process.env.SCRAPER_API_URL_1}?url=${url}`, url, existingData)
 }
 
 export const scrapeUrl2 = async (url: string, existingData: ScrapeUrlResult = {}) => {
-	return scrapeUrl(`https://api.shawn.party/api/open-graph/scrape/2?url=${url}`, url, existingData)
+	return scrapeUrl(`${process.env.SCRAPER_API_URL_2}?url=${url}`, url, existingData)
 }
 
 const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlResult = {}) => {

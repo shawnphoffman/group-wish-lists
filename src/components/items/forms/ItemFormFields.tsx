@@ -24,6 +24,7 @@ import SuccessMessage from '@/components/common/SuccessMessage'
 import PlainMessage from '@/components/common/PlainMessage'
 import { scrapeUrl1, scrapeUrl2 } from '@/utils/scrapers/scraper'
 import { scrapeUrlOld } from '@/utils/scrapers/scraper-old'
+import { scrapeUrlLocal } from '@/utils/scrapers/scraper-local'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -156,33 +157,44 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setImportSuccess('')
 		let data: any = {}
 
-		const controller = new AbortController()
-		const timeout = setTimeout(() => controller.abort(), 10000) // 10 second timeout
-
-		let apiData: any = null
 		try {
-			// ==============================
-			try {
-				setImportMessage('Scraping attempt #1...')
-				data = await scrapeUrl1(url, data)
-			} catch (e) {
-				console.error('scrape error 1', e)
+			// SCRAPE 1 ==============================
+			if (process.env.SCRAPER_API_URL_1) {
+				try {
+					setImportMessage('Scraping attempt #1...')
+					data = await scrapeUrl1(url, data)
+				} catch (e) {
+					console.error('scrape error 1', e)
+				}
 			}
 			if ((data?.result?.ogImage?.length || 0) < 2) {
-				try {
-					// ==============================
-					setImportMessage('Scraping attempt #2...')
-					data = await scrapeUrl2(url, data)
-				} catch (e) {
-					console.error('scrape error 2', e)
+				// SCRAPE 2 ==============================
+				if (process.env.SCRAPER_API_URL_2) {
+					try {
+						setImportMessage('Scraping attempt #2...')
+						data = await scrapeUrl2(url, data)
+					} catch (e) {
+						console.error('scrape error 2', e)
+					}
 				}
 				if ((data?.result?.ogImage?.length || 0) < 2) {
-					try {
-						// ==============================
-						setImportMessage('Scraping attempt #3...')
-						data = await scrapeUrlOld(url, data)
-					} catch (e) {
-						console.error('scrape error 3', e)
+					// SCRAPE 3 ==============================
+					if (process.env.OPEN_GRAPH_SCRAPE_URL) {
+						try {
+							setImportMessage('Scraping attempt #3...')
+							data = await scrapeUrlOld(url, data)
+						} catch (e) {
+							console.error('scrape error 3', e)
+						}
+					}
+					if ((data?.result?.ogImage?.length || 0) < 2) {
+						// SCRAPE 4 ==============================
+						try {
+							setImportMessage('Scraping attempt #4 💀...')
+							data = await scrapeUrlLocal(url, data)
+						} catch (e) {
+							console.error('scrape error 4', e)
+						}
 					}
 				}
 			}
