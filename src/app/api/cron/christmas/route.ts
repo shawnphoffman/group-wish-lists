@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import ChristmasEmail from '@/emails/christmas-email'
-import { resendClient, getFromEmail } from '@/utils/resend'
+import { resendClient, getFromEmail, getBccAddress } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(req: Request) {
@@ -33,11 +33,12 @@ export async function GET(req: Request) {
 			try {
 				if (!user?.email) return { id: user?.id, ok: false, error: 'No email for user' }
 
+				const bcc = getBccAddress()
 				await resendClient.emails.send(
 					{
 						from: getFromEmail(),
 						to: user?.email,
-						bcc: ['shawn@sent.as'],
+						...(bcc && { bcc }),
 						subject: 'Merry Christmas! 🎄',
 						react: ChristmasEmail(),
 					},

@@ -10,6 +10,11 @@ export const getFromEmail = (): string => {
 	return name ? `${name} <${email}>` : email
 }
 
+export const getBccAddress = (): string[] | undefined => {
+	const bcc = process.env.RESEND_BCC_ADDRESS
+	return bcc ? [bcc] : undefined
+}
+
 export const sendNewCommentEmail = async (
 	username: string,
 	recipient: string,
@@ -19,10 +24,11 @@ export const sendNewCommentEmail = async (
 	listId: number,
 	itemId: number
 ) => {
+	const bcc = getBccAddress()
 	const emailResp = await resendClient.emails.send({
 		from: getFromEmail(),
 		to: recipient,
-		bcc: ['shawn@sent.as'],
+		...(bcc && { bcc }),
 		subject: 'New Comment on Wish Lists',
 		react: (
 			<NewCommentEmail username={username} commenter={commenter} comment={comment} itemTitle={itemTitle} listId={listId} itemId={itemId} />
