@@ -18,23 +18,16 @@ type Props = {
 }
 
 export default async function MyLists({ type = ListType.ALL, showEmptyMessage = true }: Props) {
-	// await new Promise(resolve => setTimeout(resolve, 5000))
 	const listsPromise = getMyLists(type)
-	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [{ data }] = await Promise.all([
-		listsPromise,
-		// fakePromise
-	])
+	const canBePrimary = type === ListType.PUBLIC
 
-	// if (type === ListType.SHARED_WITH_OTHERS) {
-	// 	console.log('shared with others', data)
-	// }
+	const [{ data }] = await Promise.all([listsPromise])
 
 	return (
 		<Card className="bg-accent">
 			<CardContent className="p-1">
-				<ListBlock lists={data as List[]} isOwner={true} showEmptyMessage={showEmptyMessage} canBePrimary={type === ListType.PUBLIC} />
+				<ListBlock lists={data as List[]} isOwner={true} showEmptyMessage={showEmptyMessage} canBePrimary={canBePrimary} />
 			</CardContent>
 		</Card>
 	)

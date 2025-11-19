@@ -9,7 +9,7 @@ export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = 
 	let apiData: any = null
 
 	try {
-		const apiResp = await fetch(`${process.env.OPEN_GRAPH_SCRAPE_URL}?scrape=${url}`, {
+		const apiResp = await fetch(`${process.env.NEXT_PUBLIC_OG_SCRAPE_URL}?scrape=${url}`, {
 			signal: controller.signal,
 		})
 		apiData = await apiResp.json()

@@ -159,7 +159,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 		try {
 			// SCRAPE 1 ==============================
-			if (process.env.SCRAPER_API_URL_1) {
+			if (process.env.NEXT_PUBLIC_SCRAPE_URL_1) {
 				try {
 					setImportMessage('Scraping attempt #1...')
 					data = await scrapeUrl1(url, data)
@@ -169,7 +169,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			}
 			if ((data?.result?.ogImage?.length || 0) < 2) {
 				// SCRAPE 2 ==============================
-				if (process.env.SCRAPER_API_URL_2) {
+				if (process.env.NEXT_PUBLIC_SCRAPE_URL_2) {
 					try {
 						setImportMessage('Scraping attempt #2...')
 						data = await scrapeUrl2(url, data)
@@ -179,7 +179,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				}
 				if ((data?.result?.ogImage?.length || 0) < 2) {
 					// SCRAPE 3 ==============================
-					if (process.env.OPEN_GRAPH_SCRAPE_URL) {
+					if (process.env.NEXT_PUBLIC_OG_SCRAPE_URL) {
 						try {
 							setImportMessage('Scraping attempt #3...')
 							data = await scrapeUrlOld(url, data)
