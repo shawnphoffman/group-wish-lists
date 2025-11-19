@@ -1,9 +1,9 @@
-import React, { type CSSProperties } from 'react'
 import {
 	faBan,
 	faBoxArchive,
 	faBroom,
 	faCirclePlus,
+	faEnvelope,
 	faEye,
 	faEyeSlash,
 	faFileImport,
@@ -44,7 +44,6 @@ export function DeleteIcon({ className, ...rest }: IconProps) {
 	return (
 		<FontAwesomeIcon
 			icon={faTrashXmark}
-			fixedWidth
 			className={cn(
 				`text-red-500 hover:text-red-600 group-hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 dark:group-hover:text-red-300`,
 				className
@@ -57,24 +56,23 @@ export function BroomIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faBroom}
-			fixedWidth
 			className="text-fuchsia-500 hover:text-fuchsia-600 group-hover:text-fuchsia-600 dark:text-fuchsia-400 dark:hover:text-fuchsia-300 dark:group-hover:text-fuchsia-300"
 		/>
 	)
 }
-export function UnarchiveIcon() {
-	return (
-		<FontAwesomeIcon icon={faEye} fixedWidth className="text-teal-500 hover:text-teal-600 dark:text-teal-600 dark:hover:text-teal-300" />
-	)
-}
-export function ArchiveIcon() {
+export function EmailIcon() {
 	return (
 		<FontAwesomeIcon
-			icon={faEyeSlash}
-			fixedWidth
-			className="text-lime-500 hover:text-lime-600 dark:text-lime-400 dark:hover:text-lime-300"
+			icon={faEnvelope}
+			className="text-blue-500 transition-colors hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
 		/>
 	)
+}
+export function UnarchiveIcon() {
+	return <FontAwesomeIcon icon={faEye} className="text-teal-500 hover:text-teal-600 dark:text-teal-600 dark:hover:text-teal-300" />
+}
+export function ArchiveIcon() {
+	return <FontAwesomeIcon icon={faEyeSlash} className="text-lime-500 hover:text-lime-600 dark:text-lime-400 dark:hover:text-lime-300" />
 }
 export function ImportIcon() {
 	return (
@@ -116,7 +114,6 @@ export function PermissionsIcon({ className, ...rest }: IconProps) {
 	return (
 		<FontAwesomeIcon
 			icon={faUserUnlock}
-			fixedWidth
 			{...rest}
 			className={`text-amber-600 hover:text-amber-500 group-hover:text-amber-500 dark:text-amber-300 dark:hover:text-amber-400 dark:group-hover:text-amber-400 ${className}`}
 		/>

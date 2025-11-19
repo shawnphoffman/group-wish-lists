@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Suspense } from 'react'
 import { faCog } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 
@@ -7,6 +6,7 @@ import { SidebarGroup, SidebarGroupContent, SidebarMenu } from '@/components/ui/
 
 import { NavItem } from './nav-section'
 import StopImpersonatingButton from './StopImpersonatingButton'
+import AdminNavLink from '../admin/AdminNavLink'
 
 const items: NavItem[] = [
 	{
@@ -26,6 +26,10 @@ export default async function NavBottom() {
 					{/*  */}
 					<Suspense fallback={null}>
 						<StopImpersonatingButton impersonating={impersonating} />
+					</Suspense>
+					{/*  */}
+					<Suspense fallback={null}>
+						<AdminNavLink />
 					</Suspense>
 					{/*  */}
 					{items.map(item => (

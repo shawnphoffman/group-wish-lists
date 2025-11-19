@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import BirthdayEmail from '@/emails/happy-birthday-email'
-import { resendClient, getFromEmail, getBccAddress } from '@/utils/resend'
+import { resendClient, commonEmailProps } from '@/utils/resend'
 import { createAdminClient } from '@/utils/supabase/admin'
 
 export async function GET(req: Request) {
@@ -41,12 +41,10 @@ export async function GET(req: Request) {
 				const recipient = userData?.user?.email
 				if (!recipient) return { id: user.user_id, ok: false, error: 'No email for user' }
 
-				const bcc = getBccAddress()
 				await resendClient.emails.send(
 					{
-						from: getFromEmail(),
+						...commonEmailProps(),
 						to: recipient,
-						...(bcc && { bcc }),
 						subject: 'Happy Birthday! 🎂',
 						react: BirthdayEmail({ name: user.display_name || 'user-with-no-name' }),
 					},

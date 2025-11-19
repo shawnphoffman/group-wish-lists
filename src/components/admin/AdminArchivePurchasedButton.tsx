@@ -35,8 +35,8 @@ export default function AdminArchivePurchasedButton() {
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<Button variant="outline" className="gap-2">
-					Archive All Purchased
 					<BroomIcon />
+					Archive All Purchased
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>

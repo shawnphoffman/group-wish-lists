@@ -5,6 +5,8 @@ import InviteUser from '@/components/admin/InviteUser'
 import UserImpersonation from '@/components/admin/UserImpersonation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
+import AdminSendTestEmailButton from '@/components/admin/AdminSendTestEmailButton'
+
 export default async function Admin() {
 	// await new Promise(resolve => setTimeout(resolve, 50000))
 	return (
@@ -24,6 +26,7 @@ export default async function Admin() {
 							</CardHeader>
 							<CardContent className="flex flex-col gap-4 p-6 pt-0">
 								<AdminArchivePurchasedButton />
+								<AdminSendTestEmailButton />
 							</CardContent>
 						</Card>
 					</Suspense>
@@ -40,12 +43,13 @@ export default async function Admin() {
 							<CardHeader>
 								<CardTitle>Env</CardTitle>
 							</CardHeader>
-							<CardContent className="flex flex-col gap-4 p-6 pt-0">
+							<CardContent className="flex flex-col p-6 pt-0 divide-y">
 								{Object.entries(process.env)
+									.filter(entry => !entry[0].startsWith('npm_'))
 									.sort((a, b) => a[0].localeCompare(b[0]))
 									.map(([key, value]) => (
-										<div key={key} className="flex flex-col w-full overflow-hidden">
-											<span className="font-mono text-xs text-gray-500">{key}</span>
+										<div key={key} className="flex flex-col w-full py-1 overflow-hidden">
+											<span className="font-mono text-xs font-bold text-gray-500">{key}</span>
 											<span className="font-mono text-xs break-all">{String(value)}</span>
 										</div>
 									))}

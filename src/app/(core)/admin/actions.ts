@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers'
 
 import { createClient } from '@/utils/supabase/server'
+import { sendTestEmail } from '@/utils/resend'
 
 export const inviteUser = async (prevState: any, formData: FormData) => {
 	'use server'
@@ -54,5 +55,20 @@ export const adminArchiveCompletedItems = async () => {
 		status: 'success',
 		items,
 		addons,
+	}
+}
+
+export const sendEmail = async () => {
+	'use server'
+	const emailResp = await sendTestEmail()
+	if (emailResp.error) {
+		return {
+			status: 'error',
+			error: emailResp.error.message,
+		}
+	}
+	return {
+		status: 'success',
+		emailResp,
 	}
 }

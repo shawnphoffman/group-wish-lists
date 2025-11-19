@@ -11,7 +11,7 @@ export default async function Page() {
 
 	const [{ data: user, error }] = await Promise.all([userPromise])
 
-	console.log('MyStuffClient', { user })
+	// console.log('MyStuffClient', { user })
 
 	if (error) {
 		return notFound()
