@@ -1,5 +1,6 @@
 import { mergician } from 'mergician'
 import { ScrapeUrlResult } from './scraper'
+import { saveScrape } from '@/app/actions/scrapes'
 
 export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = {}) => {
 	const controller = new AbortController()
@@ -23,6 +24,9 @@ export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = 
 		try {
 			const newData = {
 				result: {
+					savedScrape: {
+						scraper_old: null,
+					},
 					success: true,
 					ogUrl: apiData?.meta?.url || apiData?.og?.url,
 					ogTitle: apiData?.meta?.title || apiData?.og?.title,
@@ -40,6 +44,19 @@ export const scrapeUrlOld = async (url: string, existingData: ScrapeUrlResult = 
 					],
 				},
 			}
+
+			const savedScrape = await saveScrape({
+				url,
+				title: newData.result.ogTitle,
+				description: newData.result.ogDescription,
+				price: newData.result.ogPrice,
+				price_currency: newData.result.ogPriceCurrency,
+				scraper_id: 'scraper_old',
+				image_urls: newData.result.ogImage.map((x: { url: string }) => x.url).filter((url): url is string => url != null),
+				scrape_result: newData,
+			})
+			newData.result.savedScrape['scraper_old'] = savedScrape.scrape?.data?.id
+
 			result = existingData ? mergician(existingData, newData) : newData
 		} catch (error) {
 			console.error('scraper-3.2 error', error)

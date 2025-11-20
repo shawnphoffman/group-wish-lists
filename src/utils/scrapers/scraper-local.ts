@@ -1,5 +1,6 @@
 import { mergician } from 'mergician'
 import { ScrapeUrlResult } from './scraper'
+import { saveScrape } from '@/app/actions/scrapes'
 
 export const scrapeUrlLocal = async (url: string, existingData: ScrapeUrlResult = {}) => {
 	const controller = new AbortController()
@@ -23,6 +24,19 @@ export const scrapeUrlLocal = async (url: string, existingData: ScrapeUrlResult 
 		if (apiData?.result?.ogPriceAmount) {
 			apiData.result.ogPrice = apiData.result.ogPriceAmount
 		}
+
+		const savedScrape = await saveScrape({
+			url,
+			title: apiData.result.ogTitle,
+			description: apiData.result.ogDescription,
+			price: apiData.result.ogPrice,
+			price_currency: apiData.result.ogPriceCurrency,
+			scraper_id: 'scraper_local',
+			image_urls: apiData.result.ogImage.map((x: { url: string }) => x.url).filter((url): url is string => url != null),
+			scrape_result: apiData,
+		})
+		apiData.result.savedScrape['scraper_local'] = savedScrape.scrape?.data?.id
+
 		result = existingData ? mergician(existingData, apiData) : apiData
 	} else {
 		result = existingData

@@ -1,3 +1,4 @@
+import { saveScrape } from '@/app/actions/scrapes'
 import { mergician } from 'mergician'
 
 export type ScrapeUrlResult = {
@@ -16,14 +17,14 @@ export type ScrapeUrlResult = {
 }
 
 export const scrapeUrl1 = async (url: string, existingData: ScrapeUrlResult = {}) => {
-	return scrapeUrl(`${process.env.NEXT_PUBLIC_SCRAPE_URL_1}?url=${url}`, url, existingData)
+	return scrapeUrl(`${process.env.NEXT_PUBLIC_SCRAPE_URL_1}?url=${url}`, url, existingData, 'scraper_1')
 }
 
 export const scrapeUrl2 = async (url: string, existingData: ScrapeUrlResult = {}) => {
-	return scrapeUrl(`${process.env.NEXT_PUBLIC_SCRAPE_URL_2}?url=${url}`, url, existingData)
+	return scrapeUrl(`${process.env.NEXT_PUBLIC_SCRAPE_URL_2}?url=${url}`, url, existingData, 'scraper_2')
 }
 
-const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlResult = {}) => {
+const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlResult = {}, scraperId: string) => {
 	let result: ScrapeUrlResult | null = null
 	let apiData: any = null
 	const resp2 = await fetch(scraper, {
@@ -45,6 +46,9 @@ const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlRe
 		try {
 			const newData = {
 				result: {
+					savedScrape: {
+						[scraperId]: null,
+					},
 					success: true,
 					ogUrl: resolvedOgUrl,
 					ogTitle: apiData.meta.title || apiData.og?.['og:title'],
@@ -62,11 +66,24 @@ const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlRe
 					],
 				},
 			}
+
+			const savedScrape = await saveScrape({
+				url,
+				title: newData.result.ogTitle,
+				description: newData.result.ogDescription,
+				price: newData.result.ogPrice,
+				price_currency: newData.result.ogPriceCurrency,
+				scraper_id: scraperId,
+				image_urls: newData.result.ogImage.map((x: { url: string }) => x.url).filter((url): url is string => url != null),
+				scrape_result: newData,
+			})
+			newData.result.savedScrape[scraperId] = savedScrape.scrape?.data?.id
+
 			// Only merge if data exists, otherwise use newData directly
 			result = existingData ? mergician(existingData, newData) : newData
 		} catch (error) {
-			console.error('scraper-1 error', error)
-			throw new Error('scraper-1 error', { cause: error })
+			console.error('scrapeUrl error', error)
+			throw new Error('scrapeUrl error', { cause: error })
 		}
 	}
 	return result as ScrapeUrlResult

@@ -94,6 +94,9 @@ export type OgImage = {
 export type ScrapeResponse = {
 	error?: boolean
 	result?: {
+		savedScrape?: {
+			[key: string]: number | null
+		}
 		ogUrl?: string
 		ogTitle?: string
 		ogDescription?: string

@@ -1,10 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 import { faArrowsRotate, faAsterisk, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Tag, TagInput } from 'emblor'
+// import { Tag, TagInput } from 'emblor'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -58,8 +58,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const notesRef = useRef<HTMLTextAreaElement>(null)
 
-	// console.log('item', { item })
-
 	// Item Fields
 	const [scrape, setScrape] = useState<ScrapeResponse | undefined>(item?.scrape)
 	const [id] = useState<string>(item?.id || '')
@@ -70,26 +68,32 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
 	const [quantity, setQty] = useState<number>(item?.quantity || 1)
-	const [tags, setTags] = useState<Tag[]>(item?.tags?.map(t => ({ id: t, text: t })) || [])
-	const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null)
-	const [tagsInput, setTagsInput] = useState<string>('')
+	// const [tags, setTags] = useState<Tag[]>(item?.tags?.map(t => ({ id: t, text: t })) || [])
+	// const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null)
+	// const [tagsInput, setTagsInput] = useState<string>('')
 
 	const isPending = isFormPending || isTransitionPending || importing
 	const isDisabled = isPending || title.trim().length === 0
 
-	// const mdNotes = useMemo(() => DOMPurify.sanitize(snarkdown(notes.replace(/\n/g, '  \n'))), [notes])
-	// const mdNotes = useMemo(() => DOMPurify.sanitize(snarkdown(notes)), [notes])
+	// ==============================
+	// MEMOS
+	// ==============================
+
+	// const tagsInput = useMemo(() => {
+	// 	return tags.map(t => t.text).join(', ')
+	// }, [tags])
+
+	// ==============================
+	// EFFECTS
+	// ==============================
 
 	useEffect(() => {
 		if (!scrape?.result) return
 		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
 		if (scrape.result?.ogPrice) setPrice(scrape.result.ogPrice)
-		// if (scrape.result?.ogPriceCurrency) setPriceCurrency(scrape.result.ogPriceCurrency)
-		// if (scrape.result?.ogAvailability) setAvailability(scrape.result.ogAvailability)
 
 		if (!item) {
 			const imageUrl = getImageFromScrape(scrape)
-			// console.log('scrape', { scrape })
 			setImageUrl(imageUrl)
 		}
 	}, [item, scrape])
@@ -110,12 +114,34 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	}, [title])
 
 	useEffect(() => {
-		setTagsInput(tags.map(t => t.text).join(', '))
-	}, [tags])
+		if (formState?.status === 'success') {
+			startTransition(() => {
+				setTitle('')
+				setNotes('')
+				setUrl('')
+				setPriority(ItemPriority.Normal)
+				setImageUrl('')
+				setPrice('')
+				setQty(1)
+				// setTags([])
+				setScrape(undefined)
+				setImportError('')
+				setImportMessage('')
+				setImportSuccess('')
+				if (pathname === '/import') {
+					router.push(`/lists/${listId}/edit`)
+				} else {
+					router.refresh()
+				}
+			})
+		}
+	}, [formState, listId, pathname, router])
+
+	// ==============================
+	// HANDLERS
+	// ==============================
 
 	const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		// e.target.style.height = 'inherit'
-		// e.target.style.height = `${e.target.scrollHeight}px`
 		setTitle(e.target.value)
 	}, [])
 
@@ -251,31 +277,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		setImporting(false)
 	}, [url])
 
-	useEffect(() => {
-		if (formState?.status === 'success') {
-			startTransition(() => {
-				setTitle('')
-				setNotes('')
-				setUrl('')
-				setPriority(ItemPriority.Normal)
-				setImageUrl('')
-				setPrice('')
-				setQty(1)
-				setTags([])
-				setScrape(undefined)
-				setTagsInput('')
-				setImportError('')
-				setImportMessage('')
-				setImportSuccess('')
-				if (pathname === '/import') {
-					router.push(`/lists/${listId}/edit`)
-				} else {
-					router.refresh()
-				}
-			})
-		}
-	}, [formState, listId, pathname, router])
-
 	const handlePaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>) => {
 		event.preventDefault()
 
@@ -293,10 +294,13 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const handleBlurUrl = useCallback(() => {
 		if (url && url.length > 0 && !scrape) {
-			// console.log('handleBlurUrl', { url })
 			handleUrlImport()
 		}
 	}, [url, scrape, handleUrlImport])
+
+	// ==============================
+	// RENDER
+	// ==============================
 
 	return (
 		<fieldset disabled={isPending}>
@@ -304,7 +308,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 			<input className="input" type="hidden" name="list-id" value={listId} readOnly />
 			<input className="input" type="hidden" name="scrape" value={JSON.stringify(scrape || {})} readOnly />
 			<input className="input" type="hidden" name="image-url" value={imageUrl} readOnly />
-			<input className="input" type="hidden" name="tags" value={tagsInput} readOnly />
+			{/* <input className="input" type="hidden" name="tags" value={tagsInput} readOnly /> */}
 
 			<div className="flex flex-col justify-between gap-2">
 				<div className="grid items-center w-full gap-2">
@@ -329,7 +333,6 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 							disabled={!url}
 							title="Import"
 						>
-							{/* <span className="hidden sm:flex">Import</span> */}
 							{importing ? (
 								<FontAwesomeIcon size="xl" icon={faSpinnerScale} spinPulse fixedWidth />
 							) : (
@@ -408,7 +411,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</div>
 				</div>
 
-				<div className="grid w-full gap-1.5 text-destructive">
+				{/* <div className="grid w-full gap-1.5 text-destructive">
 					<Label htmlFor="tags">Tags</Label>
 					<TagInput
 						placeholder="Add some tags"
@@ -429,7 +432,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						}}
 						size="sm"
 					/>
-				</div>
+				</div> */}
 
 				{scrape?.result && (
 					<>
