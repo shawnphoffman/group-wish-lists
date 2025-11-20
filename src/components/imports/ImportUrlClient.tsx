@@ -90,7 +90,7 @@ export default function ImportUrlClient({ lists, list }: Props) {
 			<div className="grid w-full gap-1.5">
 				<Label htmlFor="list">List</Label>
 				<Select name="list" value={selectedList} onValueChange={handleChangeList}>
-					<SelectTrigger>
+					<SelectTrigger className="h-10">
 						<SelectValue />
 					</SelectTrigger>
 					<SelectContent>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react'
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 import { faArrowsRotate, faAsterisk, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,6 +24,8 @@ import PlainMessage from '@/components/common/PlainMessage'
 import { scrapeUrl1, scrapeUrl2 } from '@/utils/scrapers/scraper'
 import { scrapeUrlOld } from '@/utils/scrapers/scraper-old'
 import { scrapeUrlLocal } from '@/utils/scrapers/scraper-local'
+import ItemPriorityIcon from '@/components/icons/PriorityIcon'
+// import ItemTagsClient from '../components/ItemTagsClient'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -386,13 +388,14 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<div className="grid w-full gap-1.5">
 						<Label htmlFor="priority">Priority</Label>
 						<Select name="priority" value={priority} onValueChange={handleChangePriority}>
-							<SelectTrigger>
+							<SelectTrigger className="h-10">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
 								{Object.keys(ItemPriority).map((key: any) => (
-									<SelectItem key={key} value={ItemPriority[key as keyof typeof ItemPriority]}>
+									<SelectItem key={key} value={ItemPriority[key as keyof typeof ItemPriority]} className="cursor-pointer">
 										{key}
+										<ItemPriorityIcon priority={ItemPriority[key as keyof typeof ItemPriority]} className="ml-1 text-sm" />
 									</SelectItem>
 								))}
 							</SelectContent>
@@ -409,6 +412,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						<Input name="quantity" placeholder="1" type="number" min={0} step={1} value={quantity} onChange={handleChangeQuantity} />
 					</div>
 				</div>
+
+				{/* <ItemTagsClient /> */}
 
 				{/* <div className="grid w-full gap-1.5 text-destructive">
 					<Label htmlFor="tags">Tags</Label>
