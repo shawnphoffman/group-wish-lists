@@ -36,7 +36,7 @@ function cleanItemList(items: MarkdownToken[]) {
 			const newlineIndex = parentItem.title.indexOf('\n')
 			if (newlineIndex !== -1) {
 				// Split the content by all occurrences of "\n"
-				const parts = parentItem.title.split('\n')
+				const parts = parentItem.title?.split('\n') || []
 
 				// Include only the content prior to the first "\n" in the parent output
 				parentItem.title = parts[0].trim()

@@ -12,7 +12,7 @@ export function getDomainFromUrl(url: string): string {
 	try {
 		let domain: string
 		const parsedUrl = new URL(url)
-		const parts = parsedUrl.hostname.split('.')
+		const parts = parsedUrl.hostname?.split('.') || []
 		if (parts.length > 2) {
 			domain = parts.slice(-2).join('.') // Returns the last two segments (e.g., example.com)
 		} else {
