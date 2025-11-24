@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { faGift } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
-import { faCirclePlus, faGrapes, faListCheck, faListOl, faRadio } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
+import { faCirclePlus, faGrapes, faListCheck, faListOl, faRadio, faShoppingBag } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
@@ -24,18 +24,16 @@ const main: NavItem[] = [
 		name: 'All Lists',
 		url: '/',
 		icon: faListCheck,
-		// isActive: true,
-		// items: [
-		// 	{
-		// 		name: 'History',
-		// 		url: '#',
-		// 	},
-		// ],
 	},
 	{
 		name: 'My Lists',
 		url: '/me',
 		icon: faListOl,
+	},
+	{
+		name: 'My Purchases',
+		url: '/purchases',
+		icon: faShoppingBag,
 	},
 ]
 
@@ -83,7 +81,6 @@ export function AppSidebar({ ...props }: SidebarProps) {
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				{/* <NavMain /> */}
 				<NavSection title="Lists" items={main} />
 				<NavSection title="Actions" items={actions} />
 				<NavSection title="Feeds" items={feeds} />
