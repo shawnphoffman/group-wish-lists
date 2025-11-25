@@ -21,10 +21,10 @@ type Props = {
 	display_name: string
 }
 
-const linkOptions = {
-	className: 'underline hover:text-primary break-all',
-	target: '_blank',
-}
+// const linkOptions = {
+// 	className: 'underline hover:text-primary break-all',
+// 	target: '_blank',
+// }
 
 export default function ListAddon({ id, is_gifter, description, display_name, created_at }: Props) {
 	const router = useRouter()
