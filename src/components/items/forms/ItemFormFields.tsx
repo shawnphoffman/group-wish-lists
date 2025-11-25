@@ -455,11 +455,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</>
 				)}
 
-				<div className="grid w-full gap-1.5">
+				<div className="grid w-full gap-1.5 max-w-full overflow-scroll">
 					<Label htmlFor="image-url-manual" className="italic">
 						Image URL (Manual Entry)
 					</Label>
-					<div className="flex flex-row gap-2">
+					<div className="flex flex-row w-full gap-2">
 						<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
 						{imageUrl && <ItemImage className="hidden sm:block max-w-32" url={imageUrl} />}
 					</div>
