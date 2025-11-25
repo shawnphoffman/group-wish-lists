@@ -4,13 +4,14 @@ import { Badge } from '@/components/ui/badge'
 
 import MarkdownBlock from './components/MarkdownBlock'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { getUserById } from '@/app/actions/users'
+import { User } from '@/components/types'
 
 import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority } from '@/utils/enums'
 
 type Props = {
 	item: ListItem & Gift & Purchase
+	recipient?: User | null
 }
 
 const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
@@ -18,12 +19,10 @@ const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
 	return <Badge variant="secondary">{formatDateBasedOnAge(purchaseDate)}</Badge>
 }
 
-export default async function PurchaseRow({ item }: Props) {
+export default function PurchaseRow({ item, recipient }: Props) {
 	if (!item) return null
 
 	const purchaseDate = item?.gift_created_at ? new Date(item.gift_created_at).toDateString() : null
-
-	const recipient = item?.recipient_user_id ? await getUserById(item.recipient_user_id) : null
 
 	return (
 		<div className="flex flex-col w-full gap-2 p-3 sm:flex-row hover:bg-muted">

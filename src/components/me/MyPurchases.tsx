@@ -1,30 +1,25 @@
 import { getMyPurchases } from '@/app/actions/lists'
-import EmptyMessage from '@/components/common/EmptyMessage'
-import PurchaseRow from '@/components/items/PurchaseRow'
-// import { Card, CardContent } from '@/components/ui/card'
+import { getUserById, getUsers } from '@/app/actions/users'
+import MyPurchasesClient from './MyPurchasesClient'
+import { User } from '@/components/types'
+
+type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
 export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()
+	const usersPromise = getUsers()
 	// const fakePromise = new Promise(resolve => setTimeout(resolve, 5000))
 
-	const [items] = await Promise.all([
+	const [items, users] = await Promise.all([
 		listsPromise,
-		//
+		usersPromise,
 		// fakePromise
 	])
 
-	return (
-		<div className="flex flex-col">
-			{items?.length === 0 ? (
-				<EmptyMessage />
-			) : (
-				<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
-					{items?.map(item => (
-						//
-						<PurchaseRow key={`${item.gifter_id}-${item.id}`} item={item} />
-					))}
-				</div>
-			)}
-		</div>
-	)
+	const hydratedItems = items.map(item => ({
+		...item,
+		recipient: users.data?.find(u => u.user_id === item.recipient_user_id),
+	}))
+
+	return <MyPurchasesClient items={hydratedItems || []} />
 }
