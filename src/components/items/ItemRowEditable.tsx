@@ -1,14 +1,14 @@
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
-import { faLink } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faBan, faLink } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
-import { deleteItem } from '@/app/actions/items'
-import { CancelIcon, DeleteIcon, EditIcon, MoveIcon, OpenUrlIcon } from '@/components/icons/Icons'
+import { deleteItem, updateItemStatus } from '@/app/actions/items'
+import { CancelIcon, DeleteIcon, EditIcon, OpenUrlIcon } from '@/components/icons/Icons'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import ItemImage from '@/components/items/components/ItemImage'
 import EditItemForm from '@/components/items/forms/EditItemForm'
@@ -24,6 +24,7 @@ import ItemComments from '../comments/ItemComments'
 import ItemCheckboxClient from './components/ItemCheckboxClient'
 import MarkdownBlock from './components/MarkdownBlock'
 import MoveItemButtonDialog from './components/MoveItemButtonDialog'
+import { faCircle } from '@awesome.me/kit-f973af7de0/icons/sharp/regular'
 
 type Props = {
 	item: ListItem
@@ -40,6 +41,20 @@ export default function ItemRowEditable({ item, listType }: Props) {
 	const handleEditClick = useCallback(() => {
 		setIsEditing(() => !isEditing)
 	}, [isEditing])
+
+	const handleMarkAsAvailable = () => {
+		startTransition(async () => {
+			await updateItemStatus(item.id, ItemStatus.Incomplete)
+			router.refresh()
+		})
+	}
+
+	const handleMarkAsUnavailable = () => {
+		startTransition(async () => {
+			await updateItemStatus(item.id, ItemStatus.Unavailable)
+			router.refresh()
+		})
+	}
 
 	const handleDeleteClick = useCallback(async () => {
 		if (window.confirm(`Are you sure you want to delete item "${item.title}"?`)) {
@@ -174,6 +189,19 @@ export default function ItemRowEditable({ item, listType }: Props) {
 				{isEditing && (
 					<>
 						<div className="flex flex-row flex-wrap items-center justify-end gap-1 p-2 pt-2 pb-0">
+							{item.status === ItemStatus.Unavailable && (
+								<Button variant="outline" type="button" size="sm" className="group" onClick={handleMarkAsAvailable}>
+									Mark as Available
+									<FontAwesomeIcon icon={faCircle} className={`text-green-600  group-hover:text-green-500 transition-colors`} />
+								</Button>
+							)}
+							{item.status !== ItemStatus.Unavailable && item.status !== ItemStatus.Complete && (
+								<Button variant="outline" type="button" size="sm" className="group" onClick={handleMarkAsUnavailable}>
+									Mark as Unavailable
+									<FontAwesomeIcon icon={faBan} className={`text-red-600  group-hover:text-red-500  transition-colors`} />
+								</Button>
+							)}
+
 							<Button variant="outline" type="button" size="sm" onClick={handleDeleteClick} className="group">
 								Delete
 								<DeleteIcon />

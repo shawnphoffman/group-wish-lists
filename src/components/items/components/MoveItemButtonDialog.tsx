@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { moveItem, moveItems } from '@/app/actions/items'
 import { clearListsCache } from '@/app/actions/lists'
-import { LoadingIcon, LockIcon, MoveIcon } from '@/components/icons/Icons'
+import { LoadingIcon, MoveIcon } from '@/components/icons/Icons'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import type { List, ListItem, ListSharedWithMe } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
@@ -29,6 +29,7 @@ type Props = { listId: List['id']; id?: ListItem['id']; ids?: Set<ListItem['id']
 
 export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 	const [open, setOpen] = useState(false)
+	const [isSubmitting, setIsSubmitting] = useState(false)
 
 	const { lists, loading } = useCachedLists()
 	const [list, setList] = useState<List | null>(null)
@@ -103,29 +104,28 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 
 	const handleMoveItem = useCallback(async () => {
 		if (!list || (!id && !ids?.size)) return
-		let resp: { status: string; items?: any } | null = null
-		if (ids?.size) {
-			resp = await moveItems(Array.from(ids), list?.id)
-		} else {
-			resp = await moveItem(id!, list?.id)
-		}
-		if (resp.status === 'success') {
-			// Clear cache to ensure fresh data after moving items
-			clearListsCache()
-			startTransition(() => {
-				router.refresh()
-				setOpen(false)
-			})
+		try {
+			setIsSubmitting(true)
+			let resp: { status: string; items?: any } | null = null
+			if (ids?.size) {
+				resp = await moveItems(Array.from(ids), list?.id)
+			} else {
+				resp = await moveItem(id!, list?.id)
+			}
+			if (resp.status === 'success') {
+				// Clear cache to ensure fresh data after moving items
+				clearListsCache()
+				startTransition(() => {
+					router.refresh()
+					// setOpen(false)
+				})
+			}
+		} catch (error) {
+			console.error(error)
+		} finally {
+			// setIsSubmitting(false)
 		}
 	}, [id, ids, list, router])
-
-	// if (loading) {
-	// 	return <LoadingIcon className="!border-0" />
-	// }
-
-	// if (!lists || !list) {
-	// 	return null
-	// }
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
@@ -212,8 +212,8 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 					<DialogClose asChild>
 						<Button variant="outline">Cancel</Button>
 					</DialogClose>
-					<Button disabled={listId === list?.id} onClick={handleMoveItem}>
-						Move Item
+					<Button disabled={listId === list?.id || isSubmitting} onClick={handleMoveItem}>
+						{isSubmitting ? 'Moving...' : 'Move Item'}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

@@ -28,7 +28,7 @@ export function OpenUrlIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faUpRightFromSquare}
-			className="text-teal-500 hover:text-teal-600 group-hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300 dark:group-hover:text-teal-300"
+			className="text-teal-500 transition-colors hover:text-teal-600 group-hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300 dark:group-hover:text-teal-300"
 		/>
 	)
 }
@@ -36,7 +36,7 @@ export function EditIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faPenToSquare}
-			className="text-yellow-500 hover:text-yellow-600 group-hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-300 dark:group-hover:text-yellow-300"
+			className="text-yellow-500 transition-colors hover:text-yellow-600 group-hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-300 dark:group-hover:text-yellow-300"
 		/>
 	)
 }
@@ -56,7 +56,7 @@ export function BroomIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faBroom}
-			className="text-fuchsia-500 hover:text-fuchsia-600 group-hover:text-fuchsia-600 dark:text-fuchsia-400 dark:hover:text-fuchsia-300 dark:group-hover:text-fuchsia-300"
+			className="transition-colors text-fuchsia-500 hover:text-fuchsia-600 group-hover:text-fuchsia-600 dark:text-fuchsia-400 dark:hover:text-fuchsia-300 dark:group-hover:text-fuchsia-300"
 		/>
 	)
 }
@@ -69,16 +69,26 @@ export function EmailIcon() {
 	)
 }
 export function UnarchiveIcon() {
-	return <FontAwesomeIcon icon={faEye} className="text-teal-500 hover:text-teal-600 dark:text-teal-600 dark:hover:text-teal-300" />
+	return (
+		<FontAwesomeIcon
+			icon={faEye}
+			className="text-teal-500 transition-colors hover:text-teal-600 dark:text-teal-600 dark:hover:text-teal-300"
+		/>
+	)
 }
 export function ArchiveIcon() {
-	return <FontAwesomeIcon icon={faEyeSlash} className="text-lime-500 hover:text-lime-600 dark:text-lime-400 dark:hover:text-lime-300" />
+	return (
+		<FontAwesomeIcon
+			icon={faEyeSlash}
+			className="transition-colors text-lime-500 hover:text-lime-600 dark:text-lime-400 dark:hover:text-lime-300"
+		/>
+	)
 }
 export function ImportIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faFileImport}
-			className="text-violet-500 hover:text-violet-600 dark:text-violet-400 dark:hover:text-violet-300"
+			className="transition-colors text-violet-500 hover:text-violet-600 dark:text-violet-400 dark:hover:text-violet-300"
 		/>
 	)
 }
@@ -86,7 +96,7 @@ export function AddIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faCirclePlus}
-			className="text-blue-500 hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
+			className="text-blue-500 transition-colors hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
 		/>
 	)
 }
@@ -94,7 +104,7 @@ export function CancelIcon() {
 	return (
 		<FontAwesomeIcon
 			icon={faBan}
-			className="text-orange-500 hover:text-orange-600 group-hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 dark:group-hover:text-orange-300"
+			className="text-orange-500 transition-colors hover:text-orange-600 group-hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 dark:group-hover:text-orange-300"
 		/>
 	)
 }
