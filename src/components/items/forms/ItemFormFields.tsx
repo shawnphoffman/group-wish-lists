@@ -90,7 +90,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	useEffect(() => {
 		if (!scrape?.result) return
-		if (scrape.result?.ogTitle) setTitle(scrape.result.ogTitle)
+		if (scrape.result?.ogTitle && !item?.title?.trim().length) setTitle(scrape.result.ogTitle)
 		if (scrape.result?.ogPrice) setPrice(scrape.result.ogPrice)
 
 		if (!item) {
