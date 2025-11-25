@@ -185,7 +185,7 @@ export const getMyPurchases = async () => {
 	const viewingUserID = data?.user?.id
 
 	const purchases = resp.data?.reduce((acc, p) => {
-		if (p.gifter_id === viewingUserID && p.user_id !== viewingUserID) {
+		if (p.gifter_id === viewingUserID && p.recipient_user_id !== viewingUserID) {
 			acc.push(p)
 		}
 		return acc

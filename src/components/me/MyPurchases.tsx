@@ -1,9 +1,6 @@
 import { getMyPurchases } from '@/app/actions/lists'
-import { getUserById, getUsers } from '@/app/actions/users'
+import { getUsers } from '@/app/actions/users'
 import MyPurchasesClient from './MyPurchasesClient'
-import { User } from '@/components/types'
-
-type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
 export default async function MyPurchases() {
 	const listsPromise = getMyPurchases()
