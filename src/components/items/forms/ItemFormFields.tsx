@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
-import { faArrowsRotate, faAsterisk, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faArrowsRotate, faAsterisk, faSave, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -25,6 +25,8 @@ import { scrapeUrl1, scrapeUrl2 } from '@/utils/scrapers/scraper'
 import { scrapeUrlOld } from '@/utils/scrapers/scraper-old'
 import { scrapeUrlLocal } from '@/utils/scrapers/scraper-local'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
+import { saveImageFromUrl } from '@/app/actions/images'
+import { isDeployed } from '@/utils/environment'
 // import ItemTagsClient from '../components/ItemTagsClient'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
@@ -165,6 +167,15 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 		e.target.style.height = `${e.target.scrollHeight}px`
 		setImageUrl(e.target.value)
 	}, [])
+
+	const handleSaveImageUrl = useCallback(async () => {
+		if (!imageUrl) return
+		const uploadedUrl = await saveImageFromUrl(imageUrl)
+		console.log('uploadedUrl', uploadedUrl)
+		if (uploadedUrl) {
+			setImageUrl(uploadedUrl)
+		}
+	}, [imageUrl])
 
 	const handleChangeUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value)
@@ -462,6 +473,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					<div className="flex flex-row w-full gap-2">
 						<Textarea name="image-url-manual" rows={1} value={imageUrl} onChange={handleChangeImageUrl} className="min-h-fit" />
 						{imageUrl && <ItemImage className="hidden sm:block max-w-32" url={imageUrl} />}
+						{!isDeployed && (
+							<Button variant={'secondary'} type="button" className="" onClick={handleSaveImageUrl} disabled={!imageUrl}>
+								<FontAwesomeIcon icon={faSave} />
+							</Button>
+						)}
 					</div>
 				</div>
 
