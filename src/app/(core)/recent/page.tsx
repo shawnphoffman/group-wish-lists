@@ -9,11 +9,13 @@ import RealTimeListener from '@/components/utils/RealTimeListener'
 export default async function RecentItemsPage() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl xs:px-2 animate-page-in">
+		<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
 			<div className="relative flex flex-col flex-wrap justify-between gap-2">
 				<h1 className="flex flex-row items-center gap-2">Recent Items</h1>
 				<FontAwesomeIcon icon={faRadio} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-orange-500" />
-				<div className="text-sm leading-tight text-muted-foreground">These items are the most recent public items added.</div>
+				<div className="text-sm leading-tight text-muted-foreground">
+					These items are the most recently updated public items. Your items are not included.
+				</div>
 				<Suspense fallback={<FallbackRowsMultiple />}>
 					<RecentItems />
 				</Suspense>

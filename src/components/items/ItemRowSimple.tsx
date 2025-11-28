@@ -37,7 +37,7 @@ export default async function ItemRowSimple({ item }: Props) {
 	// console.log('ListItemSimple', { item })
 
 	return (
-		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted`} id={`item-${item.id}`}>
+		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted rounded-lg`} id={`item-${item.id}`}>
 			<div className="flex flex-col w-full gap-2">
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
@@ -48,7 +48,7 @@ export default async function ItemRowSimple({ item }: Props) {
 					<div className="flex max-[400px]:flex-col min-[401px]:items-center flex-1 gap-2 xs:flex-row md:gap-4">
 						{/* Title + Notes */}
 						<div className="flex flex-col justify-center flex-1 gap-0.5 overflow-hidden">
-							<div className="flex flex-row items-start flex-1 gap-1 overflow-hidden font-medium">
+							<div className="flex flex-row items-center flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
 									<Link href={item.url!} target="_blank" className={`flex flex-col gap-0.5 overflow-hidden hover:underline`}>
@@ -69,7 +69,9 @@ export default async function ItemRowSimple({ item }: Props) {
 									</Badge>
 								)}
 								{item.status === ItemStatus.Unavailable && (
-									<Badge className="h-4 px-2 text-xs whitespace-nowrap bg-destructive text-destructive-foreground w-fit">Unavailable</Badge>
+									<Badge className="h-4 px-1.5 text-xs whitespace-nowrap bg-destructive text-destructive-foreground w-fit">
+										Unavailable
+									</Badge>
 								)}
 							</div>
 

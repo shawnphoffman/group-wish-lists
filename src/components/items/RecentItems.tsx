@@ -4,8 +4,6 @@ import { getUsers } from '@/app/actions/users'
 import ErrorMessage from '@/components/common/ErrorMessage'
 import { Card } from '@/components/ui/card'
 
-// import ItemPriorityIcon from '../icons/PriorityIcon'
-
 import ItemRowSimple from './ItemRowSimple'
 import { Fragment } from 'react'
 
@@ -32,7 +30,7 @@ export default async function RecentItems() {
 				{error && <ErrorMessage />}
 				{data?.map(item => {
 					const url =
-						item.lists.recipient_user_id === currentUser?.id
+						item.lists?.recipient_user_id === currentUser?.id
 							? `/lists/${item.lists.id}/edit#item-${item.id}`
 							: `/lists/${item.lists.id}#item-${item.id}`
 					item.url = url
@@ -40,7 +38,6 @@ export default async function RecentItems() {
 					if (user?.image) {
 						item.user.image = user.image
 					}
-					// console.log('RecentItems', item)
 					return (
 						<Fragment key={`group-${item.id}`}>
 							<Card className="bg-accent">

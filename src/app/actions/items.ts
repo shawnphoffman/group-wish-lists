@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { List, ListItem } from '@/components/types'
 import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
+import { getSessionUser } from './auth'
 
 export const createItem = async (prevState: any, formData: FormData) => {
 	'use server'
@@ -243,26 +244,36 @@ export const getRecentItems = async () => {
 	const supabase = createClient(cookieStore)
 
 	try {
+		const currentUser = await getSessionUser()
 		const resp = await supabase
 			.from('list_items')
 			.select(
-				`id, list_id, title, created_at, updated_at, image_url, priority,
-				lists!inner(id, name, recipient_user_id, private, active),
-				user:users!list_items_user_id_fkey1(user_id, display_name)
-				`
+				`id, list_id, title, created_at, updated_at, image_url, priority, status,
+				lists:lists!list_items_list_id_fkey(id, name, recipient_user_id, private, active),
+				user:users!list_items_user_id_fkey1(user_id, display_name)`
 			)
 			.is('archived', false)
 			.is('lists.private', false)
 			.is('lists.active', true)
-			// TODO Filter out my own items + something else
-			// TODO Fix list owner/recipient logic
+			.not('lists', 'is', null)
 			.order('updated_at', { ascending: false })
 			.limit(50)
 
-		// console.log('getCommentsGroupedByItem.resp', resp)
+		const filtered = resp.data?.filter(item => {
+			const lists = item.lists as unknown as { recipient_user_id: string } | null
+			const isRecipient = lists?.recipient_user_id === currentUser?.id
+			// const isComplete = item.status === 'complete'
+			// Keep item if NOT (isRecipient AND isComplete)
+			// return !(isRecipient && isComplete)
+			return !isRecipient
+		})
 
-		return resp as any
+		const result = {
+			...resp,
+			data: filtered,
+		}
+		return result as any
 	} catch (error) {
-		console.error('getCommentsGroupedByItem.resp.error', error)
+		console.error('getRecentItems.resp.error', error)
 	}
 }

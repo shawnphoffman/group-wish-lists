@@ -21,7 +21,6 @@ export default async function CoreLayout({ children }: Props) {
 			<SidebarProvider>
 				<AppSidebar />
 				<SidebarInset>
-					{/* <header className="sticky top-0 z-10 flex items-center h-12 gap-2 shrink-0 bg-background rounded-t-xl"> */}
 					<header className="top-0 z-10 flex items-center h-12 gap-2 shrink-0">
 						<div className="flex items-center gap-2 px-4">
 							<SidebarTrigger className="-ml-1" />
@@ -30,7 +29,7 @@ export default async function CoreLayout({ children }: Props) {
 							</Suspense>
 						</div>
 					</header>
-					<div className="flex flex-col items-center flex-1 gap-4 p-4 pt-2">
+					<div className="flex flex-col items-center flex-1 gap-4 px-0 py-2 sm:px-2">
 						<Suspense fallback={<Loading />}>{children}</Suspense>
 					</div>
 				</SidebarInset>

@@ -10,7 +10,7 @@ import AdminSendTestEmailButton from '@/components/admin/AdminSendTestEmailButto
 export default async function Admin() {
 	// await new Promise(resolve => setTimeout(resolve, 50000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-lg px-3 animate-page-in">
+		<div className="flex flex-col flex-1 w-full max-w-lg px-2 animate-page-in">
 			<div className="flex flex-col flex-1 gap-4">
 				<h1>Admin</h1>
 				<div className="flex flex-col gap-2">

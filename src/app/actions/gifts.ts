@@ -33,7 +33,7 @@ export const deleteGift = async (itemId: ListItem['id']) => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
-	const data = await getSessionUser()
+	// const data = await getSessionUser()
 	const giftPromise = await supabase.from('gifted_items').delete().eq('item_id', itemId) //.eq('gifter_id', data?.id)
 	await Promise.all([
 		giftPromise,
