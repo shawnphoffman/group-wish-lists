@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from 'next'
 config.autoAddCss = false
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { VersionChecker } from '@/components/VersionChecker'
 import { isDeployed } from '@/utils/environment'
 
 const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || `http://localhost:${process.env.PORT || 3002}`
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					<Suspense>{children}</Suspense>
 					{/* {process.env.VERCEL_ENV && <Analytics />} */}
 				</ThemeProvider>
+				<VersionChecker />
 			</body>
 		</html>
 	)
