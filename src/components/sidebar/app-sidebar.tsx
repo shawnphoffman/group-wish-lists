@@ -56,11 +56,11 @@ const feeds: NavItem[] = [
 		url: '/comments',
 		icon: faGrapes,
 	},
-	// {
-	// 	name: 'Recent Items',
-	// 	url: '/recent',
-	// 	icon: faRadio,
-	// },
+	{
+		name: 'Recent Items',
+		url: '/recent',
+		icon: faRadio,
+	},
 ]
 
 export function AppSidebar({ ...props }: SidebarProps) {
