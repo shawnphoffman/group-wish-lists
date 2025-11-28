@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { faLink } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
@@ -16,15 +16,13 @@ import { Checkbox } from '../ui/checkbox'
 
 type Props = {
 	item: ListItem
+	selected?: boolean
 	onSelect?: (selected: boolean) => void
 }
 
-export default function ItemRowSelectable({ item, onSelect }: Props) {
-	const [isSelected, setIsSelected] = useState(false)
-
+export default function ItemRowSelectable({ item, selected = false, onSelect }: Props) {
 	const handleSelect = useCallback(
 		(checked: boolean) => {
-			setIsSelected(checked)
 			onSelect?.(checked)
 		},
 		[onSelect]
@@ -36,13 +34,13 @@ export default function ItemRowSelectable({ item, onSelect }: Props) {
 	return (
 		<div
 			id={`item-${item.id}`}
-			className={`${isSelected ? 'bg-muted' : ''} p-3 hover:bg-muted font-medium leading-normal gap-2 flex flex-col`}
+			className={`${selected ? 'bg-muted' : ''} p-3 hover:bg-muted font-medium leading-normal gap-2 flex flex-col`}
 		>
 			<div className="flex flex-col w-full gap-2 divide-y divide-border ">
 				<div className="flex flex-row gap-x-3.5 items-center">
 					<div className="flex flex-col items-center justify-center gap-2 xs:flex-row shrink-0">
 						{/* Checkbox */}
-						<Checkbox checked={isSelected} onCheckedChange={handleSelect} className="w-5 h-5" />
+						<Checkbox checked={selected} onCheckedChange={handleSelect} className="w-5 h-5" />
 						{/* Priority */}
 						{item.priority !== 'normal' && (
 							<div className="flex flex-col items-center justify-center max-w-4 shrink-0">

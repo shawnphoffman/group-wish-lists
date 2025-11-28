@@ -16,9 +16,15 @@ export default async function EditSelectPage(props: Props) {
 	const resolvedParams = await props.params
 	const listId = Number(resolvedParams.id)
 	const listPromise = getEditableList(listId)
-	const sessionPromise = getSessionUser()
+	// const sessionPromise = getSessionUser()
 
-	const [{ data: list, error }, currentUser] = await Promise.all([listPromise, sessionPromise])
+	const [
+		{ data: list, error },
+		// , currentUser
+	] = await Promise.all([
+		listPromise,
+		//sessionPromise
+	])
 
 	if (error || !list) {
 		return notFound()

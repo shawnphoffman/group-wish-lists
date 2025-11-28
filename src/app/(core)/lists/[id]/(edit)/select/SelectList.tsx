@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 
 import EmptyMessage from '@/components/common/EmptyMessage'
@@ -8,14 +8,14 @@ import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import MoveItemButtonDialog from '@/components/items/components/MoveItemButtonDialog'
 import ItemRowSelectable from '@/components/items/ItemRowSelectable'
 import { List, ListItem } from '@/components/types'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 
 type ClientProps = { id: List['id']; items: ListItem[]; list: List }
 
 const SelectList = ({ id, items, list }: ClientProps) => {
 	const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
 
-	const visibleItems = items.filter(item => !item.archived)
+	const visibleItems = useMemo(() => items.filter(item => !item.archived), [items])
 
 	const handleSelect = (itemId: string, selected: boolean) => {
 		setSelectedItems(prev => {
@@ -28,6 +28,19 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 			return newSet
 		})
 	}
+
+	const handleSelectAll = () => {
+		const allSelected = visibleItems.length > 0 && visibleItems.every(item => selectedItems.has(item.id))
+		if (allSelected) {
+			// Deselect all
+			setSelectedItems(new Set())
+		} else {
+			// Select all
+			setSelectedItems(new Set(visibleItems.map(item => item.id)))
+		}
+	}
+
+	const allSelected = visibleItems.length > 0 && visibleItems.every(item => selectedItems.has(item.id))
 
 	useEffect(() => {
 		// Reset selected items if any selected items are not in visible items
@@ -51,6 +64,9 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 					</div>
 				</div>
 				<div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-1 md:justify-end shrink-0">
+					<Button onClick={handleSelectAll} variant="outline" size="sm">
+						{allSelected ? 'Deselect All' : 'Select All'}
+					</Button>
 					<Link href={`/lists/${id}/edit`} className={`${buttonVariants({ variant: 'outline', size: 'sm' })} gap-1 group`}>
 						Go Back
 					</Link>
@@ -70,7 +86,12 @@ const SelectList = ({ id, items, list }: ClientProps) => {
 				) : (
 					<div className="flex flex-col overflow-hidden border divide-y rounded-lg shadow-sm text-card-foreground bg-accent">
 						{visibleItems?.map(item => (
-							<ItemRowSelectable key={item.id} item={item} onSelect={selected => handleSelect(item.id, selected)} />
+							<ItemRowSelectable
+								key={item.id}
+								item={item}
+								selected={selectedItems.has(item.id)}
+								onSelect={selected => handleSelect(item.id, selected)}
+							/>
 						))}
 					</div>
 				)}
