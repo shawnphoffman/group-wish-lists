@@ -53,11 +53,11 @@ export default function AddCommentButton({ itemId }: Props) {
 		if (state?.status === 'success') {
 			// console.log('createComment.state', state)
 			startTransition(() => {
+				setOpen(false)
+				router.refresh()
 				if (formRef?.current) {
 					formRef.current.reset()
 				}
-				setOpen(false)
-				router.refresh()
 			})
 		}
 	}, [state, pathname, router])
@@ -66,12 +66,13 @@ export default function AddCommentButton({ itemId }: Props) {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button variant="ghost" type="button" size="icon" className="group">
-					<FontAwesomeIcon
-						icon={faComments}
-						size="lg"
-						className="text-blue-500 hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
-						suppressHydrationWarning
-					/>
+					<>
+						<FontAwesomeIcon
+							icon={faComments}
+							size="lg"
+							className="text-blue-500 hover:text-blue-600 group-hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:group-hover:text-blue-300"
+						/>
+					</>
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
