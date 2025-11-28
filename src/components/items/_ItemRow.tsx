@@ -16,7 +16,7 @@ import { getDomainFromUrl } from '@/utils/urls'
 import AddCommentButton from '../comments/AddCommentButton'
 import ItemComments from '../comments/ItemComments'
 
-import ItemGifters from './components/ItemGifters'
+import ItemGifters from './components/_ItemGifters'
 import MarkdownBlock from './components/MarkdownBlock'
 import ItemRowActions from './ItemRowActions'
 
@@ -46,8 +46,6 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 
 	// const completeClass = isComplete ? (userCanChange ? 'opacity-75' : 'opacity-50') : ''
 	const completeClass = ''
-
-	const additionalGifters = await Promise.all(item?.additional_gifter_ids?.map(async g => await getUserById(g)) || [])
 
 	return (
 		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`} id={`item-${item.id}`}>
@@ -98,7 +96,6 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 									<Badge className="h-4 px-2 text-xs whitespace-nowrap bg-destructive text-destructive-foreground w-fit">Unavailable</Badge>
 								)}
 							</div>
-
 							{/* Notes */}
 							{item.notes && (
 								<div className="inline-flex flex-col gap-0 text-sm text-foreground/75">
@@ -110,20 +107,9 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 									Added: {formatDateBasedOnAge(item.created_at)}
 								</div>
 							)}
-
 							{/* Gifter */}
 							{!isOwnerView && (
-								<ItemGifters id={item.id} requestedQty={item.quantity || 1} />
-								// <div className="flex flex-row items-center gap-1 mt-1 text-sm">
-								// 	<Badge variant={'outline'} className="flex flex-row items-center leading-tight">
-								// 		{item.display_name}
-								// 	</Badge>
-								// 	{additionalGifters.map(g => (
-								// 		<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
-								// 			+{g.display_name}
-								// 		</Badge>
-								// 	))}
-								// </div>
+								<ItemGifters id={item.id} requestedQty={item.quantity || 1} additionalGifterIds={item.additional_gifter_ids || []} />
 							)}
 						</div>
 

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import AddCommentButton from '@/components/comments/AddCommentButton'
 import ItemComments from '@/components/comments/ItemComments'
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
+import AddGiftersButton from '@/components/items/components/AddGiftersButton'
 import ItemCheckboxClient from '@/components/items/components/ItemCheckboxClient'
 import ItemImage from '@/components/items/components/ItemImage'
 import MarkdownBlock from '@/components/items/components/MarkdownBlock'
@@ -31,10 +32,18 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 	if (!item) return null
 	if (item.archived) return null
 
-	const isComplete = !isOwnerView && item.status === ItemStatus.Complete
+	// const isComplete = !isOwnerView && item.status === ItemStatus.Complete
 	const completeClass = ''
 
-	const additionalGifters = item?.additional_gifter_ids?.map(gifterId => users.find(u => u.user_id === gifterId)).filter(Boolean) || []
+	const gifts = item.gifts || []
+	const additionalGifterIds =
+		gifts
+			.map(gift => gift.additional_gifter_ids)
+			?.flat()
+			.filter(Boolean) || []
+	const additionalGifters = additionalGifterIds?.map(gifterId => users.find(u => u.user_id === gifterId))
+	const currentGifterIds = [...new Set(gifts.map(gift => gift.gifter_id).concat(additionalGifterIds))]
+	const isCurrentGifter = currentGifterIds.includes(currentUser.id)
 
 	return (
 		<div className={`flex flex-col w-full gap-2 p-3 hover:bg-muted ${completeClass}`} id={`item-${item.id}`}>
@@ -112,6 +121,12 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 											{gift.user?.display_name || 'Anonymous'}
 										</Badge>
 									))}
+									{additionalGifters.map((gifter: any, index: number) => (
+										<Badge key={index} variant="outline" className="flex flex-row items-center leading-tight">
+											{gifter.display_name}
+										</Badge>
+									))}
+									{isCurrentGifter && <AddGiftersButton itemId={item.id} initialGifterIds={additionalGifterIds} />}
 								</div>
 							)}
 						</div>

@@ -104,7 +104,15 @@ export const getGifts = async (itemId: ListItem['id']) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
-	const { data } = await supabase.from('gifted_items').select('gift_id,item_id,quantity,gifter_id').eq('item_id', itemId)
+	const { data, error } = await supabase
+		.from('gifted_items')
+		.select('gift_id,item_id,quantity,gifter_id,additional_gifter_ids')
+		.eq('item_id', itemId)
+
+	if (error) {
+		console.error('getGifts.error', error)
+		return []
+	}
 
 	const { data: users } = (await getUsers()) || []
 
@@ -112,8 +120,7 @@ export const getGifts = async (itemId: ListItem['id']) => {
 		...d,
 		user: users.find(u => u.user_id === d.gifter_id),
 	}))
-
-	// console.log('getGifts.data', { gifts })
+	// console.log('getGifts.data', gifts)
 
 	return gifts
 }

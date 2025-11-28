@@ -7,7 +7,7 @@ import { ListItem, Recipient, User } from '@/components/types'
 import { ItemStatus } from '@/utils/enums'
 
 import FilterControls, { FilterState } from './FilterControls'
-import ItemRowSSR from './ItemRowSSR'
+import ItemRowSSR from '../items/ItemRowSSR'
 
 type Props = {
 	items: ListItem[]
