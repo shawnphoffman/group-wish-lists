@@ -16,16 +16,24 @@ type Props = {
 	canBePrimary?: boolean
 }
 
-const CountBadge = ({ count }: { count: number }) => (
-	<Badge
-		variant={'outline'}
-		className={`gap-x-1.5 py-1 px-3 text-xs whitespace-nowrap inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}
-	>
-		<FontAwesomeIcon icon={faList} className="!hidden sm:!inline" />
-		{/* <FontAwesomeIcon icon={faList} className="" /> */}
-		{count}
-	</Badge>
-)
+const CountBadge = ({ count, remaining }: { count: number; remaining?: number }) => {
+	if (count === 0) return null
+	return (
+		<Badge
+			variant={'outline'}
+			className={` leading-snug items-end py-1 px-1 rounded-sm text-xs whitespace-nowrap inline-flex ${count > 0 ? '' : 'text-muted-foreground'}`}
+		>
+			{/* <FontAwesomeIcon icon={faList} className="!hidden sm:!inline mr-1" /> */}
+			{remaining !== undefined && (
+				<>
+					<span className="text-[9px] leading-none text-muted-foreground self-start">{remaining}</span>
+					<span className="self-start text-xs leading-none text-muted-foreground/50">/</span>
+				</>
+			)}
+			<span className="self-end leading-none">{count}</span>
+		</Badge>
+	)
+}
 
 export default function ListRow({ list, canEdit, canBePrimary = false }: Props) {
 	if (!list) return null
@@ -36,6 +44,8 @@ export default function ListRow({ list, canEdit, canBePrimary = false }: Props) 
 
 	const privateClasses = list?.private ? '' : ''
 	const isShared = canEdit && list.editors?.length
+
+	// console.log('ListRow', { list })
 
 	return (
 		<div className={`!text-lg flex-row bg-transparent hover:bg-muted rounded flex ${privateClasses} p-2`}>
@@ -76,7 +86,7 @@ export default function ListRow({ list, canEdit, canBePrimary = false }: Props) 
 						</Badge>
 					)}
 					{/*  */}
-					<CountBadge count={list.count!} />
+					<CountBadge count={list.count!} remaining={list.remaining_count} />
 
 					{canBePrimary && <PrimaryListButton listId={list.id} isPrimary={list.primary} />}
 				</div>

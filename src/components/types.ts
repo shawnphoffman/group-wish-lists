@@ -36,6 +36,7 @@ export type List = {
 	user: User
 	list_items: ListItem[]
 	count?: number
+	remaining_count?: number
 	editors?: Array<ListEditorWrapper>
 }
 
