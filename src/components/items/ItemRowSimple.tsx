@@ -42,7 +42,6 @@ export default async function ItemRowSimple({ item }: Props) {
 				<div className="flex flex-row items-stretch gap-x-3.5">
 					{/* Priority */}
 					<div className="flex flex-col items-center justify-center gap-2 shrink-0">
-						{/* Priority */}
 						{item.priority !== ItemPriority.Normal && <ItemPriorityIcon priority={item.priority} />}
 					</div>
 					{/*  */}
@@ -52,20 +51,8 @@ export default async function ItemRowSimple({ item }: Props) {
 							<div className="flex flex-row items-start flex-1 gap-1 overflow-hidden font-medium">
 								{/* Title */}
 								{item.url ? (
-									<Link
-										href={item.url!}
-										// target="_blank"
-										className={`flex flex-col gap-0.5 overflow-hidden hover:underline`}
-									>
+									<Link href={item.url!} target="_blank" className={`flex flex-col gap-0.5 overflow-hidden hover:underline`}>
 										{item.title}
-										{/* <div className="flex flex-row items-center gap-1">
-											<FontAwesomeIcon
-												icon={faLink}
-												className="text-teal-500 hover:text-teal-600 dark:text-teal-400 dark:hover:text-teal-300"
-												size="xs"
-											/>
-											<span className="flex text-xs text-muted-foreground">{getDomainFromUrl(item.url)}</span>
-										</div> */}
 									</Link>
 								) : (
 									<div>{item.title}</div>
@@ -117,7 +104,6 @@ export default async function ItemRowSimple({ item }: Props) {
 						<div className="flex flex-col items-center justify-center gap-2 sm:flex-row">
 							{/* Image */}
 							<ItemImage url={item.image_url} className="max-[400px]:w-40 max-[400px]:max-h-40 w-16 max-h-16 xs:w-24 xs:max-h-24" />
-							{/* <div className="flex flex-col items-center justify-center gap-2"> */}
 							<div className="flex flex-row-reverse items-center justify-center gap-1 sm:flex-col">
 								{/* Actions */}
 								<ItemRowActions itemId={item.id} status={item.status} additionalGifterIds={item.additional_gifter_ids} />

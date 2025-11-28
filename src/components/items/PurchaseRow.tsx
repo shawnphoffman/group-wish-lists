@@ -8,6 +8,7 @@ import { User } from '@/components/types'
 
 import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority } from '@/utils/enums'
+import Link from 'next/link'
 
 type Props = {
 	item: ListItem & Gift & Purchase
@@ -55,7 +56,13 @@ export default function PurchaseRow({ item, recipient }: Props) {
 					{/* Title + Notes */}
 					<div className="flex flex-col flex-1">
 						{/* Title */}
-						<div>{item.title}</div>
+						{item.url ? (
+							<Link href={item.url!} target="_blank" className={`flex flex-col gap-0.5 overflow-hidden hover:underline`}>
+								{item.title}
+							</Link>
+						) : (
+							<div>{item.title}</div>
+						)}
 						{/* Notes */}
 						{item.notes && (
 							<div className="text-sm break-words text-foreground/75">

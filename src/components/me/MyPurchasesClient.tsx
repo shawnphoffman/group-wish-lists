@@ -17,7 +17,7 @@ type MyPurchasesClientProps = {
 const isNovemberOrDecember = () => {
 	const now = new Date()
 	const currentMonth = now.getMonth()
-	const currentYear = now.getFullYear()
+	// const currentYear = now.getFullYear()
 
 	if (currentMonth === 10 || currentMonth === 11) {
 		return true

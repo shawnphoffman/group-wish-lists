@@ -254,6 +254,8 @@ export const getRecentItems = async () => {
 			.is('archived', false)
 			.is('lists.private', false)
 			.is('lists.active', true)
+			// TODO Filter out my own items + something else
+			// TODO Fix list owner/recipient logic
 			.order('updated_at', { ascending: false })
 			.limit(50)
 
