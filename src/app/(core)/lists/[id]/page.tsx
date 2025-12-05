@@ -90,7 +90,7 @@ const ViewListClient = async ({ params }: ClientProps) => {
 			{data.type !== ListCategory.GiftIdeas && (
 				<div className="flex flex-col gap-1">
 					<div className="flex flex-row items-center justify-between gap-2">
-						<h3>Manual Addons</h3>
+						<h3 id="addons">Manual Addons</h3>
 						<AddAddonButton listId={listId} />
 					</div>
 					<div className="text-sm leading-tight text-muted-foreground">

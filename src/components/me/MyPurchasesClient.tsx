@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { getMyPurchases } from '@/app/actions/lists'
+import { getMyPurchases } from '@/app/actions/gifts'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import FilteredPurchasesList from './FilteredPurchasesList'

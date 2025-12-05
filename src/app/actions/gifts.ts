@@ -148,3 +148,47 @@ export const updateGiftQuantity = async (itemId: ListItem['id'], quantity: numbe
 		status: 'success',
 	}
 }
+
+export const getMyPurchases = async () => {
+	'use server'
+
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+	const resp = await supabase.from('view_my_purchases').select()
+
+	const { data } = await supabase.auth.getUser()
+	const viewingUserID = data?.user?.id
+
+	const purchases = resp.data?.reduce((acc, p) => {
+		if (p.gifter_id === viewingUserID || p.recipient_user_id !== viewingUserID) {
+			acc.push(p)
+		}
+		return acc
+	}, [])
+
+	// console.log('getMyLists.resp', resp)
+
+	return purchases
+}
+
+export const getMyPurchaseAddons = async () => {
+	'use server'
+
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+	const resp = await supabase.from('view_my_purchases_addons').select()
+
+	const { data } = await supabase.auth.getUser()
+	const viewingUserID = data?.user?.id
+
+	const addons = resp.data?.reduce((acc, p) => {
+		if (p.gifter_id === viewingUserID || p.recipient_user_id !== viewingUserID) {
+			acc.push(p)
+		}
+		return acc
+	}, []) as any[]
+
+	// console.log('getMyPurchaseAddons.resp', addons)
+
+	return addons
+}

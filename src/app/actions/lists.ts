@@ -174,28 +174,6 @@ export const getMyLists = async (type = 'all') => {
 	return resp
 }
 
-export const getMyPurchases = async () => {
-	'use server'
-
-	const cookieStore = await cookies()
-	const supabase = createClient(cookieStore)
-	const resp = await supabase.from('view_my_purchases').select()
-
-	const { data } = await supabase.auth.getUser()
-	const viewingUserID = data?.user?.id
-
-	const purchases = resp.data?.reduce((acc, p) => {
-		if (p.gifter_id === viewingUserID || p.recipient_user_id !== viewingUserID) {
-			acc.push(p)
-		}
-		return acc
-	}, [])
-
-	// console.log('getMyLists.resp', resp)
-
-	return purchases as any
-}
-
 export const getEditableList = async (listID: number) => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)

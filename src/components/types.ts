@@ -141,3 +141,9 @@ export type Purchase = {
 	recipient_id?: User['id']
 	gift_created_at?: Date
 }
+export type PurchaseAddon = {
+	type: 'addon'
+	list_id: List['id']
+	description: string
+	archived: boolean
+}
