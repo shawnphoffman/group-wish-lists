@@ -131,12 +131,12 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 				setImportError('')
 				setImportMessage('')
 				setImportSuccess('')
-				if (pathname === '/import') {
-					router.push(`/lists/${listId}/edit`)
-				} else {
-					router.refresh()
-				}
 			})
+			if (pathname === '/import') {
+				router.push(`/lists/${listId}/edit`)
+			} else {
+				router.refresh()
+			}
 		}
 	}, [formState, listId, pathname, router])
 
