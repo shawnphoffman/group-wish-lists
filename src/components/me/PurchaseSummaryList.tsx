@@ -7,6 +7,7 @@ type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
 type PurchaseSummaryListProps = {
 	items: PurchaseItem[]
+	currentUserId: string | null
 }
 
 type PersonSummary = {
@@ -17,7 +18,7 @@ type PersonSummary = {
 	purchaseCount: number
 }
 
-export default function PurchaseSummaryList({ items }: PurchaseSummaryListProps) {
+export default function PurchaseSummaryList({ items, currentUserId }: PurchaseSummaryListProps) {
 	// Group purchases by recipient_user_id
 	const summaryByPerson: Record<string, PersonSummary> = items.reduce(
 		(acc, item) => {
@@ -42,8 +43,10 @@ export default function PurchaseSummaryList({ items }: PurchaseSummaryListProps)
 		{} as Record<string, PersonSummary>
 	)
 
-	// Convert to array and sort by total cost (descending)
-	const summaries: PersonSummary[] = Object.values(summaryByPerson).sort((a, b) => b.totalCost - a.totalCost)
+	// Convert to array, filter out current user, and sort by total cost (descending)
+	const summaries: PersonSummary[] = Object.values(summaryByPerson)
+		.filter(person => person.recipient_user_id !== currentUserId)
+		.sort((a, b) => b.totalCost - a.totalCost)
 
 	// Calculate grand total
 	const grandTotal = summaries.reduce((sum, person) => sum + person.totalCost, 0)

@@ -14,6 +14,7 @@ type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
 type PurchaseSummaryClientProps = {
 	items: PurchaseItem[]
+	currentUserId: string | null
 }
 
 const isNovemberOrDecember = () => {
@@ -27,7 +28,7 @@ const isNovemberOrDecember = () => {
 	return false
 }
 
-export default function PurchaseSummaryClient({ items }: PurchaseSummaryClientProps) {
+export default function PurchaseSummaryClient({ items, currentUserId }: PurchaseSummaryClientProps) {
 	const [timeframe, setTimeframe] = useState<Timeframe>(isNovemberOrDecember() ? '30days' : '60days')
 
 	const filteredItems = useMemo(() => {
@@ -81,7 +82,7 @@ export default function PurchaseSummaryClient({ items }: PurchaseSummaryClientPr
 			{filteredItems?.length === 0 ? (
 				<EmptyMessage message="No purchases found for the selected timeframe. Try adjusting the timeframe above." />
 			) : (
-				<PurchaseSummaryList items={filteredItems} />
+				<PurchaseSummaryList items={filteredItems} currentUserId={currentUserId} />
 			)}
 		</div>
 	)

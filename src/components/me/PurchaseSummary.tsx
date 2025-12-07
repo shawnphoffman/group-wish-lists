@@ -1,13 +1,15 @@
 import { getMyPurchaseAddons, getMyPurchases } from '@/app/actions/gifts'
 import { getUsers } from '@/app/actions/users'
+import { getUser } from '@/app/actions/auth'
 import PurchaseSummaryClient from './PurchaseSummaryClient'
 
 export default async function PurchaseSummary() {
 	const purchasesPromise = getMyPurchases()
 	const addonsPromise = getMyPurchaseAddons()
 	const usersPromise = getUsers()
+	const currentUserPromise = getUser()
 
-	const [purchases, addons, users] = await Promise.all([purchasesPromise, addonsPromise, usersPromise])
+	const [purchases, addons, users, currentUser] = await Promise.all([purchasesPromise, addonsPromise, usersPromise, currentUserPromise])
 
 	const hydratedItems =
 		purchases?.map(item => ({
@@ -28,5 +30,5 @@ export default async function PurchaseSummary() {
 		return new Date(b.gift_created_at).getTime() - new Date(a.gift_created_at).getTime()
 	})
 
-	return <PurchaseSummaryClient items={sortedItems || []} />
+	return <PurchaseSummaryClient items={sortedItems || []} currentUserId={currentUser.data?.user_id || null} />
 }
