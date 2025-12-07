@@ -20,27 +20,44 @@ const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
 	return <Badge variant="secondary">{formatDateBasedOnAge(purchaseDate)}</Badge>
 }
 
+const TotalCost = ({ item }: { item: Purchase }) => {
+	if (item.total_cost === undefined || item.total_cost === null) return null
+	const totalCost = item.total_cost.toFixed(2)
+	return (
+		<Badge variant="outline" className="bg-green-800 ">
+			${Number(totalCost).toLocaleString()}
+		</Badge>
+	)
+}
+
 export default function PurchaseRow({ item, recipient }: Props) {
 	if (!item) return null
+
+	if (item.gift_id === 578) {
+		console.log('PurchaseRow.item', item)
+	}
 
 	const purchaseDate = item?.gift_created_at ? new Date(item.gift_created_at).toDateString() : null
 
 	return (
-		<div className="flex flex-col w-full gap-2 p-3 sm:flex-row hover:bg-muted">
+		<div className="flex flex-col w-full gap-2 p-3 sm:flex-row hover:bg-muted" id={`gift-${item.gift_id}`}>
 			{/* Recipient */}
 			<div className="flex flex-row items-center justify-between gap-1">
 				<div className="flex flex-row items-center gap-1">
 					{recipient && (
-						<Avatar className="border w-7 h-7 border-foreground">
-							<AvatarImage src={recipient.image} />
-							<AvatarFallback className="text-xl font-bold bg-background text-foreground">
-								{recipient.display_name?.charAt(0)}
-							</AvatarFallback>
-						</Avatar>
+						<Badge variant="outline" className="gap-1 py-0 ps-0 pe-2">
+							<Avatar className="border w-7 h-7">
+								<AvatarImage src={recipient.image} />
+								<AvatarFallback className="text-xl font-bold bg-background text-foreground">
+									{recipient.display_name?.charAt(0)}
+								</AvatarFallback>
+							</Avatar>
+							{item.recipient_display_name}
+						</Badge>
 					)}
-					<Badge variant="outline">{item.recipient_display_name}</Badge>
 				</div>
 				<div className="flex items-center gap-1 sm:hidden">
+					<TotalCost item={item} />
 					<PurchaseDate purchaseDate={purchaseDate} />
 				</div>
 			</div>
@@ -72,8 +89,9 @@ export default function PurchaseRow({ item, recipient }: Props) {
 					</div>
 				</div>
 			</div>
-			<div className="flex-row items-center hidden gap-1 sm:flex">
+			<div className="flex-col items-center hidden gap-1 sm:flex">
 				<PurchaseDate purchaseDate={purchaseDate} />
+				<TotalCost item={item} />
 			</div>
 		</div>
 	)

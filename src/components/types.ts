@@ -140,6 +140,9 @@ export type Purchase = {
 	recipient_user_id?: User['user_id']
 	recipient_id?: User['id']
 	gift_created_at?: Date
+	total_cost?: number
+	gifted_notes?: string
+	gift_id: number
 }
 export type PurchaseAddon = {
 	type: 'addon'
