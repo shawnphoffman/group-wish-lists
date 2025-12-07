@@ -43,11 +43,11 @@ export default function AddAddonButton({ listId }: Props) {
 	useEffect(() => {
 		if (state?.status === 'success') {
 			// console.log('createComment.state', state)
+			if (formRef?.current) {
+				formRef.current.reset()
+			}
+			setOpen(false)
 			startTransition(() => {
-				if (formRef?.current) {
-					formRef.current.reset()
-				}
-				setOpen(false)
 				router.refresh()
 			})
 		}

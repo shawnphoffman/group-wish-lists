@@ -35,9 +35,8 @@ export default function ImportButton({ listId }: Props) {
 
 		async function importItems() {
 			const resp = await createMultipleItems(listId, data)
-
-			setLoading(false)
 			setOpen(false)
+			setLoading(false)
 			if (resp?.status === 'success') {
 				startTransition(() => {
 					setData([])

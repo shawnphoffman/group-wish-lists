@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { startTransition, useCallback, useState } from 'react'
 import { faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
@@ -59,7 +59,9 @@ export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty,
 				await updateGiftQuantity(id, quantity)
 			}
 			setDialogOpen(false)
-			router.refresh()
+			startTransition(() => {
+				router.refresh()
+			})
 		} catch (error) {
 			console.error('Failed to update quantity:', error)
 		} finally {

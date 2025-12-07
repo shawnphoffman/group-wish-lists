@@ -52,12 +52,12 @@ export default function AddCommentButton({ itemId }: Props) {
 	useEffect(() => {
 		if (state?.status === 'success') {
 			// console.log('createComment.state', state)
+			setOpen(false)
+			if (formRef?.current) {
+				formRef.current.reset()
+			}
 			startTransition(() => {
-				setOpen(false)
 				router.refresh()
-				if (formRef?.current) {
-					formRef.current.reset()
-				}
 			})
 		}
 	}, [state, pathname, router])

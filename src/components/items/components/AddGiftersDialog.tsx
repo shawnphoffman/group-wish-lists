@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { getSessionUser } from '@/app/actions/auth'
@@ -67,7 +67,9 @@ export default function AddGiftersDialog({ itemId, open, onOpenChange, initialGi
 		try {
 			await updateItemAdditionalGifters(itemId, Array.from(selectedUsers))
 			onOpenChange(false)
-			router.refresh()
+			startTransition(() => {
+				router.refresh()
+			})
 		} catch (error) {
 			console.error('Failed to update additional gifters:', error)
 		} finally {

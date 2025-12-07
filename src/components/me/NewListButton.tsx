@@ -113,11 +113,11 @@ export default function NewListButton() {
 
 	useEffect(() => {
 		if (state?.status === 'success') {
+			setOpen(false)
+			if (formRef?.current) {
+				formRef.current.reset()
+			}
 			startTransition(() => {
-				if (formRef?.current) {
-					formRef.current.reset()
-				}
-				setOpen(false)
 				router.refresh()
 			})
 		}
