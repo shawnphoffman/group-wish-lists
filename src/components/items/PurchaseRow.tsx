@@ -24,8 +24,8 @@ const TotalCost = ({ item }: { item: Purchase }) => {
 	if (item.total_cost === undefined || item.total_cost === null) return null
 	const totalCost = item.total_cost.toFixed(2)
 	return (
-		<Badge variant="outline" className="bg-green-800 ">
-			${Number(totalCost).toLocaleString()}
+		<Badge variant="outline" className="text-[10px] bg-green-800">
+			${totalCost}
 		</Badge>
 	)
 }
