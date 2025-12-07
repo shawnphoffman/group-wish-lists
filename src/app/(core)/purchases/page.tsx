@@ -13,7 +13,9 @@ export default async function PurchasesPage() {
 				<h1 className="flex flex-row items-center gap-2">My Purchases</h1>
 				<FontAwesomeIcon icon={faShoppingBag} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-green-700" />
 				<div className="text-sm leading-tight text-muted-foreground">
-					{/* This page is a special request because Madison treats this like a social media site... */}
+					This page displays all of your purchases and addons. If you have a partner in the system, their purchases will be displayed here
+					as well, excluding gifts for you. You can edit purchases to add private information like pricing and notes. This information will
+					not be visible to the recipient.
 				</div>
 				<Suspense fallback={<FallbackRowsMultiple />}>
 					<MyPurchases />
