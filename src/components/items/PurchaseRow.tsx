@@ -53,10 +53,6 @@ export default function PurchaseRow({ item, recipient }: Props) {
 
 	if (!item) return null
 
-	if (item.gift_id === 578) {
-		console.log('PurchaseRow.item', item)
-	}
-
 	const purchaseDate = item?.gift_created_at ? new Date(item.gift_created_at).toDateString() : null
 
 	const handleSave = async () => {
