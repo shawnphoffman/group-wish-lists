@@ -52,8 +52,52 @@ export default function PurchaseSummaryList({ items, currentUserId }: PurchaseSu
 	// Calculate grand total
 	const grandTotal = summaries.reduce((sum, person) => sum + person.totalCost, 0)
 
+	// Calculate metrics
+	const totalPeople = summaries.length
+	const totalPurchases = summaries.reduce((sum, person) => sum + person.purchaseCount, 0)
+	const peopleWithSpending = summaries.filter(person => person.totalCost > 0)
+	const averageSpendPerPerson = peopleWithSpending.length > 0 ? grandTotal / peopleWithSpending.length : 0
+	const averageSpendIncludingZero = totalPeople > 0 ? grandTotal / totalPeople : 0
+	const averagePurchasesPerPerson = totalPeople > 0 ? totalPurchases / totalPeople : 0
+
 	return (
 		<div className="flex flex-col overflow-hidden border rounded-lg shadow-sm text-card-foreground bg-accent">
+			{/* Metrics Section */}
+			{summaries.length > 0 && (
+				<div className="flex flex-col gap-3 p-4 border-b bg-muted/30">
+					<div className="text-base font-semibold sm:text-lg">Summary Metrics</div>
+					<div className="grid grid-cols-2 gap-3 text-xs sm:text-base lg:grid-cols-3">
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Average Spend (incl. $0)</div>
+							<div className="font-medium">
+								<TotalCost totalCost={averageSpendIncludingZero} className="text-xs" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Average Spend (excl. $0)</div>
+							<div className="font-medium">
+								<TotalCost totalCost={averageSpendPerPerson} className="text-xs" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Total People (incl. $0)</div>
+							<div className="font-medium">{totalPeople}</div>
+						</div>
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Total People (excl. $0)</div>
+							<div className="font-medium">{peopleWithSpending.length}</div>
+						</div>
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Total Purchases</div>
+							<div className="font-medium">{totalPurchases}</div>
+						</div>
+						<div className="flex flex-col gap-1">
+							<div className="text-muted-foreground">Avg Purchases/Person</div>
+							<div className="font-medium">{averagePurchasesPerPerson.toFixed(1)}</div>
+						</div>
+					</div>
+				</div>
+			)}
 			{summaries.map((person, index) => (
 				<div
 					key={person.recipient_user_id || `unknown-${index}`}
