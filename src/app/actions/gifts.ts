@@ -214,7 +214,7 @@ export const updatePurchaseDetails = async (giftId: number, totalCost: number | 
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
 
-	console.log('updatePurchaseDetails.gift', { gift, updateData })
+	// console.log('updatePurchaseDetails.gift', { gift, updateData })
 
 	return {
 		status: 'success',

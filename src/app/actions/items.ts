@@ -271,7 +271,8 @@ export const getRecentItems = async () => {
 			.is('lists.private', false)
 			.is('lists.active', true)
 			.not('lists', 'is', null)
-			.order('updated_at', { ascending: false })
+			// .order('updated_at', { ascending: false })
+			.order('created_at', { ascending: false })
 			.limit(50)
 
 		const filtered = resp.data?.filter(item => {
