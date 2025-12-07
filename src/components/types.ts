@@ -149,4 +149,7 @@ export type PurchaseAddon = {
 	list_id: List['id']
 	description: string
 	archived: boolean
+	total_cost?: number
+	notes?: string
+	id: number
 }

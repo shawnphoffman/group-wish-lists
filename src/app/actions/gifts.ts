@@ -192,3 +192,57 @@ export const getMyPurchaseAddons = async () => {
 
 	return addons
 }
+
+export const updatePurchaseDetails = async (giftId: number, totalCost: number | null, notes: string | null) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const updateData: { total_cost?: number | null; notes?: string | null } = {}
+	if (totalCost !== undefined) {
+		updateData.total_cost = totalCost
+	}
+	if (notes !== undefined) {
+		updateData.notes = notes
+	}
+
+	const giftPromise = await supabase.from('gifted_items').update(updateData).eq('gift_id', giftId).select()
+
+	const [gift] = await Promise.all([
+		giftPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	console.log('updatePurchaseDetails.gift', { gift, updateData })
+
+	return {
+		status: 'success',
+	}
+}
+
+export const updatePurchaseAddonDetails = async (addonId: number, totalCost: number | null, notes: string | null) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const updateData: { total_cost?: number | null; notes?: string | null } = {}
+	if (totalCost !== undefined) {
+		updateData.total_cost = totalCost
+	}
+	if (notes !== undefined) {
+		updateData.notes = notes
+	}
+
+	const addonPromise = await supabase.from('list_addons').update(updateData).eq('id', addonId).maybeSingle()
+
+	await Promise.all([
+		addonPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	return {
+		status: 'success',
+	}
+}
