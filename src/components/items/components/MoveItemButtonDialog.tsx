@@ -4,7 +4,6 @@ import { startTransition, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { moveItem, moveItems } from '@/app/actions/items'
-import { clearListsCache } from '@/app/actions/lists'
 import { LoadingIcon, MoveIcon } from '@/components/icons/Icons'
 import ListTypeIcon from '@/components/icons/ListTypeIcon'
 import type { List, ListItem, ListSharedWithMe } from '@/components/types'
@@ -20,10 +19,16 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-// import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCachedLists } from '@/hooks/useCachedLists'
 import { removeEmojis } from '@/components/imports/ImportUrlClient'
+
+const sortFn = (a: List, b: List) => {
+	// Primary lists always come first
+	if (a.primary && !b.primary) return -1
+	if (!a.primary && b.primary) return 1
+	return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
+}
 
 type Props = { listId: List['id']; id?: ListItem['id']; ids?: Set<ListItem['id']> }
 
@@ -39,7 +44,6 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 	let myPrivateLists: List[] = []
 	let giftIdeasList: List[] = []
 	let sharedWithMeLists: List[] = []
-	// let sharedWithOthersLists: List[] = []
 
 	lists.forEach(l => {
 		if (l.listType === 'public') {
@@ -50,42 +54,16 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 			giftIdeasList.push(l)
 		} else if (l.listType === 'shared_with_me') {
 			sharedWithMeLists.push(l)
-			// } else if (l.listType === 'shared_with_others') {
-			// 	sharedWithOthersLists.push(l)
 		}
 	})
 
-	myPublicLists.sort((a, b) => {
-		// Primary lists always come first
-		if (a.primary && !b.primary) return -1
-		if (!a.primary && b.primary) return 1
+	myPublicLists.sort(sortFn)
 
-		// const typeCompare = a.type.localeCompare(b.type)
-		// if (typeCompare !== 0) return typeCompare
-		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
-	})
+	myPrivateLists.sort(sortFn)
 
-	myPrivateLists.sort((a, b) => {
-		// Primary lists always come first
-		if (a.primary && !b.primary) return -1
-		if (!a.primary && b.primary) return 1
+	giftIdeasList.sort(sortFn)
 
-		// const typeCompare = a.type.localeCompare(b.type)
-		// if (typeCompare !== 0) return typeCompare
-		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
-	})
-
-	giftIdeasList.sort((a, b) => {
-		// const typeCompare = a.type.localeCompare(b.type)
-		// if (typeCompare !== 0) return typeCompare
-		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
-	})
-
-	sharedWithMeLists.sort((a, b) => {
-		// const typeCompare = a.type.localeCompare(b.type)
-		// if (typeCompare !== 0) return typeCompare
-		return removeEmojis(a.name).localeCompare(removeEmojis(b.name))
-	})
+	sharedWithMeLists.sort(sortFn)
 
 	// Set the current list when lists are loaded
 	useEffect(() => {
@@ -113,11 +91,9 @@ export default function MoveItemButtonDialog({ id, listId, ids }: Props) {
 				resp = await moveItem(id!, list?.id)
 			}
 			if (resp.status === 'success') {
-				// Clear cache to ensure fresh data after moving items
-				clearListsCache()
+				setOpen(false)
 				startTransition(() => {
 					router.refresh()
-					// setOpen(false)
 				})
 			}
 		} catch (error) {
