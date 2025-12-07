@@ -8,6 +8,8 @@ import FilteredPurchasesList from './FilteredPurchasesList'
 import { subDays } from 'date-fns/subDays'
 import { isWithinInterval } from 'date-fns/isWithinInterval'
 
+type Timeframe = '30days' | '60days' | '6months' | '1year' | 'all'
+
 type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
 type MyPurchasesClientProps = {
@@ -27,11 +29,17 @@ const isNovemberOrDecember = () => {
 }
 
 export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
-	const [timeframe, setTimeframe] = useState<'60days' | '6months' | 'all'>(isNovemberOrDecember() ? '60days' : '6months')
+	const [timeframe, setTimeframe] = useState<Timeframe>(isNovemberOrDecember() ? '30days' : '60days')
 
 	const filteredItems = useMemo(() => {
 		if (timeframe === 'all') {
 			return items
+		}
+		if (timeframe === '30days') {
+			return items.filter(
+				item =>
+					item.gift_created_at && isWithinInterval(new Date(item.gift_created_at), { start: subDays(new Date(), 30), end: new Date() })
+			)
 		}
 
 		if (timeframe === '60days') {
@@ -40,16 +48,17 @@ export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
 					item.gift_created_at && isWithinInterval(new Date(item.gift_created_at), { start: subDays(new Date(), 36), end: new Date() })
 			)
 		}
-
-		// Filter for last 3 months
-		const threeMonthsAgo = new Date()
-		threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 6)
-
-		return items.filter(item => {
-			if (!item.gift_created_at) return false
-			const purchaseDate = new Date(item.gift_created_at)
-			return purchaseDate >= threeMonthsAgo
-		})
+		if (timeframe === '6months') {
+			return items.filter(
+				item =>
+					item.gift_created_at && isWithinInterval(new Date(item.gift_created_at), { start: subDays(new Date(), 180), end: new Date() })
+			)
+		}
+		// if (timeframe === '1year') {
+		return items.filter(
+			item => item.gift_created_at && isWithinInterval(new Date(item.gift_created_at), { start: subDays(new Date(), 365), end: new Date() })
+		)
+		// }
 	}, [items, timeframe])
 
 	return (
@@ -58,13 +67,15 @@ export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
 				<label htmlFor="timeframe-select" className="text-sm text-muted-foreground">
 					Timeframe:
 				</label>
-				<Select value={timeframe} onValueChange={(value: '6months' | 'all') => setTimeframe(value)}>
+				<Select value={timeframe} onValueChange={(value: Timeframe) => setTimeframe(value)}>
 					<SelectTrigger id="timeframe-select" className="w-[180px]">
 						<SelectValue />
 					</SelectTrigger>
 					<SelectContent>
+						<SelectItem value="30days">Last 30 days</SelectItem>
 						<SelectItem value="60days">Last 60 days</SelectItem>
 						<SelectItem value="6months">Last 6 months</SelectItem>
+						<SelectItem value="1year">Last 12 months</SelectItem>
 						<SelectItem value="all">All Time</SelectItem>
 					</SelectContent>
 				</Select>
