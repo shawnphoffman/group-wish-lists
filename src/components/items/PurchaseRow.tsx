@@ -4,7 +4,7 @@ import { startTransition, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import ItemPriorityIcon from '@/components/icons/PriorityIcon'
-import { Gift, ListItem, Purchase } from '@/components/types'
+import { Gift, ListItem, Purchase, PurchaseAddon } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -22,25 +22,36 @@ import { ItemPriority } from '@/utils/enums'
 import Link from 'next/link'
 import { EditIcon } from '../icons/Icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNoteSticky } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faDollarSign, faNoteSticky } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { cn } from '@/utils/utils'
 
 type Props = {
 	item: ListItem & Gift & Purchase
 	recipient?: User | null
 }
 
-const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
+export const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
 	if (!purchaseDate) return null
 	return <Badge variant="secondary">{formatDateBasedOnAge(purchaseDate)}</Badge>
 }
 
-const TotalCost = ({ item }: { item: Purchase }) => {
-	if (item.total_cost === undefined || item.total_cost === null) return null
-	const totalCost = item.total_cost.toFixed(2)
+export const TotalCost = ({ totalCost, className }: { totalCost: number | undefined | null; className?: string }) => {
+	if (totalCost === undefined || totalCost === null) return null
+	const totalCostValue = totalCost.toFixed(2)
+	const bgColor = totalCost > 0 ? 'bg-green-800' : 'bg-muted'
 	return (
-		<Badge variant="outline" className="text-[10px] bg-green-800">
-			${totalCost}
+		<Badge variant="outline" className={cn('text-[10px]', bgColor, className)}>
+			${totalCostValue}
 		</Badge>
+	)
+}
+
+export const PurchaseNotes = ({ notes }: { notes: string }) => {
+	return (
+		<div className="flex items-center gap-1 px-2 py-1 text-sm italic break-words border border-dashed rounded text-balance w-fit border-amber-500/25 text-muted-foreground">
+			<FontAwesomeIcon icon={faNoteSticky} className="text-amber-500" />
+			<MarkdownBlock>{notes}</MarkdownBlock>
+		</div>
 	)
 }
 
@@ -100,7 +111,7 @@ export default function PurchaseRow({ item, recipient }: Props) {
 							)}
 						</div>
 						<div className="flex items-center gap-1 sm:hidden">
-							<TotalCost item={item} />
+							<TotalCost totalCost={item.total_cost} />
 							<PurchaseDate purchaseDate={purchaseDate} />
 						</div>
 					</div>
@@ -148,7 +159,7 @@ export default function PurchaseRow({ item, recipient }: Props) {
 					<div className="flex-row items-center hidden gap-1 sm:flex">
 						<div className="flex-col items-center hidden gap-1 sm:flex">
 							<PurchaseDate purchaseDate={purchaseDate} />
-							<TotalCost item={item} />
+							<TotalCost totalCost={item.total_cost} />
 						</div>
 						<Button
 							variant="ghost"
@@ -164,12 +175,7 @@ export default function PurchaseRow({ item, recipient }: Props) {
 						</Button>
 					</div>
 				</div>
-				{item.gifted_notes && (
-					<div className="flex items-center gap-1 px-2 py-1 text-sm italic break-words border rounded border-amber-500/25 text-foreground/75">
-						<FontAwesomeIcon icon={faNoteSticky} className="text-amber-500" />
-						{item.gifted_notes}
-					</div>
-				)}
+				{item.gifted_notes && <PurchaseNotes notes={item.gifted_notes} />}
 			</div>
 
 			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -178,17 +184,23 @@ export default function PurchaseRow({ item, recipient }: Props) {
 						<DialogTitle>Edit Purchase Details</DialogTitle>
 						<DialogDescription>Update the cost and notes for this purchase.</DialogDescription>
 					</DialogHeader>
-					<div className="flex flex-col gap-4 py-4">
+					<div className="flex flex-col gap-4 py-2">
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="total-cost">Total Cost</Label>
-							<Input
-								id="total-cost"
-								type="number"
-								step="0.01"
-								placeholder="0.00"
-								value={totalCost}
-								onChange={e => setTotalCost(e.target.value)}
-							/>
+							<div className="relative">
+								<FontAwesomeIcon icon={faDollarSign} className="absolute w-4 h-4 -translate-y-1/2 top-1/2 left-3 text-muted-foreground" />
+
+								<Input
+									id="total-cost"
+									type="number"
+									className="bg-background pl-9"
+									min="0"
+									step="0.01"
+									placeholder="0.00"
+									value={totalCost}
+									onChange={e => setTotalCost(e.target.value)}
+								/>
+							</div>
 						</div>
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="notes">Notes</Label>
@@ -197,9 +209,19 @@ export default function PurchaseRow({ item, recipient }: Props) {
 								placeholder="Add any notes about this purchase..."
 								value={notes}
 								onChange={e => setNotes(e.target.value)}
-								rows={4}
+								rows={3}
 							/>
 						</div>
+						{notes && (
+							<div className="flex flex-col w-full gap-1.5">
+								<Label htmlFor="notes">Preview</Label>
+								<div className="grid ">
+									<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
+										<MarkdownBlock>{notes}</MarkdownBlock>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
 					<DialogFooter>
 						<Button variant="outline" onClick={() => setIsDialogOpen(false)} disabled={isLoading}>

@@ -2,8 +2,6 @@
 
 import { startTransition, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNoteSticky } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 
 import { Gift, PurchaseAddon, Purchase } from '@/components/types'
 import { Badge } from '@/components/ui/badge'
@@ -16,28 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { User } from '@/components/types'
 import { updatePurchaseAddonDetails } from '@/app/actions/gifts'
 
-import { formatDateBasedOnAge } from '@/utils/date'
 import Link from 'next/link'
 import { EditIcon } from '../icons/Icons'
+import { PurchaseDate, PurchaseNotes, TotalCost } from './PurchaseRow'
 
 type Props = {
 	item: PurchaseAddon & Gift & Purchase & PurchaseAddon & { type: 'addon' }
 	recipient?: User | null
-}
-
-const PurchaseDate = ({ purchaseDate }: { purchaseDate: string | null }) => {
-	if (!purchaseDate) return null
-	return <Badge variant="secondary">{formatDateBasedOnAge(purchaseDate)}</Badge>
-}
-
-const TotalCost = ({ item }: { item: PurchaseAddon }) => {
-	if (item.total_cost === undefined || item.total_cost === null) return null
-	const totalCost = item.total_cost.toFixed(2)
-	return (
-		<Badge variant="outline" className="text-[10px] bg-green-800">
-			${totalCost}
-		</Badge>
-	)
 }
 
 export default function PurchaseAddonRow({ item, recipient }: Props) {
@@ -94,7 +77,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 							<Badge variant="outline">{item.recipient_display_name}</Badge>
 						</div>
 						<div className="flex items-center gap-1 sm:hidden">
-							<TotalCost item={item} />
+							<TotalCost totalCost={item.total_cost} />
 							<PurchaseDate purchaseDate={purchaseDate} />
 						</div>
 					</div>
@@ -131,7 +114,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 					<div className="flex-row items-center hidden gap-1 sm:flex">
 						<div className="flex-col items-center hidden gap-1 sm:flex">
 							<PurchaseDate purchaseDate={purchaseDate} />
-							<TotalCost item={item} />
+							<TotalCost totalCost={item.total_cost} />
 						</div>
 						<Button
 							variant="ghost"
@@ -147,12 +130,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 						</Button>
 					</div>
 				</div>
-				{item.notes && (
-					<div className="flex items-center gap-1 px-2 py-1 text-sm italic break-words border rounded border-amber-500/25 text-foreground/75">
-						<FontAwesomeIcon icon={faNoteSticky} className="text-amber-500" />
-						{item.notes}
-					</div>
-				)}
+				{item.notes && <PurchaseNotes notes={item.notes} />}
 			</div>
 
 			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

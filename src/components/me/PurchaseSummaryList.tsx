@@ -2,6 +2,7 @@ import { getMyPurchases } from '@/app/actions/gifts'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { User } from '@/components/types'
+import { TotalCost } from '../items/PurchaseRow'
 
 type PurchaseItem = Awaited<ReturnType<typeof getMyPurchases>>[number]
 
@@ -68,27 +69,23 @@ export default function PurchaseSummaryList({ items, currentUserId }: PurchaseSu
 									</AvatarFallback>
 								</Avatar>
 							)}
-							<div className="flex flex-col">
-								<div className="font-medium">{person.recipient_display_name}</div>
-								<div className="text-sm text-muted-foreground">
+							<div className="flex flex-col items-start justify-center gap-1">
+								<div className="font-medium leading-none">{person.recipient_display_name}</div>
+								<div className="text-xs leading-none text-muted-foreground">
 									{person.purchaseCount} {person.purchaseCount === 1 ? 'purchase' : 'purchases'}
 								</div>
 							</div>
 						</div>
 						<div className="flex flex-col items-end">
-							<Badge variant="outline" className="bg-green-800 ">
-								${person.totalCost.toFixed(2)}
-							</Badge>
+							<TotalCost totalCost={person.totalCost} className="text-xs" />
 						</div>
 					</div>
 				</div>
 			))}
 			{summaries.length > 0 && (
-				<div className="flex flex-row items-center justify-between gap-4 p-4 border-t bg-muted/50">
+				<div className="flex flex-row items-center justify-between gap-4 p-2 border-t bg-muted/50">
 					<div className="font-semibold">Total</div>
-					<Badge variant="outline" className="px-3 py-1 bg-green-900 ">
-						${grandTotal.toFixed(2)}
-					</Badge>
+					<TotalCost totalCost={grandTotal} className="text-xs" />
 				</div>
 			)}
 		</div>
