@@ -9,7 +9,7 @@ import RealTimeListener from '@/components/utils/RealTimeListener'
 export default async function RecentItemsPage() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
+		<div className="wish-page">
 			<div className="relative flex flex-col flex-wrap justify-between gap-2">
 				<h1 className="flex flex-row items-center gap-2">Recent Items</h1>
 				<FontAwesomeIcon icon={faRadio} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-orange-500" />

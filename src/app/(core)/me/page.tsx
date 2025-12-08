@@ -10,7 +10,7 @@ import NewListButton from '@/components/me/NewListButton'
 export default async function MyStuff() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
+		<div className="wish-page">
 			<main className="flex flex-col flex-1 gap-8 divide-y">
 				{/* LISTS */}
 				<div className="flex flex-col gap-8">

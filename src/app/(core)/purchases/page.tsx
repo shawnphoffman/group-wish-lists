@@ -8,7 +8,7 @@ import { faShoppingBag } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/so
 export default async function PurchasesPage() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
+		<div className="wish-page">
 			<div className="relative flex flex-col flex-wrap justify-between gap-2">
 				<h1 className="flex flex-row items-center gap-2">My Purchases</h1>
 				<FontAwesomeIcon icon={faShoppingBag} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-green-700" />

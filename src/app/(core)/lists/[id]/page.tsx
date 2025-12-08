@@ -132,7 +132,7 @@ export default async function ViewList(props: Props) {
 	const params = await props.params
 	return (
 		<>
-			<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
+			<div className="wish-page">
 				<div className="flex flex-col flex-1 gap-6">
 					<Suspense fallback={<FallbackRowsMultiple />}>
 						<ViewListClient params={params} />

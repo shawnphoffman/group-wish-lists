@@ -8,7 +8,7 @@ import { FallbackRowsMultiple } from '@/components/common/Fallbacks'
 export default async function Comments() {
 	// await new Promise(resolve => setTimeout(resolve, 5000))
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-5xl px-2 animate-page-in">
+		<div className="wish-page">
 			<div className="relative flex flex-col flex-wrap justify-between gap-2">
 				<h1 className="flex flex-row items-center gap-2">Grapevine</h1>
 				<FontAwesomeIcon

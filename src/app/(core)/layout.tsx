@@ -21,9 +21,9 @@ export default async function CoreLayout({ children }: Props) {
 			<SidebarProvider>
 				<AppSidebar />
 				<SidebarInset>
-					<header className="top-0 z-10 flex items-center h-12 gap-2 shrink-0">
+					<header className="sticky top-0 z-10 flex items-center h-12 gap-2 shrink-0">
 						<div className="flex items-center gap-2 px-4">
-							<SidebarTrigger className="-ml-1" />
+							<SidebarTrigger className="-ml-1 bg-background/75" />
 							<Suspense fallback={null}>
 								<NavBreadcrumbs />
 							</Suspense>

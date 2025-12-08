@@ -17,6 +17,7 @@ import { updatePurchaseAddonDetails } from '@/app/actions/gifts'
 import Link from 'next/link'
 import { EditIcon } from '../icons/Icons'
 import { PurchaseDate, PurchaseNotes, TotalCost } from './PurchaseRow'
+import MarkdownBlock from './components/MarkdownBlock'
 
 type Props = {
 	item: PurchaseAddon & Gift & Purchase & PurchaseAddon & { type: 'addon' }
@@ -161,6 +162,16 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 								rows={4}
 							/>
 						</div>
+						{notes && (
+							<div className="flex flex-col w-full gap-1.5">
+								<Label htmlFor="notes">Notes Preview</Label>
+								<div className="grid ">
+									<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
+										<MarkdownBlock>{notes}</MarkdownBlock>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
 					<DialogFooter>
 						<Button variant="outline" onClick={() => setIsDialogOpen(false)} disabled={isLoading}>

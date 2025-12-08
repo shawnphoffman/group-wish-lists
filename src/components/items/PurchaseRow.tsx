@@ -214,7 +214,7 @@ export default function PurchaseRow({ item, recipient }: Props) {
 						</div>
 						{notes && (
 							<div className="flex flex-col w-full gap-1.5">
-								<Label htmlFor="notes">Preview</Label>
+								<Label htmlFor="notes">Notes Preview</Label>
 								<div className="grid ">
 									<div className="inline px-3 py-2 text-sm border rounded-md text-foreground/75 border-input bg-background/50">
 										<MarkdownBlock>{notes}</MarkdownBlock>

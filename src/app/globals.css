@@ -132,6 +132,10 @@
 }
 
 @layer utilities {
+	.wish-page {
+		@apply flex flex-col flex-1 w-full max-w-5xl px-2 pb-8 animate-page-in;
+	}
+
 	.animate-page-in {
 		animation: animatePageIn 0.3s ease 0.15s both;
 	}
