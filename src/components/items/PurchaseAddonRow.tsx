@@ -68,14 +68,16 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 					<div className="flex flex-row items-center justify-between gap-1">
 						<div className="flex flex-row items-center gap-1">
 							{recipient && (
-								<Avatar className="border w-7 h-7 border-foreground">
-									<AvatarImage src={recipient.image} />
-									<AvatarFallback className="text-xl font-bold bg-background text-foreground">
-										{recipient.display_name?.charAt(0)}
-									</AvatarFallback>
-								</Avatar>
+								<Badge variant="outline" className="gap-1 py-0 ps-0 pe-2">
+									<Avatar className="border w-7 h-7">
+										<AvatarImage src={recipient.image} />
+										<AvatarFallback className="text-xl font-bold bg-background text-foreground">
+											{recipient.display_name?.charAt(0)}
+										</AvatarFallback>
+									</Avatar>
+									{item.recipient_display_name}
+								</Badge>
 							)}
-							<Badge variant="outline">{item.recipient_display_name}</Badge>
 						</div>
 						<div className="flex items-center gap-1 sm:hidden">
 							<TotalCost totalCost={item.total_cost} />
