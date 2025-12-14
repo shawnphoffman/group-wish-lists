@@ -316,7 +316,7 @@ export const getListAddons = async (listID: number) => {
 
 	const resp = await supabase
 		.from('list_addons')
-		.select(`id,created_at,description,user:user_id(user_id, display_name)`)
+		.select(`id,created_at,description,total_cost,notes,user:user_id(user_id, display_name)`)
 		.eq('list_id', listID)
 		.is('archived', false)
 		.order('created_at', { ascending: false })

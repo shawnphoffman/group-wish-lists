@@ -60,6 +60,35 @@ export const deleteAddon = async (addonId: number) => {
 	}
 }
 
+export const updateAddon = async (addonId: number, description: string | null, totalCost: number | null, notes: string | null) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const updateData: { description?: string | null; total_cost?: number | null; notes?: string | null } = {}
+	if (description !== undefined) {
+		updateData.description = description
+	}
+	if (totalCost !== undefined) {
+		updateData.total_cost = totalCost
+	}
+	if (notes !== undefined) {
+		updateData.notes = notes
+	}
+
+	const addonPromise = await supabase.from('list_addons').update(updateData).eq('id', addonId).maybeSingle()
+
+	await Promise.all([
+		addonPromise,
+		//
+		// new Promise(resolve => setTimeout(resolve, 2000)),
+	])
+
+	return {
+		status: 'success',
+	}
+}
+
 // export const editComment = async (prevState: any, formData: FormData) => {
 // 	'use server'
 // 	const cookieStore = await cookies()

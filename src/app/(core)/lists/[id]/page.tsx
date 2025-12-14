@@ -111,6 +111,8 @@ const ViewListClient = async ({ params }: ClientProps) => {
 										display_name={item.user.display_name}
 										is_gifter={item.is_gifter}
 										description={item.description}
+										total_cost={item.total_cost}
+										notes={item.notes}
 									/>
 								</Suspense>
 							))}
