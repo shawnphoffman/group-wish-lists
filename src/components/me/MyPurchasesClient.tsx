@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import { getMyPurchases } from '@/app/actions/gifts'
 import EmptyMessage from '@/components/common/EmptyMessage'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 import FilteredPurchasesList from './FilteredPurchasesList'
 import { subDays } from 'date-fns/subDays'
 import { isWithinInterval } from 'date-fns/isWithinInterval'
@@ -30,6 +31,7 @@ const isNovemberOrDecember = () => {
 
 export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
 	const [timeframe, setTimeframe] = useState<Timeframe>(isNovemberOrDecember() ? '30days' : '60days')
+	const [groupByRecipient, setGroupByRecipient] = useState(false)
 
 	const filteredItems = useMemo(() => {
 		if (timeframe === 'all') {
@@ -64,7 +66,7 @@ export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
 	return (
 		<div className="flex flex-col gap-4">
 			<div className="flex items-center gap-2">
-				<label htmlFor="timeframe-select" className="text-sm text-muted-foreground">
+				<label htmlFor="timeframe-select" className="hidden text-sm text-muted-foreground xs:block">
 					Timeframe:
 				</label>
 				<Select value={timeframe} onValueChange={(value: Timeframe) => setTimeframe(value)}>
@@ -79,11 +81,18 @@ export default function MyPurchasesClient({ items }: MyPurchasesClientProps) {
 						<SelectItem value="all">All Time</SelectItem>
 					</SelectContent>
 				</Select>
+				<Button
+					variant={groupByRecipient ? 'default' : 'secondary'}
+					onClick={() => setGroupByRecipient(!groupByRecipient)}
+					className="ml-auto text-xs h-fit"
+				>
+					{groupByRecipient ? 'Ungroup' : 'Group'}
+				</Button>
 			</div>
 			{filteredItems?.length === 0 ? (
 				<EmptyMessage message="No purchases found for the selected timeframe. Try adjusting the timeframe above." />
 			) : (
-				<FilteredPurchasesList items={filteredItems} />
+				<FilteredPurchasesList items={filteredItems} groupByRecipient={groupByRecipient} />
 			)}
 		</div>
 	)
