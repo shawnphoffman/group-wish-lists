@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FallbackRowsMultiple } from '@/components/common/Fallbacks'
 import PurchaseSummary from '@/components/me/PurchaseSummary'
 import { faShoppingBag } from '@awesome.me/kit-f973af7de0/icons/sharp-duotone/solid'
+import Link from 'next/link'
 
 export default async function PurchaseSummaryPage() {
 	return (
@@ -12,7 +13,11 @@ export default async function PurchaseSummaryPage() {
 				<h1 className="flex flex-row items-center gap-2">Purchase Summary</h1>
 				<FontAwesomeIcon icon={faShoppingBag} className="text-[80px] opacity-50 absolute left-4 -top-5 -z-10 text-green-700" />
 				<div className="text-sm leading-tight text-muted-foreground">
-					This page summarizes your purchases and addons for a given timeframe.
+					This page summarizes your purchases and addons for a given timeframe. You can add gift price information on the{' '}
+					<Link href="/purchases" className="text-green-500">
+						My Purchases
+					</Link>{' '}
+					page.
 				</div>
 				<Suspense fallback={<FallbackRowsMultiple />}>
 					<PurchaseSummary />

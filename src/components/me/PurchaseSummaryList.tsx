@@ -149,7 +149,7 @@ export default function PurchaseSummaryList({ items, currentUserId }: PurchaseSu
 						<div className="flex flex-col gap-1">
 							<div className="text-muted-foreground">Addons Total Spend</div>
 							<div className="font-medium">
-								<TotalCost totalCost={grandAddonTotal} className="text-xs bg-yellow-700" />
+								<TotalCost totalCost={grandAddonTotal} className={`text-xs ${grandAddonTotal !== 0 ? 'bg-yellow-700' : 'bg-muted'}`} />
 							</div>
 						</div>
 					</div>
