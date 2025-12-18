@@ -19,6 +19,7 @@ import ItemComments from '../comments/ItemComments'
 import ItemGifters from './components/_ItemGifters'
 import MarkdownBlock from './components/MarkdownBlock'
 import ItemRowActions from './ItemRowActions'
+import { formatPriceDisplay } from '@/utils/currency'
 
 type Props = {
 	item: ListItem & Gift
@@ -83,7 +84,7 @@ export default async function ItemRow({ item, isOwnerView }: Props) {
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										{item.price}
+										{formatPriceDisplay(item.price)}
 									</Badge>
 								)}
 

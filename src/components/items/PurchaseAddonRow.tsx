@@ -18,6 +18,8 @@ import Link from 'next/link'
 import { EditIcon } from '../icons/Icons'
 import { PurchaseDate, PurchaseNotes, TotalCost } from './PurchaseRow'
 import MarkdownBlock from './components/MarkdownBlock'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDollarSign } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 
 type Props = {
 	item: PurchaseAddon & Gift & Purchase & PurchaseAddon & { type: 'addon' }
@@ -145,14 +147,19 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 					<div className="flex flex-col gap-4 py-4">
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="total-cost">Total Cost</Label>
-							<Input
-								id="total-cost"
-								type="number"
-								step="0.01"
-								placeholder="0.00"
-								value={totalCost}
-								onChange={e => setTotalCost(e.target.value)}
-							/>
+							<div className="relative">
+								<FontAwesomeIcon icon={faDollarSign} className="absolute w-4 h-4 -translate-y-1/2 top-1/2 left-3 text-muted-foreground" />
+								<Input
+									id="total-cost"
+									type="number"
+									className="bg-background pl-9"
+									min="0"
+									step="0.01"
+									placeholder="0.00"
+									value={totalCost}
+									onChange={e => setTotalCost(e.target.value)}
+								/>
+							</div>
 						</div>
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="notes">Notes</Label>

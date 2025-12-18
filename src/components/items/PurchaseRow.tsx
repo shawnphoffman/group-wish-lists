@@ -189,7 +189,6 @@ export default function PurchaseRow({ item, recipient }: Props) {
 							<Label htmlFor="total-cost">Total Cost</Label>
 							<div className="relative">
 								<FontAwesomeIcon icon={faDollarSign} className="absolute w-4 h-4 -translate-y-1/2 top-1/2 left-3 text-muted-foreground" />
-
 								<Input
 									id="total-cost"
 									type="number"

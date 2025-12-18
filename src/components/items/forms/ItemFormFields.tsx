@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
-import { faArrowsRotate, faAsterisk, faSave, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
+import { faArrowsRotate, faAsterisk, faDollarSign, faSave, faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -28,6 +28,8 @@ import ItemPriorityIcon from '@/components/icons/PriorityIcon'
 import { saveImageFromUrl } from '@/app/actions/images'
 import { isDeployed } from '@/utils/environment'
 // import ItemTagsClient from '../components/ItemTagsClient'
+
+import { parsePriceValue } from '@/utils/currency'
 
 export const getImageFromScrape = (scrape?: ScrapeResponse) => {
 	if (scrape?.result?.ogImage?.length && scrape?.result?.ogImage[0]?.url) {
@@ -66,7 +68,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	const [id] = useState<string>(item?.id || '')
 	const [title, setTitle] = useState<string>(item?.title || '')
 	const [notes, setNotes] = useState<string>(item?.notes || '')
-	const [price, setPrice] = useState<string>(item?.price || '')
+	const [price, setPrice] = useState<string>(parsePriceValue(item?.price))
 	const [url, setUrl] = useState<string>(item?.url || importUrl || '')
 	const [priority, setPriority] = useState<ItemPriorityType>((item?.priority as ItemPriorityType) || ItemPriority.Normal)
 	const [imageUrl, setImageUrl] = useState<string>(item?.image_url || '')
@@ -93,7 +95,9 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	useEffect(() => {
 		if (!scrape?.result) return
 		if (scrape.result?.ogTitle && !item?.title?.trim().length) setTitle(scrape.result.ogTitle)
-		if (scrape.result?.ogPrice) setPrice(scrape.result.ogPrice)
+		if (scrape.result?.ogPrice) {
+			setPrice(parsePriceValue(scrape.result.ogPrice))
+		}
 
 		if (!item) {
 			const imageUrl = getImageFromScrape(scrape)
@@ -155,7 +159,8 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 	}, [])
 
 	const handleChangePrice = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		setPrice(e.target.value)
+		const parsed = parsePriceValue(e.target.value)
+		setPrice(parsed)
 	}, [])
 
 	const handleChangeQuantity = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -415,7 +420,19 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 					<div className="grid w-full gap-1.5">
 						<Label htmlFor="price">Price Range</Label>
-						<Input name="price" placeholder="$1" value={price} onChange={handleChangePrice} />
+						<div className="relative">
+							<FontAwesomeIcon icon={faDollarSign} className="absolute w-4 h-4 -translate-y-1/2 top-1/2 left-3 text-muted-foreground" />
+							<Input
+								name="price"
+								type="number"
+								className="pl-9"
+								min="0"
+								step="0.01"
+								placeholder="0.00"
+								value={price}
+								onChange={handleChangePrice}
+							/>
+						</div>
 					</div>
 
 					<div className="grid w-full gap-1.5">

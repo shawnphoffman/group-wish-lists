@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge'
 import { formatDateBasedOnAge } from '@/utils/date'
 import { ItemPriority, ItemStatus } from '@/utils/enums'
 import { getDomainFromUrl } from '@/utils/urls'
+import { formatPriceDisplay } from '@/utils/currency'
 
 type ItemWithGifts = ListItem &
 	Gift & {
@@ -87,7 +88,7 @@ export default function ItemRowSSR({ item, isOwnerView, currentUser, users }: Pr
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										{item.price}
+										{formatPriceDisplay(item.price)}
 									</Badge>
 								)}
 

@@ -25,6 +25,7 @@ import ItemCheckboxClient from './components/ItemCheckboxClient'
 import MarkdownBlock from './components/MarkdownBlock'
 import MoveItemButtonDialog from './components/MoveItemButtonDialog'
 import { faCircle } from '@awesome.me/kit-f973af7de0/icons/sharp/regular'
+import { formatPriceDisplay } from '@/utils/currency'
 
 type Props = {
 	item: ListItem
@@ -129,7 +130,7 @@ export default function ItemRowEditable({ item, listType }: Props) {
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										{item.price}
+										{formatPriceDisplay(item.price)}
 									</Badge>
 								)}
 								{item.quantity && item.quantity > 1 && (

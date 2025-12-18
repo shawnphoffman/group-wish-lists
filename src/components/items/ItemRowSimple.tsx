@@ -14,6 +14,7 @@ import MarkdownBlock from './components/MarkdownBlock'
 import ItemRowActions from './ItemRowActions'
 import { formatDistance } from 'date-fns/formatDistance'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { formatPriceDisplay } from '@/utils/currency'
 
 type Props = {
 	// item: ListItem & Gift
@@ -59,7 +60,7 @@ export default async function ItemRowSimple({ item }: Props) {
 								)}
 								{item.price && (
 									<Badge variant="outline" className="px-2 text-xs whitespace-nowrap bg-card w-fit">
-										{item.price}
+										{formatPriceDisplay(item.price)}
 									</Badge>
 								)}
 
