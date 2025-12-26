@@ -16,12 +16,12 @@ export const getBccAddress = (): string[] | undefined => {
 	return bcc ? [bcc] : undefined
 }
 
-export const commonEmailProps = () => {
+export const commonEmailProps = (includeBcc = true) => {
 	const from = getFromEmail()
-	const bcc = getBccAddress()
+	const bcc = includeBcc ? getBccAddress() : undefined
 	return {
 		from,
-		...(bcc ? { bcc } : {}),
+		bcc,
 	}
 }
 
