@@ -30,6 +30,9 @@ export default function SettingsLinks() {
 			<Link href="/settings/connections" className={pathname === '/settings/connections' ? activeClasses : ''}>
 				Connections
 			</Link>
+			<Link href="/settings/images" className={pathname === '/settings/images' ? activeClasses : ''}>
+				Image Uploads
+			</Link>
 			<Separator />
 			<Link
 				href="/settings/purchases"

@@ -18,6 +18,7 @@ import { cleanTitle } from '@/utils/openai'
 
 import ItemImage from '../components/ItemImage'
 import ItemImagePicker from '../components/ItemImagePicker'
+// import ImageUploader from '../components/ImageUploader'
 import MarkdownBlock from '../components/MarkdownBlock'
 import SuccessMessage from '@/components/common/SuccessMessage'
 import PlainMessage from '@/components/common/PlainMessage'
@@ -175,12 +176,17 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 
 	const handleSaveImageUrl = useCallback(async () => {
 		if (!imageUrl) return
-		const uploadedUrl = await saveImageFromUrl(imageUrl)
-		console.log('uploadedUrl', uploadedUrl)
-		if (uploadedUrl) {
-			setImageUrl(uploadedUrl)
+		const result = await saveImageFromUrl(imageUrl)
+		console.log('uploadedUrl', result)
+		if (result.url) {
+			setImageUrl(result.url)
 		}
 	}, [imageUrl])
+
+	// const handleImageUploaded = useCallback((url: string, imageId?: string) => {
+	// 	setImageUrl(url)
+	// 	console.log('Image uploaded:', { url, imageId })
+	// }, [])
 
 	const handleChangeUrl = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value)
@@ -483,6 +489,7 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 					</>
 				)}
 
+				{/* <div className="grid w-full gap-4"> */}
 				<div className="grid w-full gap-1.5 max-w-full overflow-scroll">
 					<Label htmlFor="image-url-manual" className="italic">
 						Image URL (Manual Entry)
@@ -497,6 +504,11 @@ export default function ItemFormFields({ listId, formState, item }: Props) {
 						)}
 					</div>
 				</div>
+
+				{/* <div className="pt-4 border-t">
+						<ImageUploader onImageUploaded={handleImageUploaded} currentImageUrl={imageUrl} listItemId={item?.id} />
+					</div> */}
+				{/* </div> */}
 
 				<div>
 					<Button variant={'secondary'} type="submit" className="w-full" disabled={isDisabled}>
