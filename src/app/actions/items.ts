@@ -26,21 +26,24 @@ export const createItem = async (prevState: any, formData: FormData) => {
 
 	// const tags = tagsRaw.filter(Boolean)
 
-	const itemPromise = supabase.from('list_items').insert([
-		{
-			list_id: listId,
-			title,
-			url,
-			notes,
-			price,
-			priority,
-			scrape: JSON.parse(scrape),
-			image_url: imageUrl,
-			tags: null,
-			// tags: tags.length > 0 ? tags : null,
-			quantity,
-		},
-	])
+	const itemPromise = supabase
+		.from('list_items')
+		.insert([
+			{
+				list_id: listId,
+				title,
+				url,
+				notes,
+				price,
+				priority,
+				scrape: JSON.parse(scrape),
+				image_url: imageUrl,
+				tags: null,
+				// tags: tags.length > 0 ? tags : null,
+				quantity,
+			},
+		])
+		.select()
 
 	const [item] = await Promise.all([
 		itemPromise,
