@@ -51,19 +51,19 @@ export const createItem = async (prevState: any, formData: FormData) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	// Link image to item if imageUrl is provided
-	if (imageUrl && item.data && item.data[0]?.id) {
-		// Try to find the image record by signed_url
-		const { data: imageRecord } = await supabase.from('images').select('id').eq('signed_url', imageUrl).single()
+	// // Link image to item if imageUrl is provided
+	// if (imageUrl && item.data && item.data[0]?.id) {
+	// 	// Try to find the image record by signed_url
+	// 	const { data: imageRecord } = await supabase.from('images').select('id').eq('signed_url', imageUrl).single()
 
-		if (imageRecord?.id) {
-			// Create junction record
-			await supabase.from('list_item_images').insert({
-				list_item_id: item.data[0].id,
-				image_id: imageRecord.id,
-			})
-		}
-	}
+	// 	if (imageRecord?.id) {
+	// 		// Create junction record
+	// 		await supabase.from('list_item_images').insert({
+	// 			list_item_id: item.data[0].id,
+	// 			image_id: imageRecord.id,
+	// 		})
+	// 	}
+	// }
 
 	// console.log('item', { item })
 
@@ -137,25 +137,25 @@ export const editItem = async (prevState: any, formData: FormData) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	// Update image linkage if imageUrl is provided
-	if (imageUrl && id) {
-		// Remove existing links
-		await supabase.from('list_item_images').delete().eq('list_item_id', id)
+	// // Update image linkage if imageUrl is provided
+	// if (imageUrl && id) {
+	// 	// Remove existing links
+	// 	await supabase.from('list_item_images').delete().eq('list_item_id', id)
 
-		// Try to find the image record by signed_url
-		const { data: imageRecord } = await supabase.from('images').select('id').eq('signed_url', imageUrl).single()
+	// 	// Try to find the image record by signed_url
+	// 	const { data: imageRecord } = await supabase.from('images').select('id').eq('signed_url', imageUrl).single()
 
-		if (imageRecord?.id) {
-			// Create new junction record
-			await supabase.from('list_item_images').insert({
-				list_item_id: id,
-				image_id: imageRecord.id,
-			})
-		}
-	} else if (!imageUrl && id) {
-		// Remove links if image was removed
-		await supabase.from('list_item_images').delete().eq('list_item_id', id)
-	}
+	// 	if (imageRecord?.id) {
+	// 		// Create new junction record
+	// 		await supabase.from('list_item_images').insert({
+	// 			list_item_id: id,
+	// 			image_id: imageRecord.id,
+	// 		})
+	// 	}
+	// } else if (!imageUrl && id) {
+	// 	// Remove links if image was removed
+	// 	await supabase.from('list_item_images').delete().eq('list_item_id', id)
+	// }
 
 	return {
 		status: 'success',
