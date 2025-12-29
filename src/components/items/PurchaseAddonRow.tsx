@@ -29,6 +29,7 @@ type Props = {
 export default function PurchaseAddonRow({ item, recipient }: Props) {
 	const router = useRouter()
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const [description, setDescription] = useState<string>(item.description || '')
 	const [totalCost, setTotalCost] = useState<string>(item.total_cost?.toString() || '')
 	const [notes, setNotes] = useState<string>(item.notes || '')
 	const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +41,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 	const handleSave = async () => {
 		setIsLoading(true)
 		try {
+			const descriptionValue = description.trim() === '' ? null : description.trim()
 			const costValue = totalCost.trim() === '' ? null : parseFloat(totalCost)
 			const notesValue = notes.trim() === '' ? null : notes.trim()
 
@@ -50,7 +52,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 				return
 			}
 
-			await updatePurchaseAddonDetails(item.id, costValue, notesValue)
+			await updatePurchaseAddonDetails(item.id, costValue, notesValue, descriptionValue)
 			setIsDialogOpen(false)
 			startTransition(() => {
 				router.refresh()
@@ -103,6 +105,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 								variant="ghost"
 								size="icon"
 								onClick={() => {
+									setDescription(item.description || '')
 									setTotalCost(item.total_cost?.toString() || '')
 									setNotes(item.notes || '')
 									setIsDialogOpen(true)
@@ -125,6 +128,7 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 							variant="ghost"
 							size="icon"
 							onClick={() => {
+								setDescription(item.description || '')
 								setTotalCost(item.total_cost?.toString() || '')
 								setNotes(item.notes || '')
 								setIsDialogOpen(true)
@@ -142,9 +146,20 @@ export default function PurchaseAddonRow({ item, recipient }: Props) {
 				<DialogContent className="flex flex-col max-w-md">
 					<DialogHeader>
 						<DialogTitle>Edit Purchase Addon Details</DialogTitle>
-						<DialogDescription>Update the cost and notes for this purchase addon.</DialogDescription>
+						<DialogDescription>Update the description, cost, and notes for this purchase addon.</DialogDescription>
 					</DialogHeader>
 					<div className="flex flex-col gap-4 py-4">
+						<div className="flex flex-col gap-2">
+							<Label htmlFor="description">Description</Label>
+							<Input
+								id="description"
+								type="text"
+								className="bg-background"
+								placeholder="Addon description"
+								value={description}
+								onChange={e => setDescription(e.target.value)}
+							/>
+						</div>
 						<div className="flex flex-col gap-2">
 							<Label htmlFor="total-cost">Total Cost</Label>
 							<div className="relative">

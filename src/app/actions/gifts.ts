@@ -334,17 +334,20 @@ export const removeGiftImage = async (giftId: number, imageId: string) => {
 	return { success: true }
 }
 
-export const updatePurchaseAddonDetails = async (addonId: number, totalCost: number | null, notes: string | null) => {
+export const updatePurchaseAddonDetails = async (addonId: number, totalCost: number | null, notes: string | null, description?: string | null) => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
-	const updateData: { total_cost?: number | null; notes?: string | null } = {}
+	const updateData: { total_cost?: number | null; notes?: string | null; description?: string | null } = {}
 	if (totalCost !== undefined) {
 		updateData.total_cost = totalCost
 	}
 	if (notes !== undefined) {
 		updateData.notes = notes
+	}
+	if (description !== undefined) {
+		updateData.description = description
 	}
 
 	const addonPromise = await supabase.from('list_addons').update(updateData).eq('id', addonId).maybeSingle()
