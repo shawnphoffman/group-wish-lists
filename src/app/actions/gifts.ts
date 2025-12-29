@@ -208,17 +208,130 @@ export const updatePurchaseDetails = async (giftId: number, totalCost: number | 
 
 	const giftPromise = await supabase.from('gifted_items').update(updateData).eq('gift_id', giftId).select()
 
-	const [gift] = await Promise.all([
+	await Promise.all([
 		giftPromise,
 		//
 		// new Promise(resolve => setTimeout(resolve, 2000)),
 	])
 
-	// console.log('updatePurchaseDetails.gift', { gift, updateData })
-
 	return {
 		status: 'success',
 	}
+}
+
+/**
+ * Add an image to a gift (private receipt image)
+ */
+export const addGiftImage = async (giftId: number, imageId: string) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data: authData } = await supabase.auth.getUser()
+	const userId = authData?.user?.id
+
+	if (!userId) {
+		return { error: 'User not authenticated' }
+	}
+
+	// Verify the user is the gifter for this gift
+	const { data: gift, error: giftError } = await supabase.from('gifted_items').select('gifter_id').eq('gift_id', giftId).single()
+
+	if (giftError || !gift) {
+		return { error: 'Gift not found' }
+	}
+
+	// Verify image belongs to the user
+	const { data: image, error: imageError } = await supabase.from('images').select('user_id').eq('id', imageId).single()
+
+	if (imageError || !image) {
+		return { error: 'Image not found' }
+	}
+
+	if (image.user_id !== userId) {
+		return { error: 'Unauthorized' }
+	}
+
+	// Create junction record
+	const { error: linkError } = await supabase.from('gift_images').insert({
+		gift_id: giftId,
+		image_id: imageId,
+	})
+
+	if (linkError) {
+		return { error: linkError.message }
+	}
+
+	return { success: true }
+}
+
+/**
+ * Get all images for a gift (only accessible by the gifter)
+ */
+export const getGiftImages = async (giftId: number) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data: authData } = await supabase.auth.getUser()
+	const userId = authData?.user?.id
+
+	if (!userId) {
+		return { data: null, error: 'User not authenticated' }
+	}
+
+	// Verify the user is the gifter
+	const { data: gift, error: giftError } = await supabase.from('gifted_items').select('gifter_id').eq('gift_id', giftId).single()
+
+	if (giftError || !gift) {
+		return { data: null, error: 'Gift not found' }
+	}
+
+	// Verify user is the gifter
+	if (gift.gifter_id !== userId) {
+		return { data: null, error: 'Unauthorized - only the gifter can view receipt images' }
+	}
+
+	// Get images linked to this gift
+	const { data, error } = await supabase
+		.from('gift_images')
+		.select('image_id, images!inner(id, signed_url, storage_path, original_filename, created_at)')
+		.eq('gift_id', giftId)
+		.order('created_at', { ascending: false })
+
+	return { data, error }
+}
+
+/**
+ * Remove an image from a gift
+ */
+export const removeGiftImage = async (giftId: number, imageId: string) => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	const { data: authData } = await supabase.auth.getUser()
+	const userId = authData?.user?.id
+
+	if (!userId) {
+		return { error: 'User not authenticated' }
+	}
+
+	// Verify the user is the gifter
+	const { data: gift, error: giftError } = await supabase.from('gifted_items').select('gifter_id').eq('gift_id', giftId).single()
+
+	if (giftError || !gift) {
+		return { error: 'Gift not found' }
+	}
+
+	// Remove the junction record
+	const { error: deleteError } = await supabase.from('gift_images').delete().eq('gift_id', giftId).eq('image_id', imageId)
+
+	if (deleteError) {
+		return { error: deleteError.message }
+	}
+
+	return { success: true }
 }
 
 export const updatePurchaseAddonDetails = async (addonId: number, totalCost: number | null, notes: string | null) => {

@@ -135,6 +135,10 @@ export type Gift = {
 	additional_gifters?: Pick<User, 'user_id' | 'display_name'>[]
 }
 
+type GiftSuper = {
+	image_urls?: string[]
+}
+
 export type Purchase = {
 	recipient_display_name?: User['display_name']
 	recipient_user_id?: User['user_id']
@@ -143,7 +147,7 @@ export type Purchase = {
 	total_cost?: number
 	gifted_notes?: string
 	gift_id: number
-}
+} & GiftSuper
 export type PurchaseAddon = {
 	type: 'addon'
 	list_id: List['id']
@@ -152,4 +156,4 @@ export type PurchaseAddon = {
 	total_cost?: number
 	notes?: string
 	id: number
-}
+} & GiftSuper

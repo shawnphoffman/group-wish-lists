@@ -18,6 +18,7 @@ type Props = {
 	onImageUploaded: (url: string, imageId?: string) => void
 	currentImageUrl?: string
 	listItemId?: string
+	sourceType?: string
 }
 
 // Helper function to create cropped image
@@ -64,7 +65,7 @@ const getCroppedImg = async (imageSrc: string, pixelCrop: Area): Promise<Blob> =
 	})
 }
 
-export default function ImageUploader({ onImageUploaded, currentImageUrl, listItemId }: Props) {
+export default function ImageUploader({ onImageUploaded, currentImageUrl, listItemId, sourceType }: Props) {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null)
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 	const [isUploading, setIsUploading] = useState(false)
@@ -125,11 +126,12 @@ export default function ImageUploader({ onImageUploaded, currentImageUrl, listIt
 				type: 'image/webp',
 			})
 
-			const options: ImageProcessingOptions & { listItemId?: string } = {
+			const options: ImageProcessingOptions & { listItemId?: string; sourceType?: string } = {
 				maxWidth: 1000,
 				maxHeight: 1000,
 				cropMode: 'none', // Already cropped, so use 'none'
 				listItemId,
+				sourceType: sourceType || 'file',
 			}
 
 			const result = await uploadItemImage(croppedFile, options)

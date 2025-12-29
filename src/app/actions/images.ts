@@ -10,7 +10,11 @@ const fiveYearsInSeconds = 5 * 365 * 24 * 60 * 60
 /**
  * Helper function to create signed URL for an image
  */
-async function createSignedUrl(supabase: ReturnType<typeof createClient>, storagePath: string, transform?: { width?: number; height?: number; quality?: number }) {
+async function createSignedUrl(
+	supabase: ReturnType<typeof createClient>,
+	storagePath: string,
+	transform?: { width?: number; height?: number; quality?: number }
+) {
 	const pathWithoutBucket = storagePath.replace('images/', '')
 	const { data: signedData, error: signedError } = await supabase.storage
 		.from('images')
@@ -71,13 +75,11 @@ export const saveImageFromUrl = async (url: string, options?: ImageProcessingOpt
 		const storagePath = `items/${imageKey}`
 
 		// Upload processed image
-		const { data: uploadData, error: uploadError } = await supabase.storage
-			.from('images')
-			.upload(storagePath, processed.buffer, {
-				cacheControl: '3600',
-				upsert: false,
-				contentType: processed.mimeType,
-			})
+		const { data: uploadData, error: uploadError } = await supabase.storage.from('images').upload(storagePath, processed.buffer, {
+			cacheControl: '3600',
+			upsert: false,
+			contentType: processed.mimeType,
+		})
 
 		if (uploadError) {
 			console.error('saveImageFromUrl.uploadError', uploadError)
@@ -160,13 +162,11 @@ export const uploadAvatar = async (file: File) => {
 		const storagePath = `users/${imageKey}`
 
 		// Upload processed image
-		const { data: uploadData, error: uploadError } = await supabase.storage
-			.from('images')
-			.upload(storagePath, processed.buffer, {
-				cacheControl: '3600',
-				upsert: false,
-				contentType: processed.mimeType,
-			})
+		const { data: uploadData, error: uploadError } = await supabase.storage.from('images').upload(storagePath, processed.buffer, {
+			cacheControl: '3600',
+			upsert: false,
+			contentType: processed.mimeType,
+		})
 
 		if (uploadError) {
 			console.error('uploadAvatar.uploadError', uploadError)
@@ -237,7 +237,7 @@ export const uploadAvatar = async (file: File) => {
  */
 export const uploadItemImage = async (
 	file: File,
-	options?: ImageProcessingOptions & { listItemId?: string }
+	options?: ImageProcessingOptions & { listItemId?: string; sourceType?: string }
 ): Promise<{ url?: string; imageId?: string; error?: string }> => {
 	'use server'
 	const cookieStore = await cookies()
@@ -270,13 +270,11 @@ export const uploadItemImage = async (
 		const storagePath = `items/${imageKey}`
 
 		// Upload processed image
-		const { data: uploadData, error: uploadError } = await supabase.storage
-			.from('images')
-			.upload(storagePath, processed.buffer, {
-				cacheControl: '3600',
-				upsert: false,
-				contentType: processed.mimeType,
-			})
+		const { data: uploadData, error: uploadError } = await supabase.storage.from('images').upload(storagePath, processed.buffer, {
+			cacheControl: '3600',
+			upsert: false,
+			contentType: processed.mimeType,
+		})
 
 		if (uploadError) {
 			console.error('uploadItemImage.uploadError', uploadError)
@@ -310,7 +308,7 @@ export const uploadItemImage = async (
 				width: processed.width,
 				height: processed.height,
 				original_filename: file.name,
-				source_type: 'file',
+				source_type: options?.sourceType || 'file',
 			})
 			.select()
 			.single()
@@ -362,11 +360,7 @@ export const getImagesByUser = async (userId?: string) => {
 		return { data: null, error: 'User not authenticated' }
 	}
 
-	const { data, error } = await supabase
-		.from('images')
-		.select('*')
-		.eq('user_id', targetUserId)
-		.order('created_at', { ascending: false })
+	const { data, error } = await supabase.from('images').select('*').eq('user_id', targetUserId).order('created_at', { ascending: false })
 
 	return { data, error }
 }
