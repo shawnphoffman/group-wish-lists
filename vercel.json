@@ -7,6 +7,10 @@
 		{
 			"path": "/api/cron/christmas",
 			"schedule": "0 17 25 12 *"
+		},
+		{
+			"path": "/api/cron/christmas/post",
+			"schedule": "0 15 15 1 *"
 		}
 	]
 }
