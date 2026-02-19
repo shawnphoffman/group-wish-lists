@@ -59,9 +59,7 @@ const scrapeUrl = async (scraper: string, url: string, existingData: ScrapeUrlRe
 					ogPriceCurrency: apiData.og?.['og:price:currency'],
 					ogAvailability: apiData.og?.['og:availability'],
 					ogImage: [
-						{
-							url: apiData.og?.['og:image'],
-						},
+						...(apiData.og?.['og:image'] ? [{ url: apiData.og['og:image'] }] : []),
 						...apiData.images.map((x: { src: string }) => ({ url: x.src })),
 					],
 				},
