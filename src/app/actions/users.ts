@@ -45,7 +45,7 @@ export const getUsers = async () => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
-	const resp = await supabase.from('users').select('id,user_id,display_name,image').order('id', { ascending: true })
+	const resp = await supabase.from('users').select('id,user_id,display_name,image,birth_month,birth_day').order('id', { ascending: true })
 
 	return resp
 }
@@ -98,10 +98,7 @@ export const updateUserPermissions = async (
 
 	const { error } = await supabase
 		.from('user_viewers')
-		.upsert(
-			{ owner_user_id: ownerId, viewer_user_id: viewerId, can_view: canView },
-			{ onConflict: 'owner_user_id,viewer_user_id' }
-		)
+		.upsert({ owner_user_id: ownerId, viewer_user_id: viewerId, can_view: canView }, { onConflict: 'owner_user_id,viewer_user_id' })
 
 	if (error) {
 		console.error('updateUserPermissions.error', error)
