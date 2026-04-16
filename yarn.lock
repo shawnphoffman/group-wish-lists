@@ -1566,10 +1566,10 @@
   resolved "https://registry.npmjs.org/@neoconfetti/react/-/react-1.0.0.tgz"
   integrity sha512-klcSooChXXOzIm+SE5IISIAn3bYzYfPjbX7D7HoqZL84oAfgREeSg5vSIaSFH+DaGzzvImTyWe1OyrJ67vik4A==
 
-"@next/bundle-analyzer@16.0.7":
-  version "16.0.7"
-  resolved "https://registry.npmjs.org/@next/bundle-analyzer/-/bundle-analyzer-16.0.7.tgz"
-  integrity sha512-Um2YA3TSQND+DpqlMDuPZsdjdpcgLzo1wF3zx4zcBCLecS7ucP7O9YFqvHhg000HXTgt++KIjZ9FUwyJSKk1Kw==
+"@next/bundle-analyzer@16.2.4":
+  version "16.2.4"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-16.2.4.tgz#8d0b22cb55be13e3648e12abe10f8813f2e055e8"
+  integrity sha512-EAA9xTDv0P1IiUcZaASJJPkNDjRvL7OMTha6XN8MBzALYGfn7I52Mn7vRiyjVfNrtUPi2qiacY+eFVXe3lKCXA==
   dependencies:
     webpack-bundle-analyzer "4.10.1"
 
