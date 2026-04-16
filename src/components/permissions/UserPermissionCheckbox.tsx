@@ -1,10 +1,11 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useTransition } from 'react'
 
 import { updateUserPermissions } from '@/app/actions/users'
 import { LoadingIcon } from '@/components/icons/Icons'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useToast } from '@/hooks/use-toast'
 
 type Props = {
 	id: number | undefined
@@ -14,22 +15,29 @@ type Props = {
 
 export default function PermissionCheckbox({ id, viewer_id, isChecked }: Props) {
 	const [checked, setChecked] = useState(isChecked)
-	const [isPending, setIsPending] = useState(false)
+	const [isPending, startTransition] = useTransition()
+	const { toast } = useToast()
 
 	const handleChange = useCallback(
 		(newChecked: boolean) => {
-			// console.log('PermissionCheckbox:', newChecked)
-			setIsPending(true)
+			if (isPending) return
+			// Optimistic; the server action revalidates the layout so the RSC
+			// payload in the action response is authoritative on the next render.
 			setChecked(newChecked)
-			async function asyncUpdatePermission() {
-				// await new Promise(resolve => setTimeout(resolve, 2000))
-				await updateUserPermissions(id, viewer_id, newChecked)
-				setIsPending(false)
-				// router.refresh()
-			}
-			asyncUpdatePermission()
+
+			startTransition(async () => {
+				const result = await updateUserPermissions(id, viewer_id, newChecked)
+				if (result.status === 'error') {
+					setChecked(!newChecked)
+					toast({
+						title: 'Could not update permission',
+						description: result.message,
+						variant: 'destructive',
+					})
+				}
+			})
 		},
-		[id, viewer_id]
+		[id, isPending, toast, viewer_id]
 	)
 
 	return (

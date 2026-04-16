@@ -1,50 +1,10 @@
 'use server'
 
-import { PostgrestSingleResponse } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
+import { revalidatePath } from 'next/cache'
 
 import { createAdminClient } from '@/utils/supabase/admin'
 import { createClient } from '@/utils/supabase/server'
-
-// Simple in-memory cache for users
-const usersCache = new Map<string, { data: any; timestamp: number }>()
-const CACHE_TTL = process.env.USERS_CACHE_TTL ? parseInt(process.env.USERS_CACHE_TTL) : 60 * 60 * 1000 // 1 hour in milliseconds
-
-const getCacheKey = (userId?: string) => {
-	return `users_${userId || 'anonymous'}`
-}
-
-const isCacheValid = (timestamp: number) => {
-	return Date.now() - timestamp < CACHE_TTL
-}
-
-const invalidateUsersCache = (userId?: string) => {
-	if (userId) {
-		// Invalidate all cache entries for this user
-		for (const [key] of usersCache.entries()) {
-			if (key.includes(userId)) {
-				usersCache.delete(key)
-			}
-		}
-	} else {
-		// Invalidate all cache entries
-		usersCache.clear()
-	}
-}
-
-// Export function to manually clear cache (useful for debugging)
-export const clearUsersCache = async (userId?: string) => {
-	invalidateUsersCache(userId)
-}
-
-// Export function to get cache statistics (useful for debugging)
-export const getUsersCacheStats = async () => {
-	return {
-		size: usersCache.size,
-		keys: Array.from(usersCache.keys()),
-		ttl: CACHE_TTL,
-	}
-}
 
 export const getUserEmail = async (userId: string) => {
 	'use server'
@@ -55,7 +15,6 @@ export const getUserEmail = async (userId: string) => {
 
 export const getUsersForImpersonation = async () => {
 	'use server'
-	// const cookieStore = await cookies()
 	const supabase = createAdminClient()
 
 	const { data, error } = await supabase.auth.admin.listUsers()
@@ -69,10 +28,7 @@ export const getUsersForImpersonation = async () => {
 		return acc.sort((a, b) => a.display_name.localeCompare(b.display_name))
 	}, [] as any)
 
-	// console.log('getUsersForImpersonation.resp', data, error)
-
 	return allUsers
-	// return data?.users.map(user => ({ id: user.id, email: user.email })) || []
 }
 
 export const isAdmin = async () => {
@@ -89,25 +45,7 @@ export const getUsers = async () => {
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
 
-	// Get current user for cache key
-	const { data: userData } = await supabase.auth.getUser()
-	const userId = userData?.user?.id
-	const cacheKey = getCacheKey(userId)
-
-	// Check cache first
-	const cached = usersCache.get(cacheKey)
-	if (cached && isCacheValid(cached.timestamp)) {
-		console.log('Cache HIT for users')
-		return cached.data
-	}
-	console.log('Cache MISS for users')
-
 	const resp = await supabase.from('users').select('id,user_id,display_name,image').order('id', { ascending: true })
-
-	// Cache the result
-	usersCache.set(cacheKey, { data: resp, timestamp: Date.now() })
-
-	// console.log('getUsers.resp', resp)
 
 	return resp
 }
@@ -133,12 +71,20 @@ export const getUserPermissions = async () => {
 		)
 		.eq('owner_user_id', ownerUserID)
 
-	// console.log('getUserPermissions', resp)
-
 	return resp as any
 }
 
-export const updateUserPermissions = async (permId: number | undefined, viewerId: string, canView: boolean) => {
+export type UpdatePermissionsResult = { status: 'success' } | { status: 'error'; message: string }
+
+// `permId` is ignored: a unique index on (owner_user_id, viewer_user_id) already
+// exists at the DB layer, so a single upsert is both race-safe and removes the
+// check-then-write branch (where stale client state could trigger a duplicate
+// insert and a silent 23505 masquerading as success).
+export const updateUserPermissions = async (
+	_permId: number | undefined,
+	viewerId: string,
+	canView: boolean
+): Promise<UpdatePermissionsResult> => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
@@ -146,30 +92,23 @@ export const updateUserPermissions = async (permId: number | undefined, viewerId
 	const { data } = await supabase.auth.getUser()
 	const ownerId = data?.user?.id
 
-	// console.log('updateUserPermissions', { viewerId, canView, ownerId, permId })
-
-	let permPromise: PostgrestSingleResponse<null>
-
-	if (permId) {
-		permPromise = await supabase
-			.from('user_viewers')
-			.update({ can_view: canView })
-			.eq('owner_user_id', ownerId)
-			.eq('viewer_user_id', viewerId)
-	} else {
-		permPromise = await supabase.from('user_viewers').insert({ owner_user_id: ownerId, viewer_user_id: viewerId, can_view: canView })
+	if (!ownerId) {
+		return { status: 'error', message: 'not_authenticated' }
 	}
 
-	const [perm] = await Promise.all([
-		permPromise,
-		//
-		// new Promise(resolve => setTimeout(resolve, 2000)),
-	])
+	const { error } = await supabase
+		.from('user_viewers')
+		.upsert(
+			{ owner_user_id: ownerId, viewer_user_id: viewerId, can_view: canView },
+			{ onConflict: 'owner_user_id,viewer_user_id' }
+		)
 
-	// console.log('perm', perm)
-
-	return {
-		status: 'success',
-		perm,
+	if (error) {
+		console.error('updateUserPermissions.error', error)
+		return { status: 'error', message: error.message }
 	}
+
+	revalidatePath('/', 'layout')
+
+	return { status: 'success' }
 }
