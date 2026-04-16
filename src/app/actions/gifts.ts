@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { revalidatePath } from 'next/cache'
 
 import { getSessionUser, getUser } from '@/app/actions/auth'
 import { ListItem } from '@/components/types'
@@ -8,42 +9,59 @@ import { createClient } from '@/utils/supabase/server'
 
 import { getUsers } from './users'
 
-export const createGift = async (itemId: ListItem['id'], quantity: number) => {
-	'use server'
-	const cookieStore = await cookies()
-	const supabase = createClient(cookieStore)
-	const data = await getSessionUser()
-	const giftPromise = await supabase.from('gifted_items').insert([{ item_id: itemId, gifter_id: data?.id, quantity }])
-	// const [gift] = await Promise.all([
-	await Promise.all([
-		giftPromise,
-		//
-		// new Promise(resolve => setTimeout(resolve, 2000)),
-	])
+export type GiftActionResult =
+	| { status: 'success' }
+	| { status: 'already_claimed' }
+	| { status: 'unauthenticated' }
+	| { status: 'error'; error: string }
 
-	// console.log('gift', gift)
-
-	return {
-		status: 'success',
-		// gift,
-	}
+const revalidateListRoutes = () => {
+	revalidatePath('/lists/[id]', 'page')
+	revalidatePath('/recent', 'page')
 }
 
-export const deleteGift = async (itemId: ListItem['id']) => {
+export const createGift = async (itemId: ListItem['id'], quantity: number): Promise<GiftActionResult> => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
-	// const data = await getSessionUser()
-	const giftPromise = await supabase.from('gifted_items').delete().eq('item_id', itemId) //.eq('gifter_id', data?.id)
-	await Promise.all([
-		giftPromise,
-		//
-		// new Promise(resolve => setTimeout(resolve, 2000)),
-	])
+	const session = await getSessionUser()
 
-	return {
-		status: 'success',
+	if (!session?.id) {
+		return { status: 'unauthenticated' }
 	}
+
+	const { error } = await supabase.from('gifted_items').insert([{ item_id: itemId, gifter_id: session.id, quantity }])
+
+	if (error) {
+		// 23505 = unique_violation -> this user already has a claim on this item.
+		// The DB is the source of truth; revalidate so the stale UI reconciles.
+		if (error.code === '23505') {
+			revalidateListRoutes()
+			return { status: 'already_claimed' }
+		}
+		console.error('createGift.error', error)
+		return { status: 'error', error: error.message }
+	}
+
+	revalidateListRoutes()
+	return { status: 'success' }
+}
+
+export const deleteGift = async (itemId: ListItem['id']): Promise<GiftActionResult> => {
+	'use server'
+	const cookieStore = await cookies()
+	const supabase = createClient(cookieStore)
+
+	// RLS restricts the delete to the current user's own rows.
+	const { error } = await supabase.from('gifted_items').delete().eq('item_id', itemId)
+
+	if (error) {
+		console.error('deleteGift.error', error)
+		return { status: 'error', error: error.message }
+	}
+
+	revalidateListRoutes()
+	return { status: 'success' }
 }
 
 export const getMyGifts = async () => {
@@ -125,28 +143,30 @@ export const getGifts = async (itemId: ListItem['id']) => {
 	return gifts
 }
 
-export const updateGiftQuantity = async (itemId: ListItem['id'], quantity: number) => {
+export const updateGiftQuantity = async (itemId: ListItem['id'], quantity: number): Promise<GiftActionResult> => {
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
-	const data = await getSessionUser()
+	const session = await getSessionUser()
 
-	const giftPromise = await supabase
+	if (!session?.id) {
+		return { status: 'unauthenticated' }
+	}
+
+	const { error } = await supabase
 		.from('gifted_items')
 		.update([{ quantity }])
 		.eq('item_id', itemId)
-		.eq('gifter_id', data?.id)
+		.eq('gifter_id', session.id)
 		.maybeSingle()
 
-	await Promise.all([
-		giftPromise,
-		//
-		// new Promise(resolve => setTimeout(resolve, 2000)),
-	])
-
-	return {
-		status: 'success',
+	if (error) {
+		console.error('updateGiftQuantity.error', error)
+		return { status: 'error', error: error.message }
 	}
+
+	revalidateListRoutes()
+	return { status: 'success' }
 }
 
 export const getMyPurchases = async () => {

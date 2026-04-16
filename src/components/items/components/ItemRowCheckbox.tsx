@@ -1,6 +1,6 @@
 'use client'
 
-import { startTransition, useCallback, useState } from 'react'
+import { useCallback, useState, useTransition } from 'react'
 import { faSpinnerScale } from '@awesome.me/kit-f973af7de0/icons/sharp/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 
 type Props = {
@@ -26,48 +27,58 @@ const commonSizes = 'w-10 h-8 flex flex-row items-center justify-center'
 const commonIconSizes = 'text-3xl sm:text-2xl'
 
 export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty, quantity: requestedQty }: Props) {
-	const [isPending, setIsPending] = useState(false)
+	const [isPending, startTransition] = useTransition()
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const [quantity, setQuantity] = useState(selfQty || requestedQty)
-	const [isUpdating, setIsUpdating] = useState(false)
+	const [isUpdating, startUpdateTransition] = useTransition()
 	const router = useRouter()
+	const { toast } = useToast()
 
-	const handleClick = useCallback(async () => {
+	const handleClick = useCallback(() => {
+		// Guards a second synchronous click while the transition is in flight.
+		if (isPending) return
+
 		if (type === 'edit') {
 			setDialogOpen(true)
 			return
 		}
 
-		setIsPending(true)
+		startTransition(async () => {
+			if (type === 'add') {
+				const result = await createGift(id, quantity)
+				if (result.status === 'already_claimed') {
+					toast({
+						title: 'Someone beat you to it',
+						description: 'This item was just claimed. Refreshing…',
+						variant: 'destructive',
+					})
+					router.refresh()
+				} else if (result.status === 'error') {
+					toast({ title: 'Could not claim item', description: result.error, variant: 'destructive' })
+					router.refresh()
+				} else if (result.status === 'unauthenticated') {
+					toast({ title: 'Please sign in to claim items', variant: 'destructive' })
+				}
+			} else if (type === 'delete') {
+				const result = await deleteGift(id)
+				if (result.status === 'error') {
+					toast({ title: 'Could not remove claim', description: result.error, variant: 'destructive' })
+					router.refresh()
+				}
+			}
+		})
+	}, [id, isPending, quantity, router, toast, type])
 
-		if (type === 'add') {
-			await createGift(id, quantity)
-		} else if (type === 'delete') {
-			await deleteGift(id)
-		}
-
-		setIsPending(false)
-		router.refresh()
-	}, [id, router, type, quantity])
-
-	const handleUpdateQuantity = useCallback(async () => {
-		setIsUpdating(true)
-		try {
-			if (quantity === 0) {
-				await deleteGift(id)
-			} else {
-				await updateGiftQuantity(id, quantity)
+	const handleUpdateQuantity = useCallback(() => {
+		startUpdateTransition(async () => {
+			const result = quantity === 0 ? await deleteGift(id) : await updateGiftQuantity(id, quantity)
+			if (result.status === 'error') {
+				toast({ title: 'Could not update quantity', description: result.error, variant: 'destructive' })
+				return
 			}
 			setDialogOpen(false)
-			startTransition(() => {
-				router.refresh()
-			})
-		} catch (error) {
-			console.error('Failed to update quantity:', error)
-		} finally {
-			setIsUpdating(false)
-		}
-	}, [id, quantity, router])
+		})
+	}, [id, quantity, toast])
 
 	if (isPending) {
 		return (
@@ -106,7 +117,7 @@ export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty,
 							</div>
 						</div>
 						<DialogFooter>
-							<Button variant="outline" onClick={() => setDialogOpen(false)}>
+							<Button variant="outline" onClick={() => setDialogOpen(false)} disabled={isUpdating}>
 								Cancel
 							</Button>
 							<Button onClick={handleUpdateQuantity} disabled={isUpdating}>
@@ -120,7 +131,7 @@ export default function ItemRowCheckbox({ type, children, id, otherQty, selfQty,
 	}
 
 	return (
-		<button onClick={handleClick} className={cn('cursor-pointer', commonSizes)}>
+		<button onClick={handleClick} disabled={isPending} className={cn('cursor-pointer', commonSizes)}>
 			{children}
 		</button>
 	)
