@@ -40,11 +40,13 @@ export default async function ItemGifters({ id, requestedQty = 1, additionalGift
 				</Badge>
 			))}
 			<Suspense fallback={null}>
-				{additionalGifters.map(g => (
-					<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
-						+{g.display_name}
-					</Badge>
-				))}
+				{additionalGifters.map(g =>
+					g ? (
+						<Badge key={g.user_id} variant={'outline'} className="flex flex-row items-center leading-tight">
+							+{g.display_name}
+						</Badge>
+					) : null
+				)}
 			</Suspense>
 		</div>
 	)

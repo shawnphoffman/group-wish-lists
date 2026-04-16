@@ -93,7 +93,7 @@ export const getMyGifts = async () => {
 		// gifters: users.find(u => u.user_id === d.gifter_id),
 		gifters: d.gifted_items.map(gi => ({
 			user_id: gi.gifter_id,
-			display_name: users.find(u => u.user_id === gi.gifter_id)?.display_name,
+			display_name: users?.find(u => u.user_id === gi.gifter_id)?.display_name,
 		})),
 	}))
 	// console.log('getMyGifts.resp', gifts)
@@ -143,7 +143,7 @@ export const getGifts = async (itemId: ListItem['id']) => {
 
 	const gifts = data?.map(d => ({
 		...d,
-		user: users.find(u => u.user_id === d.gifter_id),
+		user: users?.find(u => u.user_id === d.gifter_id),
 	}))
 	// console.log('getGifts.data', gifts)
 
