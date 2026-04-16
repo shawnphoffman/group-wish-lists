@@ -51,9 +51,16 @@ export const deleteGift = async (itemId: ListItem['id']): Promise<GiftActionResu
 	'use server'
 	const cookieStore = await cookies()
 	const supabase = createClient(cookieStore)
+	const session = await getSessionUser()
 
-	// RLS restricts the delete to the current user's own rows.
-	const { error } = await supabase.from('gifted_items').delete().eq('item_id', itemId)
+	if (!session?.id) {
+		return { status: 'unauthenticated' }
+	}
+
+	// Belt-and-suspenders: RLS already restricts DELETE to auth.uid() = gifter_id,
+	// but filtering explicitly here means a future RLS loosening can't turn this
+	// into a "one user unclaiming wipes everyone's claims" bug.
+	const { error } = await supabase.from('gifted_items').delete().eq('item_id', itemId).eq('gifter_id', session.id)
 
 	if (error) {
 		console.error('deleteGift.error', error)
