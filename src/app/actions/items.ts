@@ -1,12 +1,16 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { revalidatePath } from 'next/cache'
 
 import { List, ListItem } from '@/components/types'
 import { ItemPriority } from '@/utils/enums'
 import { createClient } from '@/utils/supabase/server'
 import { getSessionUser } from './auth'
-import { clearListsCache } from './lists'
+
+const revalidateListsScope = () => {
+	revalidatePath('/', 'layout')
+}
 
 export const createItem = async (prevState: any, formData: FormData) => {
 	'use server'
@@ -176,12 +180,7 @@ export const moveItems = async (ids: ListItem['id'][], list_id: List['id']) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	// Get the current user to invalidate their cache
-	const { data: userData } = await supabase.auth.getUser()
-	const userId = userData?.user?.id
-
-	// Invalidate cache for the current user
-	await clearListsCache(userId)
+	revalidateListsScope()
 
 	return {
 		status: 'success',
@@ -201,12 +200,7 @@ export const moveItem = async (id: ListItem['id'], list_id: List['id']) => {
 		// new Promise(resolve => setTimeout(resolve, 5000)),
 	])
 
-	// Get the current user to invalidate their cache
-	const { data: userData } = await supabase.auth.getUser()
-	const userId = userData?.user?.id
-
-	// Invalidate cache for the current user
-	await clearListsCache(userId)
+	revalidateListsScope()
 
 	return {
 		status: 'success',

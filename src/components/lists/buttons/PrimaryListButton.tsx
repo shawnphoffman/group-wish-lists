@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { setPrimaryList, unsetPrimaryList } from '@/app/actions/lists'
 import { LoadingIcon } from '@/components/icons/Icons'
 import { List } from '@/components/types'
+import { useToast } from '@/hooks/use-toast'
 
 type Props = {
 	listId: List['id']
@@ -18,25 +19,40 @@ type Props = {
 export default function PrimaryListButton({ listId, isPrimary }: Props) {
 	const router = useRouter()
 	const [isPending, startTransition] = useTransition()
+	const { toast } = useToast()
 
 	const handleClick = useCallback(
-		async (e: React.MouseEvent<SVGSVGElement>) => {
+		(e: React.MouseEvent<SVGSVGElement>) => {
 			e.preventDefault()
-			const resp = isPrimary ? await unsetPrimaryList(listId) : await setPrimaryList(listId)
-			if (resp?.status === 'success') {
-				startTransition(() => {
+			if (isPending) return
+
+			startTransition(async () => {
+				const resp = isPrimary ? await unsetPrimaryList(listId) : await setPrimaryList(listId)
+
+				if (resp?.status === 'conflict') {
+					toast({
+						title: 'Another primary list was just set',
+						description: 'Refreshing so you see the current state.',
+						variant: 'destructive',
+					})
 					router.refresh()
-				})
-			}
+				} else if (resp?.status === 'error') {
+					toast({
+						title: 'Could not update primary list',
+						description: resp.message,
+						variant: 'destructive',
+					})
+					router.refresh()
+				}
+			})
 		},
-		[isPrimary, listId, router]
+		[isPending, isPrimary, listId, router, toast]
 	)
 
 	if (isPending) return <LoadingIcon fixedWidth size="lg" />
 
 	return isPrimary ? (
 		<FontAwesomeIcon
-			// title="Click to turn off your primary list"
 			fixedWidth
 			icon={faStar}
 			className="text-yellow-500 cursor-pointer hover:text-yellow-400"
@@ -44,7 +60,6 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 		/>
 	) : (
 		<FontAwesomeIcon
-			// title="Click to set as primary list"
 			fixedWidth
 			icon={faStarRegular}
 			className="cursor-pointer text-yellow-500/50 hover:text-yellow-500/75"
