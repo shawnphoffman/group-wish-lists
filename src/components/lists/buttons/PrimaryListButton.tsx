@@ -35,15 +35,15 @@ export default function PrimaryListButton({ listId, isPrimary }: Props) {
 						description: 'Refreshing so you see the current state.',
 						variant: 'destructive',
 					})
-					router.refresh()
 				} else if (resp?.status === 'error') {
 					toast({
 						title: 'Could not update primary list',
 						description: resp.message,
 						variant: 'destructive',
 					})
-					router.refresh()
 				}
+
+				router.refresh()
 			})
 		},
 		[isPending, isPrimary, listId, router, toast]
