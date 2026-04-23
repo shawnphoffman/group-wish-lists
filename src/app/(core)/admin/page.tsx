@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 
 import AdminArchivePurchasedButton from '@/components/admin/AdminArchivePurchasedButton'
+import AdminExportButton from '@/components/admin/AdminExportButton'
 import InviteUser from '@/components/admin/InviteUser'
 import UserImpersonation from '@/components/admin/UserImpersonation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -27,6 +28,7 @@ export default async function Admin() {
 							<CardContent className="flex flex-col gap-4 p-6 pt-0">
 								<AdminArchivePurchasedButton />
 								<AdminSendTestEmailButton />
+								<AdminExportButton />
 							</CardContent>
 						</Card>
 					</Suspense>
